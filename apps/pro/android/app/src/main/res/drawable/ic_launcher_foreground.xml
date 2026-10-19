@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Maison Makas amblemi: kapı kemeri + makas. 108dp uyarlanabilir ikon katmanı; içerik 66dp güvenli alanın içinde. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.205"
+        android:scaleY="0.205"
+        android:translateX="33.5"
+        android:translateY="24.8538">
+        <path android:pathData="M24,262 V104 A76,76 0 0,1 176,104 V262" android:strokeColor="#0E0E10" android:strokeWidth="9" android:fillColor="#00000000" />
+        <path android:pathData="M8,262 H192" android:strokeColor="#0E0E10" android:strokeWidth="9" android:fillColor="#00000000" />
+        <path android:pathData="M100,12 L116,28 L100,44 L84,28 Z" android:fillColor="#0E0E10" />
+        <path android:pathData="M59,216 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 Z" android:strokeColor="#0E0E10" android:strokeWidth="8.5" android:fillColor="#00000000" />
+        <path android:pathData="M109,216 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 Z" android:strokeColor="#0E0E10" android:strokeWidth="8.5" android:fillColor="#00000000" />
+        <path android:pathData="M84.81,202.91 L111.81,153.14 L141.17,73.07 L99.11,147.26 L78.64,200.05 Z" android:fillColor="#0E0E10" />
+        <path android:pathData="M121.37,200.05 L100.89,147.26 L58.83,73.07 L88.19,153.14 L115.2,202.91 Z" android:fillColor="#0E0E10" />
+        <path android:pathData="M93,162 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0 Z" android:fillColor="#C9A96E" />
+        <path android:pathData="M93,162 a7,7 0 1,0 14,0 a7,7 0 1,0 -14,0 Z" android:strokeColor="#0E0E10" android:strokeWidth="3.2" android:fillColor="#00000000" />
+    </group>
+</vector>

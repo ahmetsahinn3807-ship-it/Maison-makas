@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Uygulama açılırken Flutter ilk kareyi çizene kadar görünen zemin. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/maison_zemin" />
+</layer-list>

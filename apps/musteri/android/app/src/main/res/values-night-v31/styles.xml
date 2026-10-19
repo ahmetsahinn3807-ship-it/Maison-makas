@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Açılış teması: Flutter ilk kareyi çizene kadar marka zemini görünür. -->
+    <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:windowSplashScreenBackground">@color/maison_zemin</item>
+    </style>
+    <!-- Flutter arayüzünün arkasındaki pencere zemini. -->
+    <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowBackground">@color/maison_zemin</item>
+    </style>
+</resources>

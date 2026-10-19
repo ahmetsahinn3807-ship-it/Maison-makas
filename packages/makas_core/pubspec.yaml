@@ -1,0 +1,37 @@
+name: makas_core
+description: Maison Makas ortak tasarım sistemi — renk paletleri, tema, yazı tipleri ve amblem.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+  flutter: ">=3.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  fonts:
+    - family: Cormorant
+      fonts:
+        - asset: lib/fonts/CormorantGaramond-Medium.ttf
+          weight: 500
+        - asset: lib/fonts/CormorantGaramond-SemiBold.ttf
+          weight: 600
+        - asset: lib/fonts/CormorantGaramond-MediumItalic.ttf
+          weight: 500
+          style: italic
+    - family: Inter
+      fonts:
+        - asset: lib/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: lib/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: lib/fonts/Inter-SemiBold.ttf
+          weight: 600

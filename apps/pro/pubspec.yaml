@@ -1,0 +1,22 @@
+name: pro
+description: Makas Pro — Maison Makas işletme uygulaması (berber ve kuaför salonları).
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.5.0
+  flutter: ">=3.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  makas_core:
+    path: ../../packages/makas_core
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
