@@ -1,0 +1,65 @@
+name: Maison Makas APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apk-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip dosyasini ac
+        run: |
+          shopt -s nullglob
+          zipler=(*.zip)
+          if [ ${#zipler[@]} -eq 0 ]; then echo "Yeni zip yok."; exit 0; fi
+          for z in "${zipler[@]}"; do
+            echo "Aciliyor: $z"
+            unzip -o -q "$z" -x '.github/*'
+            git rm -q --ignore-unmatch -- "$z"
+            rm -f -- "$z"
+          done
+          if [ -f ci/zip-sonrasi.sh ]; then bash ci/zip-sonrasi.sh; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Proje dosyalari zipten yerlestirildi [skip ci]"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Java 17
+        if: hashFiles('ci/derle.sh') != ''
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Flutter
+        if: hashFiles('ci/derle.sh') != ''
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Derle
+        if: hashFiles('ci/derle.sh') != ''
+        run: bash ci/derle.sh
+
+      - name: APK dosyalarini yukle
+        if: hashFiles('ci/derle.sh') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: maison-makas-apk-${{ github.run_number }}
+          path: cikti/*.apk
+          if-no-files-found: error
+          retention-days: 30
