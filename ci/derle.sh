@@ -210,15 +210,16 @@ for apk in cikti/*.apk; do
     echo
   } >> "$RAPOR/05-apk-bilgi.txt"
 done
+# Tanılama satırları derlemeyi asla durdurmamalı (izin verilmeyen klasörlerde find hata döner).
 {
   echo "ANDROID_USER_HOME=${ANDROID_USER_HOME:-}"
   echo "ANDROID_SDK_HOME=${ANDROID_SDK_HOME:-}"
   echo "ANDROID_PREFS_ROOT=${ANDROID_PREFS_ROOT:-}"
   echo "HOME=$HOME"
-  find "$HOME" -maxdepth 4 -name 'debug.keystore' 2>/dev/null | head -20
-  find "$KOK/apps" /tmp -name 'debug.keystore' 2>/dev/null | head -20
-} > "$RAPOR/06-imza-teshis.txt"
-ls -la cikti
+  find "$HOME" -maxdepth 4 -name 'debug.keystore' 2>/dev/null | head -20 || true
+  find "$KOK/apps" /tmp -name 'debug.keystore' 2>/dev/null | head -20 || true
+} > "$RAPOR/06-imza-teshis.txt" 2>&1 || true
+ls -la cikti || true
 echo "::endgroup::"
 for d in musteri pro; do
   analiz="$(grep -E 'issues? found|No issues found' "$RAPOR/$d-2-analiz.txt" 2>/dev/null | tail -1 || true)"

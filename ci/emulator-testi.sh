@@ -14,7 +14,9 @@ RAPOR="${1:-cikti-rapor}"
 mkdir -p "$RAPOR"
 SDK="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
 ADB="$SDK/platform-tools/adb"
-GORUNTU="system-images;android-34;google_apis;x86_64"
+# Önce CI için hafifletilmiş görüntü (ATD), olmazsa standart Google API görüntüsü.
+GORUNTULER=("system-images;android-34;aosp_atd;x86_64" "system-images;android-34;google_apis;x86_64")
+GORUNTU=""
 OZET="$RAPOR/07-duman-ozet.txt"
 GUNLUK="$RAPOR/08-emulator-gunluk.txt"
 : > "$OZET"
@@ -40,17 +42,17 @@ ls -la /dev/kvm >> "$GUNLUK" 2>&1
 
 yaz "Emülatör ve sistem görüntüsü indiriliyor"
 yes 2>/dev/null | timeout 180 "$ARAC_DIZINI/sdkmanager" --licenses >/dev/null 2>&1
-indirildi=0
-for deneme in 1 2; do
+for aday in "${GORUNTULER[@]}"; do
   rm -rf "$SDK/.temp" "$SDK/.downloadIntermediates" 2>/dev/null
-  if timeout 900 "$ARAC_DIZINI/sdkmanager" --install "emulator" "$GORUNTU" < /dev/null >> "$GUNLUK" 2>&1; then
-    indirildi=1
+  if timeout 900 "$ARAC_DIZINI/sdkmanager" --install "emulator" "$aday" < /dev/null >> "$GUNLUK" 2>&1; then
+    GORUNTU="$aday"
+    yaz "Görüntü hazır: $aday"
     break
   fi
-  yaz "İndirme denemesi $deneme başarısız"
+  yaz "İndirilemedi: $aday"
   sleep 10
 done
-if [ "$indirildi" != 1 ]; then
+if [ -z "$GORUNTU" ]; then
   sonuc "Emülatör kurulamadı: sistem görüntüsü indirilemedi."
   exit 0
 fi
