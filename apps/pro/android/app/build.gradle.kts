@@ -29,11 +29,22 @@ android {
         versionName = flutter.versionName
     }
 
+    // Maison Makas: test derlemeleri depodaki ci/debug.keystore ile imzalanır.
+    // Her derleme aynı anahtarı kullandığı için yeni sürüm eskisinin üstüne kurulur.
+    // Google Play için ayrı bir yükleme anahtarı kullanılacak (rehber 13. adım).
+    signingConfigs {
+        create("maisonTest") {
+            storeFile = file("../../../../ci/debug.keystore")
+            storeType = "jks"
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("maisonTest")
         }
     }
 }

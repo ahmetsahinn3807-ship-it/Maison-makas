@@ -28,8 +28,27 @@ ci/                 GitHub Actions betikleri ve test imza anahtarı
 4. Her iki uygulama analiz edilir, test edilir ve APK olarak derlenir.
 5. APK'lar **Actions → son çalışma → Artifacts → maison-makas-apk-N** altından indirilir.
 
-Her APK `ci/debug.keystore` ile imzalanır; bu sayede yeni sürüm eskisini kaldırmadan üstüne kurulur.
-Bu anahtar yalnızca test içindir. Google Play'e yükleme için ayrı bir yükleme anahtarı oluşturulacak (rehberde 13. adım).
+Her APK `ci/debug.keystore` ile imzalanır (`apps/*/android/app/build.gradle.kts` içindeki `maisonTest` ayarı);
+bu sayede yeni sürüm eskisini kaldırmadan üstüne kurulur. `ci/derle.sh` imzanın SHA-256 özetini denetler;
+APK başka bir anahtarla imzalanmışsa derleme kırmızı biter. Bu anahtar yalnızca test içindir; Google Play'e
+yükleme için ayrı bir yükleme anahtarı oluşturulacak (rehberde 13. adım).
+
+Test derlemelerinde R8 küçültmesi kapalıdır (`apps/*/android/gradle.properties` → `shrink=false`).
+Google Play'den önce yeniden açılacak; eklentiler için kurallar `apps/*/android/app/proguard-rules.pro` içinde hazır.
+
+### Derleme raporu
+
+Her derlemenin sonunda:
+
+- Actions'ta derlemenin sayfasında kısa bir özet tablosu görünür (sürüm, boyut, imza, analiz, test, emülatör).
+- Ayrıntılar `derleme-raporu` dalına tek commit olarak yazılır: Flutter sürümü, `flutter analyze` ve
+  `flutter test` çıktıları, APK bilgileri, emülatör ekran görüntüleri ve logcat. Bu dal derleme başlatmaz.
+
+### Emülatör duman testi
+
+`ci/emulator-testi.sh` iki APK'yı bir Android emülatöründe açar, giriş ekranına geçer ve yanlış bir şifreyle
+giriş dener. "E-posta ya da şifre hatalı" yanıtı gelirse uygulama sunucuya ulaşabiliyor demektir.
+Hesap açmaz, veritabanına yazmaz, derlemeyi hiçbir zaman durdurmaz. Kapatmak için betiği silmek yeter.
 
 Bir dosyayı silmek gerektiğinde, zip içine `ci/silinecekler.txt` konur (her satıra bir yol).
 

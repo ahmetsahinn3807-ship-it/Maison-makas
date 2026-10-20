@@ -2,6 +2,7 @@
 library;
 
 export 'src/amblem.dart';
+export 'src/baslatma.dart';
 export 'src/bilesenler.dart';
 export 'src/giris_ekrani.dart';
 export 'src/oturum.dart';

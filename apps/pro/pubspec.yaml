@@ -1,7 +1,7 @@
 name: pro
 description: Makas Pro — Maison Makas işletme uygulaması (berber ve kuaför salonları).
 publish_to: none
-version: 0.2.0+1
+version: 0.2.1+1
 
 environment:
   sdk: ^3.5.0

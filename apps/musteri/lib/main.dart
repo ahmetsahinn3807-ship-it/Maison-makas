@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:makas_core/makas_core.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' show Supabase, SupabaseClient;
 
 import 'ekranlar/acilis_ekrani.dart';
 import 'ekranlar/kabuk.dart';
@@ -8,17 +7,9 @@ import 'gorunum.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SupabaseClient? istemci;
-  try {
-    await Supabase.initialize(
-      url: MaisonSupabase.url,
-      publishableKey: MaisonSupabase.publishableKey,
-    );
-    istemci = Supabase.instance.client;
-  } catch (_) {
-    istemci = null;
-  }
-  runApp(MaisonMakasUygulamasi(oturum: MaisonOturum(istemci)));
+  // Bağlantı kurulamasa da uygulama açılır; hata, giriş ekranında ayrıntısıyla gösterilir.
+  final MaisonBaslatma baslatma = await maisonSupabaseBaslat();
+  runApp(MaisonMakasUygulamasi(oturum: MaisonOturum.baslatmadan(baslatma)));
 }
 
 class MaisonMakasUygulamasi extends StatefulWidget {

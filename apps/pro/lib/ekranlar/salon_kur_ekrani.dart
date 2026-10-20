@@ -55,10 +55,9 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
       return;
     }
     final MaisonOturum oturum = OturumKapsami.oku(context);
-    final SupabaseClient? i = oturum.istemci;
     final User? k = oturum.kullanici;
-    if (i == null || k == null) {
-      setState(() => _hata = 'Sunucuya bağlanılamadı. İnternet bağlantını kontrol et.');
+    if (k == null) {
+      setState(() => _hata = 'Oturumun kapanmış. Çıkış yapıp yeniden giriş yap.');
       return;
     }
     FocusScope.of(context).unfocus();
@@ -70,6 +69,7 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
     final String kisaAd = kisaAdUret(ad);
     final math.Random rastgele = math.Random();
     try {
+      final SupabaseClient i = await oturum.istemciGerekli();
       Map<String, dynamic>? salon;
       for (int deneme = 0; deneme < 4 && salon == null; deneme++) {
         final String aday = deneme == 0 ? kisaAd : kisaAdEki(kisaAd, 100 + rastgele.nextInt(900));

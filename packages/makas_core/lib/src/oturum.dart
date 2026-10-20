@@ -12,6 +12,8 @@ import 'package:supabase_flutter/supabase_flutter.dart'
         SupabaseClient,
         User;
 
+import 'baslatma.dart';
+
 /// Kullanıcıya gösterilecek, Türkçe hata.
 class MaisonHata implements Exception {
   const MaisonHata(this.mesaj);
@@ -25,24 +27,64 @@ class MaisonHata implements Exception {
 /// Oturum ve profil durumu.
 ///
 /// [istemci] yoksa (testlerde ya da sunucu başlatılamazsa) çevrimdışı çalışır:
-/// giriş yapılmamış sayılır, listeler boş döner.
+/// giriş yapılmamış sayılır, listeler boş döner. Bir işlem sunucu gerektirdiğinde
+/// [yenidenBaslat] verilmişse bağlantı bir kez daha denenir.
 class MaisonOturum extends ChangeNotifier {
-  MaisonOturum(this.istemci) {
-    final SupabaseClient? i = istemci;
-    if (i != null) {
-      _abonelik = i.auth.onAuthStateChange.listen(_durumDegisti, onError: (Object _) {});
-      if (i.auth.currentSession != null) {
-        unawaited(profiliYukle());
-      }
-    }
+  MaisonOturum(
+    SupabaseClient? istemci, {
+    String? baslatmaHatasi,
+    Future<MaisonBaslatma> Function()? yenidenBaslat,
+  })  : _istemci = istemci,
+        _baslatmaHatasi = baslatmaHatasi,
+        _yenidenBaslat = yenidenBaslat {
+    _baglan();
   }
 
-  final SupabaseClient? istemci;
+  /// Uygulama açılışındaki başlatma sonucundan oturum kurar.
+  factory MaisonOturum.baslatmadan(MaisonBaslatma baslatma) {
+    return MaisonOturum(
+      baslatma.istemci,
+      baslatmaHatasi: baslatma.hata,
+      yenidenBaslat: maisonSupabaseBaslat,
+    );
+  }
+
+  SupabaseClient? _istemci;
+  String? _baslatmaHatasi;
+  final Future<MaisonBaslatma> Function()? _yenidenBaslat;
   StreamSubscription<AuthState>? _abonelik;
   Map<String, dynamic>? _profil;
 
-  Session? get oturum => istemci?.auth.currentSession;
-  User? get kullanici => istemci?.auth.currentUser;
+  SupabaseClient? get istemci => _istemci;
+
+  /// Bağlantı ya da cihaz deposuyla ilgili sorun; her şey yolundaysa null.
+  /// Ayarlar ekranında küçük bir tanılama satırı olarak gösterilir.
+  String? get tanilama {
+    if (_istemci == null) {
+      final String? neden = _baslatmaHatasi;
+      return neden == null ? 'Sunucu bağlantısı yok' : 'Sunucu bağlantısı yok: ${_kisalt(neden)}';
+    }
+    final String? depo = MaisonYerelDepo.sorun;
+    if (depo != null) {
+      return 'Oturum bu cihazda saklanamıyor: ${_kisalt(depo)}';
+    }
+    final String? hata = _baslatmaHatasi;
+    return hata == null ? null : 'Başlatma uyarısı: ${_kisalt(hata)}';
+  }
+
+  void _baglan() {
+    final SupabaseClient? i = _istemci;
+    if (i == null || _abonelik != null) {
+      return;
+    }
+    _abonelik = i.auth.onAuthStateChange.listen(_durumDegisti, onError: (Object _) {});
+    if (i.auth.currentSession != null) {
+      unawaited(profiliYukle());
+    }
+  }
+
+  Session? get oturum => _istemci?.auth.currentSession;
+  User? get kullanici => _istemci?.auth.currentUser;
   bool get girisli => oturum != null;
   Map<String, dynamic>? get profil => _profil;
   String? get eposta => kullanici?.email;
@@ -94,7 +136,7 @@ class MaisonOturum extends ChangeNotifier {
   }
 
   Future<void> profiliYukle() async {
-    final SupabaseClient? i = istemci;
+    final SupabaseClient? i = _istemci;
     final User? k = kullanici;
     if (i == null || k == null) {
       return;
@@ -110,7 +152,7 @@ class MaisonOturum extends ChangeNotifier {
   }
 
   Future<void> girisYap({required String eposta, required String sifre}) async {
-    final SupabaseClient i = _istemciGerekli();
+    final SupabaseClient i = await istemciGerekli();
     await i.auth.signInWithPassword(email: eposta.trim(), password: sifre);
   }
 
@@ -119,7 +161,7 @@ class MaisonOturum extends ChangeNotifier {
     required String eposta,
     required String sifre,
   }) async {
-    final SupabaseClient i = _istemciGerekli();
+    final SupabaseClient i = await istemciGerekli();
     final AuthResponse yanit = await i.auth.signUp(
       email: eposta.trim(),
       password: sifre,
@@ -133,7 +175,7 @@ class MaisonOturum extends ChangeNotifier {
   }
 
   Future<void> cikisYap() async {
-    final SupabaseClient? i = istemci;
+    final SupabaseClient? i = _istemci;
     if (i != null) {
       await i.auth.signOut();
     }
@@ -143,7 +185,7 @@ class MaisonOturum extends ChangeNotifier {
 
   /// Profilde verilen alanları günceller (ör. ad_soyad, telefon, gorunum, dil).
   Future<void> profilGuncelle(Map<String, dynamic> alanlar) async {
-    final SupabaseClient i = _istemciGerekli();
+    final SupabaseClient i = await istemciGerekli();
     final User? k = kullanici;
     if (k == null) {
       throw const MaisonHata('Önce giriş yapmalısın.');
@@ -160,7 +202,7 @@ class MaisonOturum extends ChangeNotifier {
   /// hesapla birlikte sahibi olduğu salonlar da silinir. Müşteri uygulaması
   /// `false` gönderir; salonu olan hesap orada silinmez.
   Future<void> hesabiSil({bool salonlarla = false}) async {
-    final SupabaseClient i = _istemciGerekli();
+    final SupabaseClient i = await istemciGerekli();
     await i.rpc('hesabimi_sil', params: <String, dynamic>{'p_salonlarla': salonlarla});
     try {
       await i.auth.signOut();
@@ -171,12 +213,36 @@ class MaisonOturum extends ChangeNotifier {
     notifyListeners();
   }
 
-  SupabaseClient _istemciGerekli() {
-    final SupabaseClient? i = istemci;
-    if (i == null) {
-      throw const MaisonHata('Sunucuya bağlanılamadı. İnternet bağlantını kontrol et.');
+  /// Sunucu istemcisini verir. Açılışta bağlantı kurulamadıysa bir kez daha dener;
+  /// yine olmazsa hatanın ayrıntısıyla birlikte [MaisonHata] fırlatır.
+  Future<SupabaseClient> istemciGerekli() async {
+    final SupabaseClient? hazir = _istemci;
+    if (hazir != null) {
+      return hazir;
     }
-    return i;
+    final Future<MaisonBaslatma> Function()? yeniden = _yenidenBaslat;
+    if (yeniden != null) {
+      final MaisonBaslatma sonuc = await yeniden();
+      final SupabaseClient? yeni = sonuc.istemci;
+      _baslatmaHatasi = sonuc.hata ?? _baslatmaHatasi;
+      if (yeni != null) {
+        _istemci = yeni;
+        _baglan();
+        notifyListeners();
+        return yeni;
+      }
+    }
+    final String? ayrinti = _baslatmaHatasi;
+    throw MaisonHata(
+      ayrinti == null
+          ? 'Sunucu bağlantısı kurulamadı. İnterneti kontrol edip tekrar dene.'
+          : 'Sunucu bağlantısı kurulamadı. Ayrıntı: ${_kisalt(ayrinti)}',
+    );
+  }
+
+  static String _kisalt(String metin) {
+    final String tek = metin.replaceAll(RegExp(r'\s+'), ' ').trim();
+    return tek.length <= 220 ? tek : '${tek.substring(0, 220)}…';
   }
 
   @override

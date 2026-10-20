@@ -224,10 +224,18 @@ class _ProAyarlarState extends State<ProAyarlar> {
             const SizedBox(height: 28),
             Center(
               child: Text(
-                'Makas Pro · sürüm 0.2',
+                'Makas Pro · sürüm 0.2.1',
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.2),
               ),
             ),
+            if (oturum.tanilama != null) ...<Widget>[
+              const SizedBox(height: 8),
+              Text(
+                oturum.tanilama!,
+                textAlign: TextAlign.center,
+                style: maisonGovde(11, renk: r.soluk, yukseklik: 1.4),
+              ),
+            ],
           ],
         ),
       ),
