@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'palet.dart';
+import 'renkler.dart';
 
 /// Gövde yazı tipi: Inter (paketle birlikte gelir).
 const String kGovdeYaziTipi = 'packages/makas_core/Inter';
@@ -101,6 +102,7 @@ ThemeData maisonTemasi(MaisonPalet palet, {Color? vurgu}) {
     colorScheme: sema,
     scaffoldBackgroundColor: palet.zemin,
     textTheme: yazilar,
+    extensions: <ThemeExtension<dynamic>>[MaisonRenkler.paletten(palet, v)],
     splashFactory: InkRipple.splashFactory,
     dividerTheme: DividerThemeData(color: palet.cizgi, thickness: 1, space: 1),
     filledButtonTheme: FilledButtonThemeData(

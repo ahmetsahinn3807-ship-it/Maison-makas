@@ -57,6 +57,17 @@ class MaisonPalet {
   /// Varsayılan vurgu rengi.
   Color get vurgu => vurgular.first.renk;
 
+  /// Metin alanlarının zemini.
+  Color get girdi => Color.lerp(zemin, kart, koyu ? 0.4 : 1.0)!;
+
+  /// Soldan açılan menünün zemini.
+  Color get menu => Color.lerp(zemin, kart, koyu ? 0.12 : 0.6)!;
+
+  /// Kapak fotoğrafı yokken kullanılan sıcak ton.
+  Color get kapak => koyu
+      ? Color.lerp(zemin, const Color(0xFF3A3228), 0.45)!
+      : Color.lerp(zemin, const Color(0xFFD9CDB8), 0.5)!;
+
   static const MaisonPalet noirDore = MaisonPalet(
     kimlik: 'noir-dore',
     ad: 'Noir Doré',

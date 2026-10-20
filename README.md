@@ -33,6 +33,20 @@ Bu anahtar yalnızca test içindir. Google Play'e yükleme için ayrı bir yükl
 
 Bir dosyayı silmek gerektiğinde, zip içine `ci/silinecekler.txt` konur (her satıra bir yol).
 
+## Sunucu (Supabase)
+
+Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr`).
+
+- `supabase/migrations/` içindeki SQL dosyaları **tarih sırasıyla** Supabase → SQL Editor'da çalıştırılır.
+  Her dosya bir kez çalıştırılır; `20261019210000_uygulama_fonksiyonlari.sql` ve sonrakiler tekrar çalışsa da zarar vermez.
+- Uygulamalar yalnız **publishable** anahtarı kullanır (`packages/makas_core/lib/src/supabase_ayar.dart`).
+  Bu anahtar herkese açık olabilir; verileri tablolardaki güvenlik kuralları (RLS) korur.
+- **Secret anahtar (`sb_secret_…`) ve veritabanı şifresi hiçbir zaman koda, zip'e ya da sohbete yazılmaz.**
+- `supabase/test/` yerel PostgreSQL'de çalışan testlerdir; gerçek projede çalıştırılmaz.
+- Randevu yalnız `randevu_al` fonksiyonuyla alınır; aynı ustaya çakışan iki randevu veritabanı düzeyinde engellenir.
+- Hesap silme uygulama içindedir (`hesabimi_sil`). Salon sahibi Makas Pro'dan salonuyla birlikte siler;
+  yaklaşan randevusu olan salon silinmez.
+
 ## Yazı tipleri
 
 Inter ve Cormorant Garamond, SIL Open Font License 1.1 ile dağıtılır.

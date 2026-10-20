@@ -1,7 +1,7 @@
 name: musteri
 description: Maison Makas — berber ve kuaför randevu uygulaması (müşteri).
 publish_to: none
-version: 0.1.0+1
+version: 0.2.0+1
 
 environment:
   sdk: ^3.5.0
@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   makas_core:
     path: ../../packages/makas_core
+  supabase_flutter: ^2.18.0
 
 dev_dependencies:
   flutter_test:

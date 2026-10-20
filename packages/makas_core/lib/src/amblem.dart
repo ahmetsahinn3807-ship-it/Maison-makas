@@ -303,3 +303,49 @@ class CerceveBoyaci extends CustomPainter {
         eski.esik != esik;
   }
 }
+
+/// Kapak fotoğrafı yokken sağ alttan yükselen çift kemer (306 × 132 tasarımına göre).
+class KapakKemerBoyaci extends CustomPainter {
+  const KapakKemerBoyaci({required this.renk});
+
+  final Color renk;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (size.height <= 0 || size.width <= 0) {
+      return;
+    }
+    final double olcek = size.height / 132;
+    canvas.save();
+    canvas.translate(size.width - 306 * olcek, 0);
+    canvas.scale(olcek, olcek);
+    canvas.drawPath(
+      _kemer(183, 303, 78, 132),
+      Paint()
+        ..color = renk
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.0,
+    );
+    canvas.drawPath(
+      _kemer(197, 289, 82, 132),
+      Paint()
+        ..color = renk
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.7,
+    );
+    canvas.restore();
+  }
+
+  static Path _kemer(double sol, double sag, double merkezY, double taban) {
+    final double yaricap = (sag - sol) / 2;
+    final Offset merkez = Offset(sol + yaricap, merkezY);
+    return Path()
+      ..moveTo(sol, taban)
+      ..lineTo(sol, merkezY)
+      ..arcTo(Rect.fromCircle(center: merkez, radius: yaricap), math.pi, math.pi, false)
+      ..lineTo(sag, taban);
+  }
+
+  @override
+  bool shouldRepaint(covariant KapakKemerBoyaci eski) => eski.renk != renk;
+}

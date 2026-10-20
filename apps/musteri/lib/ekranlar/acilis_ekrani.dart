@@ -4,7 +4,6 @@ import 'package:makas_core/makas_core.dart';
 
 import '../dil.dart';
 import '../gorunum.dart';
-import 'onizleme_ekrani.dart';
 
 /// Açılış: kapı kemeri çizilir, makas ve marka belirir, ardından düğmeler gelir.
 class AcilisEkrani extends StatefulWidget {
@@ -40,10 +39,11 @@ class _AcilisEkraniState extends State<AcilisEkrani>
     super.dispose();
   }
 
-  void _onizlemeyeGec() {
+  void _giriseGec(bool kayit) {
+    final MaisonOturum oturum = OturumKapsami.oku(context);
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (BuildContext context) => const OnizlemeEkrani(),
+        builder: (BuildContext context) => MaisonGirisEkrani(oturum: oturum, kayitModu: kayit),
       ),
     );
   }
@@ -108,7 +108,7 @@ class _AcilisEkraniState extends State<AcilisEkrani>
                             SizedBox(
                               height: 56,
                               child: FilledButton(
-                                onPressed: _onizlemeyeGec,
+                                onPressed: () => _giriseGec(true),
                                 child: Text(metin.basla),
                               ),
                             ),
@@ -116,7 +116,7 @@ class _AcilisEkraniState extends State<AcilisEkrani>
                             SizedBox(
                               height: 54,
                               child: OutlinedButton(
-                                onPressed: _onizlemeyeGec,
+                                onPressed: () => _giriseGec(false),
                                 child: Text(metin.girisYap),
                               ),
                             ),
