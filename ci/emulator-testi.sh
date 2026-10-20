@@ -40,7 +40,17 @@ ls -la /dev/kvm >> "$GUNLUK" 2>&1
 
 yaz "Emülatör ve sistem görüntüsü indiriliyor"
 yes 2>/dev/null | timeout 180 "$ARAC_DIZINI/sdkmanager" --licenses >/dev/null 2>&1
-if ! timeout 900 "$ARAC_DIZINI/sdkmanager" --install "emulator" "$GORUNTU" >> "$GUNLUK" 2>&1; then
+indirildi=0
+for deneme in 1 2; do
+  rm -rf "$SDK/.temp" "$SDK/.downloadIntermediates" 2>/dev/null
+  if timeout 900 "$ARAC_DIZINI/sdkmanager" --install "emulator" "$GORUNTU" < /dev/null >> "$GUNLUK" 2>&1; then
+    indirildi=1
+    break
+  fi
+  yaz "İndirme denemesi $deneme başarısız"
+  sleep 10
+done
+if [ "$indirildi" != 1 ]; then
   sonuc "Emülatör kurulamadı: sistem görüntüsü indirilemedi."
   exit 0
 fi

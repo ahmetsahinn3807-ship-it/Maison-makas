@@ -81,7 +81,53 @@ for d in "${ANDROID_USER_HOME:-}" "$HOME/.android"; do
   cp ci/debug.keystore "$d/debug.keystore"
 done
 
-# 3) Analiz, test ve APK
+# 3) NDK: Flutter'ın istediği sürüm önceden ve yeniden denenerek kurulur.
+#    (Gradle kendisi indirirken yarıda kalırsa "Error on ZipFile unknown archive" ile derleme düşüyor.)
+SDK="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+NDK_SURUM="$(grep -ho 'ndkVersion: String = "[^"]*"' \
+  "${FLUTTER_ROOT:-/yok}/packages/flutter_tools/gradle/src/main/kotlin/FlutterExtension.kt" 2>/dev/null \
+  | sed 's/.*= "//; s/"$//' | head -1 || true)"
+NDK_SURUM="${NDK_SURUM:-28.2.13676358}"
+ndk_kur() {
+  local sdkm="$SDK/cmdline-tools/latest/bin/sdkmanager" deneme
+  if [ -f "$SDK/ndk/$NDK_SURUM/source.properties" ]; then
+    echo "NDK $NDK_SURUM hazır."
+    return 0
+  fi
+  if [ ! -x "$sdkm" ]; then
+    echo "::warning::sdkmanager bulunamadı; NDK'yı Gradle kuracak."
+    return 0
+  fi
+  for deneme in 1 2 3; do
+    echo "NDK $NDK_SURUM kuruluyor (deneme $deneme)…"
+    rm -rf "$SDK/.temp" "$SDK/.downloadIntermediates" "$SDK/ndk/$NDK_SURUM" 2>/dev/null || true
+    if "$sdkm" --install "ndk;$NDK_SURUM" < /dev/null > "$RAPOR/02-ndk-deneme-$deneme.txt" 2>&1 \
+      && [ -f "$SDK/ndk/$NDK_SURUM/source.properties" ]; then
+      echo "NDK $NDK_SURUM kuruldu."
+      return 0
+    fi
+    tail -3 "$RAPOR/02-ndk-deneme-$deneme.txt" || true
+    sleep 15
+  done
+  # Son çare: makinede kurulu en yeni NDK ile derle (yalnız yerel kütüphaneleri sıkıştırmak için kullanılıyor).
+  local yedek
+  yedek="$(ls -1 "$SDK/ndk" 2>/dev/null | sort -V | tail -1 || true)"
+  if [ -n "$yedek" ] && [ -f "$SDK/ndk/$yedek/source.properties" ]; then
+    export ORG_GRADLE_PROJECT_maisonNdk="$yedek"
+    echo "::warning::NDK $NDK_SURUM kurulamadı; makinedeki NDK $yedek kullanılacak."
+  else
+    echo "::warning::NDK $NDK_SURUM önceden kurulamadı; Gradle yeniden deneyecek."
+  fi
+  return 0
+}
+echo "::group::NDK"
+ndk_kur
+echo "::endgroup::"
+
+# Ağdan bir şey indirirken yarıda kalan derlemeler bir kez daha denenir.
+GECICI_HATA='Error on ZipFile|unknown archive|Could not GET|Could not HEAD|Could not download|Connection reset|Read timed out|Connect timed out|Failed to install the following|Remote host terminated|received status code 5[0-9][0-9]'
+
+# 4) Analiz, test ve APK
 derle() {
   local dizin="$1" dosya="$2"
   echo "::group::$dizin — analiz ve test"
@@ -95,17 +141,30 @@ derle() {
   )
   echo "::endgroup::"
   echo "::group::$dizin — APK"
-  (
-    cd "apps/$dizin"
-    flutter build apk --release --build-number="$NO" 2>&1 | tee "$RAPOR/$dizin-4-apk.txt"
-  )
+  local deneme
+  for deneme in 1 2; do
+    if (
+      cd "apps/$dizin"
+      flutter build apk --release --build-number="$NO" 2>&1 | tee "$RAPOR/$dizin-4-apk.txt"
+    ); then
+      break
+    fi
+    if [ "$deneme" = 1 ] && grep -qE "$GECICI_HATA" "$RAPOR/$dizin-4-apk.txt"; then
+      echo "::warning::$dizin: indirme yarıda kaldı; derleme bir kez daha deneniyor."
+      mv "$RAPOR/$dizin-4-apk.txt" "$RAPOR/$dizin-4-apk-deneme1.txt"
+      ndk_kur
+      continue
+    fi
+    echo "::error::$dizin: APK derlenemedi (ayrıntı derleme-raporu dalında: $dizin-4-apk.txt)."
+    return 1
+  done
   cp "apps/$dizin/build/app/outputs/flutter-apk/app-release.apk" "cikti/$dosya-$NO.apk"
   echo "::endgroup::"
 }
 derle musteri maison-makas
 derle pro makas-pro
 
-# 4) İmza ve paket bilgisi. İmza beklenen anahtar değilse derleme durur:
+# 5) İmza ve paket bilgisi. İmza beklenen anahtar değilse derleme durur:
 #    öyle bir APK telefonda eski sürümün üstüne kurulmaz.
 echo "::group::İmza ve paket bilgisi"
 ARAC="$(ls -d "${ANDROID_HOME:-/usr/local/lib/android/sdk}"/build-tools/*/ 2>/dev/null | sort -V | tail -1 || true)"
@@ -174,7 +233,7 @@ if [ "$imza_hatali" = 1 ]; then
   exit 1
 fi
 
-# 5) Emülatör duman testi: APK'ları açar, giriş ekranından sunucuya bir deneme yapar.
+# 6) Emülatör duman testi: APK'ları açar, giriş ekranından sunucuya bir deneme yapar.
 #    Derlemeyi hiçbir zaman durdurmaz; sonuç rapora ve özete yazılır.
 if [ -f ci/emulator-testi.sh ]; then
   echo "::group::Emülatör duman testi"

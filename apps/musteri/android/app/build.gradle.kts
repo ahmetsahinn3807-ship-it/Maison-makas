@@ -7,7 +7,8 @@ plugins {
 android {
     namespace = "com.maisonmakas.musteri"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // CI'da Flutter'ın istediği NDK indirilemezse ci/derle.sh makinede kurulu olanı verir (maisonNdk).
+    ndkVersion = (project.findProperty("maisonNdk") as String?) ?: flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
