@@ -367,6 +367,7 @@ class _SalonKarti extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MaisonRenkler r = MaisonRenkler.of(context);
+    final String etiket = 'ana-salon-${salon.id}';
     return SizedBox(
       width: 240,
       child: Material(
@@ -376,7 +377,7 @@ class _SalonKarti extends StatelessWidget {
         child: InkWell(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute<void>(
-              builder: (BuildContext context) => SalonEkrani(salon: salon),
+              builder: (BuildContext context) => SalonEkrani(salon: salon, kahramanEtiketi: etiket),
             ),
           ),
           child: Column(
@@ -384,7 +385,15 @@ class _SalonKarti extends StatelessWidget {
             children: <Widget>[
               Stack(
                 children: <Widget>[
-                  const MaisonKapak(yukseklik: 120),
+                  Hero(
+                    tag: etiket,
+                    child: MaisonKapak(
+                      yukseklik: 120,
+                      url: salon.kapakUrl,
+                      odak: salon.kapakOdak,
+                      filtre: salon.ayar.filtre,
+                    ),
+                  ),
                   if (salon.dogrulandi)
                     Positioned(
                       left: 10,

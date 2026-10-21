@@ -73,17 +73,26 @@ class SalonOzet {
     required this.ortalama,
     required this.yorumAdet,
     required this.dogrulandi,
+    this.logoUrl,
+    this.kapakUrl,
+    this.kapakOdak = const Offset(0.5, 0.5),
+    this.ayar = const VitrinAyari(),
   });
 
   factory SalonOzet.json(Map<String, dynamic> m) {
+    final VitrinSalonu v = VitrinSalonu.json(m);
     return SalonOzet(
-      id: m['id'] as String,
-      ad: (m['ad'] as String?) ?? '',
-      ilce: m['ilce'] as String?,
-      sehir: m['sehir'] as String?,
-      ortalama: (m['ortalama'] as num?)?.toDouble(),
-      yorumAdet: (m['yorum_adet'] as num?)?.toInt() ?? 0,
-      dogrulandi: m['dogrulandi'] == true,
+      id: v.id,
+      ad: v.ad,
+      ilce: v.ilce,
+      sehir: v.sehir,
+      ortalama: v.ortalama,
+      yorumAdet: v.yorumAdet,
+      dogrulandi: v.dogrulandi,
+      logoUrl: v.logoUrl,
+      kapakUrl: v.kapakUrl,
+      kapakOdak: v.kapakOdak,
+      ayar: v.ayar,
     );
   }
 
@@ -94,6 +103,12 @@ class SalonOzet {
   final double? ortalama;
   final int yorumAdet;
   final bool dogrulandi;
+  final String? logoUrl;
+  final String? kapakUrl;
+  final Offset kapakOdak;
+
+  /// Salonun vitrin teması ve fotoğraf filtresi.
+  final VitrinAyari ayar;
 
   /// "4,9 · Kadıköy" ya da "Yeni · Kadıköy".
   String get ozet {
@@ -105,31 +120,21 @@ class SalonOzet {
         .join(', ');
     return yer.isEmpty ? puan : '$puan · $yer';
   }
-}
 
-/// Salonun hizmet menüsündeki bir kalem.
-@immutable
-class HizmetOzet {
-  const HizmetOzet({
-    required this.ad,
-    required this.sureDk,
-    required this.fiyat,
-    required this.aciklama,
-  });
-
-  factory HizmetOzet.json(Map<String, dynamic> m) {
-    return HizmetOzet(
-      ad: (m['ad'] as String?) ?? '',
-      sureDk: (m['sure_dk'] as num?)?.toInt() ?? 0,
-      fiyat: (m['fiyat'] as num?)?.toDouble() ?? 0.0,
-      aciklama: m['aciklama'] as String?,
-    );
-  }
-
-  final String ad;
-  final int sureDk;
-  final double fiyat;
-  final String? aciklama;
+  /// Vitrin ekranının ilk anda göstereceği bilgi (ayrıntılar sunucudan gelir).
+  VitrinSalonu get vitrin => VitrinSalonu(
+        id: id,
+        ad: ad,
+        ilce: ilce,
+        sehir: sehir,
+        logoUrl: logoUrl,
+        kapakUrl: kapakUrl,
+        kapakOdak: kapakOdak,
+        ayar: ayar,
+        dogrulandi: dogrulandi,
+        ortalama: ortalama,
+        yorumAdet: yorumAdet,
+      );
 }
 
 /// Sunucu çağrıları. Çevrimdışıyken (istemci yok) boş liste döner.
@@ -166,20 +171,6 @@ class Veri {
     }
     final Object? sonuc = await i.rpc('kesfet', params: <String, dynamic>{'p_arama': arama});
     return _satirlar(sonuc).map(SalonOzet.json).toList();
-  }
-
-  Future<List<HizmetOzet>> hizmetler(String salonId) async {
-    final SupabaseClient? i = _istemci;
-    if (i == null) {
-      return <HizmetOzet>[];
-    }
-    final List<Map<String, dynamic>> satirlar = await i
-        .from('hizmetler')
-        .select('ad, sure_dk, fiyat, aciklama')
-        .eq('salon_id', salonId)
-        .eq('aktif', true)
-        .order('sira', ascending: true);
-    return satirlar.map(HizmetOzet.json).toList();
   }
 
   Future<void> randevuIptal(String randevuId) async {

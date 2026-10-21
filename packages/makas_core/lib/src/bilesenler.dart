@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'amblem.dart';
+import 'foto.dart';
 import 'renkler.dart';
 import 'tema.dart';
+import 'vitrin_ayari.dart';
 
 /// 44 × 44 çerçeveli yuvarlak düğme (menü, geri, bildirim).
 class MaisonYuvarlakDugme extends StatelessWidget {
@@ -417,47 +419,68 @@ class MaisonAnahtar extends StatelessWidget {
   }
 }
 
-/// Fotoğraf yokken kapak alanı: sıcak zemin ve sağda çift kemer.
+/// Kapak alanı: [url] varsa fotoğraf (odağı ve filtresiyle), yoksa sıcak zemin ve sağda çift kemer.
 class MaisonKapak extends StatelessWidget {
-  const MaisonKapak({super.key, this.yukseklik = 132, this.child});
+  const MaisonKapak({
+    super.key,
+    this.yukseklik = 132,
+    this.child,
+    this.url,
+    this.odak = const Offset(0.5, 0.5),
+    this.filtre = VitrinFiltresi.dogal,
+  });
 
   final double yukseklik;
   final Widget? child;
+  final String? url;
+  final Offset odak;
+  final VitrinFiltresi filtre;
 
   @override
   Widget build(BuildContext context) {
     final MaisonRenkler r = MaisonRenkler.of(context);
+    final Widget yedek = ColoredBox(
+      color: r.kapak,
+      child: CustomPaint(
+        painter: KapakKemerBoyaci(renk: r.vurguCizgi),
+        child: const SizedBox.expand(),
+      ),
+    );
+    final String? adres = url;
+    final Widget zemin = adres == null || adres.isEmpty
+        ? yedek
+        : MaisonFoto(url: adres, odak: odak, filtre: filtre, yedek: yedek);
+    final Widget? ust = child;
     return SizedBox(
       height: yukseklik,
       width: double.infinity,
-      child: ColoredBox(
-        color: r.kapak,
-        child: CustomPaint(
-          painter: KapakKemerBoyaci(renk: r.vurguCizgi),
-          child: child,
-        ),
-      ),
+      child: ust == null
+          ? zemin
+          : Stack(fit: StackFit.expand, children: <Widget>[zemin, ust]),
     );
   }
 }
 
-/// Baş harfli yuvarlak avatar (fotoğraf yüklenene kadar).
+/// Yuvarlak avatar: [fotoUrl] varsa fotoğraf, yoksa baş harfler.
 class MaisonAvatar extends StatelessWidget {
   const MaisonAvatar({
     super.key,
     required this.basHarfler,
     this.boyut = 72,
     this.halkaRengi,
+    this.fotoUrl,
   });
 
   final String basHarfler;
   final double boyut;
   final Color? halkaRengi;
+  final String? fotoUrl;
 
   @override
   Widget build(BuildContext context) {
     final MaisonRenkler r = MaisonRenkler.of(context);
     final double ic = boyut - 6;
+    final String? foto = fotoUrl;
     return Container(
       width: boyut,
       height: boyut,
@@ -467,15 +490,18 @@ class MaisonAvatar extends StatelessWidget {
         width: ic,
         height: ic,
         alignment: Alignment.center,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: r.kart,
           border: Border.all(color: r.vurgu, width: 1.5),
         ),
-        child: Text(
-          basHarfler,
-          style: maisonBaslik(ic * 0.38, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.0),
-        ),
+        child: foto != null && foto.isNotEmpty
+            ? MaisonFoto(url: foto, zemin: r.kart)
+            : Text(
+                basHarfler,
+                style: maisonBaslik(ic * 0.38, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.0),
+              ),
       ),
     );
   }

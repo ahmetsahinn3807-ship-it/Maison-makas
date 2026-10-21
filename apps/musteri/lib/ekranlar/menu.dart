@@ -65,7 +65,11 @@ class _MusteriMenuState extends State<MusteriMenu> {
                         left: 0,
                         right: 0,
                         top: 0,
-                        child: MaisonKapak(yukseklik: kapakYuksekligi),
+                        child: MaisonKapak(
+                          yukseklik: kapakYuksekligi,
+                          url: oturum.kapakUrl,
+                          odak: oturum.kapakOdak,
+                        ),
                       ),
                       Positioned(
                         right: 12,
@@ -84,7 +88,11 @@ class _MusteriMenuState extends State<MusteriMenu> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
-                            MaisonAvatar(basHarfler: oturum.basHarfler, halkaRengi: r.menu),
+                            MaisonAvatar(
+                              basHarfler: oturum.basHarfler,
+                              halkaRengi: r.menu,
+                              fotoUrl: oturum.avatarUrl,
+                            ),
                             const SizedBox(width: 14),
                             Expanded(
                               child: Padding(

@@ -66,6 +66,15 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
 - Hesap silme uygulama içindedir (`hesabimi_sil`). Salon sahibi Makas Pro'dan salonuyla birlikte siler;
   yaklaşan randevusu olan salon silinmez.
 
+### Fotoğraflar
+
+- İki herkese açık kova: `profil` (müşterinin profil ve kapak fotoğrafı, `profil/<kullanıcı>/…`) ve
+  `salon` (kapak, logo ve galeri, `salon/<salon>/…`). Bir klasöre yalnız sahibi yükler ve oradan yalnız sahibi siler.
+- Fotoğraf telefonda küçültülür (kapak 1600, galeri 1440, profil ve logo 640 piksel) ve en çok 6 MB olabilir.
+- Kapakta görünecek kısım `kapak_odak_x/y` (0–1) olarak saklanır; vitrin filtresi (`salonlar.vitrin.filtre`)
+  fotoğrafın kendisini değiştirmez, gösterilirken uygulanır.
+- Storage dosyaları SQL ile silinemez; uygulama eski dosyayı Storage API ile siler, hesap silinirken klasörleri boşaltır.
+
 ## Yazı tipleri
 
 Inter ve Cormorant Garamond, SIL Open Font License 1.1 ile dağıtılır.

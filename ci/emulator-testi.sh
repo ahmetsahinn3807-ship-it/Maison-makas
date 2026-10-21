@@ -24,6 +24,9 @@ GUNLUK="$RAPOR/08-emulator-gunluk.txt"
 yaz() { echo "[emülatör] $*" | tee -a "$GUNLUK"; }
 sonuc() { echo "$*" >> "$OZET"; yaz "SONUÇ: $*"; }
 
+export ANDROID_AVD_HOME="$HOME/.android/avd"
+mkdir -p "$ANDROID_AVD_HOME"
+
 ARAC_DIZINI=""
 for d in "$SDK/cmdline-tools/latest/bin" "$SDK"/cmdline-tools/*/bin; do
   if [ -x "$d/sdkmanager" ]; then ARAC_DIZINI="$d"; break; fi
@@ -64,6 +67,15 @@ if ! echo no | "$ARAC_DIZINI/avdmanager" create avd -n maison -k "$GORUNTU" -d p
     exit 0
   }
 fi
+
+# avdmanager ile emülatör sanal cihazı aynı yerde arasın (GitHub'da XDG_CONFIG_HOME farklı bir yer gösteriyor).
+if [ ! -f "$ANDROID_AVD_HOME/maison.ini" ]; then
+  bulunan="$(find "$HOME" -maxdepth 5 -name 'maison.ini' 2>/dev/null | head -1 || true)"
+  if [ -n "$bulunan" ]; then
+    export ANDROID_AVD_HOME="$(dirname "$bulunan")"
+  fi
+fi
+yaz "Sanal cihaz klasörü: $ANDROID_AVD_HOME"
 
 yaz "Emülatör açılıyor"
 "$EMU" -avd maison -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect \

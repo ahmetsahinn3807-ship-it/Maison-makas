@@ -137,18 +137,29 @@ class _SalonSatiri extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MaisonRenkler r = MaisonRenkler.of(context);
+    final String etiket = 'kesfet-salon-${salon.id}';
     return Material(
       color: r.kart,
       borderRadius: BorderRadius.circular(20),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () => Navigator.of(context).push(
-          MaterialPageRoute<void>(builder: (BuildContext context) => SalonEkrani(salon: salon)),
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => SalonEkrani(salon: salon, kahramanEtiketi: etiket),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const MaisonKapak(yukseklik: 120),
+            Hero(
+              tag: etiket,
+              child: MaisonKapak(
+                yukseklik: 140,
+                url: salon.kapakUrl,
+                odak: salon.kapakOdak,
+                filtre: salon.ayar.filtre,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
               child: Row(

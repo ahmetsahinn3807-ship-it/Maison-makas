@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
 
 import '../salon.dart';
 import 'pro_ayarlar.dart';
+import 'vitrin_studyosu.dart';
 
 /// Makas Pro ana iskeleti: soldan menü ve Bugün ekranı.
 class ProKabuk extends StatefulWidget {
@@ -52,8 +53,7 @@ class _ProKabukState extends State<ProKabuk> {
               'Ustalar ve çalışma saatleri 20. adımda geliyor.'),
           hizmetler: () => _yakinda('Hizmetler', Icons.content_cut,
               'Hizmet menüsü, süreler ve fiyatlar 20. adımda geliyor.'),
-          vitrin: () => _yakinda('Vitrin Stüdyosu', Icons.storefront_outlined,
-              'Kapak ve logo, galeri duvarı ve vitrin düzeni 19. adımda geliyor.'),
+          vitrin: () => _ac(VitrinStudyosu(salon: widget.salon, salonDegisti: widget.yenile)),
           kasa: () => _yakinda('Kasa ve adisyon', Icons.point_of_sale_outlined,
               'Biten randevular adisyona dönüşecek; günlük ve aylık ciro burada.'),
           raporlar: () => _yakinda('Raporlar', Icons.insights_outlined,

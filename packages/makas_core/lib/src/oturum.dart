@@ -9,10 +9,12 @@ import 'package:supabase_flutter/supabase_flutter.dart'
         AuthState,
         PostgrestException,
         Session,
+        StorageException,
         SupabaseClient,
         User;
 
 import 'baslatma.dart';
+import 'fotograf_yukleme.dart';
 
 /// Kullanıcıya gösterilecek, Türkçe hata.
 class MaisonHata implements Exception {
@@ -88,6 +90,20 @@ class MaisonOturum extends ChangeNotifier {
   bool get girisli => oturum != null;
   Map<String, dynamic>? get profil => _profil;
   String? get eposta => kullanici?.email;
+
+  /// Profil fotoğrafının adresi (yüklendiyse).
+  String? get avatarUrl => _metin(_profil?['avatar_url']);
+
+  /// Kapak fotoğrafının adresi (yüklendiyse).
+  String? get kapakUrl => _metin(_profil?['kapak_url']);
+
+  /// Kapak fotoğrafının odak noktası (0–1).
+  Offset get kapakOdak => Offset(_oran(_profil?['kapak_odak_x']), _oran(_profil?['kapak_odak_y']));
+
+  static String? _metin(Object? deger) => deger is String && deger.isNotEmpty ? deger : null;
+
+  static double _oran(Object? deger) =>
+      deger is num ? deger.toDouble().clamp(0.0, 1.0).toDouble() : 0.5;
 
   /// Profildeki ad; profil henüz gelmediyse kayıttaki ad.
   String get adSoyad {
@@ -203,6 +219,35 @@ class MaisonOturum extends ChangeNotifier {
   /// `false` gönderir; salonu olan hesap orada silinmez.
   Future<void> hesabiSil({bool salonlarla = false}) async {
     final SupabaseClient i = await istemciGerekli();
+    final User? k = kullanici;
+    if (k != null) {
+      // Fotoğraflar yalnız Storage API ile silinir; hesap ve salon silinmeden önce temizlenir.
+      if (salonlarla) {
+        final List<Map<String, dynamic>> salonlar =
+            await i.from('salonlar').select('id').eq('sahip_id', k.id);
+        final List<String> kimlikler =
+            salonlar.map((Map<String, dynamic> m) => m['id']).whereType<String>().toList();
+        if (kimlikler.isNotEmpty) {
+          final String simdi = DateTime.now().toUtc().toIso8601String();
+          final List<Map<String, dynamic>> yaklasan = await i
+              .from('randevular')
+              .select('id')
+              .inFilter('salon_id', kimlikler)
+              .eq('tur', 'randevu')
+              .inFilter('durum', <String>['bekliyor', 'onaylandi'])
+              .overlaps('aralik', '[$simdi,infinity)');
+          if (yaklasan.isNotEmpty) {
+            throw MaisonHata(
+              'Salonunda ${yaklasan.length} yaklaşan randevu var. Önce bunları iptal et, sonra hesabını sil.',
+            );
+          }
+          for (final String salonId in kimlikler) {
+            await maisonKlasoruBosalt(i, 'salon', salonId);
+          }
+        }
+      }
+      await maisonKlasoruBosalt(i, 'profil', k.id);
+    }
     await i.rpc('hesabimi_sil', params: <String, dynamic>{'p_salonlarla': salonlarla});
     try {
       await i.auth.signOut();
@@ -308,6 +353,22 @@ String maisonHataMetni(Object hata) {
       return 'Sunucuya ulaşılamadı. İnternet bağlantını kontrol et.';
     }
     return 'İşlem yapılamadı: ${hata.message}';
+  }
+  if (hata is StorageException) {
+    final String mesaj = '${hata.message} ${hata.error ?? ''}'.toLowerCase();
+    if (mesaj.contains('bucket not found')) {
+      return 'Fotoğraf deposu kurulu değil: 19. adımın SQL kodunu çalıştır.';
+    }
+    if (mesaj.contains('row-level security') || hata.statusCode == '403') {
+      return 'Bu fotoğrafı yüklemeye ya da silmeye yetkin yok.';
+    }
+    if (mesaj.contains('maximum allowed size') || mesaj.contains('too large') || hata.statusCode == '413') {
+      return 'Fotoğraf çok büyük; en çok 6 MB olabilir.';
+    }
+    if (mesaj.contains('mime type') || mesaj.contains('invalid_mime_type')) {
+      return 'Bu fotoğraf biçimi desteklenmiyor. JPG ya da PNG bir fotoğraf seç.';
+    }
+    return 'Fotoğraf yüklenemedi: ${hata.message}';
   }
   if (hata is PostgrestException) {
     final String kod = hata.code ?? '';
