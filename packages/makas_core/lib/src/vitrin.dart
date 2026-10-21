@@ -32,6 +32,7 @@ class VitrinSalonu {
     this.yorumAdet = 0,
     this.paraBirimi = 'TRY',
     this.yayinda = true,
+    this.ucretsizIptalDk = 180,
   });
 
   /// `salonlar` satırından (ve varsa `salon_puanlari` satırından) okur.
@@ -55,6 +56,7 @@ class VitrinSalonu {
       yorumAdet: adet is num ? adet.toInt() : 0,
       paraBirimi: (m['para_birimi'] as String?) ?? 'TRY',
       yayinda: m['yayinda'] != false,
+      ucretsizIptalDk: (m['ucretsiz_iptal_dk'] as num?)?.toInt() ?? 180,
     );
   }
 
@@ -81,6 +83,9 @@ class VitrinSalonu {
   final int yorumAdet;
   final String paraBirimi;
   final bool yayinda;
+
+  /// Müşteri randevusunu bu kadar dakika öncesine kadar ücretsiz iptal eder.
+  final int ucretsizIptalDk;
 
   /// "Riva, İstanbul"
   String get yer => <String?>[ilce, sehir]
@@ -132,6 +137,7 @@ class VitrinSalonu {
       yorumAdet: yorumAdet,
       paraBirimi: paraBirimi,
       yayinda: yayinda ?? this.yayinda,
+      ucretsizIptalDk: ucretsizIptalDk,
     );
   }
 }
@@ -140,6 +146,7 @@ class VitrinSalonu {
 @immutable
 class VitrinHizmeti {
   const VitrinHizmeti({
+    this.id = '',
     required this.ad,
     required this.sureDk,
     required this.fiyat,
@@ -149,6 +156,7 @@ class VitrinHizmeti {
 
   factory VitrinHizmeti.json(Map<String, dynamic> m) {
     return VitrinHizmeti(
+      id: (m['id'] as String?) ?? '',
       ad: (m['ad'] as String?) ?? '',
       sureDk: (m['sure_dk'] as num?)?.toInt() ?? 0,
       fiyat: (m['fiyat'] as num?)?.toDouble() ?? 0.0,
@@ -157,6 +165,8 @@ class VitrinHizmeti {
     );
   }
 
+  /// Randevu alırken gönderilen kimlik.
+  final String id;
   final String ad;
   final int sureDk;
   final double fiyat;
@@ -302,13 +312,13 @@ class VitrinVerisi {
       istemci
           .from('salonlar')
           .select('id, ad, ilce, sehir, adres, telefon, aciklama, logo_url, kapak_url, '
-              'kapak_odak_x, kapak_odak_y, vitrin, dogrulandi, para_birimi, yayinda')
+              'kapak_odak_x, kapak_odak_y, vitrin, dogrulandi, para_birimi, yayinda, ucretsiz_iptal_dk')
           .eq('id', salonId)
           .single(),
       istemci.from('salon_puanlari').select('ortalama, adet').eq('salon_id', salonId).maybeSingle(),
       istemci
           .from('hizmetler')
-          .select('ad, sure_dk, fiyat, aciklama, kategori')
+          .select('id, ad, sure_dk, fiyat, aciklama, kategori')
           .eq('salon_id', salonId)
           .eq('aktif', true)
           .order('sira', ascending: true),
@@ -360,6 +370,35 @@ class VitrinVerisi {
       return <Map<String, dynamic>>[];
     }
     return liste.whereType<Map<String, dynamic>>().toList();
+  }
+}
+
+/// Salonun yerini Google Haritalar'da açar (ad, adres, ilçe, şehir ile arar). Açılamazsa false.
+Future<bool> maisonYolTarifiAc(VitrinSalonu s) async {
+  final String sorgu = <String?>[s.ad, s.adres, s.ilce, s.sehir]
+      .whereType<String>()
+      .where((String p) => p.trim().isNotEmpty)
+      .join(', ');
+  try {
+    return await launchUrl(
+      Uri.https('www.google.com', '/maps/search/', <String, String>{'api': '1', 'query': sorgu}),
+      mode: LaunchMode.externalApplication,
+    );
+  } catch (_) {
+    return false;
+  }
+}
+
+/// Telefon uygulamasında numarayı açar. Açılamazsa false.
+Future<bool> maisonTelefonAc(String telefon) async {
+  final String rakam = telefon.replaceAll(RegExp(r'[^0-9+]'), '');
+  if (rakam.length < 7) {
+    return false;
+  }
+  try {
+    return await launchUrl(Uri(scheme: 'tel', path: rakam), mode: LaunchMode.externalApplication);
+  } catch (_) {
+    return false;
   }
 }
 

@@ -32,6 +32,25 @@ class _AnaSayfaState extends State<AnaSayfa> {
   Future<_AnaVeri>? _gelecek;
 
   @override
+  void initState() {
+    super.initState();
+    Veri.randevuSurumu.addListener(_randevuDegisti);
+  }
+
+  @override
+  void dispose() {
+    Veri.randevuSurumu.removeListener(_randevuDegisti);
+    super.dispose();
+  }
+
+  /// Randevu alınınca ya da iptal edilince liste yenilenir.
+  void _randevuDegisti() {
+    if (mounted) {
+      _yenile();
+    }
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _gelecek ??= _yukle();

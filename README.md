@@ -75,6 +75,14 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
   Kod 7 gün geçerli ve tek kullanımlıktır; veritabanında yalnız SHA-256 özeti saklanır.
   Salon sahibi kendini "Kendimi ekibe ekle" ile bağlar.
 
+### Randevu ve takvim
+
+- Müşteri boş saatleri `musait_saatler` ile görür: seçtiği hizmetlerin toplam süresi, o hizmetleri yapan
+  ustalar, çalışma saatleri, mevcut randevular, molalar ve salonun hazırlık süresi hesaba katılır (15 dakikalık adımlar).
+- Randevu `randevu_al` ile alınır; çakışan iki randevu veritabanında yazılamaz.
+- Makas Pro'da kapıdan gelen ya da telefonla arayan müşteri `dukkan_randevusu`, mola ve izin `blok_ekle` ile yazılır;
+  geldi / gelmedi işareti `randevu_durumu`, iptal `randevu_iptal` iledir.
+
 ### Fotoğraflar
 
 - İki herkese açık kova: `profil` (müşterinin profil ve kapak fotoğrafı, `profil/<kullanıcı>/…`) ve

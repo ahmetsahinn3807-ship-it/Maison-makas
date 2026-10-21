@@ -21,6 +21,25 @@ class _RandevularimEkraniState extends State<RandevularimEkrani> {
   Future<List<RandevuOzet>>? _gelecek;
 
   @override
+  void initState() {
+    super.initState();
+    Veri.randevuSurumu.addListener(_randevuDegisti);
+  }
+
+  @override
+  void dispose() {
+    Veri.randevuSurumu.removeListener(_randevuDegisti);
+    super.dispose();
+  }
+
+  /// Randevu alınınca ya da iptal edilince liste yenilenir.
+  void _randevuDegisti() {
+    if (mounted) {
+      _yenile();
+    }
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _gelecek ??= _yukle();
@@ -91,7 +110,6 @@ class _RandevularimEkraniState extends State<RandevularimEkrani> {
     try {
       await veri.randevuIptal(randevu.id);
       mesaj.showSnackBar(const SnackBar(content: Text('Randevun iptal edildi.')));
-      await _yenile();
     } catch (hata) {
       mesaj.showSnackBar(SnackBar(content: Text(maisonHataMetni(hata))));
     }

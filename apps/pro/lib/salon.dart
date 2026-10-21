@@ -42,6 +42,7 @@ class TakvimKaydi {
   const TakvimKaydi({
     required this.id,
     required this.tur,
+    required this.ustaId,
     required this.ustaAd,
     required this.musteriAd,
     required this.musteriTel,
@@ -51,12 +52,15 @@ class TakvimKaydi {
     required this.hizmetler,
     required this.toplamFiyat,
     required this.not,
+    this.kaynak = 'uygulama',
+    this.ustaNotu,
   });
 
   factory TakvimKaydi.json(Map<String, dynamic> m) {
     return TakvimKaydi(
       id: m['id'] as String,
       tur: (m['tur'] as String?) ?? 'randevu',
+      ustaId: (m['usta_id'] as String?) ?? '',
       ustaAd: (m['usta_ad'] as String?) ?? '',
       musteriAd: m['musteri_ad'] as String?,
       musteriTel: m['musteri_tel'] as String?,
@@ -66,11 +70,14 @@ class TakvimKaydi {
       hizmetler: m['hizmetler'] as String?,
       toplamFiyat: (m['toplam_fiyat'] as num?)?.toDouble(),
       not: m['musteri_notu'] as String?,
+      kaynak: (m['kaynak'] as String?) ?? 'uygulama',
+      ustaNotu: m['usta_notu'] as String?,
     );
   }
 
   final String id;
   final String tur;
+  final String ustaId;
   final String ustaAd;
   final String? musteriAd;
   final String? musteriTel;
@@ -80,6 +87,34 @@ class TakvimKaydi {
   final String? hizmetler;
   final double? toplamFiyat;
   final String? not;
+
+  /// uygulama, web ya da dukkan (kapıdan gelen / telefon)
+  final String kaynak;
+
+  /// Mola ya da izin notu (ör. "Öğle arası").
+  final String? ustaNotu;
+
+  bool get blok => tur == 'blok';
+
+  /// Randevu saati başladı mı (geldi / gelmedi işaretlenebilir)?
+  bool get basladi => !DateTime.now().isBefore(baslangic);
+
+  String get durumMetni {
+    switch (durum) {
+      case 'bekliyor':
+        return 'Onay bekliyor';
+      case 'onaylandi':
+        return 'Onaylandı';
+      case 'tamamlandi':
+        return 'Geldi';
+      case 'iptal':
+        return 'İptal';
+      case 'gelmedi':
+        return 'Gelmedi';
+      default:
+        return durum;
+    }
+  }
 
   bool get etkin => durum == 'bekliyor' || durum == 'onaylandi' || durum == 'tamamlandi';
 }

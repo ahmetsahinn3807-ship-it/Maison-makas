@@ -8,7 +8,10 @@ import 'ekip_ekrani.dart';
 import 'hazirlik_karti.dart';
 import 'hizmetler_ekrani.dart';
 import 'pro_ayarlar.dart';
+import 'randevu_islemleri.dart';
+import 'randevular_ekrani.dart';
 import 'salon_bilgileri_ekrani.dart';
+import 'takvim_ekrani.dart';
 import 'vitrin_studyosu.dart';
 
 /// Makas Pro ana iskeleti: soldan menü ve Bugün ekranı.
@@ -63,10 +66,8 @@ class _ProKabukState extends State<ProKabuk> {
         drawer: _ProMenu(
           salon: widget.salon,
           bugun: () => _iskele.currentState?.closeDrawer(),
-          takvim: () => _yakinda('Takvim', Icons.calendar_month_outlined,
-              'Haftalık takvim, sürükle-bırak ve kapıdan gelen müşteri 21. adımda geliyor.'),
-          randevular: () => _yakinda('Randevular', Icons.event_note_outlined,
-              'Tüm randevuların listesi ve arama 21. adımda geliyor.'),
+          takvim: () => _ac(TakvimEkrani(salon: widget.salon)),
+          randevular: () => _ac(RandevularEkrani(salon: widget.salon)),
           musteriler: () => _yakinda('Müşteriler', Icons.people_outline,
               'Müşteri kartları, notlar ve stil geçmişi sıradaki adımlarda geliyor.'),
           ekip: _ekibiAc,
@@ -82,6 +83,7 @@ class _ProKabukState extends State<ProKabuk> {
           child: _BugunEkrani(
             salon: widget.salon,
             menuAc: () => _iskele.currentState?.openDrawer(),
+            surum: _surum,
             hazirlik: widget.salon.sahibim
                 ? HazirlikKarti(
                     salon: widget.salon,
@@ -333,10 +335,13 @@ class _Satir extends StatelessWidget {
 
 /// Bugün: günün randevuları, sayı ve tahmini ciro.
 class _BugunEkrani extends StatefulWidget {
-  const _BugunEkrani({required this.salon, required this.menuAc, this.hazirlik});
+  const _BugunEkrani({required this.salon, required this.menuAc, required this.surum, this.hazirlik});
 
   final ProSalon salon;
   final VoidCallback menuAc;
+
+  /// Başka bir ekrandan dönülünce artar; günün listesi yeniden okunur.
+  final int surum;
 
   /// Salon sahibine "Salonun randevuya hazır mı?" listesi.
   final Widget? hazirlik;
@@ -352,6 +357,38 @@ class _BugunEkraniState extends State<_BugunEkrani> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _gelecek ??= _yukle();
+  }
+
+  @override
+  void didUpdateWidget(_BugunEkrani eski) {
+    super.didUpdateWidget(eski);
+    if (eski.surum != widget.surum) {
+      _yenile();
+    }
+  }
+
+  Future<void> _ayrinti(TakvimKaydi k) async {
+    if (await randevuAyrintisiAc(context, k) && mounted) {
+      await _yenile();
+    }
+  }
+
+  Future<void> _kapidanGelen() async {
+    final MaisonOturum oturum = OturumKapsami.oku(context);
+    final ScaffoldMessengerState mesaj = ScaffoldMessenger.of(context);
+    TakvimTanimlari tanim;
+    try {
+      tanim = await TakvimTanimlari.yukle(await oturum.istemciGerekli(), widget.salon, oturum.kullanici?.id);
+    } catch (hata) {
+      mesaj.showSnackBar(SnackBar(content: Text(maisonHataMetni(hata))));
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+    if (await kapidanGelenAc(context, salon: widget.salon, tanimlar: tanim) && mounted) {
+      await _yenile();
+    }
   }
 
   Future<List<TakvimKaydi>> _yukle() async {
@@ -430,7 +467,16 @@ class _BugunEkraniState extends State<_BugunEkrani> {
                       Expanded(child: _Ozet(baslik: 'TAHMİNİ CİRO', deger: maisonPara(ciro, 'TRY'))),
                     ],
                   ),
-                  const SizedBox(height: 22),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    height: 48,
+                    child: OutlinedButton.icon(
+                      onPressed: _kapidanGelen,
+                      icon: const Icon(Icons.person_add_alt, size: 18),
+                      label: const Text('Kapıdan gelen müşteri'),
+                    ),
+                  ),
+                  const SizedBox(height: 18),
                   if (liste.isEmpty)
                     MaisonBosDurum(
                       ikon: Icons.event_available_outlined,
@@ -443,7 +489,7 @@ class _BugunEkraniState extends State<_BugunEkrani> {
                     for (final TakvimKaydi k in liste)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child: _KayitSatiri(kayit: k),
+                        child: TakvimSatiri(kayit: k, onTap: () => _ayrinti(k)),
                       ),
                 ],
               );
@@ -482,73 +528,6 @@ class _Ozet extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: maisonBaslik(30, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.0),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _KayitSatiri extends StatelessWidget {
-  const _KayitSatiri({required this.kayit});
-
-  final TakvimKaydi kayit;
-
-  @override
-  Widget build(BuildContext context) {
-    final MaisonRenkler r = MaisonRenkler.of(context);
-    final TakvimKaydi k = kayit;
-    final bool blok = k.tur == 'blok';
-    final bool sonuk = !k.etkin;
-    final String baslik = blok ? 'Mola / blok' : (k.musteriAd ?? 'Misafir');
-    final String alt = blok ? k.ustaAd : '${k.hizmetler ?? 'Randevu'} · ${k.ustaAd}';
-    return Container(
-      padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
-      decoration: BoxDecoration(
-        color: blok ? r.girdi : r.kart,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: r.cizgi),
-      ),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 58,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  maisonSaat(k.baslangic),
-                  style: maisonGovde(15, renk: sonuk ? r.soluk : r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.2),
-                ),
-                Text(
-                  maisonSaat(k.bitis),
-                  style: maisonGovde(12, renk: r.soluk, yukseklik: 1.3),
-                ),
-              ],
-            ),
-          ),
-          Container(width: 1, height: 38, color: r.cizgi),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  baslik,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: maisonGovde(15, renk: sonuk ? r.soluk : r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
-                ),
-                Text(
-                  alt,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: maisonGovde(13, renk: r.soluk, yukseklik: 1.3),
-                ),
-              ],
-            ),
-          ),
-          if (k.durum == 'iptal')
-            Text('İptal', style: maisonGovde(12, renk: r.soluk, kalinlik: FontWeight.w600)),
         ],
       ),
     );
