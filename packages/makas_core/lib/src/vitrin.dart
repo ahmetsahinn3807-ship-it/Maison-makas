@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart' show LaunchMode, launchUrl;
 
 import 'bilesenler.dart';
 import 'foto.dart';
+import 'isletme.dart';
 import 'oturum.dart';
 import 'renkler.dart';
 import 'tarih.dart';
@@ -138,7 +139,13 @@ class VitrinSalonu {
 /// Hizmet menüsünde bir kalem.
 @immutable
 class VitrinHizmeti {
-  const VitrinHizmeti({required this.ad, required this.sureDk, required this.fiyat, this.aciklama});
+  const VitrinHizmeti({
+    required this.ad,
+    required this.sureDk,
+    required this.fiyat,
+    this.aciklama,
+    this.kategori = HizmetKategorisi.sac,
+  });
 
   factory VitrinHizmeti.json(Map<String, dynamic> m) {
     return VitrinHizmeti(
@@ -146,6 +153,7 @@ class VitrinHizmeti {
       sureDk: (m['sure_dk'] as num?)?.toInt() ?? 0,
       fiyat: (m['fiyat'] as num?)?.toDouble() ?? 0.0,
       aciklama: m['aciklama'] as String?,
+      kategori: HizmetKategorisi.kimliktenBul(m['kategori']),
     );
   }
 
@@ -153,6 +161,7 @@ class VitrinHizmeti {
   final int sureDk;
   final double fiyat;
   final String? aciklama;
+  final HizmetKategorisi kategori;
 }
 
 /// Galeri duvarında bir fotoğraf.
@@ -187,14 +196,22 @@ class VitrinFotografi {
 /// Ekipte bir usta.
 @immutable
 class VitrinUstasi {
-  const VitrinUstasi({required this.id, required this.ad, this.unvan, this.fotoUrl});
+  const VitrinUstasi({
+    required this.id,
+    required this.ad,
+    this.unvan,
+    this.fotoUrl,
+    this.uzmanlik = const <String>[],
+  });
 
   factory VitrinUstasi.json(Map<String, dynamic> m) {
+    final Object? uzmanlik = m['uzmanlik'];
     return VitrinUstasi(
       id: m['id'] as String,
       ad: (m['ad'] as String?) ?? '',
       unvan: m['unvan'] as String?,
       fotoUrl: m['foto_url'] as String?,
+      uzmanlik: uzmanlik is List ? uzmanlik.whereType<String>().toList() : const <String>[],
     );
   }
 
@@ -202,6 +219,7 @@ class VitrinUstasi {
   final String ad;
   final String? unvan;
   final String? fotoUrl;
+  final List<String> uzmanlik;
 
   String get basHarfler {
     final List<String> kelimeler =
@@ -255,6 +273,7 @@ class VitrinVerisi {
     this.galeri = const <VitrinFotografi>[],
     this.ekip = const <VitrinUstasi>[],
     this.yorumlar = const <VitrinYorumu>[],
+    this.saatler,
   });
 
   final VitrinSalonu salon;
@@ -263,6 +282,9 @@ class VitrinVerisi {
   final List<VitrinUstasi> ekip;
   final List<VitrinYorumu> yorumlar;
 
+  /// Salonun haftalık açık saatleri; sunucuda henüz yoksa null.
+  final SalonSaatleri? saatler;
+
   VitrinVerisi copyWith({VitrinSalonu? salon, List<VitrinFotografi>? galeri}) {
     return VitrinVerisi(
       salon: salon ?? this.salon,
@@ -270,6 +292,7 @@ class VitrinVerisi {
       galeri: galeri ?? this.galeri,
       ekip: ekip,
       yorumlar: yorumlar,
+      saatler: saatler,
     );
   }
 
@@ -285,7 +308,7 @@ class VitrinVerisi {
       istemci.from('salon_puanlari').select('ortalama, adet').eq('salon_id', salonId).maybeSingle(),
       istemci
           .from('hizmetler')
-          .select('ad, sure_dk, fiyat, aciklama')
+          .select('ad, sure_dk, fiyat, aciklama, kategori')
           .eq('salon_id', salonId)
           .eq('aktif', true)
           .order('sira', ascending: true),
@@ -298,7 +321,7 @@ class VitrinVerisi {
           .limit(60),
       istemci
           .from('ustalar')
-          .select('id, ad, unvan, foto_url')
+          .select('id, ad, unvan, foto_url, uzmanlik')
           .eq('salon_id', salonId)
           .eq('aktif', true)
           .order('sira', ascending: true),
@@ -309,6 +332,10 @@ class VitrinVerisi {
           .eq('gizli', false)
           .order('olusturuldu', ascending: false)
           .limit(30),
+      // 20. adımın SQL kodu çalıştırılmadıysa saatler gösterilmez; vitrin yine açılır.
+      istemci
+          .rpc('salon_saatleri', params: <String, dynamic>{'p_salon': salonId})
+          .then<Object?>((Object? sonuc) => sonuc, onError: (Object _) => null),
     ]);
     final Object? salonSatiri = sonuc[0];
     final Object? puanSatiri = sonuc[1];
@@ -324,6 +351,7 @@ class VitrinVerisi {
       galeri: _satirlar(sonuc[3]).map(VitrinFotografi.json).where((VitrinFotografi f) => f.url.isNotEmpty).toList(),
       ekip: _satirlar(sonuc[4]).map(VitrinUstasi.json).toList(),
       yorumlar: _satirlar(sonuc[5]).map(VitrinYorumu.json).toList(),
+      saatler: sonuc[6] is Map ? SalonSaatleri.json(sonuc[6]) : null,
     );
   }
 
@@ -668,6 +696,8 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
             ),
             style: maisonGovde(14, renk: r.soluk, yukseklik: 1.3),
           ),
+          if (widget.veri?.saatler case final SalonSaatleri saatler when !saatler.bos)
+            _durumSatiri(r, saatler),
           if (aciklama != null && aciklama.trim().isNotEmpty) ...<Widget>[
             const SizedBox(height: 12),
             Text(
@@ -723,6 +753,52 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
     );
   }
 
+  /// "Şu an açık · 20:00'de kapanır" satırı; dokununca haftalık saatler açılır.
+  Widget _durumSatiri(MaisonRenkler r, SalonSaatleri saatler) {
+    final SalonDurumu? d = saatler.durum();
+    final String metin = d?.metin ?? 'Çalışma saatleri';
+    final bool acik = d?.acik ?? false;
+    return Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: widget.onizleme
+              ? null
+              : () => maisonHaftalikSaatleriGoster(context, baslik: 'Çalışma saatleri', saatler: saatler),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: acik ? const Color(0xFF3FA66B) : r.soluk,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    metin,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: maisonGovde(14, renk: acik ? r.yazi : r.soluk, kalinlik: FontWeight.w500, yukseklik: 1.3),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Icon(Icons.expand_more, size: 18, color: r.soluk),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   List<Widget> _icerik(MaisonRenkler r, VitrinSalonu s, int sekme) {
     final String? hata = widget.hata;
     if (hata != null && widget.veri == null) {
@@ -761,13 +837,29 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
     if (hizmetler.isEmpty) {
       return _bos(Icons.content_cut, 'Hizmet menüsü yakında', 'Salon hizmetlerini ve fiyatlarını eklediğinde burada görünecek.');
     }
+    // Kategori başlıkları yalnız birden çok kategori varsa gösterilir.
+    final Set<HizmetKategorisi> kategoriler = hizmetler.map((VitrinHizmeti h) => h.kategori).toSet();
+    final List<Object> satirlar = <Object>[
+      for (final HizmetKategorisi k in HizmetKategorisi.values)
+        if (kategoriler.contains(k)) ...<Object>[
+          if (kategoriler.length > 1) k,
+          ...hizmetler.where((VitrinHizmeti h) => h.kategori == k),
+        ],
+    ];
     return <Widget>[
       SliverPadding(
         padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
         sliver: SliverList.builder(
-          itemCount: hizmetler.length,
+          itemCount: satirlar.length,
           itemBuilder: (BuildContext context, int i) {
-            final VitrinHizmeti h = hizmetler[i];
+            final Object satir = satirlar[i];
+            if (satir is HizmetKategorisi) {
+              return Padding(
+                padding: EdgeInsets.only(top: i == 0 ? 12 : 26, bottom: 2),
+                child: MaisonUstBaslik(maisonBuyukHarf(satir.ad)),
+              );
+            }
+            final VitrinHizmeti h = satir as VitrinHizmeti;
             final String? aciklama = h.aciklama;
             return Container(
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -870,6 +962,27 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
                         Text(u.ad, style: maisonGovde(16, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3)),
                         if (unvan != null && unvan.trim().isNotEmpty)
                           Text(unvan, style: maisonGovde(13, renk: r.soluk, yukseklik: 1.3)),
+                        if (u.uzmanlik.isNotEmpty) ...<Widget>[
+                          const SizedBox(height: 6),
+                          Wrap(
+                            spacing: 6,
+                            runSpacing: 4,
+                            children: <Widget>[
+                              for (final String uzmanlik in u.uzmanlik.take(4))
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                  decoration: BoxDecoration(
+                                    color: r.vurguYumusak,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    uzmanlik,
+                                    style: maisonGovde(11, renk: r.vurgu, kalinlik: FontWeight.w600, yukseklik: 1.2),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ],
                       ],
                     ),
                   ),

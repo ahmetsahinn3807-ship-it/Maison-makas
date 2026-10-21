@@ -7,6 +7,7 @@ export 'src/bilesenler.dart';
 export 'src/foto.dart';
 export 'src/fotograf_yukleme.dart';
 export 'src/giris_ekrani.dart';
+export 'src/isletme.dart';
 export 'src/oturum.dart';
 export 'src/palet.dart';
 export 'src/renkler.dart';

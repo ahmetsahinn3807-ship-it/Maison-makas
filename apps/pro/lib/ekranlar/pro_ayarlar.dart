@@ -3,6 +3,7 @@ import 'package:makas_core/makas_core.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
 
 import '../salon.dart';
+import 'salon_bilgileri_ekrani.dart';
 
 /// Makas Pro ayarları: salonu yayına alma, çıkış ve hesap silme.
 class ProAyarlar extends StatefulWidget {
@@ -136,6 +137,47 @@ class _ProAyarlarState extends State<ProAyarlar> {
             const SizedBox(height: 26),
             const MaisonUstBaslik('SALON'),
             const SizedBox(height: 12),
+            Material(
+              color: r.kart,
+              borderRadius: BorderRadius.circular(18),
+              clipBehavior: Clip.antiAlias,
+              child: InkWell(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) =>
+                        SalonBilgileriEkrani(salon: widget.salon, salonDegisti: widget.salonDegisti),
+                  ),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: r.cizgi),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Salon bilgileri',
+                              style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
+                            ),
+                            Text(
+                              'Tanıtım, adres, telefon, hazırlık ve iptal süresi',
+                              style: maisonGovde(13, renk: r.soluk, yukseklik: 1.35),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Icon(Icons.chevron_right, color: r.soluk),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
               decoration: BoxDecoration(
@@ -224,7 +266,7 @@ class _ProAyarlarState extends State<ProAyarlar> {
             const SizedBox(height: 28),
             Center(
               child: Text(
-                'Makas Pro · sürüm 0.3.0',
+                'Makas Pro · sürüm 0.4.0',
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.2),
               ),
             ),

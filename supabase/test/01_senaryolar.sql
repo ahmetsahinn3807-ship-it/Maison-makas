@@ -56,8 +56,12 @@ end $$;
 
 -- Ustalar, hizmetler, usta_hizmet, çalışma saatleri
 insert into public.ustalar (id, salon_id, kullanici_id, ad, sira) values
-  (:u1, :salon, :ustaK, 'Mehmet', 1),
+  (:u1, :salon, null, 'Mehmet', 1),
   (:u2, :salon, null, 'Can', 2);
+-- 20. adımdan beri bir hesap ekibe yalnız davet koduyla bağlanır; testte doğrudan bağlanır.
+reset role;
+update public.ustalar set kullanici_id = :ustaK where id = :u1;
+set role authenticated;
 insert into public.hizmetler (id, salon_id, ad, sure_dk, fiyat, kategori, sira) values
   (:h1, :salon, 'Saç kesimi', 30, 400, 'sac', 1),
   (:h2, :salon, 'Sakal', 20, 250, 'sakal', 2),

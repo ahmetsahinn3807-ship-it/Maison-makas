@@ -66,6 +66,15 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
 - Hesap silme uygulama içindedir (`hesabimi_sil`). Salon sahibi Makas Pro'dan salonuyla birlikte siler;
   yaklaşan randevusu olan salon silinmez.
 
+### Ekip ve çalışma saatleri
+
+- Hizmetler, ustalar ve haftalık saatler Makas Pro'dan yönetilir. Saatler `usta_saatlerini_kaydet` ile
+  tek seferde yazılır (çakışan aralık reddedilir); boş saatler `bos_saatler` bu tablodan hesaplanır.
+- Bir ustanın yaptığı hizmetler `usta_hizmet` tablosundadır; liste boşsa usta bütün hizmetleri yapar.
+- Bir hesap ekibe yalnız **davet koduyla** bağlanır (`usta_davet_kodu_olustur` → `usta_davetini_kabul_et`).
+  Kod 7 gün geçerli ve tek kullanımlıktır; veritabanında yalnız SHA-256 özeti saklanır.
+  Salon sahibi kendini "Kendimi ekibe ekle" ile bağlar.
+
 ### Fotoğraflar
 
 - İki herkese açık kova: `profil` (müşterinin profil ve kapak fotoğrafı, `profil/<kullanıcı>/…`) ve

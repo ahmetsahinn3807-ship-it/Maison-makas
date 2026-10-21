@@ -382,6 +382,12 @@ String maisonHataMetni(Object hata) {
     if (kod == '23505') {
       return 'Bu kayıt zaten var.';
     }
+    if (kod == '23503') {
+      return 'Bu kayıt başka kayıtlarda kullanıldığı için silinemez.';
+    }
+    if (kod == '23514') {
+      return 'Girdiğin bilgilerden biri kurala uymuyor (ör. çok uzun ya da geçersiz).';
+    }
     if (kod == '23P01') {
       return 'Bu saat az önce doldu. Başka bir saat seç.';
     }

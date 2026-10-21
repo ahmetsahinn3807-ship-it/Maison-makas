@@ -26,7 +26,11 @@ values (:salon, :sahip, 'maison-ahmet', 'Maison Ahmet', true, 'İstanbul', 'Sanc
 returning ad;
 insert into public.salonlar (sahip_id, kisa_ad, ad, yayinda) values (:sahip, 'gizli-salon', 'Gizli Salon', false);
 insert into public.ustalar (id, salon_id, kullanici_id, ad, sira) values
-  (:u1, :salon, :ustaK, 'Mehmet', 1), (:u2, :salon, null, 'Can', 2);
+  (:u1, :salon, null, 'Mehmet', 1), (:u2, :salon, null, 'Can', 2);
+-- 20. adımdan beri bir hesap ekibe yalnız davet koduyla bağlanır; testte doğrudan bağlanır.
+reset role;
+update public.ustalar set kullanici_id = :ustaK where id = :u1;
+set role authenticated;
 insert into public.hizmetler (id, salon_id, ad, sure_dk, fiyat) values (:h1, :salon, 'Saç kesimi', 30, 400);
 insert into public.calisma_saatleri (salon_id, usta_id, gun, baslangic, bitis)
 select :salon::uuid, u.id, g, '09:00', '19:00'

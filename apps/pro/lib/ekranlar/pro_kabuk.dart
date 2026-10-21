@@ -4,7 +4,11 @@ import 'package:makas_core/makas_core.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
 
 import '../salon.dart';
+import 'ekip_ekrani.dart';
+import 'hazirlik_karti.dart';
+import 'hizmetler_ekrani.dart';
 import 'pro_ayarlar.dart';
+import 'salon_bilgileri_ekrani.dart';
 import 'vitrin_studyosu.dart';
 
 /// Makas Pro ana iskeleti: soldan menü ve Bugün ekranı.
@@ -23,10 +27,26 @@ class ProKabuk extends StatefulWidget {
 class _ProKabukState extends State<ProKabuk> {
   final GlobalKey<ScaffoldState> _iskele = GlobalKey<ScaffoldState>();
 
-  void _ac(Widget sayfa) {
+  /// Bir ekrandan dönülünce artar; Bugün'deki hazırlık listesi yeniden okunur.
+  int _surum = 0;
+
+  Future<void> _ac(Widget sayfa) async {
     _iskele.currentState?.closeDrawer();
-    Navigator.of(context).push(MaterialPageRoute<void>(builder: (BuildContext context) => sayfa));
+    await Navigator.of(context).push(MaterialPageRoute<void>(builder: (BuildContext context) => sayfa));
+    if (mounted) {
+      setState(() => _surum++);
+    }
   }
+
+  void _hizmetleriAc() => _ac(HizmetlerEkrani(salon: widget.salon));
+
+  void _ekibiAc() => _ac(EkipEkrani(salon: widget.salon, salonDegisti: widget.yenile));
+
+  void _vitriniAc() => _ac(VitrinStudyosu(salon: widget.salon, salonDegisti: widget.yenile));
+
+  void _bilgileriAc() => _ac(SalonBilgileriEkrani(salon: widget.salon, salonDegisti: widget.yenile));
+
+  void _ayarlariAc() => _ac(ProAyarlar(salon: widget.salon, salonDegisti: widget.yenile));
 
   void _yakinda(String baslik, IconData ikon, String aciklama) {
     _ac(MaisonYakindaEkrani(baslik: baslik, ikon: ikon, aciklama: aciklama));
@@ -49,21 +69,30 @@ class _ProKabukState extends State<ProKabuk> {
               'Tüm randevuların listesi ve arama 21. adımda geliyor.'),
           musteriler: () => _yakinda('Müşteriler', Icons.people_outline,
               'Müşteri kartları, notlar ve stil geçmişi sıradaki adımlarda geliyor.'),
-          ekip: () => _yakinda('Ekip', Icons.groups_outlined,
-              'Ustalar ve çalışma saatleri 20. adımda geliyor.'),
-          hizmetler: () => _yakinda('Hizmetler', Icons.content_cut,
-              'Hizmet menüsü, süreler ve fiyatlar 20. adımda geliyor.'),
-          vitrin: () => _ac(VitrinStudyosu(salon: widget.salon, salonDegisti: widget.yenile)),
+          ekip: _ekibiAc,
+          hizmetler: _hizmetleriAc,
+          vitrin: _vitriniAc,
           kasa: () => _yakinda('Kasa ve adisyon', Icons.point_of_sale_outlined,
               'Biten randevular adisyona dönüşecek; günlük ve aylık ciro burada.'),
           raporlar: () => _yakinda('Raporlar', Icons.insights_outlined,
               'Doluluk, gelir ve müşteri raporları premium pakette geliyor.'),
-          ayarlar: () => _ac(ProAyarlar(salon: widget.salon, salonDegisti: widget.yenile)),
+          ayarlar: _ayarlariAc,
         ),
         body: SafeArea(
           child: _BugunEkrani(
             salon: widget.salon,
             menuAc: () => _iskele.currentState?.openDrawer(),
+            hazirlik: widget.salon.sahibim
+                ? HazirlikKarti(
+                    salon: widget.salon,
+                    surum: _surum,
+                    hizmetler: _hizmetleriAc,
+                    ekip: _ekibiAc,
+                    vitrin: _vitriniAc,
+                    bilgiler: _bilgileriAc,
+                    ayarlar: _ayarlariAc,
+                  )
+                : null,
           ),
         ),
       ),
@@ -304,10 +333,13 @@ class _Satir extends StatelessWidget {
 
 /// Bugün: günün randevuları, sayı ve tahmini ciro.
 class _BugunEkrani extends StatefulWidget {
-  const _BugunEkrani({required this.salon, required this.menuAc});
+  const _BugunEkrani({required this.salon, required this.menuAc, this.hazirlik});
 
   final ProSalon salon;
   final VoidCallback menuAc;
+
+  /// Salon sahibine "Salonun randevuya hazır mı?" listesi.
+  final Widget? hazirlik;
 
   @override
   State<_BugunEkrani> createState() => _BugunEkraniState();
@@ -371,6 +403,7 @@ class _BugunEkraniState extends State<_BugunEkrani> {
           const SizedBox(height: 4),
           Text('Bugün', style: maisonBaslik(42, renk: r.yazi, yukseklik: 1.05)),
           const SizedBox(height: 18),
+          if (widget.hazirlik case final Widget hazirlik) hazirlik,
           FutureBuilder<List<TakvimKaydi>>(
             future: _gelecek,
             builder: (BuildContext context, AsyncSnapshot<List<TakvimKaydi>> durum) {

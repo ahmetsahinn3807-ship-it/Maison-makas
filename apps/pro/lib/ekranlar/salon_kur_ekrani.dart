@@ -125,6 +125,21 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
     await OturumKapsami.oku(context).cikisYap();
   }
 
+  /// Usta, salon sahibinden aldığı kodla ekibe katılır.
+  Future<void> _davetKoduGir() async {
+    final MaisonRenkler r = MaisonRenkler.of(context);
+    final bool? katildi = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: r.kart,
+      showDragHandle: true,
+      builder: (BuildContext context) => const _DavetKoduFormu(),
+    );
+    if (katildi == true && mounted) {
+      widget.onKuruldu();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final MaisonRenkler r = MaisonRenkler.of(context);
@@ -258,6 +273,150 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
                 'Salonun taslak olarak açılır; hazır olunca Ayarlar\'dan yayına alırsın.',
                 textAlign: TextAlign.center,
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.5),
+              ),
+              const SizedBox(height: 28),
+              Container(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 14),
+                decoration: BoxDecoration(
+                  color: r.kart,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: r.cizgi),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text(
+                      'Bir salonda usta mısın?',
+                      style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Salon kurmana gerek yok. Salon sahibinden aldığın davet koduyla ekibe katıl; '
+                      'kendi randevularını burada görürsün.',
+                      style: maisonGovde(13, renk: r.soluk, yukseklik: 1.4),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      height: 48,
+                      child: OutlinedButton.icon(
+                        onPressed: _kaydediliyor ? null : _davetKoduGir,
+                        icon: const Icon(Icons.key_outlined, size: 18),
+                        label: const Text('Davet kodum var'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Davet kodunu alır ve ekibe katılır; başarılıysa true ile kapanır.
+class _DavetKoduFormu extends StatefulWidget {
+  const _DavetKoduFormu();
+
+  @override
+  State<_DavetKoduFormu> createState() => _DavetKoduFormuState();
+}
+
+class _DavetKoduFormuState extends State<_DavetKoduFormu> {
+  final TextEditingController _kod = TextEditingController();
+  bool _gonderiliyor = false;
+  String? _hata;
+
+  @override
+  void dispose() {
+    _kod.dispose();
+    super.dispose();
+  }
+
+  Future<void> _katil() async {
+    final String kod = _kod.text.replaceAll(RegExp(r'[^A-Za-z0-9]'), '');
+    if (kod.length != 8) {
+      setState(() => _hata = 'Kod 8 karakter olmalı (ör. ABCD-EFGH).');
+      return;
+    }
+    final MaisonOturum oturum = OturumKapsami.oku(context);
+    final NavigatorState gezgin = Navigator.of(context);
+    setState(() {
+      _gonderiliyor = true;
+      _hata = null;
+    });
+    try {
+      final SupabaseClient i = await oturum.istemciGerekli();
+      await i.rpc('usta_davetini_kabul_et', params: <String, dynamic>{'p_kod': kod});
+      gezgin.pop(true);
+    } catch (hata) {
+      if (mounted) {
+        setState(() {
+          _gonderiliyor = false;
+          _hata = maisonHataMetni(hata);
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final MaisonRenkler r = MaisonRenkler.of(context);
+    final String? hata = _hata;
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 16 + MediaQuery.viewInsetsOf(context).bottom),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text('Davet kodu', style: maisonBaslik(28, renk: r.yazi, kalinlik: FontWeight.w600)),
+              const SizedBox(height: 6),
+              Text(
+                'Salon sahibinin Makas Pro > Ekip ekranından oluşturup sana gönderdiği kodu yaz.',
+                style: maisonGovde(13, renk: r.soluk, yukseklik: 1.45),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _kod,
+                autofocus: true,
+                textAlign: TextAlign.center,
+                textCapitalization: TextCapitalization.characters,
+                maxLength: 9,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z0-9-]')),
+                ],
+                onSubmitted: (String _) => _katil(),
+                style: maisonBaslik(32, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1, aralik: 3),
+                decoration: InputDecoration(
+                  counterText: '',
+                  hintText: 'ABCD-EFGH',
+                  hintStyle: maisonBaslik(32, renk: r.cizgi, kalinlik: FontWeight.w600, yukseklik: 1.1, aralik: 3),
+                  filled: true,
+                  fillColor: r.girdi,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: r.cizgi),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(color: r.cizgi),
+                  ),
+                ),
+              ),
+              if (hata != null) ...<Widget>[
+                const SizedBox(height: 12),
+                MaisonHataKutusu(hata),
+              ],
+              const SizedBox(height: 16),
+              SizedBox(
+                height: 52,
+                child: FilledButton(
+                  onPressed: _gonderiliyor ? null : _katil,
+                  child: Text(_gonderiliyor ? 'Katılıyor…' : 'Ekibe katıl'),
+                ),
               ),
             ],
           ),
