@@ -3,6 +3,8 @@ import 'package:makas_core/makas_core.dart';
 
 import '../dil.dart';
 import '../gorunum.dart';
+import '../hatirlatma.dart';
+import '../veri.dart';
 
 /// Ayarlar ve destek: dil, çıkış, hesap silme ve gizlilik.
 class AyarlarEkrani extends StatefulWidget {
@@ -14,6 +16,32 @@ class AyarlarEkrani extends StatefulWidget {
 
 class _AyarlarEkraniState extends State<AyarlarEkrani> {
   bool _isleniyor = false;
+
+  /// Randevu hatırlatmaları; okunana kadar null.
+  bool? _hatirlatma;
+
+  @override
+  void initState() {
+    super.initState();
+    MaisonBildirim.hatirlatmaAcik().then((bool acik) {
+      if (mounted) {
+        setState(() => _hatirlatma = acik);
+      }
+    });
+  }
+
+  Future<void> _hatirlatmaDegistir(bool acik) async {
+    final Veri veri = Veri.of(context);
+    final ScaffoldMessengerState mesaj = ScaffoldMessenger.of(context);
+    setState(() => _hatirlatma = acik);
+    await MaisonBildirim.hatirlatmaAyarla(acik);
+    if (acik && !await MaisonBildirim.izinIste()) {
+      mesaj.showSnackBar(
+        const SnackBar(content: Text('Bildirim izni kapalı. Telefonun Ayarlar > Bildirimler bölümünden açabilirsin.')),
+      );
+    }
+    await RandevuHatirlatici.esitle(veri);
+  }
 
   Future<void> _cikisYap() async {
     final MaisonOturum oturum = OturumKapsami.oku(context);
@@ -109,6 +137,45 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
               style: maisonGovde(12, renk: r.soluk, yukseklik: 1.4),
             ),
             const SizedBox(height: 28),
+            const MaisonUstBaslik('BİLDİRİMLER'),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 10, 10, 10),
+              decoration: BoxDecoration(
+                color: r.kart,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: r.cizgi),
+              ),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Randevu hatırlatmaları',
+                          style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
+                        ),
+                        Text(
+                          'Randevudan 24 saat ve 2 saat önce bu telefona bildirim gelir.',
+                          style: maisonGovde(13, renk: r.soluk, yukseklik: 1.35),
+                        ),
+                      ],
+                    ),
+                  ),
+                  MaisonAnahtar(
+                    deger: _hatirlatma ?? true,
+                    etiket: 'Randevu hatırlatmaları',
+                    onChanged: (bool yeni) {
+                      if (_hatirlatma != null) {
+                        _hatirlatmaDegistir(yeni);
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 28),
             const MaisonUstBaslik('HESAP'),
             const SizedBox(height: 12),
             Container(
@@ -160,7 +227,7 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
             const SizedBox(height: 28),
             Center(
               child: Text(
-                'Maison Makas · sürüm 0.5.0',
+                'Maison Makas · sürüm 0.6.0',
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.2),
               ),
             ),

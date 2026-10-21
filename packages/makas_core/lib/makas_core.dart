@@ -3,6 +3,7 @@ library;
 
 export 'src/amblem.dart';
 export 'src/baslatma.dart';
+export 'src/bildirim.dart';
 export 'src/bilesenler.dart';
 export 'src/foto.dart';
 export 'src/fotograf_yukleme.dart';

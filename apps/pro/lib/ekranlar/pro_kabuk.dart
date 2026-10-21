@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:makas_core/makas_core.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
 
+import '../canli_takip.dart';
 import '../salon.dart';
 import 'ekip_ekrani.dart';
 import 'hazirlik_karti.dart';
@@ -27,8 +28,61 @@ class ProKabuk extends StatefulWidget {
   State<ProKabuk> createState() => _ProKabukState();
 }
 
-class _ProKabukState extends State<ProKabuk> {
+class _ProKabukState extends State<ProKabuk> with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _iskele = GlobalKey<ScaffoldState>();
+  SalonDinleyici? _dinleyici;
+  bool _onde = true;
+  int _bildirimNo = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((Duration _) => _canliTakibiBaslat());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _dinleyici?.durdur();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState durum) {
+    _onde = durum == AppLifecycleState.resumed;
+  }
+
+  /// Yeni randevu ve iptaller: uygulama öndeyse ekranda, arkadaysa bildirim olarak.
+  void _canliTakibiBaslat() {
+    if (!mounted) {
+      return;
+    }
+    final SupabaseClient? istemci = OturumKapsami.oku(context).istemci;
+    if (istemci == null) {
+      return;
+    }
+    MaisonBildirim.izinIste();
+    _dinleyici = SalonDinleyici(
+      istemci: istemci,
+      salonId: widget.salon.id,
+      onDegisti: () {
+        if (mounted) {
+          setState(() => _surum++);
+        }
+      },
+      onBildir: (String baslik, String metin) {
+        if (!mounted) {
+          return;
+        }
+        if (_onde) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$baslik · $metin')));
+        } else {
+          MaisonBildirim.goster(id: 3000 + (_bildirimNo++ % 50), baslik: baslik, metin: metin);
+        }
+      },
+    )..baslat();
+  }
 
   /// Bir ekrandan dönülünce artar; Bugün'deki hazırlık listesi yeniden okunur.
   int _surum = 0;

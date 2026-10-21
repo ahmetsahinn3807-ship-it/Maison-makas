@@ -83,6 +83,20 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
 - Makas Pro'da kapıdan gelen ya da telefonla arayan müşteri `dukkan_randevusu`, mola ve izin `blok_ekle` ile yazılır;
   geldi / gelmedi işareti `randevu_durumu`, iptal `randevu_iptal` iledir.
 
+### Bildirimler
+
+- **Hatırlatmalar** müşterinin telefonunda zamanlanır (`flutter_local_notifications`): her yaklaşan randevu için
+  24 saat ve 2 saat önce. Sunucu gerekmez, uygulama kapalıyken de gelir. Randevu alınınca, iptal edilince ve
+  uygulama açılınca liste baştan kurulur. Ayarlar → Bildirimler'den kapatılabilir (telefonda saklanır).
+  Android pil tasarrufu nedeniyle birkaç dakika kayabilir.
+- **Canlı güncelleme** Supabase Realtime iledir (`randevular` tablosu `supabase_realtime` yayınında, 0006).
+  RLS geçerlidir: herkes yalnız görmeye yetkili olduğu satırların değişikliğini alır.
+  - Makas Pro açıkken: müşteri uygulamadan randevu alır ya da iptal ederse liste anında yenilenir ve uyarı çıkar.
+  - Maison Makas açıkken: salon randevuyu iptal ederse müşteriye bildirim gelir.
+- Uygulamalar tamamen kapalıyken anlık bildirim (Firebase push) mağaza yayınından önce eklenecek.
+- Android'de zamanlanmış bildirimler için `AndroidManifest.xml` alıcıları ve `build.gradle.kts` içinde
+  core library desugaring gerekir; ikisi de projede hazır.
+
 ### Fotoğraflar
 
 - İki herkese açık kova: `profil` (müşterinin profil ve kapak fotoğrafı, `profil/<kullanıcı>/…`) ve

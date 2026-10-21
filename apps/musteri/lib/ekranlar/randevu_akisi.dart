@@ -251,6 +251,10 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
           _gonderiliyor = false;
         });
       }
+      // Hatırlatmalar için bildirim izni (yalnız ilk seferde sorulur; sonra sistem hatırlar).
+      if (await MaisonBildirim.hatirlatmaAcik()) {
+        await MaisonBildirim.izinIste();
+      }
     } catch (hata) {
       if (!mounted) {
         return;
@@ -780,7 +784,8 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
         ),
         const SizedBox(height: 14),
         Text(
-          '$iptalMetni İptal etmen gerekirse Randevularım\'dan yapabilirsin.',
+          'Randevudan 24 saat ve 2 saat önce telefonuna hatırlatma gelir. $iptalMetni '
+          'İptal etmen gerekirse Randevularım\'dan yapabilirsin.',
           textAlign: TextAlign.center,
           style: maisonGovde(13, renk: r.soluk, yukseklik: 1.5),
         ),

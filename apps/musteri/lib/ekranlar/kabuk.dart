@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:makas_core/makas_core.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
 
 import '../gorunum.dart';
+import '../hatirlatma.dart';
+import '../veri.dart';
 import 'ana_sayfa.dart';
 import 'ayarlar_ekrani.dart';
 import 'gorunum_ekrani.dart';
@@ -23,6 +26,41 @@ class _KabukState extends State<Kabuk> {
   final GlobalKey<ScaffoldState> _iskele = GlobalKey<ScaffoldState>();
   int _sekme = 0;
   int _randevuSekmesi = 0;
+  RandevuDinleyici? _dinleyici;
+
+  @override
+  void initState() {
+    super.initState();
+    Veri.randevuSurumu.addListener(_hatirlatmalariKur);
+    WidgetsBinding.instance.addPostFrameCallback((Duration _) => _baslat());
+  }
+
+  @override
+  void dispose() {
+    Veri.randevuSurumu.removeListener(_hatirlatmalariKur);
+    _dinleyici?.durdur();
+    super.dispose();
+  }
+
+  /// Açılışta: hatırlatmaları kurar, salonun yaptığı değişiklikleri dinlemeye başlar.
+  void _baslat() {
+    if (!mounted) {
+      return;
+    }
+    final MaisonOturum oturum = OturumKapsami.oku(context);
+    final String? kullanici = oturum.kullanici?.id;
+    final SupabaseClient? istemci = oturum.istemci;
+    if (istemci != null && kullanici != null) {
+      _dinleyici = RandevuDinleyici(istemci, kullanici)..baslat();
+    }
+    _hatirlatmalariKur();
+  }
+
+  void _hatirlatmalariKur() {
+    if (mounted) {
+      RandevuHatirlatici.esitle(Veri.of(context));
+    }
+  }
 
   void _menuyuAc() => _iskele.currentState?.openDrawer();
 
