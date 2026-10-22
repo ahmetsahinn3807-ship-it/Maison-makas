@@ -139,9 +139,10 @@ class MaisonTercih {
     unawaited(_sakla(_koyuAnahtari, acik));
   }
 
+  /// Zaman aşımı yok: kayıt arka planda biter (testlerde bekleyen sayaç bırakmaz).
   static Future<void> _sakla(String anahtar, Object deger) async {
     try {
-      final SharedPreferences ayar = await SharedPreferences.getInstance().timeout(const Duration(seconds: 3));
+      final SharedPreferences ayar = await SharedPreferences.getInstance();
       if (deger is bool) {
         await ayar.setBool(anahtar, deger);
       } else {

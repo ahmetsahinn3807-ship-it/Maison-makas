@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:makas_core/makas_core.dart';
 
 /// Makas Pro'da yönetilen salon.
 @immutable
