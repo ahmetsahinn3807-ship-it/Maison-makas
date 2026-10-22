@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:makas_core/makas_core.dart';
 
-import '../dil.dart';
 import '../gorunum.dart';
 
 /// Açılış: kapı kemeri çizilir, makas ve marka belirir, ardından düğmeler gelir.
@@ -48,10 +47,19 @@ class _AcilisEkraniState extends State<AcilisEkrani>
     );
   }
 
-  void _proBilgisi(Metinler metin) {
+  void _proBilgisi() {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(metin.proBilgi)));
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            dl(
+              'Maison Makas Pro, işletmeler için ayrı bir uygulamadır.',
+              'Maison Makas Pro is a separate app for businesses.',
+            ),
+          ),
+        ),
+      );
   }
 
   @override
@@ -59,7 +67,6 @@ class _AcilisEkraniState extends State<AcilisEkrani>
     final Gorunum gorunum = GorunumKapsami.of(context);
     final MaisonPalet palet = gorunum.palet;
     final Color vurgu = gorunum.vurgu;
-    final Metinler metin = gorunum.metin;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: maisonSistemCubugu(palet),
@@ -77,10 +84,10 @@ class _AcilisEkraniState extends State<AcilisEkrani>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     _DilSecici(
-                      secili: gorunum.dil,
+                      secili: MaisonTercih.dil.value,
                       renk: palet.yazi,
                       soluk: palet.soluk,
-                      onSec: gorunum.dilSec,
+                      onSec: MaisonTercih.dilSec,
                     ),
                     Expanded(
                       child: Center(
@@ -90,7 +97,6 @@ class _AcilisEkraniState extends State<AcilisEkrani>
                             t: t,
                             palet: palet,
                             vurgu: vurgu,
-                            metin: metin,
                           ),
                         ),
                       ),
@@ -109,7 +115,7 @@ class _AcilisEkraniState extends State<AcilisEkrani>
                               height: 56,
                               child: FilledButton(
                                 onPressed: () => _giriseGec(true),
-                                child: Text(metin.basla),
+                                child: Text(dl('Hemen başla', 'Get started')),
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -117,7 +123,7 @@ class _AcilisEkraniState extends State<AcilisEkrani>
                               height: 54,
                               child: OutlinedButton(
                                 onPressed: () => _giriseGec(false),
-                                child: Text(metin.girisYap),
+                                child: Text(dl('Hesabım var, giriş yap', 'I have an account, sign in')),
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -126,11 +132,11 @@ class _AcilisEkraniState extends State<AcilisEkrani>
                               crossAxisAlignment: WrapCrossAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  metin.isletmeSorusu,
+                                  dl('İşletme sahibi misin?', 'Own a salon?'),
                                   style: maisonGovde(13, renk: palet.soluk),
                                 ),
                                 InkWell(
-                                  onTap: () => _proBilgisi(metin),
+                                  onTap: _proBilgisi,
                                   borderRadius: BorderRadius.circular(8),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -197,13 +203,11 @@ class _Vitrin extends StatelessWidget {
     required this.t,
     required this.palet,
     required this.vurgu,
-    required this.metin,
   });
 
   final double t;
   final MaisonPalet palet;
   final Color vurgu;
-  final Metinler metin;
 
   @override
   Widget build(BuildContext context) {
@@ -309,7 +313,7 @@ class _Vitrin extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  metin.slogan,
+                  dl('Usta ellere, tek dokunuşla.', 'Into master hands, with a single tap.'),
                   textAlign: TextAlign.center,
                   style: maisonBaslik(
                     26,
@@ -322,7 +326,10 @@ class _Vitrin extends StatelessWidget {
                 SizedBox(
                   width: 290,
                   child: Text(
-                    metin.aciklama,
+                    dl(
+                      'Berberini ve kuaförünü bul, saniyeler içinde randevunu al.',
+                      'Find your barber or hairdresser and book in seconds.',
+                    ),
                     textAlign: TextAlign.center,
                     style: maisonGovde(15, renk: palet.soluk, yukseklik: 1.5),
                   ),
@@ -366,7 +373,7 @@ class _Nokta extends StatelessWidget {
   }
 }
 
-/// Sağ üstteki TR · EN · DE seçici.
+/// Sağ üstteki TR · EN seçici.
 class _DilSecici extends StatelessWidget {
   const _DilSecici({
     required this.secili,
@@ -375,20 +382,21 @@ class _DilSecici extends StatelessWidget {
     required this.onSec,
   });
 
-  final Dil secili;
+  final MaisonDil secili;
   final Color renk;
   final Color soluk;
-  final ValueChanged<Dil> onSec;
+  final ValueChanged<MaisonDil> onSec;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        for (final Dil dil in Dil.values)
+        for (final MaisonDil dil in MaisonDil.values)
           Semantics(
             button: true,
             selected: dil == secili,
+            label: dil.ad,
             child: InkWell(
               onTap: () => onSec(dil),
               borderRadius: BorderRadius.circular(22),

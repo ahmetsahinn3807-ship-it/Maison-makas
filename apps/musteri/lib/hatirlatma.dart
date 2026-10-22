@@ -50,17 +50,17 @@ class RandevuHatirlatici {
     int no = 0;
     for (final RandevuOzet r in randevular.take(20)) {
       final String saat = maisonSaat(r.baslangic);
-      final String yer = r.ustaAd.isEmpty ? r.salonAd : '${r.salonAd} · Usta ${r.ustaAd}';
+      final String yer = r.ustaAd.isEmpty ? r.salonAd : dl('${r.salonAd} · Usta ${r.ustaAd}', '${r.salonAd} · ${r.ustaAd}');
       await MaisonBildirim.zamanla(
         id: 1000 + no * 2,
         zaman: r.baslangic.subtract(const Duration(hours: 24)),
-        baslik: 'Yarın randevun var',
+        baslik: dl('Yarın randevun var', 'You have an appointment tomorrow'),
         metin: '$saat · $yer',
       );
       await MaisonBildirim.zamanla(
         id: 1001 + no * 2,
         zaman: r.baslangic.subtract(const Duration(hours: 2)),
-        baslik: 'Randevuna 2 saat kaldı',
+        baslik: dl('Randevuna 2 saat kaldı', 'Your appointment is in 2 hours'),
         metin: '$saat · $yer',
       );
       no++;
@@ -103,8 +103,8 @@ class RandevuDinleyici {
       unawaited(
         MaisonBildirim.goster(
           id: 2000,
-          baslik: 'Randevun iptal edildi',
-          metin: 'Salon randevunu iptal etti. Ayrıntı için Randevularım\'a bak.',
+          baslik: dl('Randevun iptal edildi', 'Your appointment was cancelled'),
+          metin: dl('Salon randevunu iptal etti. Ayrıntı için Randevularım\'a bak.', 'The salon cancelled your appointment. See My bookings for details.'),
         ),
       );
     }

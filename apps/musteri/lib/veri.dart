@@ -47,15 +47,15 @@ class RandevuOzet {
   String get durumMetni {
     switch (durum) {
       case 'bekliyor':
-        return 'Onay bekliyor';
+        return dl('Onay bekliyor', 'Awaiting confirmation');
       case 'onaylandi':
-        return 'Onaylandı';
+        return dl('Onaylandı', 'Confirmed');
       case 'tamamlandi':
-        return 'Tamamlandı';
+        return dl('Tamamlandı', 'Completed');
       case 'iptal':
-        return 'İptal edildi';
+        return dl('İptal edildi', 'Cancelled');
       case 'gelmedi':
-        return 'Gelinmedi';
+        return dl('Gelinmedi', 'No-show');
       default:
         return durum;
     }
@@ -113,7 +113,7 @@ class SalonOzet {
   /// "4,9 · Kadıköy" ya da "Yeni · Kadıköy".
   String get ozet {
     final double? o = ortalama;
-    final String puan = o == null ? 'Yeni' : o.toStringAsFixed(1).replaceAll('.', ',');
+    final String puan = o == null ? dl('Yeni', 'New') : maisonOndalik(o);
     final String yer = <String?>[ilce, sehir]
         .whereType<String>()
         .where((String s) => s.trim().isNotEmpty)
@@ -232,7 +232,7 @@ class Veri {
       'p_not': not,
     });
     if (sonuc is! String) {
-      throw const MaisonHata('Randevu alınamadı. Bir daha dene.');
+      throw MaisonHata(dl('Randevu alınamadı. Bir daha dene.', 'The booking could not be made. Try again.'));
     }
     randevuSurumu.value++;
     return sonuc;
@@ -253,7 +253,7 @@ class Veri {
   Future<void> randevuIptal(String randevuId) async {
     final SupabaseClient? i = _istemci;
     if (i == null) {
-      throw const MaisonHata('Sunucuya bağlanılamadı.');
+      throw MaisonHata(dl('Sunucuya bağlanılamadı.', 'Could not connect to the server.'));
     }
     await i.rpc('randevu_iptal', params: <String, dynamic>{'p_randevu': randevuId});
     randevuSurumu.value++;

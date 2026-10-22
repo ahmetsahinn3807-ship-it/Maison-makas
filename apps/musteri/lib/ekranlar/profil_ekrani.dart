@@ -62,7 +62,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
     final String ad = _ad.text.trim();
     final String tel = _telefon.text.trim();
     if (ad.length < 2) {
-      mesaj.showSnackBar(const SnackBar(content: Text('Adını ve soyadını yaz.')));
+      mesaj.showSnackBar(SnackBar(content: Text(dl('Adını ve soyadını yaz.', 'Enter your first and last name.'))));
       return;
     }
     FocusScope.of(context).unfocus();
@@ -72,7 +72,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
         'ad_soyad': ad,
         'telefon': tel.isEmpty ? null : tel,
       });
-      mesaj.showSnackBar(const SnackBar(content: Text('Bilgilerin kaydedildi.')));
+      mesaj.showSnackBar(SnackBar(content: Text(dl('Bilgilerin kaydedildi.', 'Your details have been saved.'))));
     } catch (hata) {
       mesaj.showSnackBar(SnackBar(content: Text(maisonHataMetni(hata))));
     } finally {
@@ -88,7 +88,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
     final String? eski = oturum.kapakUrl;
     final FotoIslemi? islem = await maisonFotoIslemiSor(
       context,
-      baslik: 'Kapak fotoğrafı',
+      baslik: dl('Kapak fotoğrafı', 'Cover photo'),
       kaldirilabilir: eski != null,
       odakAyarlanabilir: eski != null,
     );
@@ -99,7 +99,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
       final SupabaseClient i = await oturum.istemciGerekli();
       final User? k = oturum.kullanici;
       if (k == null) {
-        throw const MaisonHata('Önce giriş yapmalısın.');
+        throw MaisonHata(dl('Önce giriş yapmalısın.', 'Please sign in first.'));
       }
       if (islem == FotoIslemi.kaldir) {
         setState(() => _yuklenen = 'kapak');
@@ -109,7 +109,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
           'kapak_odak_y': 0.5,
         });
         await maisonFotoSil(i, eski);
-        mesaj.showSnackBar(const SnackBar(content: Text('Kapak fotoğrafı kaldırıldı.')));
+        mesaj.showSnackBar(SnackBar(content: Text(dl('Kapak fotoğrafı kaldırıldı.', 'Cover photo removed.'))));
         return;
       }
       if (islem == FotoIslemi.odak) {
@@ -149,7 +149,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
         'kapak_odak_y': odak.dy,
       });
       await maisonFotoSil(i, eski);
-      mesaj.showSnackBar(const SnackBar(content: Text('Kapak fotoğrafın güncellendi.')));
+      mesaj.showSnackBar(SnackBar(content: Text(dl('Kapak fotoğrafın güncellendi.', 'Your cover photo has been updated.'))));
     } catch (hata) {
       mesaj.showSnackBar(SnackBar(content: Text(maisonHataMetni(hata))));
     } finally {
@@ -165,7 +165,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
     final String? eski = oturum.avatarUrl;
     final FotoIslemi? islem = await maisonFotoIslemiSor(
       context,
-      baslik: 'Profil fotoğrafı',
+      baslik: dl('Profil fotoğrafı', 'Profile photo'),
       kaldirilabilir: eski != null,
     );
     if (islem == null || islem == FotoIslemi.odak || !mounted) {
@@ -175,13 +175,13 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
       final SupabaseClient i = await oturum.istemciGerekli();
       final User? k = oturum.kullanici;
       if (k == null) {
-        throw const MaisonHata('Önce giriş yapmalısın.');
+        throw MaisonHata(dl('Önce giriş yapmalısın.', 'Please sign in first.'));
       }
       if (islem == FotoIslemi.kaldir) {
         setState(() => _yuklenen = 'avatar');
         await oturum.profilGuncelle(<String, dynamic>{'avatar_url': null});
         await maisonFotoSil(i, eski);
-        mesaj.showSnackBar(const SnackBar(content: Text('Profil fotoğrafı kaldırıldı.')));
+        mesaj.showSnackBar(SnackBar(content: Text(dl('Profil fotoğrafı kaldırıldı.', 'Profile photo removed.'))));
         return;
       }
       final SecilenFoto? foto = await maisonFotoSec(islem, FotoBoyu.avatar);
@@ -192,7 +192,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
       final String url = await maisonFotoYukle(i, kova: 'profil', klasor: k.id, ad: 'avatar', foto: foto);
       await oturum.profilGuncelle(<String, dynamic>{'avatar_url': url});
       await maisonFotoSil(i, eski);
-      mesaj.showSnackBar(const SnackBar(content: Text('Profil fotoğrafın güncellendi.')));
+      mesaj.showSnackBar(SnackBar(content: Text(dl('Profil fotoğrafın güncellendi.', 'Your profile photo has been updated.'))));
     } catch (hata) {
       mesaj.showSnackBar(SnackBar(content: Text(maisonHataMetni(hata))));
     } finally {
@@ -246,7 +246,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
                 top: 12,
                 child: MaisonYuvarlakDugme(
                   ikon: Icons.menu,
-                  etiket: 'Menüyü aç',
+                  etiket: dl('Menüyü aç', 'Open menu'),
                   zemin: r.zemin.withValues(alpha: 0.6),
                   onTap: widget.menuAc,
                 ),
@@ -277,7 +277,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
                               Icon(Icons.photo_camera_outlined, size: 18, color: r.yazi),
                             const SizedBox(width: 8),
                             Text(
-                              'Kapağı değiştir',
+                              dl('Kapağı değiştir', 'Change cover'),
                               style: maisonGovde(13, renk: r.yazi, kalinlik: FontWeight.w500),
                             ),
                           ],
@@ -302,7 +302,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
                         bottom: 0,
                         child: Semantics(
                           button: true,
-                          label: 'Profil fotoğrafını değiştir',
+                          label: dl('Profil fotoğrafını değiştir', 'Change profile photo'),
                           child: GestureDetector(
                             behavior: HitTestBehavior.opaque,
                             onTap: _yuklenen == null ? _avatarDegistir : null,
@@ -343,7 +343,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                oturum.adSoyad.isEmpty ? 'Profilim' : oturum.adSoyad,
+                oturum.adSoyad.isEmpty ? dl('Profilim', 'My profile') : oturum.adSoyad,
                 style: maisonBaslik(32, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1),
               ),
               const SizedBox(height: 4),
@@ -359,19 +359,19 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Text('Bilgilerim', style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600)),
+                    Text(dl('Bilgilerim', 'My details'), style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600)),
                     const SizedBox(height: 14),
                     MaisonAlan(
-                      etiket: 'AD SOYAD',
+                      etiket: dl('AD SOYAD', 'FULL NAME'),
                       kontrol: _ad,
-                      ipucu: 'Adın ve soyadın',
+                      ipucu: dl('Adın ve soyadın', 'Your first and last name'),
                       buyukHarf: TextCapitalization.words,
                       eylem: TextInputAction.next,
                       enFazla: 80,
                     ),
                     const SizedBox(height: 14),
                     MaisonAlan(
-                      etiket: 'TELEFON',
+                      etiket: dl('TELEFON', 'PHONE'),
                       kontrol: _telefon,
                       ipucu: '05xx xxx xx xx',
                       klavye: TextInputType.phone,
@@ -381,7 +381,7 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Telefonun yalnız randevu aldığın salonlara görünür.',
+                      dl('Telefonun yalnız randevu aldığın salonlara görünür.', 'Your phone number is visible only to salons you book with.'),
                       style: maisonGovde(12, renk: r.soluk, yukseklik: 1.4),
                     ),
                     const SizedBox(height: 16),
@@ -389,15 +389,15 @@ class _ProfilEkraniState extends State<ProfilEkrani> {
                       height: 52,
                       child: FilledButton(
                         onPressed: _kaydediliyor ? null : _kaydet,
-                        child: Text(_kaydediliyor ? 'Kaydediliyor…' : 'Kaydet'),
+                        child: Text(_kaydediliyor ? dl('Kaydediliyor…', 'Saving…') : dl('Kaydet', 'Save')),
                       ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 16),
-              _BaglantiSatiri(ikon: Icons.palette_outlined, etiket: 'Görünüm', onTap: widget.gorunumeGit),
-              _BaglantiSatiri(ikon: Icons.tune, etiket: 'Ayarlar ve destek', onTap: widget.ayarlaraGit),
+              _BaglantiSatiri(ikon: Icons.palette_outlined, etiket: dl('Görünüm', 'Appearance'), onTap: widget.gorunumeGit),
+              _BaglantiSatiri(ikon: Icons.tune, etiket: dl('Ayarlar ve destek', 'Settings and support'), onTap: widget.ayarlaraGit),
             ],
           ),
         ),

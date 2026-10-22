@@ -182,17 +182,18 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         backgroundColor: r.kart,
-        title: Text('${hizmet.ad} silinsin mi?', style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600)),
+        title: Text(dl('${hizmet.ad} silinsin mi?', 'Delete ${hizmet.ad}?'), style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600)),
         content: Text(
-          'Hizmet menüden kalkar. Geçmiş randevulardaki kaydı olduğu gibi kalır. '
-          'Bir süreliğine kaldırmak istiyorsan "Müşterilere görünsün"ü kapatman yeterli.',
+          dl('Hizmet menüden kalkar. Geçmiş randevulardaki kaydı olduğu gibi kalır. '
+          'Bir süreliğine kaldırmak istiyorsan "Müşterilere görünsün"ü kapatman yeterli.', 'The service is removed from the menu. Past bookings keep their record. '
+              'To hide it for a while, just turn off "Visible to customers".'),
           style: maisonGovde(14, renk: r.soluk, yukseklik: 1.5),
         ),
         actions: <Widget>[
-          TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Vazgeç')),
+          TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(dl('Vazgeç', 'Cancel'))),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: Text('Sil', style: TextStyle(color: Theme.of(context).colorScheme.error)),
+            child: Text(dl('Sil', 'Delete'), style: TextStyle(color: Theme.of(context).colorScheme.error)),
           ),
         ],
       ),
@@ -239,7 +240,7 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
       if (mounted) {
         setState(() => _hizmetler = <ProHizmet>[...tum, ...satirlar.map(ProHizmet.json)]);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${satirlar.length} hizmet menüye eklendi.')),
+          SnackBar(content: Text(dl('${satirlar.length} hizmet menüye eklendi.', '${satirlar.length} service${satirlar.length == 1 ? '' : 's'} added to the menu.'))),
         );
       }
     });
@@ -251,7 +252,7 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
     final List<ProHizmet>? hizmetler = _hizmetler;
     final Object? hata = _hata;
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: maisonSistemCubugu(MaisonPalet.ivoire),
+      value: maisonSistemCubugu(MaisonTercih.proPaleti),
       child: Scaffold(
         backgroundColor: r.zemin,
         body: SafeArea(
@@ -261,14 +262,14 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
               MaisonUstSatir(
                 sol: MaisonYuvarlakDugme(
                   ikon: Icons.arrow_back,
-                  etiket: 'Geri',
+                  etiket: dl('Geri', 'Back'),
                   onTap: () => Navigator.of(context).maybePop(),
                 ),
-                baslik: 'Hizmetler',
+                baslik: dl('Hizmetler', 'Services'),
                 sag: _sahibim && hizmetler != null && hizmetler.isNotEmpty
                     ? MaisonYuvarlakDugme(
                         ikon: Icons.add,
-                        etiket: 'Hizmet ekle',
+                        etiket: dl('Hizmet ekle', 'Add service'),
                         onTap: _isleniyor ? null : () => _ekleDuzenle(),
                       )
                     : null,
@@ -309,14 +310,14 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Hizmet menünü oluştur',
+            dl('Hizmet menünü oluştur', 'Create your service menu'),
             style: maisonBaslik(28, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1),
           ),
           const SizedBox(height: 8),
           Text(
             _sahibim
-                ? 'Müşteriler randevu alırken bu menüden seçer. Hazır berber menüsünden seçip yalnız fiyatları yazabilirsin.'
-                : 'Salon sahibi hizmet ekledikçe burada görünecek.',
+                ? dl('Müşteriler randevu alırken bu menüden seçer. Hazır berber menüsünden seçip yalnız fiyatları yazabilirsin.', 'Customers choose from this menu when booking. You can pick from the ready-made barber menu and just enter prices.')
+                : dl('Salon sahibi hizmet ekledikçe burada görünecek.', 'Services will appear here as the salon owner adds them.'),
             style: maisonGovde(14, renk: r.soluk, yukseklik: 1.5),
           ),
           if (_sahibim) ...<Widget>[
@@ -325,7 +326,7 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
               height: 52,
               child: FilledButton(
                 onPressed: _isleniyor ? null : _hazirMenu,
-                child: const Text('Hazır menüden seç'),
+                child: Text(dl('Hazır menüden seç', 'Pick from ready-made menu')),
               ),
             ),
             const SizedBox(height: 10),
@@ -333,7 +334,7 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
               height: 52,
               child: OutlinedButton(
                 onPressed: _isleniyor ? null : () => _ekleDuzenle(),
-                child: const Text('Kendim ekleyeceğim'),
+                child: Text(dl('Kendim ekleyeceğim', 'I will add my own')),
               ),
             ),
           ],
@@ -347,8 +348,9 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
     final int aktif = duz.where((ProHizmet h) => h.aktif).length;
     return <Widget>[
       Text(
-        '$aktif hizmet müşterilere görünüyor'
-        '${duz.length > aktif ? ' · ${duz.length - aktif} pasif' : ''}',
+        dl('$aktif hizmet müşterilere görünüyor'
+        '${duz.length > aktif ? ' · ${duz.length - aktif} pasif' : ''}', '$aktif service${aktif == 1 ? '' : 's'} visible to customers'
+            '${duz.length > aktif ? ' · ${duz.length - aktif} inactive' : ''}'),
         style: maisonGovde(13, renk: r.soluk, yukseklik: 1.4),
       ),
       for (final HizmetKategorisi k in HizmetKategorisi.values)
@@ -387,8 +389,9 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
       const SizedBox(height: 16),
       if (_sahibim) ...<Widget>[
         Text(
-          'Sırayı değiştirmek için sağdaki tutamağı basılı tutup sürükle. '
-          'Pasif hizmetler müşterilere görünmez.',
+          dl('Sırayı değiştirmek için sağdaki tutamağı basılı tutup sürükle. '
+          'Pasif hizmetler müşterilere görünmez.', 'To change the order, press and drag the handle on the right. '
+              'Inactive services are hidden from customers.'),
           style: maisonGovde(12, renk: r.soluk, yukseklik: 1.45),
         ),
         const SizedBox(height: 14),
@@ -397,7 +400,7 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
           child: OutlinedButton.icon(
             onPressed: _isleniyor ? null : _hazirMenu,
             icon: const Icon(Icons.auto_awesome_outlined, size: 18),
-            label: const Text('Hazır menüden ekle'),
+            label: Text(dl('Hazır menüden ekle', 'Add from ready-made menu')),
           ),
         ),
       ],
@@ -463,7 +466,7 @@ class _HizmetSatiri extends StatelessWidget {
                               color: r.cizgi,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Text('Pasif', style: maisonGovde(11, renk: r.soluk, kalinlik: FontWeight.w600)),
+                            child: Text(dl('Pasif', 'Inactive'), style: maisonGovde(11, renk: r.soluk, kalinlik: FontWeight.w600)),
                           ),
                         ],
                       ],
@@ -490,7 +493,7 @@ class _HizmetSatiri extends StatelessWidget {
                 ReorderableDragStartListener(
                   index: sira,
                   child: Semantics(
-                    label: 'Sürükleyip sırala',
+                    label: dl('Sürükleyip sırala', 'Drag to reorder'),
                     child: SizedBox(
                       width: 44,
                       height: 44,
@@ -552,15 +555,15 @@ class _HizmetFormuState extends State<_HizmetFormu> {
     final String ad = _ad.text.trim();
     final double? fiyat = maisonFiyatOku(_fiyat.text);
     if (ad.isEmpty) {
-      setState(() => _uyari = 'Hizmetin adını yaz.');
+      setState(() => _uyari = dl('Hizmetin adını yaz.', 'Enter the service name.'));
       return;
     }
     if (fiyat == null) {
-      setState(() => _uyari = 'Fiyatı rakamla yaz (ör. 400).');
+      setState(() => _uyari = dl('Fiyatı rakamla yaz (ör. 400).', 'Enter the price as a number (e.g. 400).'));
       return;
     }
     if (fiyat > 99999) {
-      setState(() => _uyari = 'Fiyat çok yüksek görünüyor.');
+      setState(() => _uyari = dl('Fiyat çok yüksek görünüyor.', 'The price looks too high.'));
       return;
     }
     final String aciklama = _aciklama.text.trim();
@@ -592,20 +595,20 @@ class _HizmetFormuState extends State<_HizmetFormu> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                widget.hizmet == null ? 'Yeni hizmet' : 'Hizmeti düzenle',
+                widget.hizmet == null ? dl('Yeni hizmet', 'New service') : dl('Hizmeti düzenle', 'Edit service'),
                 style: maisonBaslik(28, renk: r.yazi, kalinlik: FontWeight.w600),
               ),
               const SizedBox(height: 16),
               MaisonAlan(
-                etiket: 'HİZMET ADI',
+                etiket: dl('HİZMET ADI', 'SERVICE NAME'),
                 kontrol: _ad,
-                ipucu: 'Ör. Saç kesimi',
+                ipucu: dl('Ör. Saç kesimi', 'E.g. Haircut'),
                 enFazla: 80,
                 buyukHarf: TextCapitalization.sentences,
                 eylem: TextInputAction.next,
               ),
               const SizedBox(height: 16),
-              const MaisonUstBaslik('KATEGORİ'),
+              MaisonUstBaslik(dl('KATEGORİ', 'CATEGORY')),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
@@ -620,11 +623,11 @@ class _HizmetFormuState extends State<_HizmetFormu> {
                 ],
               ),
               const SizedBox(height: 18),
-              const MaisonUstBaslik('SÜRE'),
+              MaisonUstBaslik(dl('SÜRE', 'DURATION')),
               const SizedBox(height: 8),
               Row(
                 children: <Widget>[
-                  MaisonYuvarlakDugme(ikon: Icons.remove, etiket: '5 dakika azalt', onTap: () => _sureDegistir(-5)),
+                  MaisonYuvarlakDugme(ikon: Icons.remove, etiket: dl('5 dakika azalt', '5 minutes less'), onTap: () => _sureDegistir(-5)),
                   Expanded(
                     child: Text(
                       maisonSure(_sure),
@@ -632,7 +635,7 @@ class _HizmetFormuState extends State<_HizmetFormu> {
                       style: maisonBaslik(28, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1),
                     ),
                   ),
-                  MaisonYuvarlakDugme(ikon: Icons.add, etiket: '5 dakika artır', onTap: () => _sureDegistir(5)),
+                  MaisonYuvarlakDugme(ikon: Icons.add, etiket: dl('5 dakika artır', '5 minutes more'), onTap: () => _sureDegistir(5)),
                 ],
               ),
               const SizedBox(height: 10),
@@ -651,9 +654,9 @@ class _HizmetFormuState extends State<_HizmetFormu> {
               ),
               const SizedBox(height: 18),
               MaisonAlan(
-                etiket: 'FİYAT',
+                etiket: dl('FİYAT', 'PRICE'),
                 kontrol: _fiyat,
-                ipucu: 'Ör. 400',
+                ipucu: dl('Ör. 400', 'E.g. 400'),
                 klavye: const TextInputType.numberWithOptions(decimal: true),
                 eylem: TextInputAction.next,
                 sonek: Padding(
@@ -663,9 +666,9 @@ class _HizmetFormuState extends State<_HizmetFormu> {
               ),
               const SizedBox(height: 16),
               MaisonAlan(
-                etiket: 'AÇIKLAMA (İSTEĞE BAĞLI)',
+                etiket: dl('AÇIKLAMA (İSTEĞE BAĞLI)', 'DESCRIPTION (OPTIONAL)'),
                 kontrol: _aciklama,
-                ipucu: 'Ör. Yıkama ve şekillendirme dahil',
+                ipucu: dl('Ör. Yıkama ve şekillendirme dahil', 'E.g. Includes wash and styling'),
                 enFazla: 500,
                 buyukHarf: TextCapitalization.sentences,
               ),
@@ -677,11 +680,11 @@ class _HizmetFormuState extends State<_HizmetFormu> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Müşterilere görünsün',
+                          dl('Müşterilere görünsün', 'Visible to customers'),
                           style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
                         ),
                         Text(
-                          'Kapalıyken menüde durur ama randevuda seçilemez.',
+                          dl('Kapalıyken menüde durur ama randevuda seçilemez.', 'When off, it stays on the menu but cannot be booked.'),
                           style: maisonGovde(12, renk: r.soluk, yukseklik: 1.35),
                         ),
                       ],
@@ -689,7 +692,7 @@ class _HizmetFormuState extends State<_HizmetFormu> {
                   ),
                   MaisonAnahtar(
                     deger: _aktif,
-                    etiket: 'Müşterilere görünsün',
+                    etiket: dl('Müşterilere görünsün', 'Visible to customers'),
                     onChanged: (bool yeni) => setState(() => _aktif = yeni),
                   ),
                 ],
@@ -705,12 +708,12 @@ class _HizmetFormuState extends State<_HizmetFormu> {
                     TextButton.icon(
                       onPressed: () => Navigator.of(context).pop(const _HizmetKarari(sil: true)),
                       icon: Icon(Icons.delete_outline, color: hataRengi),
-                      label: Text('Sil', style: maisonGovde(14, renk: hataRengi, kalinlik: FontWeight.w600)),
+                      label: Text(dl('Sil', 'Delete'), style: maisonGovde(14, renk: hataRengi, kalinlik: FontWeight.w600)),
                     ),
                   const Spacer(),
                   SizedBox(
                     height: 52,
-                    child: FilledButton(onPressed: _kaydet, child: const Text('Kaydet')),
+                    child: FilledButton(onPressed: _kaydet, child: Text(dl('Kaydet', 'Save'))),
                   ),
                 ],
               ),
@@ -750,7 +753,7 @@ class _HazirMenuState extends State<_HazirMenu> {
 
   void _ekle() {
     if (_secili.isEmpty) {
-      setState(() => _uyari = 'En az bir hizmet seç.');
+      setState(() => _uyari = dl('En az bir hizmet seç.', 'Choose at least one service.'));
       return;
     }
     final List<HizmetTaslagi> taslaklar = <HizmetTaslagi>[];
@@ -758,7 +761,7 @@ class _HazirMenuState extends State<_HazirMenu> {
       final HizmetSablonu s = HizmetSablonu.berber[i];
       final double? fiyat = maisonFiyatOku(_fiyat(i).text);
       if (fiyat == null) {
-        setState(() => _uyari = '${s.ad} için fiyat yaz.');
+        setState(() => _uyari = dl('${s.ad} için fiyat yaz.', 'Enter a price for ${s.ad}.'));
         return;
       }
       taslaklar.add(HizmetTaslagi(ad: s.ad, kategori: s.kategori, sureDk: s.sureDk, fiyat: fiyat));
@@ -781,12 +784,12 @@ class _HazirMenuState extends State<_HazirMenu> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 4),
-                child: Text('Hazır menü', style: maisonBaslik(28, renk: r.yazi, kalinlik: FontWeight.w600)),
+                child: Text(dl('Hazır menü', 'Ready-made menu'), style: maisonBaslik(28, renk: r.yazi, kalinlik: FontWeight.w600)),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
                 child: Text(
-                  'Sunduğun hizmetleri işaretle ve fiyatını yaz. Süreleri sonra değiştirebilirsin.',
+                  dl('Sunduğun hizmetleri işaretle ve fiyatını yaz. Süreleri sonra değiştirebilirsin.', 'Tick the services you offer and enter prices. You can change durations later.'),
                   style: maisonGovde(13, renk: r.soluk, yukseklik: 1.45),
                 ),
               ),
@@ -829,7 +832,7 @@ class _HazirMenuState extends State<_HazirMenu> {
                                   ),
                                 ),
                                 Text(
-                                  menudeVar ? 'Menünde var' : '${s.kategori.ad} · ${maisonSure(s.sureDk)}',
+                                  menudeVar ? dl('Menünde var', 'On your menu') : '${s.kategori.ad} · ${maisonSure(s.sureDk)}',
                                   style: maisonGovde(12, renk: r.soluk, yukseklik: 1.3),
                                 ),
                               ],
@@ -845,7 +848,7 @@ class _HazirMenuState extends State<_HazirMenu> {
                               style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w500),
                               decoration: InputDecoration(
                                 isDense: true,
-                                hintText: secili ? 'Fiyat' : '',
+                                hintText: secili ? dl('Fiyat', 'Price') : '',
                                 hintStyle: maisonGovde(14, renk: r.soluk),
                                 suffixText: '₺',
                                 filled: true,
@@ -883,7 +886,7 @@ class _HazirMenuState extends State<_HazirMenu> {
                   height: 52,
                   child: FilledButton(
                     onPressed: _ekle,
-                    child: Text(_secili.isEmpty ? 'Menüye ekle' : '${_secili.length} hizmeti ekle'),
+                    child: Text(_secili.isEmpty ? dl('Menüye ekle', 'Add to menu') : dl('${_secili.length} hizmeti ekle', 'Add ${_secili.length} service${_secili.length == 1 ? '' : 's'}')),
                   ),
                 ),
               ),

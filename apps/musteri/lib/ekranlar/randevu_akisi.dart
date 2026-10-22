@@ -125,9 +125,9 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
     final DateTime bugun = _gunu(DateTime.now());
     final int fark = _gunu(t).difference(bugun).inDays;
     final String gun = fark == 0
-        ? 'Bugün'
+        ? dl('Bugün', 'Today')
         : fark == 1
-            ? 'Yarın'
+            ? dl('Yarın', 'Tomorrow')
             : '${maisonGunKisa(t.weekday)} ${t.day} ${maisonAy(t)}';
     return '$gun · ${maisonSaat(t)}';
   }
@@ -272,7 +272,7 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
   Future<void> _yolTarifi() async {
     final ScaffoldMessengerState mesaj = ScaffoldMessenger.of(context);
     if (!await maisonYolTarifiAc(_salon)) {
-      mesaj.showSnackBar(const SnackBar(content: Text('Harita açılamadı.')));
+      mesaj.showSnackBar(SnackBar(content: Text(dl('Harita açılamadı.', 'The map could not be opened.'))));
     }
   }
 
@@ -343,10 +343,10 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
           MaisonUstSatir(
             sol: MaisonYuvarlakDugme(
               ikon: _adim == 0 ? Icons.close : Icons.arrow_back,
-              etiket: _adim == 0 ? 'Kapat' : 'Geri',
+              etiket: _adim == 0 ? dl('Kapat', 'Close') : dl('Geri', 'Back'),
               onTap: _geri,
             ),
-            baslik: 'Randevu',
+            baslik: dl('Randevu', 'Booking'),
           ),
           const SizedBox(height: 6),
           Text(
@@ -374,7 +374,7 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
             ],
           ),
           const SizedBox(height: 8),
-          MaisonUstBaslik(_adim == 0 ? '1 / 3 · HİZMET VE USTA' : '2 / 3 · GÜN VE SAAT'),
+          MaisonUstBaslik(_adim == 0 ? dl('1 / 3 · HİZMET VE USTA', '1 / 3 · SERVICE AND BARBER') : dl('2 / 3 · GÜN VE SAAT', '2 / 3 · DAY AND TIME')),
         ],
       ),
     );
@@ -387,12 +387,13 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
     if (hizmetler.isEmpty) {
       return ListView(
         padding: const EdgeInsets.all(20),
-        children: const <Widget>[
+        children: <Widget>[
           MaisonBosDurum(
             ikon: Icons.content_cut,
-            baslik: 'Hizmet menüsü henüz yok',
-            aciklama: 'Salon hizmetlerini ekleyince buradan randevu alabileceksin. '
-                'Şimdilik salonu arayarak randevu alabilirsin.',
+            baslik: dl('Hizmet menüsü henüz yok', 'No service menu yet'),
+            aciklama: dl('Salon hizmetlerini ekleyince buradan randevu alabileceksin. '
+                'Şimdilik salonu arayarak randevu alabilirsin.', 'You can book here once the salon adds its services. '
+                    'For now you can book by calling the salon.'),
           ),
         ],
       );
@@ -401,10 +402,10 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 24),
       children: <Widget>[
-        Text('Hizmet seç', style: maisonBaslik(30, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1)),
+        Text(dl('Hizmet seç', 'Choose services'), style: maisonBaslik(30, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1)),
         const SizedBox(height: 4),
         Text(
-          'Birden çok hizmet seçebilirsin; süreleri toplanır.',
+          dl('Birden çok hizmet seçebilirsin; süreleri toplanır.', 'You can choose more than one; their durations add up.'),
           style: maisonGovde(13, renk: r.soluk, yukseklik: 1.4),
         ),
         for (final HizmetKategorisi k in HizmetKategorisi.values)
@@ -426,7 +427,7 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
               ),
           ],
         const SizedBox(height: 18),
-        Text('Usta seç', style: maisonBaslik(30, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1)),
+        Text(dl('Usta seç', 'Choose a barber'), style: maisonBaslik(30, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1)),
         const SizedBox(height: 8),
         ..._ustaSecimi(r, veri),
       ],
@@ -437,7 +438,7 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
     if (_secili.isEmpty) {
       return <Widget>[
         Text(
-          'Önce hizmet seç; hangi ustanın ne zaman boş olduğunu gösterelim.',
+          dl('Önce hizmet seç; hangi ustanın ne zaman boş olduğunu gösterelim.', 'Choose a service first and we will show who is free and when.'),
           style: maisonGovde(14, renk: r.soluk, yukseklik: 1.45),
         ),
       ];
@@ -464,14 +465,15 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
         Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: Text(
-            'Seçtiğin hizmetler için önümüzdeki $_gunSayisi günde boş saat yok. '
-            'Farklı bir hizmet seç ya da salonu ara.',
+            dl('Seçtiğin hizmetler için önümüzdeki $_gunSayisi günde boş saat yok. '
+            'Farklı bir hizmet seç ya da salonu ara.', 'No free times in the next $_gunSayisi days for the services you chose. '
+                'Choose a different service or call the salon.'),
             style: maisonGovde(14, renk: Theme.of(context).colorScheme.error, yukseklik: 1.45),
           ),
         ),
       _UstaSecimi(
-        baslik: 'Fark etmez',
-        alt: herkes == null ? 'Boş saat yok' : 'En erken boş usta · ${_kisaZaman(herkes)}',
+        baslik: dl('Fark etmez', 'Any barber'),
+        alt: herkes == null ? dl('Boş saat yok', 'No free times') : dl('En erken boş usta · ${_kisaZaman(herkes)}', 'Earliest available · ${_kisaZaman(herkes)}'),
         secili: _usta == null,
         etkin: herkes != null,
         onTap: () => setState(() => _usta = null),
@@ -485,8 +487,8 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
               usta: u,
               baslik: u.ad,
               alt: en == null
-                  ? 'Bu hizmetler için boş saati yok'
-                  : '${unvan == null || unvan.isEmpty ? '' : '$unvan · '}En erken ${_kisaZaman(en)}',
+                  ? dl('Bu hizmetler için boş saati yok', 'No free times for these services')
+                  : dl('${unvan == null || unvan.isEmpty ? '' : '$unvan · '}En erken ${_kisaZaman(en)}', '${unvan == null || unvan.isEmpty ? '' : '$unvan · '}Earliest ${_kisaZaman(en)}'),
               secili: _usta == u.id,
               etkin: en != null,
               onTap: () => setState(() => _usta = u.id),
@@ -507,9 +509,9 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
     final DateTime gun = _gun ?? (saatler.isEmpty ? bugun : _gunu(saatler.first));
     final List<DateTime> gununSaatleri = saatler.where((DateTime s) => _ayniGun(s, gun)).toList();
     final List<(String, List<DateTime>)> gruplar = <(String, List<DateTime>)>[
-      ('Sabah', gununSaatleri.where((DateTime s) => s.hour < 12).toList()),
-      ('Öğleden sonra', gununSaatleri.where((DateTime s) => s.hour >= 12 && s.hour < 17).toList()),
-      ('Akşam', gununSaatleri.where((DateTime s) => s.hour >= 17).toList()),
+      (dl('Sabah', 'Morning'), gununSaatleri.where((DateTime s) => s.hour < 12).toList()),
+      (dl('Öğleden sonra', 'Afternoon'), gununSaatleri.where((DateTime s) => s.hour >= 12 && s.hour < 17).toList()),
+      (dl('Akşam', 'Evening'), gununSaatleri.where((DateTime s) => s.hour >= 17).toList()),
     ];
     final DateTime? enErken = saatler.isEmpty ? null : saatler.first;
     final String? uyari = _uyari;
@@ -523,7 +525,7 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
             children: <Widget>[
               Expanded(
                 child: Text(
-                  'Gün ve saat',
+                  dl('Gün ve saat', 'Day and time'),
                   style: maisonBaslik(30, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1),
                 ),
               ),
@@ -564,7 +566,7 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
             children: <Widget>[
               if (enErken != null)
                 Text(
-                  'En erken: ${maisonGun(enErken)} ${enErken.day} ${maisonAy(enErken)} · ${maisonSaat(enErken)}',
+                  dl('En erken: ${maisonGun(enErken)} ${enErken.day} ${maisonAy(enErken)} · ${maisonSaat(enErken)}', 'Earliest: ${maisonGun(enErken)} ${enErken.day} ${maisonAy(enErken)} · ${maisonSaat(enErken)}'),
                   style: maisonGovde(13, renk: r.vurgu, kalinlik: FontWeight.w500, yukseklik: 1.4),
                 ),
               if (uyari != null) ...<Widget>[
@@ -578,7 +580,7 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
               if (gununSaatleri.isEmpty) ...<Widget>[
                 const SizedBox(height: 16),
                 Text(
-                  'Bu gün için boş saat kalmadı. Başka bir gün seç.',
+                  dl('Bu gün için boş saat kalmadı. Başka bir gün seç.', 'No free times left on this day. Choose another day.'),
                   style: maisonGovde(14, renk: r.soluk, yukseklik: 1.45),
                 ),
               ],
@@ -605,9 +607,9 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
                 ],
               const SizedBox(height: 24),
               MaisonAlan(
-                etiket: 'USTA İÇİN NOT (İSTEĞE BAĞLI)',
+                etiket: dl('USTA İÇİN NOT (İSTEĞE BAĞLI)', 'NOTE FOR THE BARBER (OPTIONAL)'),
                 kontrol: _not,
-                ipucu: 'Ör. Yanlar kısa, üstü makasla',
+                ipucu: dl('Ör. Yanlar kısa, üstü makasla', 'E.g. short sides, scissors on top'),
                 enFazla: 500,
                 buyukHarf: TextCapitalization.sentences,
               ),
@@ -622,24 +624,24 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
 
   Widget _altCubuk(BuildContext context, MaisonRenkler r) {
     final List<VitrinHizmeti> secilenler = _secilenler;
-    final String ustaMetni = _usta == null ? 'Fark etmez' : 'Usta ${_ustaBul(_usta)?.ad ?? ''}';
+    final String ustaMetni = _usta == null ? dl('Fark etmez', 'Any barber') : dl('Usta ${_ustaBul(_usta)?.ad ?? ''}', _ustaBul(_usta)?.ad ?? '');
     final String ust;
     final String alt;
     final VoidCallback? eylem;
     final String dugme;
     if (_adim == 0) {
-      ust = secilenler.isEmpty ? 'Hizmet seçilmedi' : secilenler.map((VitrinHizmeti h) => h.ad).join(', ');
-      alt = secilenler.isEmpty ? 'En az bir hizmet seç' : '${maisonSure(_sure)} · $ustaMetni';
+      ust = secilenler.isEmpty ? dl('Hizmet seçilmedi', 'No service chosen') : secilenler.map((VitrinHizmeti h) => h.ad).join(', ');
+      alt = secilenler.isEmpty ? dl('En az bir hizmet seç', 'Choose at least one service') : '${maisonSure(_sure)} · $ustaMetni';
       eylem = secilenler.isNotEmpty && !_saatYukleniyor && _uygunSaatler.isNotEmpty ? _devam : null;
-      dugme = 'Devam';
+      dugme = dl('Devam', 'Continue');
     } else {
       final DateTime? saat = _saat;
       ust = saat == null
-          ? 'Saat seçilmedi'
+          ? dl('Saat seçilmedi', 'No time chosen')
           : '${maisonGun(saat)}, ${saat.day} ${maisonAy(saat)} · ${maisonSaat(saat)}';
       alt = '$ustaMetni · ${maisonSure(_sure)}';
       eylem = saat != null && !_gonderiliyor ? _onayla : null;
-      dugme = _gonderiliyor ? 'Alınıyor…' : 'Randevuyu onayla';
+      dugme = _gonderiliyor ? dl('Alınıyor…', 'Booking…') : dl('Randevuyu onayla', 'Confirm booking');
     }
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 14),
@@ -697,13 +699,13 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
     final VitrinSalonu s = _salon;
     final int iptalDk = s.ucretsizIptalDk;
     final String iptalMetni = iptalDk <= 0
-        ? 'Randevunu başlangıcına kadar ücretsiz iptal edebilirsin.'
-        : 'Ücretsiz iptal: randevudan ${iptalDk % 60 == 0 ? '${iptalDk ~/ 60} saat' : '$iptalDk dakika'} öncesine kadar.';
+        ? dl('Randevunu başlangıcına kadar ücretsiz iptal edebilirsin.', 'You can cancel free of charge until it starts.')
+        : dl('Ücretsiz iptal: randevudan ${iptalDk % 60 == 0 ? '${iptalDk ~/ 60} saat' : '$iptalDk dakika'} öncesine kadar.', 'Free cancellation up to ${iptalDk % 60 == 0 ? '${iptalDk ~/ 60} hour${iptalDk == 60 ? '' : 's'}' : '$iptalDk minutes'} before.');
     final List<(String, String)> satirlar = <(String, String)>[
-      ('Salon', s.yer.isEmpty ? s.ad : '${s.ad}, ${s.yer}'),
-      if (saat != null) ('Tarih', '${maisonGun(saat)}, ${saat.day} ${maisonAy(saat)} · ${maisonSaat(saat)}'),
-      ('Hizmet', '${_secilenler.map((VitrinHizmeti h) => h.ad).join(', ')} · ${maisonSure(_sure)}'),
-      if (usta != null) ('Usta', usta.ad),
+      (dl('Salon', 'Salon'), s.yer.isEmpty ? s.ad : '${s.ad}, ${s.yer}'),
+      if (saat != null) (dl('Tarih', 'Date'), '${maisonGun(saat)}, ${saat.day} ${maisonAy(saat)} · ${maisonSaat(saat)}'),
+      (dl('Hizmet', 'Service'), '${_secilenler.map((VitrinHizmeti h) => h.ad).join(', ')} · ${maisonSure(_sure)}'),
+      if (usta != null) (dl('Usta', 'Barber'), usta.ad),
     ];
     return ListView(
       padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
@@ -718,13 +720,13 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
         ),
         const SizedBox(height: 20),
         Text(
-          'Randevun hazır',
+          dl('Randevun hazır', 'You are booked'),
           textAlign: TextAlign.center,
           style: maisonBaslik(38, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.05),
         ),
         const SizedBox(height: 6),
         Text(
-          usta != null ? 'Usta ${usta.ad} seni bekliyor.' : 'Salon seni bekliyor.',
+          usta != null ? dl('Usta ${usta.ad} seni bekliyor.', '${usta.ad} is expecting you.') : dl('Salon seni bekliyor.', 'The salon is expecting you.'),
           textAlign: TextAlign.center,
           style: maisonGovde(15, renk: r.soluk, yukseklik: 1.4),
         ),
@@ -767,8 +769,8 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Toplam', style: maisonGovde(13, renk: r.soluk, yukseklik: 1.3)),
-                          Text('salonda ödenir', style: maisonGovde(12, renk: r.soluk, yukseklik: 1.3)),
+                          Text(dl('Toplam', 'Total'), style: maisonGovde(13, renk: r.soluk, yukseklik: 1.3)),
+                          Text(dl('salonda ödenir', 'paid at the salon'), style: maisonGovde(12, renk: r.soluk, yukseklik: 1.3)),
                         ],
                       ),
                     ),
@@ -784,8 +786,9 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
         ),
         const SizedBox(height: 14),
         Text(
-          'Randevudan 24 saat ve 2 saat önce telefonuna hatırlatma gelir. $iptalMetni '
-          'İptal etmen gerekirse Randevularım\'dan yapabilirsin.',
+          dl('Randevudan 24 saat ve 2 saat önce telefonuna hatırlatma gelir. $iptalMetni '
+          'İptal etmen gerekirse Randevularım\'dan yapabilirsin.', 'You will get a reminder on your phone 24 hours and 2 hours before. $iptalMetni '
+              'If you need to cancel, you can do it in My bookings.'),
           textAlign: TextAlign.center,
           style: maisonGovde(13, renk: r.soluk, yukseklik: 1.5),
         ),
@@ -795,7 +798,7 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
           child: OutlinedButton.icon(
             onPressed: _yolTarifi,
             icon: const Icon(Icons.place_outlined, size: 18),
-            label: const Text('Yol tarifi'),
+            label: Text(dl('Yol tarifi', 'Directions')),
           ),
         ),
         const SizedBox(height: 10),
@@ -803,7 +806,7 @@ class _RandevuAkisiState extends State<RandevuAkisi> {
           height: 54,
           child: FilledButton(
             onPressed: () => Navigator.of(context).popUntil((Route<dynamic> rota) => rota.isFirst),
-            child: const Text('Ana sayfaya dön'),
+            child: Text(dl('Ana sayfaya dön', 'Back to home')),
           ),
         ),
       ],
@@ -984,7 +987,8 @@ class _GunKutusu extends StatelessWidget {
       button: true,
       selected: secili,
       enabled: !bos,
-      label: '${maisonGun(gun)} ${gun.day} ${maisonAy(gun)}${bos ? ', boş saat yok' : ', $adet boş saat'}',
+      label: '${maisonGun(gun)} ${gun.day} ${maisonAy(gun)}, '
+          '${bos ? dl('boş saat yok', 'no free times') : dl('$adet boş saat', '$adet free time${adet == 1 ? '' : 's'}')}',
       excludeSemantics: true,
       child: Material(
         color: secili ? r.vurgu : r.kart,

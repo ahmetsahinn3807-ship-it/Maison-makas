@@ -24,6 +24,21 @@ void main() {
     expect(find.text('MAKAS PRO'), findsOneWidget);
   });
 
+  testWidgets('Makas Pro İngilizce açılır', (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3.0;
+    addTearDown(tester.view.reset);
+    MaisonTercih.dil.value = MaisonDil.en;
+    addTearDown(() => MaisonTercih.dil.value = MaisonDil.tr);
+
+    await tester.pumpWidget(MakasProUygulamasi(oturum: MaisonOturum(null)));
+    await tester.pump();
+
+    expect(find.text('Business dashboard'), findsOneWidget);
+    expect(find.text('Today'), findsOneWidget);
+    expect(find.text('Sign in'), findsOneWidget);
+  });
+
   test('Salon kısa adı Türkçe harfleri ve işaretleri temizler', () {
     expect(kisaAdUret('Maison Şahin & Oğulları'), 'maison-sahin-ogullari');
     expect(kisaAdUret('İLKER BERBER'), 'ilker-berber');

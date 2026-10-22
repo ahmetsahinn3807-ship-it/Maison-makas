@@ -4,9 +4,9 @@ import 'dart:math' as math;
 import 'package:flutter/widgets.dart';
 import 'package:makas_core/makas_core.dart';
 
-import 'dil.dart';
-
-/// Kullanıcının seçtiği görünüm: palet, vurgu rengi, koyu mod ve dil.
+/// Kullanıcının seçtiği görünüm: palet, vurgu rengi ve koyu mod.
+///
+/// Dil ve yazı boyutu [MaisonTercih] içindedir (iki uygulamada ortak).
 ///
 /// Giriş yapılmışsa değişiklikler kısa bir gecikmeyle hesaba kaydedilir;
 /// telefon değişse de görünüm aynı kalır.
@@ -18,7 +18,6 @@ class Gorunum extends ChangeNotifier {
 
   MaisonPalet _palet = MaisonPalet.noirDore;
   int _vurguSirasi = 0;
-  Dil _dil = Dil.tr;
   MaisonPalet _sonKoyu = MaisonPalet.noirDore;
   MaisonPalet _sonAcik = MaisonPalet.ivoire;
   Timer? _zamanlayici;
@@ -27,8 +26,6 @@ class Gorunum extends ChangeNotifier {
   int get vurguSirasi => math.min(math.max(_vurguSirasi, 0), _palet.vurgular.length - 1);
   Color get vurgu => _palet.vurgular[vurguSirasi].renk;
   bool get koyu => _palet.koyu;
-  Dil get dil => _dil;
-  Metinler get metin => Metinler.dilIcin(_dil);
 
   /// Hesapta saklanan biçim.
   Map<String, dynamic> get kayit => <String, dynamic>{
@@ -68,16 +65,8 @@ class Gorunum extends ChangeNotifier {
     paletSec(acik ? _sonKoyu : _sonAcik);
   }
 
-  void dilSec(Dil dil) {
-    if (dil == _dil) {
-      return;
-    }
-    _dil = dil;
-    _degisti();
-  }
-
   /// Hesaptan gelen ayarları uygular; tekrar kaydetmez.
-  void uygula(Object? kayit, Object? dil) {
+  void uygula(Object? kayit) {
     if (kayit is Map) {
       final Object? p = kayit['palet'];
       final Object? v = kayit['vurgu'];
@@ -94,13 +83,6 @@ class Gorunum extends ChangeNotifier {
       }
       if (sa is String) {
         _sonAcik = MaisonPalet.kimliktenBul(sa);
-      }
-    }
-    if (dil is String) {
-      for (final Dil d in Dil.values) {
-        if (d.name == dil) {
-          _dil = d;
-        }
       }
     }
     notifyListeners();
@@ -121,7 +103,7 @@ class Gorunum extends ChangeNotifier {
       return;
     }
     try {
-      await f(<String, dynamic>{'gorunum': kayit, 'dil': _dil.name});
+      await f(<String, dynamic>{'gorunum': kayit});
     } catch (_) {
       // Bağlantı yoksa ayar bir sonraki değişiklikte yeniden kaydedilir.
     }

@@ -87,28 +87,28 @@ class _KabukState extends State<Kabuk> {
       case MenuHedefi.randevuGecmis:
         _sekmeyeGit(2, randevuSekmesi: 1);
       case MenuHedefi.beklemeListesi:
-        _ac(const MaisonYakindaEkrani(
-          baslik: 'Bekleme listesi',
+        _ac(MaisonYakindaEkrani(
+          baslik: dl('Bekleme listesi', 'Waiting list'),
           ikon: Icons.hourglass_empty,
-          aciklama: 'Dolu bir saat boşalınca sıradaki müşteriye otomatik teklif edilecek.',
+          aciklama: dl('Dolu bir saat boşalınca sıradaki müşteriye otomatik teklif edilecek.', 'When a booked slot frees up, it will be offered to the next customer automatically.'),
         ));
       case MenuHedefi.favoriler:
-        _ac(const MaisonYakindaEkrani(
-          baslik: 'Favorilerim',
+        _ac(MaisonYakindaEkrani(
+          baslik: dl('Favorilerim', 'Favourites'),
           ikon: Icons.favorite_border,
-          aciklama: 'Beğendiğin salonları ve ustaları buraya ekleyebileceksin.',
+          aciklama: dl('Beğendiğin salonları ve ustaları buraya ekleyebileceksin.', 'You will be able to save the salons and barbers you like here.'),
         ));
       case MenuHedefi.cuzdan:
-        _ac(const MaisonYakindaEkrani(
-          baslik: 'Cüzdan ve sadakat',
+        _ac(MaisonYakindaEkrani(
+          baslik: dl('Cüzdan ve sadakat', 'Wallet and loyalty'),
           ikon: Icons.account_balance_wallet_outlined,
-          aciklama: 'Damga kartların, kaporaların ve hediye kesimlerin burada duracak.',
+          aciklama: dl('Damga kartların, kaporaların ve hediye kesimlerin burada duracak.', 'Your stamp cards, deposits and gift cuts will live here.'),
         ));
       case MenuHedefi.mesajlar:
-        _ac(const MaisonYakindaEkrani(
-          baslik: 'Mesajlar',
+        _ac(MaisonYakindaEkrani(
+          baslik: dl('Mesajlar', 'Messages'),
           ikon: Icons.chat_bubble_outline,
-          aciklama: 'Salonla randevun hakkında buradan yazışabileceksin.',
+          aciklama: dl('Salonla randevun hakkında buradan yazışabileceksin.', 'You will be able to message the salon about your booking here.'),
         ));
       case MenuHedefi.gorunum:
         _ac(const GorunumEkrani());
@@ -159,12 +159,12 @@ class _AltCubuk extends StatelessWidget {
   final int secili;
   final ValueChanged<int> onSec;
 
-  static const List<(IconData, IconData, String)> _ogeler = <(IconData, IconData, String)>[
-    (Icons.home_outlined, Icons.home, 'Ana sayfa'),
-    (Icons.explore_outlined, Icons.explore, 'Keşfet'),
-    (Icons.calendar_month_outlined, Icons.calendar_month, 'Randevularım'),
-    (Icons.person_outline, Icons.person, 'Profil'),
-  ];
+  static List<(IconData, IconData, String)> get _ogeler => <(IconData, IconData, String)>[
+        (Icons.home_outlined, Icons.home, dl('Ana sayfa', 'Home')),
+        (Icons.explore_outlined, Icons.explore, dl('Keşfet', 'Discover')),
+        (Icons.calendar_month_outlined, Icons.calendar_month, dl('Randevularım', 'Bookings')),
+        (Icons.person_outline, Icons.person, dl('Profil', 'Profile')),
+      ];
 
   @override
   Widget build(BuildContext context) {

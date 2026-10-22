@@ -59,7 +59,7 @@ class _CalismaSaatleriEkraniState extends State<CalismaSaatleriEkrani> {
     final CalismaAraligi a = liste[sira];
     final int? secilen = await maisonSaatSec(
       context,
-      baslik: '${maisonGunAdi(gun)} · ${bitisMi ? 'bitiş' : 'başlangıç'}',
+      baslik: '${maisonGunAdi(gun)} · ${bitisMi ? dl('bitiş', 'end') : dl('başlangıç', 'start')}',
       secili: bitisMi ? a.bitis : a.baslangic,
       enAz: bitisMi ? a.baslangic + 15 : 0,
       enCok: bitisMi ? 1440 : a.bitis - 15,
@@ -93,7 +93,7 @@ class _CalismaSaatleriEkraniState extends State<CalismaSaatleriEkrani> {
     final CalismaAraligi son = liste.last;
     if (liste.length >= 4 || son.bitis + 75 > 1440) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Bu güne yeni aralık sığmıyor. Önce mevcut saatleri değiştir.')),
+        SnackBar(content: Text(dl('Bu güne yeni aralık sığmıyor. Önce mevcut saatleri değiştir.', 'No room for another range on this day. Change the existing hours first.'))),
       );
       return;
     }
@@ -182,14 +182,14 @@ class _CalismaSaatleriEkraniState extends State<CalismaSaatleriEkrani> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         backgroundColor: r.kart,
-        title: Text('Kaydedilmedi', style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600)),
+        title: Text(dl('Kaydedilmedi', 'Not saved'), style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600)),
         content: Text(
-          'Saatlerde yaptığın değişiklikler kaydedilmedi. Çıkarsan kaybolur.',
+          dl('Saatlerde yaptığın değişiklikler kaydedilmedi. Çıkarsan kaybolur.', 'Your changes to the hours are not saved. They will be lost if you leave.'),
           style: maisonGovde(14, renk: r.soluk, yukseklik: 1.5),
         ),
         actions: <Widget>[
-          TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Kal')),
-          TextButton(onPressed: () => Navigator.of(context).pop(true), child: const Text('Kaydetmeden çık')),
+          TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(dl('Kal', 'Stay'))),
+          TextButton(onPressed: () => Navigator.of(context).pop(true), child: Text(dl('Kaydetmeden çık', 'Leave without saving'))),
         ],
       ),
     );
@@ -211,7 +211,7 @@ class _CalismaSaatleriEkraniState extends State<CalismaSaatleriEkrani> {
         }
       },
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: maisonSistemCubugu(MaisonPalet.ivoire),
+        value: maisonSistemCubugu(MaisonTercih.proPaleti),
         child: Scaffold(
           backgroundColor: r.zemin,
           body: SafeArea(
@@ -224,34 +224,34 @@ class _CalismaSaatleriEkraniState extends State<CalismaSaatleriEkrani> {
                       MaisonUstSatir(
                         sol: MaisonYuvarlakDugme(
                           ikon: Icons.arrow_back,
-                          etiket: 'Geri',
+                          etiket: dl('Geri', 'Back'),
                           onTap: () => Navigator.of(context).maybePop(),
                         ),
-                        baslik: 'Çalışma saatleri',
+                        baslik: dl('Çalışma saatleri', 'Working hours'),
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        '${widget.usta.ad} · müşteriler yalnız bu saatlerde randevu alabilir.',
+                        dl('${widget.usta.ad} · müşteriler yalnız bu saatlerde randevu alabilir.', '${widget.usta.ad} · customers can book only during these hours.'),
                         textAlign: TextAlign.center,
                         style: maisonGovde(13, renk: r.soluk, yukseklik: 1.45),
                       ),
                       const SizedBox(height: 16),
-                      const MaisonUstBaslik('HIZLI DÜZEN'),
+                      MaisonUstBaslik(dl('HIZLI DÜZEN', 'QUICK SETUP')),
                       const SizedBox(height: 8),
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
                         children: <Widget>[
                           ActionChip(
-                            label: const Text('Pzt–Cmt 09:00–20:00'),
+                            label: Text(dl('Pzt–Cmt 09:00–20:00', 'Mon–Sat 09:00–20:00')),
                             onPressed: () => _hazirDuzen(<int>{1, 2, 3, 4, 5, 6}, 9 * 60, 20 * 60),
                           ),
                           ActionChip(
-                            label: const Text('Hafta içi 09:00–19:00'),
+                            label: Text(dl('Hafta içi 09:00–19:00', 'Weekdays 09:00–19:00')),
                             onPressed: () => _hazirDuzen(<int>{1, 2, 3, 4, 5}, 9 * 60, 19 * 60),
                           ),
                           ActionChip(
-                            label: const Text('Her gün 10:00–22:00'),
+                            label: Text(dl('Her gün 10:00–22:00', 'Every day 10:00–22:00')),
                             onPressed: () => _hazirDuzen(<int>{1, 2, 3, 4, 5, 6, 7}, 10 * 60, 22 * 60),
                           ),
                         ],
@@ -283,7 +283,7 @@ class _CalismaSaatleriEkraniState extends State<CalismaSaatleriEkrani> {
                         height: 52,
                         child: FilledButton(
                           onPressed: _kaydediliyor ? null : _kaydet,
-                          child: Text(_kaydediliyor ? 'Kaydediliyor…' : 'Kaydet'),
+                          child: Text(_kaydediliyor ? dl('Kaydediliyor…', 'Saving…') : dl('Kaydet', 'Save')),
                         ),
                       ),
                     ],
@@ -320,13 +320,13 @@ class _CalismaSaatleriEkraniState extends State<CalismaSaatleriEkrani> {
                 ),
               ),
               Text(
-                acik ? 'Çalışıyor' : 'Kapalı',
+                acik ? dl('Çalışıyor', 'Working') : dl('Kapalı', 'Closed'),
                 style: maisonGovde(12, renk: r.soluk, kalinlik: FontWeight.w500),
               ),
               const SizedBox(width: 6),
               MaisonAnahtar(
                 deger: acik,
-                etiket: '${maisonGunAdi(gun)} çalışıyor',
+                etiket: dl('${maisonGunAdi(gun)} çalışıyor', '${maisonGunAdi(gun)} working'),
                 onChanged: (bool yeni) => _gunAcKapa(gun, yeni),
               ),
             ],
@@ -340,7 +340,7 @@ class _CalismaSaatleriEkraniState extends State<CalismaSaatleriEkrani> {
                   children: <Widget>[
                     _SaatKutusu(
                       metin: maisonDakikaMetni(araliklar[sira].baslangic),
-                      etiket: '${maisonGunAdi(gun)} başlangıç',
+                      etiket: dl('${maisonGunAdi(gun)} başlangıç', '${maisonGunAdi(gun)} start'),
                       onTap: () => _saatSec(gun, sira, bitisMi: false),
                     ),
                     Padding(
@@ -349,13 +349,13 @@ class _CalismaSaatleriEkraniState extends State<CalismaSaatleriEkrani> {
                     ),
                     _SaatKutusu(
                       metin: maisonDakikaMetni(araliklar[sira].bitis),
-                      etiket: '${maisonGunAdi(gun)} bitiş',
+                      etiket: dl('${maisonGunAdi(gun)} bitiş', '${maisonGunAdi(gun)} end'),
                       onTap: () => _saatSec(gun, sira, bitisMi: true),
                     ),
                     const Spacer(),
                     if (araliklar.length > 1)
                       IconButton(
-                        tooltip: 'Aralığı sil',
+                        tooltip: dl('Aralığı sil', 'Delete range'),
                         onPressed: () => _aralikSil(gun, sira),
                         icon: Icon(Icons.close, size: 20, color: r.soluk),
                       ),
@@ -369,12 +369,12 @@ class _CalismaSaatleriEkraniState extends State<CalismaSaatleriEkrani> {
                   TextButton.icon(
                     onPressed: () => _aralikEkle(gun),
                     icon: const Icon(Icons.add, size: 18),
-                    label: Text(tekAralikUzun ? 'Öğle arası ekle' : 'Aralık ekle'),
+                    label: Text(tekAralikUzun ? dl('Öğle arası ekle', 'Add lunch break') : dl('Aralık ekle', 'Add range')),
                   ),
                 TextButton.icon(
                   onPressed: () => _kopyala(gun),
                   icon: const Icon(Icons.copy_all_outlined, size: 18),
-                  label: const Text('Diğer günlere kopyala'),
+                  label: Text(dl('Diğer günlere kopyala', 'Copy to other days')),
                 ),
               ],
             ),
@@ -449,7 +449,7 @@ class _GunSeciciState extends State<_GunSecici> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              '${maisonGunAdi(widget.kaynak)} saatlerini kopyala',
+              dl('${maisonGunAdi(widget.kaynak)} saatlerini kopyala', 'Copy ${maisonGunAdi(widget.kaynak)} hours'),
               style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600),
             ),
             const SizedBox(height: 8),
@@ -457,7 +457,7 @@ class _GunSeciciState extends State<_GunSecici> {
               spacing: 8,
               children: <Widget>[
                 ActionChip(
-                  label: const Text('Hafta içi'),
+                  label: Text(dl('Hafta içi', 'Weekdays')),
                   onPressed: () => setState(() {
                     _secili
                       ..clear()
@@ -465,7 +465,7 @@ class _GunSeciciState extends State<_GunSecici> {
                   }),
                 ),
                 ActionChip(
-                  label: const Text('Hepsi'),
+                  label: Text(dl('Hepsi', 'All')),
                   onPressed: () => setState(() {
                     _secili
                       ..clear()
@@ -493,7 +493,7 @@ class _GunSeciciState extends State<_GunSecici> {
               height: 52,
               child: FilledButton(
                 onPressed: _secili.isEmpty ? null : () => Navigator.of(context).pop(Set<int>.of(_secili)),
-                child: const Text('Kopyala'),
+                child: Text(dl('Kopyala', 'Copy')),
               ),
             ),
           ],

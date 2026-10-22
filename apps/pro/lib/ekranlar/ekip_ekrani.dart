@@ -207,8 +207,8 @@ class _EkipEkraniState extends State<EkipEkrani> {
           .insert(<String, dynamic>{
             'salon_id': widget.salon.id,
             'kullanici_id': ben,
-            'ad': oturum.adSoyad.isEmpty ? 'Ben' : oturum.adSoyad,
-            'unvan': 'Salon sahibi',
+            'ad': oturum.adSoyad.isEmpty ? dl('Ben', 'Me') : oturum.adSoyad,
+            'unvan': dl('Salon sahibi', 'Salon owner'),
             'sira': 0,
           })
           .select(ProUsta.sutunlar)
@@ -232,7 +232,7 @@ class _EkipEkraniState extends State<EkipEkrani> {
     final String? ben = OturumKapsami.of(context).kullanici?.id;
     final bool benEkipte = ustalar?.any((ProUsta u) => u.kullaniciId != null && u.kullaniciId == ben) ?? true;
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: maisonSistemCubugu(MaisonPalet.ivoire),
+      value: maisonSistemCubugu(MaisonTercih.proPaleti),
       child: Scaffold(
         backgroundColor: r.zemin,
         body: SafeArea(
@@ -246,12 +246,12 @@ class _EkipEkraniState extends State<EkipEkrani> {
                 MaisonUstSatir(
                   sol: MaisonYuvarlakDugme(
                     ikon: Icons.arrow_back,
-                    etiket: 'Geri',
+                    etiket: dl('Geri', 'Back'),
                     onTap: () => Navigator.of(context).maybePop(),
                   ),
-                  baslik: 'Ekip',
+                  baslik: dl('Ekip', 'Team'),
                   sag: _sahibim
-                      ? MaisonYuvarlakDugme(ikon: Icons.person_add_alt, etiket: 'Usta ekle', onTap: _yeniUsta)
+                      ? MaisonYuvarlakDugme(ikon: Icons.person_add_alt, etiket: dl('Usta ekle', 'Add barber'), onTap: _yeniUsta)
                       : null,
                 ),
                 const SizedBox(height: 18),
@@ -267,15 +267,15 @@ class _EkipEkraniState extends State<EkipEkrani> {
                   if (ustalar.isEmpty)
                     MaisonBosDurum(
                       ikon: Icons.groups_outlined,
-                      baslik: 'Ekibini kur',
+                      baslik: dl('Ekibini kur', 'Set up your team'),
                       aciklama: _sahibim
-                          ? 'Salonunda çalışan ustaları ekle; her birinin saatlerini ve yaptığı hizmetleri belirle.'
-                          : 'Salon sahibi ustaları ekledikçe burada görünecek.',
-                      dugme: _sahibim ? 'Usta ekle' : null,
+                          ? dl('Salonunda çalışan ustaları ekle; her birinin saatlerini ve yaptığı hizmetleri belirle.', 'Add the barbers who work at your salon and set each one\'s hours and services.')
+                          : dl('Salon sahibi ustaları ekledikçe burada görünecek.', 'Barbers will appear here as the salon owner adds them.'),
+                      dugme: _sahibim ? dl('Usta ekle', 'Add barber') : null,
                       onDugme: _sahibim ? _yeniUsta : null,
                     )
                   else ...<Widget>[
-                    MaisonUstBaslik('${ustalar.length} USTA'),
+                    MaisonUstBaslik(dl('${ustalar.length} USTA', '${ustalar.length} BARBER${ustalar.length == 1 ? '' : 'S'}')),
                     const SizedBox(height: 10),
                     ReorderableListView(
                       shrinkWrap: true,
@@ -310,9 +310,10 @@ class _EkipEkraniState extends State<EkipEkrani> {
                     const SizedBox(height: 8),
                     Text(
                       _sahibim
-                          ? 'Ayrıntı ve çalışma saatleri için ustaya dokun. Sıra, müşterinin ekip listesinde '
-                              've "Fark etmez" seçildiğinde hangi ustaya önce bakılacağında kullanılır.'
-                          : 'Ekibi yalnız salon sahibi düzenleyebilir.',
+                          ? dl('Ayrıntı ve çalışma saatleri için ustaya dokun. Sıra, müşterinin ekip listesinde '
+                              've "Fark etmez" seçildiğinde hangi ustaya önce bakılacağında kullanılır.', 'Tap a barber for details and working hours. The order is used in the customer\'s team list '
+                                  'and decides who is checked first when "Any barber" is chosen.')
+                          : dl('Ekibi yalnız salon sahibi düzenleyebilir.', 'Only the salon owner can edit the team.'),
                       style: maisonGovde(12, renk: r.soluk, yukseklik: 1.45),
                     ),
                   ],
@@ -345,12 +346,12 @@ class _BeniEkleKarti extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(
-            'Sen de müşteri alıyor musun?',
+            dl('Sen de müşteri alıyor musun?', 'Do you take customers too?'),
             style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
           ),
           const SizedBox(height: 4),
           Text(
-            'Kendini ekibe eklersen müşteriler senden de randevu alabilir.',
+            dl('Kendini ekibe eklersen müşteriler senden de randevu alabilir.', 'If you add yourself to the team, customers can book with you too.'),
             style: maisonGovde(13, renk: r.soluk, yukseklik: 1.4),
           ),
           const SizedBox(height: 12),
@@ -360,7 +361,7 @@ class _BeniEkleKarti extends StatelessWidget {
               height: 44,
               child: FilledButton(
                 onPressed: isleniyor ? null : onEkle,
-                child: const Text('Kendimi ekibe ekle'),
+                child: Text(dl('Kendimi ekibe ekle', 'Add myself to the team')),
               ),
             ),
           ),
@@ -395,10 +396,10 @@ class _UstaKarti extends StatelessWidget {
     final List<String> ozet = maisonHaftaOzeti(saatler);
     final String? unvan = usta.unvan;
     final List<String> rozetler = <String>[
-      if (ben) 'Sen',
-      if (!usta.aktif) 'Pasif',
-      if (usta.hesapBagli && !ben) 'Makas Pro\'da',
-      if (!usta.hesapBagli && davetli) 'Davet bekliyor',
+      if (ben) dl('Sen', 'You'),
+      if (!usta.aktif) dl('Pasif', 'Inactive'),
+      if (usta.hesapBagli && !ben) dl('Makas Pro\'da', 'On Makas Pro'),
+      if (!usta.hesapBagli && davetli) dl('Davet bekliyor', 'Invite pending'),
     ];
     return Material(
       color: r.kart,
@@ -438,7 +439,7 @@ class _UstaKarti extends StatelessWidget {
                       ),
                     const SizedBox(height: 4),
                     Text(
-                      ozet.isEmpty ? 'Çalışma saati eklenmedi' : ozet.first + (ozet.length > 1 ? ' …' : ''),
+                      ozet.isEmpty ? dl('Çalışma saati eklenmedi', 'No working hours yet') : ozet.first + (ozet.length > 1 ? ' …' : ''),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: maisonGovde(
@@ -458,14 +459,14 @@ class _UstaKarti extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                               decoration: BoxDecoration(
-                                color: rozet == 'Pasif' ? r.cizgi : r.vurguYumusak,
+                                color: rozet == dl('Pasif', 'Inactive') ? r.cizgi : r.vurguYumusak,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Text(
                                 rozet,
                                 style: maisonGovde(
                                   11,
-                                  renk: rozet == 'Pasif' ? r.soluk : r.vurgu,
+                                  renk: rozet == dl('Pasif', 'Inactive') ? r.soluk : r.vurgu,
                                   kalinlik: FontWeight.w600,
                                 ),
                               ),
@@ -480,7 +481,7 @@ class _UstaKarti extends StatelessWidget {
                 ReorderableDragStartListener(
                   index: sira,
                   child: Semantics(
-                    label: 'Sürükleyip sırala',
+                    label: dl('Sürükleyip sırala', 'Drag to reorder'),
                     child: SizedBox(width: 44, height: 44, child: Icon(Icons.drag_indicator, color: r.soluk)),
                   ),
                 )
@@ -504,7 +505,7 @@ class _YeniUstaFormu extends StatefulWidget {
 
 class _YeniUstaFormuState extends State<_YeniUstaFormu> {
   final TextEditingController _ad = TextEditingController();
-  final TextEditingController _unvan = TextEditingController(text: 'Usta');
+  final TextEditingController _unvan = TextEditingController(text: dl('Usta', 'Barber'));
   String? _uyari;
 
   @override
@@ -517,7 +518,7 @@ class _YeniUstaFormuState extends State<_YeniUstaFormu> {
   void _kaydet() {
     final String ad = _ad.text.trim();
     if (ad.isEmpty) {
-      setState(() => _uyari = 'Ustanın adını yaz.');
+      setState(() => _uyari = dl('Ustanın adını yaz.', 'Enter the barber\'s name.'));
       return;
     }
     final String unvan = _unvan.text.trim();
@@ -536,26 +537,26 @@ class _YeniUstaFormuState extends State<_YeniUstaFormu> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text('Yeni usta', style: maisonBaslik(28, renk: r.yazi, kalinlik: FontWeight.w600)),
+              Text(dl('Yeni usta', 'New barber'), style: maisonBaslik(28, renk: r.yazi, kalinlik: FontWeight.w600)),
               const SizedBox(height: 6),
               Text(
-                'Kaydedince çalışma saatlerini ve yaptığı hizmetleri belirleyeceksin.',
+                dl('Kaydedince çalışma saatlerini ve yaptığı hizmetleri belirleyeceksin.', 'After saving you will set their working hours and services.'),
                 style: maisonGovde(13, renk: r.soluk, yukseklik: 1.45),
               ),
               const SizedBox(height: 16),
               MaisonAlan(
-                etiket: 'AD SOYAD',
+                etiket: dl('AD SOYAD', 'FULL NAME'),
                 kontrol: _ad,
-                ipucu: 'Ör. Mehmet Yılmaz',
+                ipucu: dl('Ör. Mehmet Yılmaz', 'E.g. Mehmet Yılmaz'),
                 enFazla: 60,
                 buyukHarf: TextCapitalization.words,
                 eylem: TextInputAction.next,
               ),
               const SizedBox(height: 14),
               MaisonAlan(
-                etiket: 'UNVAN',
+                etiket: dl('UNVAN', 'TITLE'),
                 kontrol: _unvan,
-                ipucu: 'Ör. Kıdemli usta',
+                ipucu: dl('Ör. Kıdemli usta', 'E.g. Senior barber'),
                 enFazla: 60,
                 buyukHarf: TextCapitalization.sentences,
                 eylem: TextInputAction.done,
@@ -568,7 +569,7 @@ class _YeniUstaFormuState extends State<_YeniUstaFormu> {
               const SizedBox(height: 18),
               SizedBox(
                 height: 52,
-                child: FilledButton(onPressed: _kaydet, child: const Text('Ekle ve saatlerini ayarla')),
+                child: FilledButton(onPressed: _kaydet, child: Text(dl('Ekle ve saatlerini ayarla', 'Add and set hours'))),
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'bilesenler.dart';
+import 'dil.dart';
 import 'oturum.dart';
 import 'renkler.dart';
 import 'tema.dart';
@@ -14,16 +15,16 @@ class MaisonGirisEkrani extends StatefulWidget {
     required this.oturum,
     this.kayitModu = false,
     this.ustBaslik = 'MAISON MAKAS',
-    this.girisAciklama = 'Randevularını ve favori ustalarını tek yerden yönet.',
-    this.kayitAciklama =
-        'Birkaç saniyede hesabını oluştur; randevuların telefon değişse de seninle kalsın.',
+    this.girisAciklama,
+    this.kayitAciklama,
   });
 
   final MaisonOturum oturum;
   final bool kayitModu;
   final String ustBaslik;
-  final String girisAciklama;
-  final String kayitAciklama;
+  /// Verilmezse müşteri uygulamasının metni (seçili dilde).
+  final String? girisAciklama;
+  final String? kayitAciklama;
 
   @override
   State<MaisonGirisEkrani> createState() => _MaisonGirisEkraniState();
@@ -48,16 +49,16 @@ class _MaisonGirisEkraniState extends State<MaisonGirisEkrani> {
 
   String? _dogrula() {
     if (_kayit && _ad.text.trim().length < 2) {
-      return 'Adını ve soyadını yaz.';
+      return dl('Adını ve soyadını yaz.', 'Enter your first and last name.');
     }
     if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(_eposta.text.trim())) {
-      return 'Geçerli bir e-posta adresi yaz.';
+      return dl('Geçerli bir e-posta adresi yaz.', 'Enter a valid email address.');
     }
     if (_kayit && _sifre.text.length < 8) {
-      return 'Şifre en az 8 karakter olmalı.';
+      return dl('Şifre en az 8 karakter olmalı.', 'The password must be at least 8 characters.');
     }
     if (!_kayit && _sifre.text.isEmpty) {
-      return 'Şifreni yaz.';
+      return dl('Şifreni yaz.', 'Enter your password.');
     }
     return null;
   }
@@ -123,7 +124,7 @@ class _MaisonGirisEkraniState extends State<MaisonGirisEkrani> {
                 alignment: Alignment.centerLeft,
                 child: MaisonYuvarlakDugme(
                   ikon: Icons.arrow_back,
-                  etiket: 'Geri',
+                  etiket: dl('Geri', 'Back'),
                   onTap: () => Navigator.of(context).maybePop(),
                 ),
               ),
@@ -131,26 +132,36 @@ class _MaisonGirisEkraniState extends State<MaisonGirisEkrani> {
               MaisonUstBaslik(widget.ustBaslik, renk: r.vurgu),
               const SizedBox(height: 10),
               Text(
-                _kayit ? 'Hesap oluştur' : 'Hoş geldin',
+                _kayit ? dl('Hesap oluştur', 'Create account') : dl('Hoş geldin', 'Welcome'),
                 style: maisonBaslik(46, renk: r.yazi, yukseklik: 1.02),
               ),
               const SizedBox(height: 10),
               Text(
-                _kayit ? widget.kayitAciklama : widget.girisAciklama,
+                _kayit
+                    ? widget.kayitAciklama ??
+                        dl(
+                          'Birkaç saniyede hesabını oluştur; randevuların telefon değişse de seninle kalsın.',
+                          'Create your account in seconds; your bookings stay with you even if you change phones.',
+                        )
+                    : widget.girisAciklama ??
+                        dl(
+                          'Randevularını ve favori ustalarını tek yerden yönet.',
+                          'Manage your bookings and favourite barbers in one place.',
+                        ),
                 style: maisonGovde(15, renk: r.soluk, yukseklik: 1.5),
               ),
               const SizedBox(height: 26),
               MaisonSekmeSecici(
-                secenekler: const <String>['Giriş', 'Yeni hesap'],
+                secenekler: <String>[dl('Giriş', 'Sign in'), dl('Yeni hesap', 'New account')],
                 secili: _kayit ? 1 : 0,
                 onSec: _modDegistir,
               ),
               const SizedBox(height: 22),
               if (_kayit) ...<Widget>[
                 MaisonAlan(
-                  etiket: 'AD SOYAD',
+                  etiket: dl('AD SOYAD', 'FULL NAME'),
                   kontrol: _ad,
-                  ipucu: 'Adın ve soyadın',
+                  ipucu: dl('Adın ve soyadın', 'Your first and last name'),
                   otomatik: const <String>[AutofillHints.name],
                   eylem: TextInputAction.next,
                   buyukHarf: TextCapitalization.words,
@@ -159,24 +170,24 @@ class _MaisonGirisEkraniState extends State<MaisonGirisEkrani> {
                 const SizedBox(height: 16),
               ],
               MaisonAlan(
-                etiket: 'E-POSTA',
+                etiket: dl('E-POSTA', 'EMAIL'),
                 kontrol: _eposta,
-                ipucu: 'ornek@eposta.com',
+                ipucu: dl('ornek@eposta.com', 'name@example.com'),
                 klavye: TextInputType.emailAddress,
                 otomatik: const <String>[AutofillHints.email],
                 eylem: TextInputAction.next,
               ),
               const SizedBox(height: 16),
               MaisonAlan(
-                etiket: 'ŞİFRE',
+                etiket: dl('ŞİFRE', 'PASSWORD'),
                 kontrol: _sifre,
-                ipucu: _kayit ? 'En az 8 karakter' : 'Şifren',
+                ipucu: _kayit ? dl('En az 8 karakter', 'At least 8 characters') : dl('Şifren', 'Your password'),
                 gizli: !_sifreGorunur,
                 otomatik: <String>[_kayit ? AutofillHints.newPassword : AutofillHints.password],
                 eylem: TextInputAction.done,
                 gonder: (_) => _gonder(),
                 sonek: IconButton(
-                  tooltip: _sifreGorunur ? 'Şifreyi gizle' : 'Şifreyi göster',
+                  tooltip: _sifreGorunur ? dl('Şifreyi gizle', 'Hide password') : dl('Şifreyi göster', 'Show password'),
                   onPressed: () => setState(() => _sifreGorunur = !_sifreGorunur),
                   icon: Icon(
                     _sifreGorunur ? Icons.visibility_off_outlined : Icons.visibility_outlined,
@@ -200,12 +211,12 @@ class _MaisonGirisEkraniState extends State<MaisonGirisEkrani> {
                           height: 22,
                           child: CircularProgressIndicator(strokeWidth: 2, color: r.vurguUstu),
                         )
-                      : Text(_kayit ? 'Hesabımı oluştur' : 'Giriş yap'),
+                      : Text(_kayit ? dl('Hesabımı oluştur', 'Create my account') : dl('Giriş yap', 'Sign in')),
                 ),
               ),
               const SizedBox(height: 22),
               Text(
-                'Devam ederek Kullanım Şartları\'nı ve Gizlilik Politikası\'nı kabul etmiş olursun.',
+                dl('Devam ederek Kullanım Şartları\'nı ve Gizlilik Politikası\'nı kabul etmiş olursun.', 'By continuing you accept the Terms of Use and the Privacy Policy.'),
                 textAlign: TextAlign.center,
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.6),
               ),

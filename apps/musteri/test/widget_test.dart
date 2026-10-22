@@ -25,6 +25,7 @@ void main() {
     await tester.tap(find.text('EN'));
     await tester.pump();
     expect(find.text('Get started'), findsOneWidget);
+    expect(find.text('I have an account, sign in'), findsOneWidget);
 
     await tester.tap(find.text('TR'));
     await tester.pump();

@@ -1,25 +1,30 @@
 import 'package:flutter/cupertino.dart' show CupertinoPicker, FixedExtentScrollController;
 import 'package:flutter/material.dart';
 
+import 'dil.dart';
 import 'renkler.dart';
+import 'tarih.dart';
 import 'tema.dart';
 
 /// Hizmet ve galeri kategorileri (veritabanındaki adlarla). Vitrinde bu sırayla gösterilir.
 enum HizmetKategorisi {
-  sac('sac', 'Saç'),
-  sakal('sakal', 'Sakal'),
-  renk('renk', 'Renk'),
-  bakim('bakim', 'Bakım'),
-  cocuk('cocuk', 'Çocuk'),
-  diger('diger', 'Diğer');
+  sac('sac', 'Saç', 'Hair'),
+  sakal('sakal', 'Sakal', 'Beard'),
+  renk('renk', 'Renk', 'Colour'),
+  bakim('bakim', 'Bakım', 'Care'),
+  cocuk('cocuk', 'Çocuk', 'Kids'),
+  diger('diger', 'Diğer', 'Other');
 
-  const HizmetKategorisi(this.kimlik, this.ad);
+  const HizmetKategorisi(this.kimlik, this._tr, this._en);
 
   /// Veritabanındaki değer.
   final String kimlik;
 
-  /// Ekranda görünen ad.
-  final String ad;
+  final String _tr;
+  final String _en;
+
+  /// Ekranda görünen ad (seçili dilde).
+  String get ad => dl(_tr, _en);
 
   static HizmetKategorisi kimliktenBul(Object? kimlik) {
     for (final HizmetKategorisi k in HizmetKategorisi.values) {
@@ -31,8 +36,10 @@ enum HizmetKategorisi {
   }
 }
 
-/// Türkçe büyük harf: "Diğer" → "DİĞER" (Dart'ın toUpperCase'i i'yi I yapar).
-String maisonBuyukHarf(String metin) => metin.replaceAll('i', 'İ').toUpperCase();
+/// Başlıklar için büyük harf. Türkçede "Diğer" → "DİĞER" (Dart'ın toUpperCase'i i'yi I yapar);
+/// İngilizcede düz toUpperCase.
+String maisonBuyukHarf(String metin) =>
+    MaisonTercih.ingilizce ? metin.toUpperCase() : metin.replaceAll('i', 'İ').toUpperCase();
 
 /// Kullanıcının yazdığı fiyatı okur: "400", "1.250", "250,50", "12.5". Okunamazsa null.
 double? maisonFiyatOku(String metin) {
@@ -59,19 +66,23 @@ double? maisonFiyatOku(String metin) {
 /// Fiyatı düzenleme alanına yazılacak biçimde verir: 400 → "400", 250.5 → "250,50".
 String maisonFiyatYaz(double fiyat) {
   final bool tam = fiyat == fiyat.roundToDouble();
-  return tam ? fiyat.round().toString() : fiyat.toStringAsFixed(2).replaceAll('.', ',');
+  return tam ? fiyat.round().toString() : maisonOndalik(fiyat, 2);
 }
 
 const List<String> _gunAdlari = <String>[
   'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar',
 ];
 const List<String> _gunKisa = <String>['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+const List<String> _dayNames = <String>[
+  'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',
+];
+const List<String> _dayShort = <String>['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 /// 1 = Pazartesi … 7 = Pazar
-String maisonGunAdi(int gun) => _gunAdlari[(gun - 1).clamp(0, 6).toInt()];
+String maisonGunAdi(int gun) => (MaisonTercih.ingilizce ? _dayNames : _gunAdlari)[(gun - 1).clamp(0, 6).toInt()];
 
 /// 1 = Pzt … 7 = Paz
-String maisonGunKisa(int gun) => _gunKisa[(gun - 1).clamp(0, 6).toInt()];
+String maisonGunKisa(int gun) => (MaisonTercih.ingilizce ? _dayShort : _gunKisa)[(gun - 1).clamp(0, 6).toInt()];
 
 /// Gece yarısından dakikayı saate çevirir: 545 → "09:05", 1440 → "24:00".
 String maisonDakikaMetni(int dakika) {
@@ -170,16 +181,18 @@ String? maisonGunDenetle(List<CalismaAraligi> gunun) {
   final List<CalismaAraligi> sirali = maisonAralikSirala(gunun);
   for (final CalismaAraligi a in sirali) {
     if (a.bitis <= a.baslangic) {
-      return '${maisonGunAdi(a.gun)}: bitiş saati başlangıçtan sonra olmalı.';
+      return dl('${maisonGunAdi(a.gun)}: bitiş saati başlangıçtan sonra olmalı.',
+          '${maisonGunAdi(a.gun)}: the end time must be after the start time.');
     }
   }
   for (int i = 1; i < sirali.length; i++) {
     if (sirali[i].baslangic < sirali[i - 1].bitis) {
-      return '${maisonGunAdi(sirali[i].gun)}: aralıklar çakışıyor.';
+      return dl('${maisonGunAdi(sirali[i].gun)}: aralıklar çakışıyor.', '${maisonGunAdi(sirali[i].gun)}: the hours overlap.');
     }
   }
   if (sirali.length > 4) {
-    return '${maisonGunAdi(sirali.first.gun)}: bir güne en çok 4 aralık girilebilir.';
+    return dl('${maisonGunAdi(sirali.first.gun)}: bir güne en çok 4 aralık girilebilir.',
+        '${maisonGunAdi(sirali.first.gun)}: at most 4 time ranges per day.');
   }
   return null;
 }
@@ -277,20 +290,32 @@ class SalonSaatleri {
     final int dakika = an.hour * 60 + an.minute;
     for (final CalismaAraligi a in gunun(bugun)) {
       if (dakika >= a.baslangic && dakika < a.bitis) {
-        return SalonDurumu(acik: true, metin: 'Şu an açık · ${maisonSaatEki(a.bitis)} kapanır');
+        return SalonDurumu(
+          acik: true,
+          metin: dl('Şu an açık · ${maisonSaatEki(a.bitis)} kapanır', 'Open now · closes at ${maisonDakikaMetni(a.bitis)}'),
+        );
       }
     }
     for (final CalismaAraligi a in gunun(bugun)) {
       if (a.baslangic > dakika) {
-        return SalonDurumu(acik: false, metin: 'Şu an kapalı · ${maisonSaatEki(a.baslangic)} açılır');
+        return SalonDurumu(
+          acik: false,
+          metin: dl('Şu an kapalı · ${maisonSaatEki(a.baslangic)} açılır', 'Closed now · opens at ${maisonDakikaMetni(a.baslangic)}'),
+        );
       }
     }
     for (int ileri = 1; ileri <= 7; ileri++) {
       final int gun = (bugun - 1 + ileri) % 7 + 1;
       final List<CalismaAraligi> o = gunun(gun);
       if (o.isNotEmpty) {
-        final String ne = ileri == 1 ? 'Yarın' : maisonGunAdi(gun);
-        return SalonDurumu(acik: false, metin: 'Şu an kapalı · $ne ${maisonSaatEki(o.first.baslangic)} açılır');
+        final String ne = ileri == 1 ? dl('Yarın', 'tomorrow') : maisonGunAdi(gun);
+        return SalonDurumu(
+          acik: false,
+          metin: dl(
+            'Şu an kapalı · $ne ${maisonSaatEki(o.first.baslangic)} açılır',
+            'Closed now · opens $ne at ${maisonDakikaMetni(o.first.baslangic)}',
+          ),
+        );
       }
     }
     return null;
@@ -392,7 +417,7 @@ class _SaatSeciciState extends State<_SaatSecici> {
               height: 52,
               child: FilledButton(
                 onPressed: () => Navigator.of(context).pop(widget.secenekler[_secim]),
-                child: const Text('Tamam'),
+                child: Text(dl('Tamam', 'Done')),
               ),
             ),
           ],
@@ -452,7 +477,7 @@ class MaisonHaftalikSaatler extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        o.isEmpty ? 'Kapalı' : o.map((CalismaAraligi a) => a.metin).join(', '),
+                        o.isEmpty ? dl('Kapalı', 'Closed') : o.map((CalismaAraligi a) => a.metin).join(', '),
                         textAlign: TextAlign.end,
                         style: stil,
                       ),

@@ -103,16 +103,16 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         backgroundColor: r.kart,
-        title: Text('Randevu iptal edilsin mi?', style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600)),
+        title: Text(dl('Randevu iptal edilsin mi?', 'Cancel this booking?'), style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600)),
         content: Text(
-          'Saat boşalır ve başka bir müşteri alabilir. Müşteri uygulamadan aldıysa randevusu iptal görünür.',
+          dl('Saat boşalır ve başka bir müşteri alabilir. Müşteri uygulamadan aldıysa randevusu iptal görünür.', 'The slot becomes free for another customer. If the customer booked in the app, they will see it as cancelled.'),
           style: maisonGovde(14, renk: r.soluk, yukseklik: 1.5),
         ),
         actions: <Widget>[
-          TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Vazgeç')),
+          TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(dl('Vazgeç', 'Keep it'))),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: Text('İptal et', style: TextStyle(color: Theme.of(context).colorScheme.error)),
+            child: Text(dl('İptal et', 'Cancel booking'), style: TextStyle(color: Theme.of(context).colorScheme.error)),
           ),
         ],
       ),
@@ -132,7 +132,7 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
   Future<void> _ara(String tel) async {
     final ScaffoldMessengerState mesaj = ScaffoldMessenger.of(context);
     if (!await maisonTelefonAc(tel)) {
-      mesaj.showSnackBar(const SnackBar(content: Text('Arama açılamadı.')));
+      mesaj.showSnackBar(SnackBar(content: Text(dl('Arama açılamadı.', 'The call could not be started.'))));
     }
   }
 
@@ -147,13 +147,13 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
     final bool acik = k.durum == 'bekliyor' || k.durum == 'onaylandi';
     final String? hata = _hata;
     final List<(String, String)> satirlar = <(String, String)>[
-      ('Saat', '${maisonGun(k.baslangic)}, ${k.baslangic.day} ${maisonAy(k.baslangic)} · '
+      (dl('Saat', 'Time'), '${maisonGun(k.baslangic)}, ${k.baslangic.day} ${maisonAy(k.baslangic)} · '
           '${maisonSaat(k.baslangic)}–${maisonSaat(k.bitis)}'),
-      ('Usta', k.ustaAd),
-      if (!k.blok) ('Hizmet', k.hizmetler ?? 'Belirtilmedi'),
-      if (!k.blok && fiyat != null) ('Tutar', maisonPara(fiyat, 'TRY')),
-      if (!k.blok) ('Kaynak', k.kaynak == 'dukkan' ? 'Dükkânda yazıldı' : 'Maison Makas'),
-      if (!k.blok) ('Durum', k.durumMetni),
+      (dl('Usta', 'Barber'), k.ustaAd),
+      if (!k.blok) (dl('Hizmet', 'Service'), k.hizmetler ?? dl('Belirtilmedi', 'Not specified')),
+      if (!k.blok && fiyat != null) (dl('Tutar', 'Amount'), maisonPara(fiyat, 'TRY')),
+      if (!k.blok) (dl('Kaynak', 'Source'), k.kaynak == 'dukkan' ? dl('Dükkânda yazıldı', 'Added at the salon') : 'Maison Makas'),
+      if (!k.blok) (dl('Durum', 'Status'), k.durumMetni),
     ];
     return SafeArea(
       child: SingleChildScrollView(
@@ -163,7 +163,7 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              k.blok ? (k.ustaNotu?.trim().isNotEmpty ?? false ? k.ustaNotu!.trim() : 'Mola') : (k.musteriAd ?? 'Misafir'),
+              k.blok ? (k.ustaNotu?.trim().isNotEmpty ?? false ? k.ustaNotu!.trim() : dl('Mola', 'Break')) : (k.musteriAd ?? dl('Misafir', 'Guest')),
               style: maisonBaslik(30, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1),
             ),
             if (tel != null && tel.trim().isNotEmpty && !k.blok) ...<Widget>[
@@ -201,7 +201,7 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(color: r.zemin, borderRadius: BorderRadius.circular(14)),
-                child: Text('Not: ${not.trim()}', style: maisonGovde(14, renk: r.yazi, yukseklik: 1.5)),
+                child: Text(dl('Not: ${not.trim()}', 'Note: ${not.trim()}'), style: maisonGovde(14, renk: r.yazi, yukseklik: 1.5)),
               ),
             ],
             if (hata != null) ...<Widget>[
@@ -215,7 +215,7 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
                 child: OutlinedButton.icon(
                   onPressed: _isleniyor ? null : _blokSil,
                   icon: Icon(Icons.delete_outline, color: hataRengi, size: 18),
-                  label: Text('Molayı kaldır', style: TextStyle(color: hataRengi)),
+                  label: Text(dl('Molayı kaldır', 'Remove break'), style: TextStyle(color: hataRengi)),
                 ),
               )
             else ...<Widget>[
@@ -227,7 +227,7 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
                         height: 50,
                         child: FilledButton(
                           onPressed: _isleniyor ? null : () => _durum('tamamlandi'),
-                          child: const Text('Geldi'),
+                          child: Text(dl('Geldi', 'Arrived')),
                         ),
                       ),
                     ),
@@ -237,7 +237,7 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
                         height: 50,
                         child: OutlinedButton(
                           onPressed: _isleniyor ? null : () => _durum('gelmedi'),
-                          child: const Text('Gelmedi'),
+                          child: Text(dl('Gelmedi', 'No-show')),
                         ),
                       ),
                     ),
@@ -249,7 +249,7 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
                   height: 50,
                   child: FilledButton(
                     onPressed: _isleniyor ? null : () => _durum('onaylandi'),
-                    child: const Text('Onayla'),
+                    child: Text(dl('Onayla', 'Confirm')),
                   ),
                 ),
               ],
@@ -258,7 +258,7 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
                   height: 50,
                   child: OutlinedButton(
                     onPressed: _isleniyor ? null : () => _durum('onaylandi'),
-                    child: const Text('İşareti geri al'),
+                    child: Text(dl('İşareti geri al', 'Undo mark')),
                   ),
                 ),
               if (acik) ...<Widget>[
@@ -266,7 +266,7 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
                 TextButton(
                   onPressed: _isleniyor ? null : _iptal,
                   child: Text(
-                    'Randevuyu iptal et',
+                    dl('Randevuyu iptal et', 'Cancel booking'),
                     style: maisonGovde(14, renk: hataRengi, kalinlik: FontWeight.w600),
                   ),
                 ),
@@ -292,8 +292,8 @@ Future<bool> kapidanGelenAc(
       SnackBar(
         content: Text(
           salon.sahibim
-              ? 'Önce Ekip ekranından usta ekle (kendini de ekleyebilirsin).'
-              : 'Bu salonda aktif bir usta kaydın yok.',
+              ? dl('Önce Ekip ekranından usta ekle (kendini de ekleyebilirsin).', 'Add a barber on the Team screen first (you can add yourself too).')
+              : dl('Bu salonda aktif bir usta kaydın yok.', 'You do not have an active barber record at this salon.'),
         ),
       ),
     );
@@ -369,7 +369,7 @@ class _KapidanGelenFormuState extends State<_KapidanGelenFormu> {
   Future<void> _saatSec() async {
     final int? dakika = await maisonSaatSec(
       context,
-      baslik: 'Başlangıç saati',
+      baslik: dl('Başlangıç saati', 'Start time'),
       secili: _zaman.hour * 60 + _zaman.minute,
       enCok: 1435,
       adim: 5,
@@ -406,7 +406,10 @@ class _KapidanGelenFormuState extends State<_KapidanGelenFormu> {
         'p_sure_dk': _hizmetler.isEmpty ? _sureDk : null,
       });
       mesaj.showSnackBar(
-        SnackBar(content: Text('${ad.isEmpty ? 'Misafir' : ad} · ${maisonSaat(_zaman)} takvime yazıldı.')),
+        SnackBar(content: Text(dl(
+          '${ad.isEmpty ? 'Misafir' : ad} · ${maisonSaat(_zaman)} takvime yazıldı.',
+          '${ad.isEmpty ? 'Guest' : ad} · ${maisonSaat(_zaman)} added to the calendar.',
+        ))),
       );
       gezgin.pop(true);
     } catch (hata) {
@@ -435,14 +438,14 @@ class _KapidanGelenFormuState extends State<_KapidanGelenFormu> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                _simdi ? 'Kapıdan gelen' : 'Randevu yaz',
+                _simdi ? dl('Kapıdan gelen', 'Walk-in') : dl('Randevu yaz', 'Add booking'),
                 style: maisonBaslik(30, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1),
               ),
               const SizedBox(height: 4),
               Text(
                 _simdi
-                    ? 'Salona gelen müşteriyi takvime yaz; o saat müşterilere dolu görünür.'
-                    : 'Telefonla arayan müşteri için. O saat müşterilere dolu görünür.',
+                    ? dl('Salona gelen müşteriyi takvime yaz; o saat müşterilere dolu görünür.', 'Add the walk-in customer to the calendar; that time will show as taken to customers.')
+                    : dl('Telefonla arayan müşteri için. O saat müşterilere dolu görünür.', 'For a customer who called. That time will show as taken to customers.'),
                 style: maisonGovde(13, renk: r.soluk, yukseklik: 1.45),
               ),
               const SizedBox(height: 16),
@@ -463,7 +466,7 @@ class _KapidanGelenFormuState extends State<_KapidanGelenFormu> {
               ),
               if (ustalar.length > 1) ...<Widget>[
                 const SizedBox(height: 16),
-                const MaisonUstBaslik('USTA'),
+                MaisonUstBaslik(dl('USTA', 'BARBER')),
                 const SizedBox(height: 8),
                 Wrap(
                   spacing: 8,
@@ -479,10 +482,10 @@ class _KapidanGelenFormuState extends State<_KapidanGelenFormu> {
                 ),
               ],
               const SizedBox(height: 16),
-              const MaisonUstBaslik('HİZMET'),
+              MaisonUstBaslik(dl('HİZMET', 'SERVICE')),
               const SizedBox(height: 8),
               if (hizmetler.isEmpty)
-                Text('Hizmet menüsü boş; süre seçerek yazabilirsin.', style: maisonGovde(13, renk: r.soluk))
+                Text(dl('Hizmet menüsü boş; süre seçerek yazabilirsin.', 'The service menu is empty; you can add it by choosing a duration.'), style: maisonGovde(13, renk: r.soluk))
               else
                 Wrap(
                   spacing: 8,
@@ -504,7 +507,7 @@ class _KapidanGelenFormuState extends State<_KapidanGelenFormu> {
                 ),
               if (_hizmetler.isEmpty) ...<Widget>[
                 const SizedBox(height: 14),
-                const MaisonUstBaslik('SÜRE'),
+                MaisonUstBaslik(dl('SÜRE', 'DURATION')),
                 const SizedBox(height: 8),
                 Wrap(
                   spacing: 8,
@@ -521,16 +524,16 @@ class _KapidanGelenFormuState extends State<_KapidanGelenFormu> {
               ],
               const SizedBox(height: 16),
               MaisonAlan(
-                etiket: 'MÜŞTERİ ADI (İSTEĞE BAĞLI)',
+                etiket: dl('MÜŞTERİ ADI (İSTEĞE BAĞLI)', 'CUSTOMER NAME (OPTIONAL)'),
                 kontrol: _ad,
-                ipucu: 'Ör. Kemal Bey',
+                ipucu: dl('Ör. Kemal Bey', 'E.g. Mr Kemal'),
                 enFazla: 80,
                 buyukHarf: TextCapitalization.words,
                 eylem: TextInputAction.next,
               ),
               const SizedBox(height: 12),
               MaisonAlan(
-                etiket: 'TELEFON (İSTEĞE BAĞLI)',
+                etiket: dl('TELEFON (İSTEĞE BAĞLI)', 'PHONE (OPTIONAL)'),
                 kontrol: _tel,
                 ipucu: '05xx xxx xx xx',
                 klavye: TextInputType.phone,
@@ -539,7 +542,7 @@ class _KapidanGelenFormuState extends State<_KapidanGelenFormu> {
               ),
               const SizedBox(height: 12),
               MaisonAlan(
-                etiket: 'NOT (İSTEĞE BAĞLI)',
+                etiket: dl('NOT (İSTEĞE BAĞLI)', 'NOTE (OPTIONAL)'),
                 kontrol: _not,
                 enFazla: 500,
                 buyukHarf: TextCapitalization.sentences,
@@ -555,8 +558,8 @@ class _KapidanGelenFormuState extends State<_KapidanGelenFormu> {
                   onPressed: _kaydediliyor ? null : _kaydet,
                   child: Text(
                     _kaydediliyor
-                        ? 'Yazılıyor…'
-                        : 'Takvime yaz · ${maisonSaat(_zaman)}–${maisonSaat(_zaman.add(Duration(minutes: _toplamSure)))}',
+                        ? dl('Yazılıyor…', 'Saving…')
+                        : dl('Takvime yaz · ${maisonSaat(_zaman)}–${maisonSaat(_zaman.add(Duration(minutes: _toplamSure)))}', 'Add to calendar · ${maisonSaat(_zaman)}–${maisonSaat(_zaman.add(Duration(minutes: _toplamSure)))}'),
                   ),
                 ),
               ),
@@ -604,21 +607,26 @@ class _BlokFormu extends StatefulWidget {
 }
 
 class _BlokFormuState extends State<_BlokFormu> {
-  static const List<String> _hazirNotlar = <String>['Öğle arası', 'Mola', 'İzin', 'Kapalı'];
+  static List<String> get _hazirNotlar => <String>[
+        dl('Öğle arası', 'Lunch break'),
+        dl('Mola', 'Break'),
+        dl('İzin', 'Time off'),
+        dl('Kapalı', 'Closed'),
+      ];
 
   late String _usta = widget.ustaId != null && widget.tanimlar.ustalar.any((ProUsta u) => u.id == widget.ustaId)
       ? widget.ustaId!
       : widget.tanimlar.ustalar.first.id;
   late int _bas = widget.baslangic ?? 13 * 60;
   late int _bit = (_bas + 60).clamp(0, 1440).toInt();
-  String _not = 'Öğle arası';
+  late String _not = _hazirNotlar.first;
   bool _kaydediliyor = false;
   String? _hata;
 
   Future<void> _saatSec({required bool bitis}) async {
     final int? dakika = await maisonSaatSec(
       context,
-      baslik: bitis ? 'Bitiş' : 'Başlangıç',
+      baslik: bitis ? dl('Bitiş', 'End') : dl('Başlangıç', 'Start'),
       secili: bitis ? _bit : _bas,
       enAz: bitis ? _bas + 15 : 0,
       enCok: bitis ? 1440 : 1425,
@@ -679,10 +687,10 @@ class _BlokFormuState extends State<_BlokFormu> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text('Mola ya da izin', style: maisonBaslik(30, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1)),
+            Text(dl('Mola ya da izin', 'Break or time off'), style: maisonBaslik(30, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.1)),
             const SizedBox(height: 4),
             Text(
-              '${maisonGun(widget.gun)}, ${widget.gun.day} ${maisonAy(widget.gun)} · bu aralıkta müşteri randevu alamaz.',
+              dl('${maisonGun(widget.gun)}, ${widget.gun.day} ${maisonAy(widget.gun)} · bu aralıkta müşteri randevu alamaz.', '${maisonGun(widget.gun)}, ${widget.gun.day} ${maisonAy(widget.gun)} · customers cannot book during this time.'),
               style: maisonGovde(13, renk: r.soluk, yukseklik: 1.45),
             ),
             const SizedBox(height: 16),
@@ -700,7 +708,7 @@ class _BlokFormuState extends State<_BlokFormu> {
             ),
             if (ustalar.length > 1) ...<Widget>[
               const SizedBox(height: 16),
-              const MaisonUstBaslik('USTA'),
+              MaisonUstBaslik(dl('USTA', 'BARBER')),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
@@ -721,14 +729,14 @@ class _BlokFormuState extends State<_BlokFormu> {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => _saatSec(bitis: false),
-                    child: Text('Başlangıç ${maisonDakikaMetni(_bas)}'),
+                    child: Text(dl('Başlangıç ${maisonDakikaMetni(_bas)}', 'Start ${maisonDakikaMetni(_bas)}')),
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => _saatSec(bitis: true),
-                    child: Text('Bitiş ${maisonDakikaMetni(_bit)}'),
+                    child: Text(dl('Bitiş ${maisonDakikaMetni(_bit)}', 'End ${maisonDakikaMetni(_bit)}')),
                   ),
                 ),
               ],
@@ -742,7 +750,7 @@ class _BlokFormuState extends State<_BlokFormu> {
               height: 54,
               child: FilledButton(
                 onPressed: _kaydediliyor ? null : _kaydet,
-                child: Text(_kaydediliyor ? 'Kaydediliyor…' : 'Takvime ekle'),
+                child: Text(_kaydediliyor ? dl('Kaydediliyor…', 'Saving…') : dl('Takvime ekle', 'Add to calendar')),
               ),
             ),
           ],

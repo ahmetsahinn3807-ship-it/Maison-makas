@@ -6,26 +6,55 @@ import 'ekranlar/pro_baslangic.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await MaisonTercih.yukle();
   // Bağlantı kurulamasa da uygulama açılır; hata, giriş ekranında ayrıntısıyla gösterilir.
   final MaisonBaslatma baslatma = await maisonSupabaseBaslat();
   runApp(MakasProUygulamasi(oturum: MaisonOturum.baslatmadan(baslatma)));
 }
 
 /// Makas Pro — salon sahipleri ve ustalar için işletme uygulaması.
-class MakasProUygulamasi extends StatelessWidget {
+class MakasProUygulamasi extends StatefulWidget {
   const MakasProUygulamasi({super.key, required this.oturum});
 
   final MaisonOturum oturum;
 
   @override
+  State<MakasProUygulamasi> createState() => _MakasProUygulamasiState();
+}
+
+class _MakasProUygulamasiState extends State<MakasProUygulamasi> {
+  late final MaisonDilEsitleyici _dilEsitleyici;
+
+  @override
+  void initState() {
+    super.initState();
+    _dilEsitleyici = MaisonDilEsitleyici(widget.oturum);
+  }
+
+  @override
+  void dispose() {
+    _dilEsitleyici.kapat();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return OturumKapsami(
-      oturum: oturum,
-      child: MaterialApp(
-        title: 'Makas Pro',
-        debugShowCheckedModeBanner: false,
-        theme: maisonTemasi(MaisonPalet.ivoire),
-        home: const ProKapi(),
+      oturum: widget.oturum,
+      child: ListenableBuilder(
+        listenable: Listenable.merge(<Listenable>[MaisonTercih.dil, MaisonTercih.koyu]),
+        builder: (BuildContext context, Widget? child) {
+          return MaterialApp(
+            title: 'Makas Pro',
+            debugShowCheckedModeBanner: false,
+            theme: maisonTemasi(MaisonTercih.proPaleti),
+            locale: MaisonTercih.dil.value.yerel,
+            supportedLocales: MaisonTercih.desteklenenler,
+            localizationsDelegates: MaisonTercih.yerellestirmeler,
+            builder: (BuildContext context, Widget? child) => MaisonTercihKatmani(child: child),
+            home: const ProKapi(),
+          );
+        },
       ),
     );
   }

@@ -83,20 +83,21 @@ class _RandevularimEkraniState extends State<RandevularimEkrani> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: r.kart,
-          title: Text('Randevu iptal edilsin mi?', style: maisonBaslik(26, renk: r.yazi)),
+          title: Text(dl('Randevu iptal edilsin mi?', 'Cancel this booking?'), style: maisonBaslik(26, renk: r.yazi)),
           content: Text(
-            '${randevu.salonAd} · ${maisonGun(randevu.baslangic)} ${maisonSaat(randevu.baslangic)}\n'
-            'Ücretsiz iptal süresi geçtiyse salon bunu kaydeder.',
+            dl('${randevu.salonAd} · ${maisonGun(randevu.baslangic)} ${maisonSaat(randevu.baslangic)}\n'
+            'Ücretsiz iptal süresi geçtiyse salon bunu kaydeder.', '${randevu.salonAd} · ${maisonGun(randevu.baslangic)} ${maisonSaat(randevu.baslangic)}\n'
+                'If the free cancellation window has passed, the salon will note it.'),
             style: maisonGovde(14, renk: r.soluk, yukseklik: 1.5),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Vazgeç'),
+              child: Text(dl('Vazgeç', 'Keep it')),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text('İptal et', style: maisonGovde(14, renk: Theme.of(context).colorScheme.error, kalinlik: FontWeight.w600)),
+              child: Text(dl('İptal et', 'Cancel booking'), style: maisonGovde(14, renk: Theme.of(context).colorScheme.error, kalinlik: FontWeight.w600)),
             ),
           ],
         );
@@ -109,7 +110,7 @@ class _RandevularimEkraniState extends State<RandevularimEkrani> {
     final Veri veri = Veri.of(context);
     try {
       await veri.randevuIptal(randevu.id);
-      mesaj.showSnackBar(const SnackBar(content: Text('Randevun iptal edildi.')));
+      mesaj.showSnackBar(SnackBar(content: Text(dl('Randevun iptal edildi.', 'Your booking has been cancelled.'))));
     } catch (hata) {
       mesaj.showSnackBar(SnackBar(content: Text(maisonHataMetni(hata))));
     }
@@ -126,12 +127,12 @@ class _RandevularimEkraniState extends State<RandevularimEkrani> {
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
         children: <Widget>[
           MaisonUstSatir(
-            sol: MaisonYuvarlakDugme(ikon: Icons.menu, etiket: 'Menüyü aç', onTap: widget.menuAc),
-            baslik: 'Randevularım',
+            sol: MaisonYuvarlakDugme(ikon: Icons.menu, etiket: dl('Menüyü aç', 'Open menu'), onTap: widget.menuAc),
+            baslik: dl('Randevularım', 'My bookings'),
           ),
           const SizedBox(height: 18),
           MaisonSekmeSecici(
-            secenekler: const <String>['Yaklaşan', 'Geçmiş'],
+            secenekler: <String>[dl('Yaklaşan', 'Upcoming'), dl('Geçmiş', 'Past')],
             secili: _sekme,
             onSec: _sekmeSec,
           ),
@@ -149,10 +150,10 @@ class _RandevularimEkraniState extends State<RandevularimEkrani> {
               if (liste.isEmpty) {
                 return MaisonBosDurum(
                   ikon: _sekme == 0 ? Icons.event_available_outlined : Icons.history,
-                  baslik: _sekme == 0 ? 'Yaklaşan randevun yok' : 'Geçmiş randevun yok',
+                  baslik: _sekme == 0 ? dl('Yaklaşan randevun yok', 'No upcoming bookings') : dl('Geçmiş randevun yok', 'No past bookings'),
                   aciklama: _sekme == 0
-                      ? 'Aldığın randevular burada, saat sırasıyla görünür.'
-                      : 'Tamamlanan ve iptal edilen randevular burada durur.',
+                      ? dl('Aldığın randevular burada, saat sırasıyla görünür.', 'Your bookings appear here in time order.')
+                      : dl('Tamamlanan ve iptal edilen randevular burada durur.', 'Completed and cancelled bookings are kept here.'),
                 );
               }
               return Column(
@@ -237,7 +238,7 @@ class _RandevuKarti extends StatelessWidget {
                       style: maisonGovde(14, renk: r.soluk, yukseklik: 1.35),
                     ),
                     Text(
-                      '${rv.hizmetler ?? 'Randevu'} · ${rv.ustaAd}',
+                      '${rv.hizmetler ?? dl('Randevu', 'Booking')} · ${rv.ustaAd}',
                       style: maisonGovde(14, renk: r.soluk, yukseklik: 1.35),
                     ),
                   ],
@@ -271,7 +272,7 @@ class _RandevuKarti extends StatelessWidget {
             const SizedBox(height: 12),
             SizedBox(
               height: 44,
-              child: OutlinedButton(onPressed: iptal, child: const Text('Randevuyu iptal et')),
+              child: OutlinedButton(onPressed: iptal, child: Text(dl('Randevuyu iptal et', 'Cancel booking'))),
             ),
           ],
         ],

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import 'dil.dart';
 import 'palet.dart';
 
 /// Vitrin filtresi: salonun bütün fotoğraflarına tek dokunuşla aynı renk ayarı.
@@ -9,18 +10,21 @@ import 'palet.dart';
 /// Fotoğrafların kendisi değişmez; filtre gösterilirken uygulanır, istenince kaldırılır.
 /// Matrisler 4 × 5'tir; son sütun 0–255 aralığında eklenen değerdir.
 enum VitrinFiltresi {
-  dogal('Doğal'),
-  sicak('Sıcak'),
-  kehribar('Kehribar'),
-  soguk('Soğuk'),
-  mat('Mat'),
-  siyahBeyaz('Siyah-beyaz'),
-  sepya('Sepya');
+  dogal('Doğal', 'Natural'),
+  sicak('Sıcak', 'Warm'),
+  kehribar('Kehribar', 'Amber'),
+  soguk('Soğuk', 'Cool'),
+  mat('Mat', 'Matte'),
+  siyahBeyaz('Siyah-beyaz', 'Black & white'),
+  sepya('Sepya', 'Sepia');
 
-  const VitrinFiltresi(this.ad);
+  const VitrinFiltresi(this._tr, this._en);
 
-  /// Ekranda görünen ad.
-  final String ad;
+  final String _tr;
+  final String _en;
+
+  /// Ekranda görünen ad (seçili dilde).
+  String get ad => dl(_tr, _en);
 
   /// Kayıttaki addan filtreyi bulur; bulamazsa doğal.
   static VitrinFiltresi kimliktenBul(Object? kimlik) {

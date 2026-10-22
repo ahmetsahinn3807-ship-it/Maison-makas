@@ -198,13 +198,13 @@ class _TakvimEkraniState extends State<TakvimEkrani> {
             ),
             ListTile(
               leading: Icon(Icons.person_add_alt, color: r.yazi),
-              title: Text('Randevu yaz', style: maisonGovde(15, renk: r.yazi)),
-              subtitle: Text('Kapıdan gelen ya da telefonla arayan', style: maisonGovde(12, renk: r.soluk)),
+              title: Text(dl('Randevu yaz', 'Add booking'), style: maisonGovde(15, renk: r.yazi)),
+              subtitle: Text(dl('Kapıdan gelen ya da telefonla arayan', 'Walk-in or phone booking'), style: maisonGovde(12, renk: r.soluk)),
               onTap: () => Navigator.of(context).pop('randevu'),
             ),
             ListTile(
               leading: Icon(Icons.free_breakfast_outlined, color: r.yazi),
-              title: Text('Mola ya da izin ekle', style: maisonGovde(15, renk: r.yazi)),
+              title: Text(dl('Mola ya da izin ekle', 'Add break or time off'), style: maisonGovde(15, renk: r.yazi)),
               onTap: () => Navigator.of(context).pop('mola'),
             ),
             const SizedBox(height: 8),
@@ -232,7 +232,7 @@ class _TakvimEkraniState extends State<TakvimEkrani> {
     final TakvimTanimlari? tanim = _tanim;
     final bool bugun = _ayniGun(_gun, _bugun());
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: maisonSistemCubugu(MaisonPalet.ivoire),
+      value: maisonSistemCubugu(MaisonTercih.proPaleti),
       child: Scaffold(
         backgroundColor: r.zemin,
         floatingActionButton: tanim == null || tanim.ustalar.isEmpty
@@ -242,7 +242,7 @@ class _TakvimEkraniState extends State<TakvimEkrani> {
                 backgroundColor: r.vurgu,
                 foregroundColor: r.vurguUstu,
                 icon: const Icon(Icons.person_add_alt),
-                label: Text(bugun ? 'Kapıdan gelen' : 'Randevu yaz'),
+                label: Text(bugun ? dl('Kapıdan gelen', 'Walk-in') : dl('Randevu yaz', 'Add booking')),
               ),
         body: SafeArea(
           child: Column(
@@ -252,17 +252,17 @@ class _TakvimEkraniState extends State<TakvimEkrani> {
                 child: MaisonUstSatir(
                   sol: MaisonYuvarlakDugme(
                     ikon: Icons.arrow_back,
-                    etiket: 'Geri',
+                    etiket: dl('Geri', 'Back'),
                     onTap: () => Navigator.of(context).maybePop(),
                   ),
-                  baslik: 'Takvim',
-                  sag: MaisonYuvarlakDugme(ikon: Icons.refresh, etiket: 'Yenile', onTap: _kayitlariYukle),
+                  baslik: dl('Takvim', 'Calendar'),
+                  sag: MaisonYuvarlakDugme(ikon: Icons.refresh, etiket: dl('Yenile', 'Refresh'), onTap: _kayitlariYukle),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
                 child: MaisonSekmeSecici(
-                  secenekler: const <String>['Gün', 'Hafta'],
+                  secenekler: <String>[dl('Gün', 'Day'), dl('Hafta', 'Week')],
                   secili: _gorunum,
                   onSec: _gorunumSec,
                 ),
@@ -272,7 +272,7 @@ class _TakvimEkraniState extends State<TakvimEkrani> {
                 child: Row(
                   children: <Widget>[
                     IconButton(
-                      tooltip: _gorunum == 0 ? 'Önceki gün' : 'Önceki hafta',
+                      tooltip: _gorunum == 0 ? dl('Önceki gün', 'Previous day') : dl('Önceki hafta', 'Previous week'),
                       onPressed: () => _gunDegistir(_gorunum == 0 ? -1 : -7),
                       icon: Icon(Icons.chevron_left, color: r.yazi),
                     ),
@@ -286,11 +286,11 @@ class _TakvimEkraniState extends State<TakvimEkrani> {
                       ),
                     ),
                     IconButton(
-                      tooltip: _gorunum == 0 ? 'Sonraki gün' : 'Sonraki hafta',
+                      tooltip: _gorunum == 0 ? dl('Sonraki gün', 'Next day') : dl('Sonraki hafta', 'Next week'),
                       onPressed: () => _gunDegistir(_gorunum == 0 ? 1 : 7),
                       icon: Icon(Icons.chevron_right, color: r.yazi),
                     ),
-                    TextButton(onPressed: _bugunGit, child: const Text('Bugün')),
+                    TextButton(onPressed: _bugunGit, child: Text(dl('Bugün', 'Today'))),
                   ],
                 ),
               ),
@@ -348,10 +348,10 @@ class _TakvimEkraniState extends State<TakvimEkrani> {
         children: <Widget>[
           MaisonBosDurum(
             ikon: Icons.groups_outlined,
-            baslik: 'Takvimde usta yok',
+            baslik: dl('Takvimde usta yok', 'No barbers in the calendar'),
             aciklama: widget.salon.sahibim
-                ? 'Ekip ekranından usta ekle ve çalışma saatlerini gir; takvim ustalara göre sütunlara ayrılır.'
-                : 'Salon sahibi seni ekibe eklediğinde takvimin burada görünür.',
+                ? dl('Ekip ekranından usta ekle ve çalışma saatlerini gir; takvim ustalara göre sütunlara ayrılır.', 'Add barbers on the Team screen and enter their working hours; the calendar shows a column per barber.')
+                : dl('Salon sahibi seni ekibe eklediğinde takvimin burada görünür.', 'Your calendar will appear here once the salon owner adds you to the team.'),
           ),
         ],
       );
@@ -428,7 +428,9 @@ class _TakvimEkraniState extends State<TakvimEkrani> {
                                         style: maisonGovde(13, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.2),
                                       ),
                                       Text(
-                                        '${kayitlar.where((TakvimKaydi k) => k.ustaId == s.id && !k.blok && k.durum != 'iptal').length} randevu',
+                                        _randevuSayisi(
+                                          kayitlar.where((TakvimKaydi k) => k.ustaId == s.id && !k.blok && k.durum != 'iptal').length,
+                                        ),
                                         style: maisonGovde(11, renk: r.soluk, yukseklik: 1.2),
                                       ),
                                     ],
@@ -588,7 +590,7 @@ class _TakvimEkraniState extends State<TakvimEkrani> {
                               ),
                               const Spacer(),
                               Text(
-                                randevu == 0 ? 'Randevu yok' : '$randevu randevu',
+                                randevu == 0 ? dl('Randevu yok', 'No bookings') : _randevuSayisi(randevu),
                                 style: maisonGovde(12, renk: r.soluk),
                               ),
                               Icon(Icons.chevron_right, size: 18, color: r.soluk),
@@ -626,11 +628,11 @@ class _KayitKutusu extends StatelessWidget {
     final bool sonuk = k.durum == 'iptal' || k.durum == 'gelmedi';
     final Color zemin = k.blok ? r.cizgi : (k.durum == 'tamamlandi' ? r.vurgu.withValues(alpha: 0.28) : r.vurguYumusak);
     final String baslik = k.blok
-        ? ((k.ustaNotu ?? '').trim().isEmpty ? 'Mola' : k.ustaNotu!.trim())
-        : (k.musteriAd ?? 'Misafir');
+        ? ((k.ustaNotu ?? '').trim().isEmpty ? dl('Mola', 'Break') : k.ustaNotu!.trim())
+        : (k.musteriAd ?? dl('Misafir', 'Guest'));
     final String alt = k.blok
         ? '${maisonSaat(k.baslangic)}–${maisonSaat(k.bitis)}'
-        : '${maisonSaat(k.baslangic)} · ${k.hizmetler ?? (k.kaynak == 'dukkan' ? 'Dükkân' : 'Randevu')}';
+        : '${maisonSaat(k.baslangic)} · ${k.hizmetler ?? (k.kaynak == 'dukkan' ? dl('Dükkân', 'Walk-in') : dl('Randevu', 'Booking'))}';
     return Opacity(
       opacity: sonuk ? 0.45 : 1,
       child: Material(
@@ -700,9 +702,9 @@ class TakvimSatiri extends StatelessWidget {
     final TakvimKaydi k = kayit;
     final bool sonuk = !k.etkin;
     final String baslik = k.blok
-        ? ((k.ustaNotu ?? '').trim().isEmpty ? 'Mola' : k.ustaNotu!.trim())
-        : (k.musteriAd ?? 'Misafir');
-    final String alt = k.blok ? k.ustaAd : '${k.hizmetler ?? 'Randevu'} · ${k.ustaAd}';
+        ? ((k.ustaNotu ?? '').trim().isEmpty ? dl('Mola', 'Break') : k.ustaNotu!.trim())
+        : (k.musteriAd ?? dl('Misafir', 'Guest'));
+    final String alt = k.blok ? k.ustaAd : '${k.hizmetler ?? dl('Randevu', 'Booking')} · ${k.ustaAd}';
     return Material(
       color: k.blok ? r.girdi : r.kart,
       borderRadius: BorderRadius.circular(18),
@@ -771,3 +773,6 @@ class TakvimSatiri extends StatelessWidget {
     );
   }
 }
+
+/// "3 randevu" · "1 booking" · "3 bookings"
+String _randevuSayisi(int n) => dl('$n randevu', n == 1 ? '1 booking' : '$n bookings');

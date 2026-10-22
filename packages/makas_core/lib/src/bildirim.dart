@@ -3,6 +3,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+import 'dil.dart';
+
 /// Telefonun kendi bildirimleri: randevu hatırlatmaları (önceden zamanlanır) ve anlık uyarılar.
 ///
 /// Sunucu gerekmez; zamanlanan bildirim uygulama kapalıyken de gelir. Bütün çağrılar hatayı yutar:
@@ -15,16 +17,20 @@ class MaisonBildirim {
 
   static const String _ayarAnahtari = 'maison.bildirim.hatirlatma';
 
-  static const NotificationDetails _ayrinti = NotificationDetails(
-    android: AndroidNotificationDetails(
-      'randevu',
-      'Randevular',
-      channelDescription: 'Randevu hatırlatmaları, yeni randevular ve iptaller',
-      importance: Importance.high,
-      priority: Priority.high,
-    ),
-    iOS: DarwinNotificationDetails(),
-  );
+  /// Kanal adı seçili dilde; Android kanalın adını her bildirimde günceller.
+  static NotificationDetails get _ayrinti => NotificationDetails(
+        android: AndroidNotificationDetails(
+          'randevu',
+          dl('Randevular', 'Appointments'),
+          channelDescription: dl(
+            'Randevu hatırlatmaları, yeni randevular ve iptaller',
+            'Appointment reminders, new bookings and cancellations',
+          ),
+          importance: Importance.high,
+          priority: Priority.high,
+        ),
+        iOS: const DarwinNotificationDetails(),
+      );
 
   static bool get _destekli =>
       !kIsWeb && (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS);

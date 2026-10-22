@@ -102,15 +102,15 @@ class TakvimKaydi {
   String get durumMetni {
     switch (durum) {
       case 'bekliyor':
-        return 'Onay bekliyor';
+        return dl('Onay bekliyor', 'Awaiting confirmation');
       case 'onaylandi':
-        return 'Onaylandı';
+        return dl('Onaylandı', 'Confirmed');
       case 'tamamlandi':
-        return 'Geldi';
+        return dl('Geldi', 'Arrived');
       case 'iptal':
-        return 'İptal';
+        return dl('İptal', 'Cancelled');
       case 'gelmedi':
-        return 'Gelmedi';
+        return dl('Gelmedi', 'No-show');
       default:
         return durum;
     }

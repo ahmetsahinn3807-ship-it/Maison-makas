@@ -76,7 +76,7 @@ class _MusteriMenuState extends State<MusteriMenu> {
                         top: ust + 8,
                         child: MaisonYuvarlakDugme(
                           ikon: Icons.close,
-                          etiket: 'Menüyü kapat',
+                          etiket: dl('Menüyü kapat', 'Close menu'),
                           zemin: r.zemin.withValues(alpha: 0.6),
                           onTap: () => Navigator.of(context).pop(),
                         ),
@@ -102,7 +102,7 @@ class _MusteriMenuState extends State<MusteriMenu> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     Text(
-                                      oturum.adSoyad.isEmpty ? 'Hoş geldin' : oturum.adSoyad,
+                                      oturum.adSoyad.isEmpty ? dl('Hoş geldin', 'Welcome') : oturum.adSoyad,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: maisonGovde(17, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.25),
@@ -112,7 +112,7 @@ class _MusteriMenuState extends State<MusteriMenu> {
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 4),
                                         child: Text(
-                                          'Profili düzenle',
+                                          dl('Profili düzenle', 'Edit profile'),
                                           style: maisonGovde(13, renk: r.vurgu, kalinlik: FontWeight.w500, yukseklik: 1.2),
                                         ),
                                       ),
@@ -133,7 +133,7 @@ class _MusteriMenuState extends State<MusteriMenu> {
                     children: <Widget>[
                       _Cip(
                         ikon: Icons.calendar_today_outlined,
-                        etiket: 'Yaklaşan',
+                        etiket: dl('Yaklaşan', 'Upcoming'),
                         onTap: () => widget.onSec(MenuHedefi.randevuYaklasan),
                       ),
                     ],
@@ -149,12 +149,12 @@ class _MusteriMenuState extends State<MusteriMenu> {
                     children: <Widget>[
                       _MenuSatiri(
                         ikon: Icons.explore_outlined,
-                        etiket: 'Keşfet',
+                        etiket: dl('Keşfet', 'Discover'),
                         onTap: () => widget.onSec(MenuHedefi.kesfet),
                       ),
                       _MenuSatiri(
                         ikon: Icons.calendar_month_outlined,
-                        etiket: 'Randevularım',
+                        etiket: dl('Randevularım', 'My bookings'),
                         vurgulu: true,
                         sag: Icon(
                           _randevularAcik ? Icons.expand_less : Icons.expand_more,
@@ -169,15 +169,15 @@ class _MusteriMenuState extends State<MusteriMenu> {
                           child: Column(
                             children: <Widget>[
                               _AltSatir(
-                                etiket: 'Yaklaşan',
+                                etiket: dl('Yaklaşan', 'Upcoming'),
                                 onTap: () => widget.onSec(MenuHedefi.randevuYaklasan),
                               ),
                               _AltSatir(
-                                etiket: 'Geçmiş',
+                                etiket: dl('Geçmiş', 'Past'),
                                 onTap: () => widget.onSec(MenuHedefi.randevuGecmis),
                               ),
                               _AltSatir(
-                                etiket: 'Bekleme listesi',
+                                etiket: dl('Bekleme listesi', 'Waiting list'),
                                 onTap: () => widget.onSec(MenuHedefi.beklemeListesi),
                               ),
                             ],
@@ -185,32 +185,32 @@ class _MusteriMenuState extends State<MusteriMenu> {
                         ),
                       _MenuSatiri(
                         ikon: Icons.favorite_border,
-                        etiket: 'Favorilerim',
+                        etiket: dl('Favorilerim', 'Favourites'),
                         onTap: () => widget.onSec(MenuHedefi.favoriler),
                       ),
                       _MenuSatiri(
                         ikon: Icons.person_outline,
-                        etiket: 'Profilim',
+                        etiket: dl('Profilim', 'My profile'),
                         onTap: () => widget.onSec(MenuHedefi.profil),
                       ),
                       _MenuSatiri(
                         ikon: Icons.account_balance_wallet_outlined,
-                        etiket: 'Cüzdan ve sadakat',
+                        etiket: dl('Cüzdan ve sadakat', 'Wallet and loyalty'),
                         onTap: () => widget.onSec(MenuHedefi.cuzdan),
                       ),
                       _MenuSatiri(
                         ikon: Icons.chat_bubble_outline,
-                        etiket: 'Mesajlar',
+                        etiket: dl('Mesajlar', 'Messages'),
                         onTap: () => widget.onSec(MenuHedefi.mesajlar),
                       ),
                       _MenuSatiri(
                         ikon: Icons.palette_outlined,
-                        etiket: 'Görünüm',
+                        etiket: dl('Görünüm', 'Appearance'),
                         onTap: () => widget.onSec(MenuHedefi.gorunum),
                       ),
                       _MenuSatiri(
                         ikon: Icons.tune,
-                        etiket: 'Ayarlar ve destek',
+                        etiket: dl('Ayarlar ve destek', 'Settings and support'),
                         onTap: () => widget.onSec(MenuHedefi.ayarlar),
                       ),
                     ],
@@ -231,11 +231,11 @@ class _MusteriMenuState extends State<MusteriMenu> {
                     Icon(Icons.dark_mode_outlined, size: 20, color: r.soluk),
                     const SizedBox(width: 14),
                     Expanded(
-                      child: Text('Koyu mod', style: maisonGovde(15, renk: r.yazi, yukseklik: 1.2)),
+                      child: Text(dl('Koyu mod', 'Dark mode'), style: maisonGovde(15, renk: r.yazi, yukseklik: 1.2)),
                     ),
                     MaisonAnahtar(
                       deger: gorunum.koyu,
-                      etiket: 'Koyu mod',
+                      etiket: dl('Koyu mod', 'Dark mode'),
                       onChanged: gorunum.koyuModAyarla,
                     ),
                   ],

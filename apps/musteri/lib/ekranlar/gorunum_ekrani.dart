@@ -3,7 +3,7 @@ import 'package:makas_core/makas_core.dart';
 
 import '../gorunum.dart';
 
-/// Görünüm: 5 palet, vurgu rengi ve koyu mod. Seçim hesaba kaydedilir.
+/// Görünüm: 5 palet, vurgu rengi, koyu mod, yazı boyutu ve dil.
 class GorunumEkrani extends StatelessWidget {
   const GorunumEkrani({super.key});
 
@@ -20,22 +20,25 @@ class GorunumEkrani extends StatelessWidget {
             MaisonUstSatir(
               sol: MaisonYuvarlakDugme(
                 ikon: Icons.arrow_back,
-                etiket: 'Geri',
+                etiket: dl('Geri', 'Back'),
                 onTap: () => Navigator.of(context).maybePop(),
               ),
-              baslik: 'Görünüm',
+              baslik: dl('Görünüm', 'Appearance'),
             ),
             const SizedBox(height: 22),
             Text(
-              'Uygulamanın renklerini sen seç. Seçimin hesabına kaydedilir; telefon değişse de aynı kalır.',
+              dl(
+                'Uygulamanın görünümünü sen seç. Renkler hesabına kaydedilir; telefon değişse de aynı kalır.',
+                'Make the app your own. Colours are saved to your account and stay the same on a new phone.',
+              ),
               style: maisonGovde(15, renk: r.soluk, yukseklik: 1.5),
             ),
             const SizedBox(height: 26),
-            const MaisonUstBaslik('TEMA'),
+            MaisonUstBaslik(dl('TEMA', 'THEME')),
             const SizedBox(height: 14),
             _PaletSecici(gorunum: gorunum),
             const SizedBox(height: 28),
-            const MaisonUstBaslik('VURGU RENGİ'),
+            MaisonUstBaslik(dl('VURGU RENGİ', 'ACCENT COLOUR')),
             const SizedBox(height: 14),
             _VurguSecici(gorunum: gorunum),
             const SizedBox(height: 22),
@@ -51,16 +54,24 @@ class GorunumEkrani extends StatelessWidget {
                   Icon(Icons.dark_mode_outlined, size: 20, color: r.soluk),
                   const SizedBox(width: 14),
                   Expanded(
-                    child: Text('Koyu mod', style: maisonGovde(15, renk: r.yazi, yukseklik: 1.2)),
+                    child: Text(dl('Koyu mod', 'Dark mode'), style: maisonGovde(15, renk: r.yazi, yukseklik: 1.2)),
                   ),
                   MaisonAnahtar(
                     deger: gorunum.koyu,
-                    etiket: 'Koyu mod',
+                    etiket: dl('Koyu mod', 'Dark mode'),
                     onChanged: gorunum.koyuModAyarla,
                   ),
                 ],
               ),
             ),
+            const SizedBox(height: 28),
+            MaisonUstBaslik(dl('YAZI BOYUTU', 'TEXT SIZE')),
+            const SizedBox(height: 14),
+            const MaisonYaziBoyutuSecici(),
+            const SizedBox(height: 28),
+            MaisonUstBaslik(dl('DİL', 'LANGUAGE')),
+            const SizedBox(height: 14),
+            const MaisonDilSecici(),
           ],
         ),
       ),

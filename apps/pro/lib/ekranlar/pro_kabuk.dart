@@ -113,7 +113,7 @@ class _ProKabukState extends State<ProKabuk> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final MaisonRenkler r = MaisonRenkler.of(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: maisonSistemCubugu(MaisonPalet.ivoire),
+      value: maisonSistemCubugu(MaisonTercih.proPaleti),
       child: Scaffold(
         key: _iskele,
         backgroundColor: r.zemin,
@@ -122,15 +122,15 @@ class _ProKabukState extends State<ProKabuk> with WidgetsBindingObserver {
           bugun: () => _iskele.currentState?.closeDrawer(),
           takvim: () => _ac(TakvimEkrani(salon: widget.salon)),
           randevular: () => _ac(RandevularEkrani(salon: widget.salon)),
-          musteriler: () => _yakinda('Müşteriler', Icons.people_outline,
-              'Müşteri kartları, notlar ve stil geçmişi sıradaki adımlarda geliyor.'),
+          musteriler: () => _yakinda(dl('Müşteriler', 'Customers'), Icons.people_outline,
+              dl('Müşteri kartları, notlar ve stil geçmişi sıradaki adımlarda geliyor.', 'Customer cards, notes and style history are coming in a future update.')),
           ekip: _ekibiAc,
           hizmetler: _hizmetleriAc,
           vitrin: _vitriniAc,
-          kasa: () => _yakinda('Kasa ve adisyon', Icons.point_of_sale_outlined,
-              'Biten randevular adisyona dönüşecek; günlük ve aylık ciro burada.'),
-          raporlar: () => _yakinda('Raporlar', Icons.insights_outlined,
-              'Doluluk, gelir ve müşteri raporları premium pakette geliyor.'),
+          kasa: () => _yakinda(dl('Kasa ve adisyon', 'Till and receipts'), Icons.point_of_sale_outlined,
+              dl('Biten randevular adisyona dönüşecek; günlük ve aylık ciro burada.', 'Finished bookings will become receipts; daily and monthly takings will be here.')),
+          raporlar: () => _yakinda(dl('Raporlar', 'Reports'), Icons.insights_outlined,
+              dl('Doluluk, gelir ve müşteri raporları premium pakette geliyor.', 'Occupancy, revenue and customer reports are coming in the premium plan.')),
           ayarlar: _ayarlariAc,
         ),
         body: SafeArea(
@@ -222,7 +222,7 @@ class _ProMenu extends StatelessWidget {
                         top: ust + 8,
                         child: MaisonYuvarlakDugme(
                           ikon: Icons.close,
-                          etiket: 'Menüyü kapat',
+                          etiket: dl('Menüyü kapat', 'Close menu'),
                           zemin: r.zemin.withValues(alpha: 0.6),
                           onTap: () => Navigator.of(context).pop(),
                         ),
@@ -265,7 +265,7 @@ class _ProMenu extends StatelessWidget {
                                     style: maisonGovde(17, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.25),
                                   ),
                                   Text(
-                                    yer.isEmpty ? (salon.sahibim ? 'Salon sahibi' : 'Usta') : yer,
+                                    yer.isEmpty ? (salon.sahibim ? dl('Salon sahibi', 'Salon owner') : dl('Usta', 'Barber')) : yer,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: maisonGovde(13, renk: r.soluk, yukseklik: 1.3),
@@ -291,7 +291,7 @@ class _ProMenu extends StatelessWidget {
                           border: Border.all(color: salon.yayinda ? r.vurguCizgi : r.cizgi),
                         ),
                         child: Text(
-                          salon.yayinda ? 'Yayında' : 'Taslak',
+                          salon.yayinda ? dl('Yayında', 'Live') : dl('Taslak', 'Draft'),
                           style: maisonGovde(12, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.2),
                         ),
                       ),
@@ -315,16 +315,16 @@ class _ProMenu extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: <Widget>[
-                      _Satir(ikon: Icons.today_outlined, etiket: 'Bugün', vurgulu: true, onTap: bugun),
-                      _Satir(ikon: Icons.calendar_month_outlined, etiket: 'Takvim', onTap: takvim),
-                      _Satir(ikon: Icons.event_note_outlined, etiket: 'Randevular', onTap: randevular),
-                      _Satir(ikon: Icons.people_outline, etiket: 'Müşteriler', onTap: musteriler),
-                      _Satir(ikon: Icons.groups_outlined, etiket: 'Ekip', onTap: ekip),
-                      _Satir(ikon: Icons.content_cut, etiket: 'Hizmetler', onTap: hizmetler),
-                      _Satir(ikon: Icons.storefront_outlined, etiket: 'Vitrin Stüdyosu', onTap: vitrin),
-                      _Satir(ikon: Icons.point_of_sale_outlined, etiket: 'Kasa ve adisyon', onTap: kasa),
-                      _Satir(ikon: Icons.insights_outlined, etiket: 'Raporlar', onTap: raporlar),
-                      _Satir(ikon: Icons.tune, etiket: 'Ayarlar', onTap: ayarlar),
+                      _Satir(ikon: Icons.today_outlined, etiket: dl('Bugün', 'Today'), vurgulu: true, onTap: bugun),
+                      _Satir(ikon: Icons.calendar_month_outlined, etiket: dl('Takvim', 'Calendar'), onTap: takvim),
+                      _Satir(ikon: Icons.event_note_outlined, etiket: dl('Randevular', 'Bookings'), onTap: randevular),
+                      _Satir(ikon: Icons.people_outline, etiket: dl('Müşteriler', 'Customers'), onTap: musteriler),
+                      _Satir(ikon: Icons.groups_outlined, etiket: dl('Ekip', 'Team'), onTap: ekip),
+                      _Satir(ikon: Icons.content_cut, etiket: dl('Hizmetler', 'Services'), onTap: hizmetler),
+                      _Satir(ikon: Icons.storefront_outlined, etiket: dl('Vitrin Stüdyosu', 'Showcase Studio'), onTap: vitrin),
+                      _Satir(ikon: Icons.point_of_sale_outlined, etiket: dl('Kasa ve adisyon', 'Till and receipts'), onTap: kasa),
+                      _Satir(ikon: Icons.insights_outlined, etiket: dl('Raporlar', 'Reports'), onTap: raporlar),
+                      _Satir(ikon: Icons.tune, etiket: dl('Ayarlar', 'Settings'), onTap: ayarlar),
                     ],
                   ),
                 ),
@@ -486,13 +486,13 @@ class _BugunEkraniState extends State<_BugunEkrani> {
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
         children: <Widget>[
           MaisonUstSatir(
-            sol: MaisonYuvarlakDugme(ikon: Icons.menu, etiket: 'Menüyü aç', onTap: widget.menuAc),
+            sol: MaisonYuvarlakDugme(ikon: Icons.menu, etiket: dl('Menüyü aç', 'Open menu'), onTap: widget.menuAc),
             baslik: widget.salon.ad,
           ),
           const SizedBox(height: 20),
           MaisonUstBaslik('${maisonGunBuyuk(bugun)} · ${bugun.day} ${maisonAyBuyuk(bugun)}'),
           const SizedBox(height: 4),
-          Text('Bugün', style: maisonBaslik(42, renk: r.yazi, yukseklik: 1.05)),
+          Text(dl('Bugün', 'Today'), style: maisonBaslik(42, renk: r.yazi, yukseklik: 1.05)),
           const SizedBox(height: 18),
           if (widget.hazirlik case final Widget hazirlik) hazirlik,
           FutureBuilder<List<TakvimKaydi>>(
@@ -516,9 +516,9 @@ class _BugunEkraniState extends State<_BugunEkrani> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Expanded(child: _Ozet(baslik: 'RANDEVU', deger: '${randevular.length}')),
+                      Expanded(child: _Ozet(baslik: dl('RANDEVU', 'BOOKINGS'), deger: '${randevular.length}')),
                       const SizedBox(width: 12),
-                      Expanded(child: _Ozet(baslik: 'TAHMİNİ CİRO', deger: maisonPara(ciro, 'TRY'))),
+                      Expanded(child: _Ozet(baslik: dl('TAHMİNİ CİRO', 'ESTIMATED TAKINGS'), deger: maisonPara(ciro, 'TRY'))),
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -527,17 +527,17 @@ class _BugunEkraniState extends State<_BugunEkrani> {
                     child: OutlinedButton.icon(
                       onPressed: _kapidanGelen,
                       icon: const Icon(Icons.person_add_alt, size: 18),
-                      label: const Text('Kapıdan gelen müşteri'),
+                      label: Text(dl('Kapıdan gelen müşteri', 'Walk-in customer')),
                     ),
                   ),
                   const SizedBox(height: 18),
                   if (liste.isEmpty)
                     MaisonBosDurum(
                       ikon: Icons.event_available_outlined,
-                      baslik: 'Bugün randevu yok',
+                      baslik: dl('Bugün randevu yok', 'No bookings today'),
                       aciklama: widget.salon.yayinda
-                          ? 'Müşteriler randevu aldıkça burada saat sırasıyla görünecek.'
-                          : 'Hizmetlerini ve çalışma saatlerini ekleyip salonu yayına aldığında randevular burada görünecek.',
+                          ? dl('Müşteriler randevu aldıkça burada saat sırasıyla görünecek.', 'Bookings will appear here in time order as customers book.')
+                          : dl('Hizmetlerini ve çalışma saatlerini ekleyip salonu yayına aldığında randevular burada görünecek.', 'Once you add your services and working hours and publish the salon, bookings will appear here.'),
                     )
                   else
                     for (final TakvimKaydi k in liste)

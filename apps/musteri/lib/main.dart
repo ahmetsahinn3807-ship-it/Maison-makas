@@ -8,6 +8,7 @@ import 'gorunum.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Bağlantı kurulamasa da uygulama açılır; hata, giriş ekranında ayrıntısıyla gösterilir.
+  await MaisonTercih.yukle();
   final MaisonBaslatma baslatma = await maisonSupabaseBaslat();
   runApp(MaisonMakasUygulamasi(oturum: MaisonOturum.baslatmadan(baslatma)));
 }
@@ -23,6 +24,7 @@ class MaisonMakasUygulamasi extends StatefulWidget {
 
 class _MaisonMakasUygulamasiState extends State<MaisonMakasUygulamasi> {
   late final Gorunum _gorunum = Gorunum(kaydet: _gorunumuKaydet);
+  late final MaisonDilEsitleyici _dilEsitleyici;
   String? _uygulananKullanici;
 
   @override
@@ -30,6 +32,7 @@ class _MaisonMakasUygulamasiState extends State<MaisonMakasUygulamasi> {
     super.initState();
     widget.oturum.addListener(_oturumDegisti);
     _oturumDegisti();
+    _dilEsitleyici = MaisonDilEsitleyici(widget.oturum);
   }
 
   Future<void> _gorunumuKaydet(Map<String, dynamic> alanlar) async {
@@ -48,13 +51,14 @@ class _MaisonMakasUygulamasiState extends State<MaisonMakasUygulamasi> {
     final Object? id = profil?['id'];
     if (profil != null && id is String && id != _uygulananKullanici) {
       _uygulananKullanici = id;
-      _gorunum.uygula(profil['gorunum'], profil['dil']);
+      _gorunum.uygula(profil['gorunum']);
     }
   }
 
   @override
   void dispose() {
     widget.oturum.removeListener(_oturumDegisti);
+    _dilEsitleyici.kapat();
     _gorunum.dispose();
     super.dispose();
   }
@@ -66,12 +70,16 @@ class _MaisonMakasUygulamasiState extends State<MaisonMakasUygulamasi> {
       child: GorunumKapsami(
         gorunum: _gorunum,
         child: ListenableBuilder(
-          listenable: _gorunum,
+          listenable: Listenable.merge(<Listenable>[_gorunum, MaisonTercih.dil]),
           builder: (BuildContext context, Widget? child) {
             return MaterialApp(
               title: 'Maison Makas',
               debugShowCheckedModeBanner: false,
               theme: maisonTemasi(_gorunum.palet, vurgu: _gorunum.vurgu),
+              locale: MaisonTercih.dil.value.yerel,
+              supportedLocales: MaisonTercih.desteklenenler,
+              localizationsDelegates: MaisonTercih.yerellestirmeler,
+              builder: (BuildContext context, Widget? child) => MaisonTercihKatmani(child: child),
               home: const OturumKapisi(),
             );
           },

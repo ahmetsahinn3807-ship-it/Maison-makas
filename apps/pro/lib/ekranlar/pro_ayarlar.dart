@@ -34,7 +34,7 @@ class _ProAyarlarState extends State<ProAyarlar> {
       await i.from('salonlar').update(<String, dynamic>{'yayinda': yeni}).eq('id', widget.salon.id);
       widget.salonDegisti();
       mesaj.showSnackBar(SnackBar(
-        content: Text(yeni ? 'Salonun yayında; müşteriler Keşfet\'te görür.' : 'Salonun taslağa alındı.'),
+        content: Text(yeni ? dl('Salonun yayında; müşteriler Keşfet\'te görür.', 'Your salon is live; customers can see it in Discover.') : dl('Salonun taslağa alındı.', 'Your salon is now a draft.')),
       ));
     } catch (hata) {
       if (mounted) {
@@ -69,27 +69,30 @@ class _ProAyarlarState extends State<ProAyarlar> {
         return AlertDialog(
           backgroundColor: r.kart,
           title: Text(
-            sahibim ? 'Hesabın ve salonun silinsin mi?' : 'Hesabın silinsin mi?',
+            sahibim ? dl('Hesabın ve salonun silinsin mi?', 'Delete your account and salon?') : dl('Hesabın silinsin mi?', 'Delete your account?'),
             style: maisonBaslik(26, renk: r.yazi),
           ),
           content: Text(
             sahibim
-                ? '${widget.salon.ad}; ekibi, hizmetleri, çalışma saatleri ve randevu geçmişiyle '
+                ? dl('${widget.salon.ad}; ekibi, hizmetleri, çalışma saatleri ve randevu geçmişiyle '
                     'birlikte silinir. Yaklaşan randevu varsa önce onları iptal etmen gerekir. '
-                    'Bu işlem geri alınamaz.'
-                : 'Hesabın silinir ve Makas Pro\'ya bu hesapla giremezsin. Salondaki usta kaydın '
-                    've geçmiş randevular salon sahibinde kalır. Bu işlem geri alınamaz.',
+                    'Bu işlem geri alınamaz.', '${widget.salon.ad} is deleted together with its team, services, working hours and booking history. '
+                        'If there are upcoming bookings you need to cancel them first. '
+                        'This cannot be undone.')
+                : dl('Hesabın silinir ve Makas Pro\'ya bu hesapla giremezsin. Salondaki usta kaydın '
+                    've geçmiş randevular salon sahibinde kalır. Bu işlem geri alınamaz.', 'Your account is deleted and you can no longer sign in to Makas Pro with it. Your barber record '
+                        'and past bookings stay with the salon owner. This cannot be undone.'),
             style: maisonGovde(14, renk: r.soluk, yukseklik: 1.5),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Vazgeç'),
+              child: Text(dl('Vazgeç', 'Cancel')),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
               child: Text(
-                'Hesabımı sil',
+                dl('Hesabımı sil', 'Delete my account'),
                 style: maisonGovde(14, renk: hataRengi, kalinlik: FontWeight.w600),
               ),
             ),
@@ -107,7 +110,7 @@ class _ProAyarlarState extends State<ProAyarlar> {
     try {
       await oturum.hesabiSil(salonlarla: widget.salon.sahibim);
       gezgin.popUntil((Route<dynamic> rota) => rota.isFirst);
-      mesaj.showSnackBar(const SnackBar(content: Text('Hesabın silindi.')));
+      mesaj.showSnackBar(SnackBar(content: Text(dl('Hesabın silindi.', 'Your account has been deleted.'))));
     } catch (hata) {
       if (mounted) {
         setState(() => _isleniyor = false);
@@ -129,13 +132,13 @@ class _ProAyarlarState extends State<ProAyarlar> {
             MaisonUstSatir(
               sol: MaisonYuvarlakDugme(
                 ikon: Icons.arrow_back,
-                etiket: 'Geri',
+                etiket: dl('Geri', 'Back'),
                 onTap: () => Navigator.of(context).maybePop(),
               ),
-              baslik: 'Ayarlar',
+              baslik: dl('Ayarlar', 'Settings'),
             ),
             const SizedBox(height: 26),
-            const MaisonUstBaslik('SALON'),
+            MaisonUstBaslik(dl('SALON', 'SALON')),
             const SizedBox(height: 12),
             Material(
               color: r.kart,
@@ -161,11 +164,11 @@ class _ProAyarlarState extends State<ProAyarlar> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'Salon bilgileri',
+                              dl('Salon bilgileri', 'Salon details'),
                               style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
                             ),
                             Text(
-                              'Tanıtım, adres, telefon, hazırlık ve iptal süresi',
+                              dl('Tanıtım, adres, telefon, hazırlık ve iptal süresi', 'About, address, phone, preparation and cancellation time'),
                               style: maisonGovde(13, renk: r.soluk, yukseklik: 1.35),
                             ),
                           ],
@@ -192,13 +195,13 @@ class _ProAyarlarState extends State<ProAyarlar> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Salon yayında',
+                          dl('Salon yayında', 'Salon is live'),
                           style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
                         ),
                         Text(
                           widget.salon.sahibim
-                              ? 'Açıkken müşteriler salonunu Maison Makas\'ta görür.'
-                              : 'Bu ayarı yalnız salon sahibi değiştirebilir.',
+                              ? dl('Açıkken müşteriler salonunu Maison Makas\'ta görür.', 'When on, customers see your salon on Maison Makas.')
+                              : dl('Bu ayarı yalnız salon sahibi değiştirebilir.', 'Only the salon owner can change this.'),
                           style: maisonGovde(13, renk: r.soluk, yukseklik: 1.35),
                         ),
                       ],
@@ -206,7 +209,7 @@ class _ProAyarlarState extends State<ProAyarlar> {
                   ),
                   MaisonAnahtar(
                     deger: _yayinda,
-                    etiket: 'Salon yayında',
+                    etiket: dl('Salon yayında', 'Salon is live'),
                     onChanged: (bool yeni) {
                       if (!widget.salon.sahibim || _isleniyor) {
                         return;
@@ -219,11 +222,49 @@ class _ProAyarlarState extends State<ProAyarlar> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Hizmet ve çalışma saati eklemeden yayına alırsan müşteriler salonunu görür ama henüz randevu alamaz.',
+              dl('Hizmet ve çalışma saati eklemeden yayına alırsan müşteriler salonunu görür ama henüz randevu alamaz.', 'If you publish before adding services and working hours, customers will see your salon but cannot book yet.'),
               style: maisonGovde(12, renk: r.soluk, yukseklik: 1.45),
             ),
             const SizedBox(height: 28),
-            const MaisonUstBaslik('HESAP'),
+            MaisonUstBaslik(dl('GÖRÜNÜM', 'APPEARANCE')),
+            const SizedBox(height: 12),
+            ValueListenableBuilder<bool>(
+              valueListenable: MaisonTercih.koyu,
+              builder: (BuildContext context, bool koyu, Widget? _) {
+                return Container(
+                  padding: const EdgeInsets.fromLTRB(16, 4, 8, 4),
+                  decoration: BoxDecoration(
+                    color: r.kart,
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: r.cizgi),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.dark_mode_outlined, size: 20, color: r.soluk),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Text(dl('Koyu görünüm', 'Dark mode'), style: maisonGovde(15, renk: r.yazi, yukseklik: 1.2)),
+                      ),
+                      MaisonAnahtar(
+                        deger: koyu,
+                        etiket: dl('Koyu görünüm', 'Dark mode'),
+                        onChanged: MaisonTercih.koyuAyarla,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 18),
+            MaisonUstBaslik(dl('YAZI BOYUTU', 'TEXT SIZE')),
+            const SizedBox(height: 12),
+            const MaisonYaziBoyutuSecici(),
+            const SizedBox(height: 18),
+            MaisonUstBaslik(dl('DİL', 'LANGUAGE')),
+            const SizedBox(height: 12),
+            const MaisonDilSecici(),
+            const SizedBox(height: 28),
+            MaisonUstBaslik(dl('HESAP', 'ACCOUNT')),
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(16),
@@ -252,21 +293,21 @@ class _ProAyarlarState extends State<ProAyarlar> {
               height: 52,
               child: OutlinedButton(
                 onPressed: _isleniyor ? null : _cikisYap,
-                child: const Text('Çıkış yap'),
+                child: Text(dl('Çıkış yap', 'Sign out')),
               ),
             ),
             const SizedBox(height: 4),
             TextButton(
               onPressed: _isleniyor ? null : _hesabiSil,
               child: Text(
-                'Hesabımı sil',
+                dl('Hesabımı sil', 'Delete my account'),
                 style: maisonGovde(14, renk: Theme.of(context).colorScheme.error, kalinlik: FontWeight.w600),
               ),
             ),
             const SizedBox(height: 28),
             Center(
               child: Text(
-                'Makas Pro · sürüm 0.6.0',
+                dl('Makas Pro · sürüm 0.7.0', 'Makas Pro · version 0.7.0'),
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.2),
               ),
             ),

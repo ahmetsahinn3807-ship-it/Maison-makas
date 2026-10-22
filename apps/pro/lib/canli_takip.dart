@@ -57,9 +57,9 @@ class SalonDinleyici {
     final DateTime bugun = DateTime(simdi.year, simdi.month, simdi.day);
     final int fark = DateTime(t.year, t.month, t.day).difference(bugun).inDays;
     final String gun = fark == 0
-        ? 'Bugün'
+        ? dl('Bugün', 'Today')
         : fark == 1
-            ? 'Yarın'
+            ? dl('Yarın', 'Tomorrow')
             : '${maisonGun(t)} ${t.day} ${maisonAy(t)}';
     return '$gun · ${maisonSaat(t)}';
   }
@@ -70,12 +70,12 @@ class SalonDinleyici {
       final String zaman = _zaman(araliginBasi(yeni['aralik']));
       final Object? musteri = yeni['musteri_id'];
       if (olay.eventType == PostgresChangeEvent.insert && yeni['kaynak'] == 'uygulama') {
-        onBildir('Yeni randevu', zaman.isEmpty ? 'Maison Makas\'tan yeni bir randevu alındı.' : zaman);
+        onBildir(dl('Yeni randevu', 'New booking'), zaman.isEmpty ? dl('Maison Makas\'tan yeni bir randevu alındı.', 'A new booking came in from Maison Makas.') : zaman);
       } else if (olay.eventType == PostgresChangeEvent.update &&
           yeni['durum'] == 'iptal' &&
           musteri != null &&
           yeni['iptal_eden'] == musteri) {
-        onBildir('Randevu iptal edildi', zaman.isEmpty ? 'Müşteri randevusunu iptal etti.' : '$zaman · müşteri iptal etti');
+        onBildir(dl('Randevu iptal edildi', 'Booking cancelled'), zaman.isEmpty ? dl('Müşteri randevusunu iptal etti.', 'The customer cancelled their booking.') : dl('$zaman · müşteri iptal etti', '$zaman · cancelled by the customer'));
       }
     }
     onDegisti();

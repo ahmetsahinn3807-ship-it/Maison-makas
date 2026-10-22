@@ -85,43 +85,43 @@ class _HazirlikKartiState extends State<HazirlikKarti> {
     final bool yayinda = d['yayinda'] == true;
     final List<_Madde> maddeler = <_Madde>[
       _Madde(
-        baslik: 'Hizmet menüsü',
+        baslik: dl('Hizmet menüsü', 'Service menu'),
         tamam: hizmet > 0,
-        aciklama: hizmet > 0 ? '$hizmet hizmet' : 'Müşterilerin seçeceği hizmetleri ekle',
+        aciklama: hizmet > 0 ? dl('$hizmet hizmet', hizmet == 1 ? '1 service' : '$hizmet services') : dl('Müşterilerin seçeceği hizmetleri ekle', 'Add the services customers can choose'),
         onTap: widget.hizmetler,
       ),
       _Madde(
-        baslik: 'Ekip',
+        baslik: dl('Ekip', 'Team'),
         tamam: usta > 0,
-        aciklama: usta > 0 ? '$usta usta' : 'Kendini ya da ustalarını ekle',
+        aciklama: usta > 0 ? dl('$usta usta', usta == 1 ? '1 barber' : '$usta barbers') : dl('Kendini ya da ustalarını ekle', 'Add yourself or your barbers'),
         onTap: widget.ekip,
       ),
       _Madde(
-        baslik: 'Çalışma saatleri',
+        baslik: dl('Çalışma saatleri', 'Working hours'),
         tamam: usta > 0 && saatli >= usta,
         aciklama: usta == 0
-            ? 'Önce ekibini kur'
+            ? dl('Önce ekibini kur', 'Set up your team first')
             : saatli >= usta
-                ? 'Bütün ustaların saatleri girildi'
-                : '${usta - saatli} ustanın saati eksik',
+                ? dl('Bütün ustaların saatleri girildi', 'Hours entered for every barber')
+                : dl('${usta - saatli} ustanın saati eksik', '${usta - saatli} barber${usta - saatli == 1 ? ' is' : 's are'} missing hours'),
         onTap: widget.ekip,
       ),
       _Madde(
-        baslik: 'Vitrin',
+        baslik: dl('Vitrin', 'Showcase'),
         tamam: kapak,
-        aciklama: kapak ? 'Kapak fotoğrafı eklendi' : 'Kapak fotoğrafı ve galeri ekle',
+        aciklama: kapak ? dl('Kapak fotoğrafı eklendi', 'Cover photo added') : dl('Kapak fotoğrafı ve galeri ekle', 'Add a cover photo and gallery'),
         onTap: widget.vitrin,
       ),
       _Madde(
-        baslik: 'Salon tanıtımı',
+        baslik: dl('Salon tanıtımı', 'Salon description'),
         tamam: aciklama,
-        aciklama: aciklama ? 'Tanıtım yazıldı' : 'Vitrinde görünecek birkaç cümle yaz',
+        aciklama: aciklama ? dl('Tanıtım yazıldı', 'Description written') : dl('Vitrinde görünecek birkaç cümle yaz', 'Write a few sentences for your showcase'),
         onTap: widget.bilgiler,
       ),
       _Madde(
-        baslik: 'Yayına al',
+        baslik: dl('Yayına al', 'Publish'),
         tamam: yayinda,
-        aciklama: yayinda ? 'Salonun Keşfet\'te görünüyor' : 'Hazır olunca Ayarlar\'dan yayına al',
+        aciklama: yayinda ? dl('Salonun Keşfet\'te görünüyor', 'Your salon appears in Discover') : dl('Hazır olunca Ayarlar\'dan yayına al', 'Publish it from Settings when ready'),
         onTap: widget.ayarlar,
       ),
     ];
@@ -145,7 +145,7 @@ class _HazirlikKartiState extends State<HazirlikKarti> {
               padding: const EdgeInsets.only(right: 8),
               child: Row(
                 children: <Widget>[
-                  const Expanded(child: MaisonUstBaslik('SALONUN RANDEVUYA HAZIR MI?')),
+                  Expanded(child: MaisonUstBaslik(dl('SALONUN RANDEVUYA HAZIR MI?', 'IS YOUR SALON READY FOR BOOKINGS?'))),
                   Text(
                     '$biten/${maddeler.length}',
                     style: maisonGovde(13, renk: r.vurgu, kalinlik: FontWeight.w600),

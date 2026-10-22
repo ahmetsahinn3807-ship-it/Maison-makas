@@ -175,39 +175,44 @@ class ProUsta {
 /// Hazır berber menüsünden bir kalem.
 @immutable
 class HizmetSablonu {
-  const HizmetSablonu(this.ad, this.kategori, this.sureDk);
+  const HizmetSablonu(this._tr, this._en, this.kategori, this.sureDk);
 
-  final String ad;
+  final String _tr;
+  final String _en;
+
+  /// Seçili dilde ad; salona bu adla eklenir.
+  String get ad => dl(_tr, _en);
+
   final HizmetKategorisi kategori;
   final int sureDk;
 
   static const List<HizmetSablonu> berber = <HizmetSablonu>[
-    HizmetSablonu('Saç kesimi', HizmetKategorisi.sac, 30),
-    HizmetSablonu('Saç ve sakal', HizmetKategorisi.sac, 45),
-    HizmetSablonu('Saç yıkama ve fön', HizmetKategorisi.sac, 15),
-    HizmetSablonu('Sakal tıraşı', HizmetKategorisi.sakal, 20),
-    HizmetSablonu('Ustura ile tıraş', HizmetKategorisi.sakal, 30),
-    HizmetSablonu('Sakal şekillendirme', HizmetKategorisi.sakal, 20),
-    HizmetSablonu('Saç boyama', HizmetKategorisi.renk, 60),
-    HizmetSablonu('Sakal boyama', HizmetKategorisi.renk, 30),
-    HizmetSablonu('Cilt bakımı', HizmetKategorisi.bakim, 30),
-    HizmetSablonu('Kaş düzeltme', HizmetKategorisi.bakim, 10),
-    HizmetSablonu('Ağda (kulak, burun)', HizmetKategorisi.bakim, 10),
-    HizmetSablonu('Çocuk saç kesimi', HizmetKategorisi.cocuk, 20),
-    HizmetSablonu('Damat tıraşı', HizmetKategorisi.diger, 90),
+    HizmetSablonu('Saç kesimi', 'Haircut', HizmetKategorisi.sac, 30),
+    HizmetSablonu('Saç ve sakal', 'Hair and beard', HizmetKategorisi.sac, 45),
+    HizmetSablonu('Saç yıkama ve fön', 'Wash and blow-dry', HizmetKategorisi.sac, 15),
+    HizmetSablonu('Sakal tıraşı', 'Beard shave', HizmetKategorisi.sakal, 20),
+    HizmetSablonu('Ustura ile tıraş', 'Straight razor shave', HizmetKategorisi.sakal, 30),
+    HizmetSablonu('Sakal şekillendirme', 'Beard shaping', HizmetKategorisi.sakal, 20),
+    HizmetSablonu('Saç boyama', 'Hair colouring', HizmetKategorisi.renk, 60),
+    HizmetSablonu('Sakal boyama', 'Beard colouring', HizmetKategorisi.renk, 30),
+    HizmetSablonu('Cilt bakımı', 'Skin care', HizmetKategorisi.bakim, 30),
+    HizmetSablonu('Kaş düzeltme', 'Eyebrow tidy', HizmetKategorisi.bakim, 10),
+    HizmetSablonu('Ağda (kulak, burun)', 'Waxing (ears, nose)', HizmetKategorisi.bakim, 10),
+    HizmetSablonu('Çocuk saç kesimi', "Kids' haircut", HizmetKategorisi.cocuk, 20),
+    HizmetSablonu('Damat tıraşı', 'Groom shave', HizmetKategorisi.diger, 90),
   ];
 }
 
-/// Uzmanlık önerileri (usta kartında etiket olarak görünür).
-const List<String> uzmanlikOnerileri = <String>[
-  'Fade',
-  'Klasik kesim',
-  'Makas kesim',
-  'Sakal tasarımı',
-  'Ustura',
-  'Renk',
-  'Perma',
-  'Uzun saç',
-  'Çocuk',
-  'Damat',
-];
+/// Uzmanlık önerileri (usta kartında etiket olarak görünür; seçili dilde).
+List<String> get uzmanlikOnerileri => <String>[
+      'Fade',
+      dl('Klasik kesim', 'Classic cut'),
+      dl('Makas kesim', 'Scissor cut'),
+      dl('Sakal tasarımı', 'Beard design'),
+      dl('Ustura', 'Straight razor'),
+      dl('Renk', 'Colour'),
+      dl('Perma', 'Perm'),
+      dl('Uzun saç', 'Long hair'),
+      dl('Çocuk', 'Kids'),
+      dl('Damat', 'Groom'),
+    ];

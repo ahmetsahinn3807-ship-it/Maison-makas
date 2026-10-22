@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:makas_core/makas_core.dart';
 
-import '../dil.dart';
-import '../gorunum.dart';
 import '../hatirlatma.dart';
 import '../veri.dart';
 
-/// Ayarlar ve destek: dil, çıkış, hesap silme ve gizlilik.
+/// Ayarlar ve destek: dil, bildirimler, çıkış, hesap silme ve gizlilik.
 class AyarlarEkrani extends StatefulWidget {
   const AyarlarEkrani({super.key});
 
@@ -37,7 +35,7 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
     await MaisonBildirim.hatirlatmaAyarla(acik);
     if (acik && !await MaisonBildirim.izinIste()) {
       mesaj.showSnackBar(
-        const SnackBar(content: Text('Bildirim izni kapalı. Telefonun Ayarlar > Bildirimler bölümünden açabilirsin.')),
+        SnackBar(content: Text(dl('Bildirim izni kapalı. Telefonun Ayarlar > Bildirimler bölümünden açabilirsin.', 'Notifications are turned off. You can turn them on in your phone\'s Settings > Notifications.'))),
       );
     }
     await RandevuHatirlatici.esitle(veri);
@@ -62,22 +60,24 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: r.kart,
-          title: Text('Hesabın silinsin mi?', style: maisonBaslik(26, renk: r.yazi)),
+          title: Text(dl('Hesabın silinsin mi?', 'Delete your account?'), style: maisonBaslik(26, renk: r.yazi)),
           content: Text(
-            'Profilin, favorilerin ve stil fotoğrafların kalıcı olarak silinir; '
+            dl('Profilin, favorilerin ve stil fotoğrafların kalıcı olarak silinir; '
             'yaklaşan randevuların iptal edilir. Salonların geçmiş kayıtlarında adın görünmez. '
-            'Bu işlem geri alınamaz.',
+            'Bu işlem geri alınamaz.', 'Your profile, favourites and style photos are permanently deleted; '
+                'upcoming bookings are cancelled. Your name will not appear in salons\' past records. '
+                'This cannot be undone.'),
             style: maisonGovde(14, renk: r.soluk, yukseklik: 1.5),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Vazgeç'),
+              child: Text(dl('Vazgeç', 'Cancel')),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
               child: Text(
-                'Hesabımı sil',
+                dl('Hesabımı sil', 'Delete my account'),
                 style: maisonGovde(14, renk: hataRengi, kalinlik: FontWeight.w600),
               ),
             ),
@@ -95,7 +95,7 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
     try {
       await oturum.hesabiSil();
       gezgin.popUntil((Route<dynamic> rota) => rota.isFirst);
-      mesaj.showSnackBar(const SnackBar(content: Text('Hesabın silindi.')));
+      mesaj.showSnackBar(SnackBar(content: Text(dl('Hesabın silindi.', 'Your account has been deleted.'))));
     } catch (hata) {
       if (mounted) {
         setState(() => _isleniyor = false);
@@ -107,7 +107,6 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
   @override
   Widget build(BuildContext context) {
     final MaisonRenkler r = MaisonRenkler.of(context);
-    final Gorunum gorunum = GorunumKapsami.of(context);
     final MaisonOturum oturum = OturumKapsami.of(context);
     return Scaffold(
       backgroundColor: r.zemin,
@@ -118,26 +117,17 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
             MaisonUstSatir(
               sol: MaisonYuvarlakDugme(
                 ikon: Icons.arrow_back,
-                etiket: 'Geri',
+                etiket: dl('Geri', 'Back'),
                 onTap: () => Navigator.of(context).maybePop(),
               ),
-              baslik: 'Ayarlar ve destek',
+              baslik: dl('Ayarlar ve destek', 'Settings and support'),
             ),
             const SizedBox(height: 26),
-            const MaisonUstBaslik('DİL'),
+            MaisonUstBaslik(dl('DİL', 'LANGUAGE')),
             const SizedBox(height: 12),
-            MaisonSekmeSecici(
-              secenekler: <String>[for (final Dil d in Dil.values) d.kod],
-              secili: Dil.values.indexOf(gorunum.dil),
-              onSec: (int i) => gorunum.dilSec(Dil.values[i]),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Şimdilik açılış ekranı çevriliyor; uygulamanın tamamı 23. adımda gelecek.',
-              style: maisonGovde(12, renk: r.soluk, yukseklik: 1.4),
-            ),
+            const MaisonDilSecici(),
             const SizedBox(height: 28),
-            const MaisonUstBaslik('BİLDİRİMLER'),
+            MaisonUstBaslik(dl('BİLDİRİMLER', 'NOTIFICATIONS')),
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.fromLTRB(16, 10, 10, 10),
@@ -153,11 +143,11 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Randevu hatırlatmaları',
+                          dl('Randevu hatırlatmaları', 'Appointment reminders'),
                           style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
                         ),
                         Text(
-                          'Randevudan 24 saat ve 2 saat önce bu telefona bildirim gelir.',
+                          dl('Randevudan 24 saat ve 2 saat önce bu telefona bildirim gelir.', 'You get a notification on this phone 24 hours and 2 hours before.'),
                           style: maisonGovde(13, renk: r.soluk, yukseklik: 1.35),
                         ),
                       ],
@@ -165,7 +155,7 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
                   ),
                   MaisonAnahtar(
                     deger: _hatirlatma ?? true,
-                    etiket: 'Randevu hatırlatmaları',
+                    etiket: dl('Randevu hatırlatmaları', 'Appointment reminders'),
                     onChanged: (bool yeni) {
                       if (_hatirlatma != null) {
                         _hatirlatmaDegistir(yeni);
@@ -176,7 +166,7 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
               ),
             ),
             const SizedBox(height: 28),
-            const MaisonUstBaslik('HESAP'),
+            MaisonUstBaslik(dl('HESAP', 'ACCOUNT')),
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(16),
@@ -205,29 +195,30 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
               height: 52,
               child: OutlinedButton(
                 onPressed: _isleniyor ? null : _cikisYap,
-                child: const Text('Çıkış yap'),
+                child: Text(dl('Çıkış yap', 'Sign out')),
               ),
             ),
             const SizedBox(height: 4),
             TextButton(
               onPressed: _isleniyor ? null : _hesabiSil,
               child: Text(
-                'Hesabımı sil',
+                dl('Hesabımı sil', 'Delete my account'),
                 style: maisonGovde(14, renk: Theme.of(context).colorScheme.error, kalinlik: FontWeight.w600),
               ),
             ),
             const SizedBox(height: 22),
-            const MaisonUstBaslik('GİZLİLİK'),
+            MaisonUstBaslik(dl('GİZLİLİK', 'PRIVACY')),
             const SizedBox(height: 10),
             Text(
-              'Telefonun ve randevu geçmişin yalnız randevu aldığın salonlara görünür. '
-              'Hesabını istediğin an buradan silebilirsin; kişisel verilerin de silinir.',
+              dl('Telefonun ve randevu geçmişin yalnız randevu aldığın salonlara görünür. '
+              'Hesabını istediğin an buradan silebilirsin; kişisel verilerin de silinir.', 'Your phone number and booking history are visible only to salons you book with. '
+                  'You can delete your account here at any time; your personal data is deleted too.'),
               style: maisonGovde(14, renk: r.soluk, yukseklik: 1.55),
             ),
             const SizedBox(height: 28),
             Center(
               child: Text(
-                'Maison Makas · sürüm 0.6.0',
+                dl('Maison Makas · sürüm 0.7.0', 'Maison Makas · version 0.7.0'),
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.2),
               ),
             ),

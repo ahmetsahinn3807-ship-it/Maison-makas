@@ -14,7 +14,9 @@ import 'package:supabase_flutter/supabase_flutter.dart'
         User;
 
 import 'baslatma.dart';
+import 'dil.dart';
 import 'fotograf_yukleme.dart';
+import 'sunucu_mesajlari.dart';
 
 /// Kullanıcıya gösterilecek, Türkçe hata.
 class MaisonHata implements Exception {
@@ -64,14 +66,14 @@ class MaisonOturum extends ChangeNotifier {
   String? get tanilama {
     if (_istemci == null) {
       final String? neden = _baslatmaHatasi;
-      return neden == null ? 'Sunucu bağlantısı yok' : 'Sunucu bağlantısı yok: ${_kisalt(neden)}';
+      return neden == null ? dl('Sunucu bağlantısı yok', 'No server connection') : dl('Sunucu bağlantısı yok: ${_kisalt(neden)}', 'No server connection: ${_kisalt(neden)}');
     }
     final String? depo = MaisonYerelDepo.sorun;
     if (depo != null) {
-      return 'Oturum bu cihazda saklanamıyor: ${_kisalt(depo)}';
+      return dl('Oturum bu cihazda saklanamıyor: ${_kisalt(depo)}', 'The session cannot be stored on this device: ${_kisalt(depo)}');
     }
     final String? hata = _baslatmaHatasi;
-    return hata == null ? null : 'Başlatma uyarısı: ${_kisalt(hata)}';
+    return hata == null ? null : dl('Başlatma uyarısı: ${_kisalt(hata)}', 'Start-up warning: ${_kisalt(hata)}');
   }
 
   void _baglan() {
@@ -184,8 +186,8 @@ class MaisonOturum extends ChangeNotifier {
       data: <String, dynamic>{'ad_soyad': adSoyad.trim()},
     );
     if (yanit.session == null) {
-      throw const MaisonHata(
-        'Hesabın oluştu. E-postana gelen onay bağlantısına dokun, sonra giriş yap.',
+      throw MaisonHata(
+        dl('Hesabın oluştu. E-postana gelen onay bağlantısına dokun, sonra giriş yap.', 'Your account has been created. Tap the confirmation link in your email, then sign in.'),
       );
     }
   }
@@ -204,7 +206,7 @@ class MaisonOturum extends ChangeNotifier {
     final SupabaseClient i = await istemciGerekli();
     final User? k = kullanici;
     if (k == null) {
-      throw const MaisonHata('Önce giriş yapmalısın.');
+      throw MaisonHata(dl('Önce giriş yapmalısın.', 'Please sign in first.'));
     }
     final Map<String, dynamic> satir =
         await i.from('profiller').update(alanlar).eq('id', k.id).select().single();
@@ -238,7 +240,7 @@ class MaisonOturum extends ChangeNotifier {
               .overlaps('aralik', '[$simdi,infinity)');
           if (yaklasan.isNotEmpty) {
             throw MaisonHata(
-              'Salonunda ${yaklasan.length} yaklaşan randevu var. Önce bunları iptal et, sonra hesabını sil.',
+              dl('Salonunda ${yaklasan.length} yaklaşan randevu var. Önce bunları iptal et, sonra hesabını sil.', 'Your salon has ${yaklasan.length} upcoming appointment${yaklasan.length == 1 ? '' : 's'}. Cancel them first, then delete your account.'),
             );
           }
           for (final String salonId in kimlikler) {
@@ -280,8 +282,8 @@ class MaisonOturum extends ChangeNotifier {
     final String? ayrinti = _baslatmaHatasi;
     throw MaisonHata(
       ayrinti == null
-          ? 'Sunucu bağlantısı kurulamadı. İnterneti kontrol edip tekrar dene.'
-          : 'Sunucu bağlantısı kurulamadı. Ayrıntı: ${_kisalt(ayrinti)}',
+          ? dl('Sunucu bağlantısı kurulamadı. İnterneti kontrol edip tekrar dene.', 'Could not connect to the server. Check your internet connection and try again.')
+          : dl('Sunucu bağlantısı kurulamadı. Ayrıntı: ${_kisalt(ayrinti)}', 'Could not connect to the server. Details: ${_kisalt(ayrinti)}'),
     );
   }
 
@@ -320,7 +322,7 @@ class OturumKapsami extends InheritedNotifier<MaisonOturum> {
   }
 }
 
-/// Her hatayı kullanıcıya gösterilecek kısa bir Türkçe cümleye çevirir.
+/// Her hatayı kullanıcıya gösterilecek kısa bir cümleye çevirir (seçili dilde).
 String maisonHataMetni(Object hata) {
   if (hata is MaisonHata) {
     return hata.mesaj;
@@ -329,82 +331,82 @@ String maisonHataMetni(Object hata) {
     final String kod = (hata.code ?? '').toLowerCase();
     final String mesaj = hata.message.toLowerCase();
     if (kod == 'invalid_credentials' || mesaj.contains('invalid login')) {
-      return 'E-posta ya da şifre hatalı.';
+      return dl('E-posta ya da şifre hatalı.', 'Incorrect email or password.');
     }
     if (kod == 'user_already_exists' || mesaj.contains('already registered')) {
-      return 'Bu e-postayla zaten bir hesap var. Giriş yap.';
+      return dl('Bu e-postayla zaten bir hesap var. Giriş yap.', 'An account with this email already exists. Sign in.');
     }
     if (kod == 'weak_password' || mesaj.contains('password should')) {
-      return 'Şifre çok zayıf. En az 8 karakter kullan.';
+      return dl('Şifre çok zayıf. En az 8 karakter kullan.', 'The password is too weak. Use at least 8 characters.');
     }
     if (kod == 'email_not_confirmed' || mesaj.contains('not confirmed')) {
-      return 'E-postanı henüz onaylamadın. Gelen kutundaki bağlantıya dokun.';
+      return dl('E-postanı henüz onaylamadın. Gelen kutundaki bağlantıya dokun.', 'You have not confirmed your email yet. Tap the link in your inbox.');
     }
     if (kod == 'email_address_invalid' || mesaj.contains('invalid format')) {
-      return 'Geçerli bir e-posta adresi yaz.';
+      return dl('Geçerli bir e-posta adresi yaz.', 'Enter a valid email address.');
     }
     if (kod.contains('rate_limit') || hata.statusCode == '429') {
-      return 'Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.';
+      return dl('Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.', 'Too many attempts. Wait a little and try again.');
     }
     if (kod == 'signup_disabled') {
-      return 'Yeni kayıtlar şu an kapalı.';
+      return dl('Yeni kayıtlar şu an kapalı.', 'New sign-ups are currently closed.');
     }
     if (hata.statusCode == null) {
-      return 'Sunucuya ulaşılamadı. İnternet bağlantını kontrol et.';
+      return dl('Sunucuya ulaşılamadı. İnternet bağlantını kontrol et.', 'Could not reach the server. Check your internet connection.');
     }
-    return 'İşlem yapılamadı: ${hata.message}';
+    return dl('İşlem yapılamadı: ${hata.message}', 'Could not complete the action: ${hata.message}');
   }
   if (hata is StorageException) {
     final String mesaj = '${hata.message} ${hata.error ?? ''}'.toLowerCase();
     if (mesaj.contains('bucket not found')) {
-      return 'Fotoğraf deposu kurulu değil: 19. adımın SQL kodunu çalıştır.';
+      return dl('Fotoğraf deposu kurulu değil: 19. adımın SQL kodunu çalıştır.', 'Photo storage is not set up: run the SQL code from step 19.');
     }
     if (mesaj.contains('row-level security') || hata.statusCode == '403') {
-      return 'Bu fotoğrafı yüklemeye ya da silmeye yetkin yok.';
+      return dl('Bu fotoğrafı yüklemeye ya da silmeye yetkin yok.', 'You are not allowed to upload or delete this photo.');
     }
     if (mesaj.contains('maximum allowed size') || mesaj.contains('too large') || hata.statusCode == '413') {
-      return 'Fotoğraf çok büyük; en çok 6 MB olabilir.';
+      return dl('Fotoğraf çok büyük; en çok 6 MB olabilir.', 'The photo is too large; the limit is 6 MB.');
     }
     if (mesaj.contains('mime type') || mesaj.contains('invalid_mime_type')) {
-      return 'Bu fotoğraf biçimi desteklenmiyor. JPG ya da PNG bir fotoğraf seç.';
+      return dl('Bu fotoğraf biçimi desteklenmiyor. JPG ya da PNG bir fotoğraf seç.', 'This photo format is not supported. Choose a JPG or PNG photo.');
     }
-    return 'Fotoğraf yüklenemedi: ${hata.message}';
+    return dl('Fotoğraf yüklenemedi: ${hata.message}', 'The photo could not be uploaded: ${hata.message}');
   }
   if (hata is PostgrestException) {
     final String kod = hata.code ?? '';
     final String mesaj = hata.message.toLowerCase();
     if (kod == 'PGRST202' || kod == '42883' || kod == 'PGRST205' || kod == '42P01') {
-      return 'Sunucu kurulumu eksik: bu özelliğin SQL kodu henüz çalıştırılmamış.';
+      return dl('Sunucu kurulumu eksik: bu özelliğin SQL kodu henüz çalıştırılmamış.', 'Server setup incomplete: the SQL code for this feature has not been run yet.');
     }
     if (kod == '42501' && mesaj.contains('row-level security')) {
-      return 'Bu işlem için yetkin yok.';
+      return dl('Bu işlem için yetkin yok.', 'You are not allowed to do this.');
     }
     if (kod == '23505') {
-      return 'Bu kayıt zaten var.';
+      return dl('Bu kayıt zaten var.', 'This record already exists.');
     }
     if (kod == '23503') {
-      return 'Bu kayıt başka kayıtlarda kullanıldığı için silinemez.';
+      return dl('Bu kayıt başka kayıtlarda kullanıldığı için silinemez.', 'This record is used elsewhere, so it cannot be deleted.');
     }
     if (kod == '23514') {
-      return 'Girdiğin bilgilerden biri kurala uymuyor (ör. çok uzun ya da geçersiz).';
+      return dl('Girdiğin bilgilerden biri kurala uymuyor (ör. çok uzun ya da geçersiz).', 'One of the values you entered is not allowed (e.g. too long or invalid).');
     }
     if (kod == '23P01') {
-      return 'Bu saat az önce doldu. Başka bir saat seç.';
+      return dl('Bu saat az önce doldu. Başka bir saat seç.', 'This time was just taken. Choose another time.');
     }
     if (kod == 'PGRST116') {
-      return 'Kayıt bulunamadı.';
+      return dl('Kayıt bulunamadı.', 'Record not found.');
     }
     if (kod == 'PGRST301' || kod == 'PGRST303' || mesaj.contains('jwt expired')) {
-      return 'Oturumun süresi doldu. Çıkış yapıp yeniden giriş yap.';
+      return dl('Oturumun süresi doldu. Çıkış yapıp yeniden giriş yap.', 'Your session has expired. Sign out and sign in again.');
     }
-    return hata.message;
+    return maisonSunucuMesaji(hata.message);
   }
   final String metin = hata.toString();
   if (metin.contains('SocketException') ||
       metin.contains('ClientException') ||
       metin.contains('Failed host lookup') ||
       metin.contains('Connection')) {
-    return 'İnternet bağlantını kontrol et.';
+    return dl('İnternet bağlantını kontrol et.', 'Check your internet connection.');
   }
-  return 'Bir şeyler ters gitti. Tekrar dene.';
+  return dl('Bir şeyler ters gitti. Tekrar dene.', 'Something went wrong. Try again.');
 }

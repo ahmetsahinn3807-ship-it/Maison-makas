@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import 'dil.dart';
 import 'renkler.dart';
 import 'tema.dart';
 import 'vitrin_ayari.dart';
@@ -156,7 +157,7 @@ class _MaisonFotoGostericiState extends State<MaisonFotoGosterici> {
               child: Row(
                 children: <Widget>[
                   IconButton(
-                    tooltip: 'Kapat',
+                    tooltip: dl('Kapat', 'Close'),
                     onPressed: () => Navigator.of(context).maybePop(),
                     icon: const Icon(Icons.close, color: Colors.white),
                   ),

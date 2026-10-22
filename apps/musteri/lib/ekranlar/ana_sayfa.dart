@@ -76,7 +76,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
   void _bildirimYok() {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Yeni bildirimin yok.')));
+      ..showSnackBar(SnackBar(content: Text(dl('Yeni bildirimin yok.', 'No new notifications.'))));
   }
 
   @override
@@ -92,11 +92,11 @@ class _AnaSayfaState extends State<AnaSayfa> {
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
         children: <Widget>[
           MaisonUstSatir(
-            sol: MaisonYuvarlakDugme(ikon: Icons.menu, etiket: 'Menüyü aç', onTap: widget.menuAc),
+            sol: MaisonYuvarlakDugme(ikon: Icons.menu, etiket: dl('Menüyü aç', 'Open menu'), onTap: widget.menuAc),
             baslik: 'Maison Makas',
             sag: MaisonYuvarlakDugme(
               ikon: Icons.notifications_none,
-              etiket: 'Bildirimler',
+              etiket: dl('Bildirimler', 'Notifications'),
               onTap: _bildirimYok,
             ),
           ),
@@ -104,7 +104,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           MaisonUstBaslik(maisonSelamlama(DateTime.now())),
           const SizedBox(height: 4),
           Text(
-            ad.isEmpty ? 'Merhaba' : 'Merhaba, $ad',
+            ad.isEmpty ? dl('Merhaba', 'Hello') : dl('Merhaba, $ad', 'Hello, $ad'),
             style: maisonBaslik(38, renk: r.yazi, yukseklik: 1.1),
           ),
           const SizedBox(height: 18),
@@ -129,7 +129,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     kesfeteGit: widget.kesfeteGit,
                   ),
                   const SizedBox(height: 26),
-                  const MaisonBolumBasligi('Favori ustalar'),
+                  MaisonBolumBasligi(dl('Favori ustalar', 'Favourite barbers')),
                   const SizedBox(height: 10),
                   Row(
                     children: <Widget>[
@@ -137,7 +137,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       const SizedBox(width: 14),
                       Expanded(
                         child: Text(
-                          'Gittiğin salonlardaki ustaları favorine ekle; bir dokunuşla aynı ustadan randevu al.',
+                          dl('Gittiğin salonlardaki ustaları favorine ekle; bir dokunuşla aynı ustadan randevu al.', 'Add barbers from salons you visit to favourites and rebook them with one tap.'),
                           style: maisonGovde(13, renk: r.soluk, yukseklik: 1.45),
                         ),
                       ),
@@ -145,14 +145,14 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   ),
                   const SizedBox(height: 26),
                   MaisonBolumBasligi(
-                    'Salonlar',
-                    baglanti: veri.salonlar.isEmpty ? null : 'Tümü',
+                    dl('Salonlar', 'Salons'),
+                    baglanti: veri.salonlar.isEmpty ? null : dl('Tümü', 'All'),
                     onBaglanti: widget.kesfeteGit,
                   ),
                   const SizedBox(height: 10),
                   if (veri.salonlar.isEmpty)
                     Text(
-                      'Salonlar Makas Pro\'dan katıldıkça burada görünecek.',
+                      dl('Salonlar Makas Pro\'dan katıldıkça burada görünecek.', 'Salons will appear here as they join through Makas Pro.'),
                       style: maisonGovde(14, renk: r.soluk, yukseklik: 1.5),
                     )
                   else
@@ -187,7 +187,7 @@ class _AramaKutusu extends StatelessWidget {
     final MaisonRenkler r = MaisonRenkler.of(context);
     return Semantics(
       button: true,
-      label: 'Ara',
+      label: dl('Ara', 'Search'),
       child: Material(
         color: r.girdi,
         shape: StadiumBorder(side: BorderSide(color: r.cizgi)),
@@ -203,7 +203,7 @@ class _AramaKutusu extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Salon, semt ya da şehir ara',
+                    dl('Salon, semt ya da şehir ara', 'Search salon, district or city'),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: maisonGovde(15, renk: r.soluk, yukseklik: 1.2),
@@ -244,18 +244,18 @@ class _YaklasanKart extends StatelessWidget {
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                MaisonUstBaslik('RANDEVU', renk: r.vurgu),
+                MaisonUstBaslik(dl('RANDEVU', 'BOOKING'), renk: r.vurgu),
                 const SizedBox(height: 10),
-                Text('Yaklaşan randevun yok', style: maisonBaslik(24, renk: r.yazi)),
+                Text(dl('Yaklaşan randevun yok', 'No upcoming bookings'), style: maisonBaslik(24, renk: r.yazi)),
                 const SizedBox(height: 6),
                 Text(
-                  'Bir salon seç, ustanı ve saatini belirle.',
+                  dl('Bir salon seç, ustanı ve saatini belirle.', 'Choose a salon, then your barber and time.'),
                   style: maisonGovde(14, renk: r.soluk, yukseklik: 1.45),
                 ),
                 const SizedBox(height: 14),
                 SizedBox(
                   height: 46,
-                  child: FilledButton(onPressed: kesfeteGit, child: const Text('Salon bul')),
+                  child: FilledButton(onPressed: kesfeteGit, child: Text(dl('Salon bul', 'Find a salon'))),
                 ),
               ],
             )
@@ -264,7 +264,7 @@ class _YaklasanKart extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Expanded(child: MaisonUstBaslik('YAKLAŞAN RANDEVU', renk: r.vurgu)),
+                    Expanded(child: MaisonUstBaslik(dl('YAKLAŞAN RANDEVU', 'UPCOMING BOOKING'), renk: r.vurgu)),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
@@ -313,7 +313,7 @@ class _YaklasanKart extends StatelessWidget {
                           ),
                           const SizedBox(height: 3),
                           Text(
-                            '${rv.hizmetler ?? 'Randevu'} · ${rv.ustaAd}',
+                            '${rv.hizmetler ?? dl('Randevu', 'Booking')} · ${rv.ustaAd}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: maisonGovde(14, renk: r.soluk, yukseklik: 1.35),
@@ -334,7 +334,7 @@ class _YaklasanKart extends StatelessWidget {
                   height: 44,
                   child: OutlinedButton(
                     onPressed: randevularaGit,
-                    child: const Text('Randevularım'),
+                    child: Text(dl('Randevularım', 'My bookings')),
                   ),
                 ),
               ],
@@ -353,7 +353,7 @@ class _EkleDairesi extends StatelessWidget {
     final MaisonRenkler r = MaisonRenkler.of(context);
     return Semantics(
       button: true,
-      label: 'Favori usta ekle',
+      label: dl('Favori usta ekle', 'Add favourite barber'),
       child: InkWell(
         onTap: onTap,
         customBorder: const CircleBorder(),
@@ -370,7 +370,7 @@ class _EkleDairesi extends StatelessWidget {
               child: Icon(Icons.add, color: r.soluk, size: 22),
             ),
             const SizedBox(height: 8),
-            Text('Ekle', style: maisonGovde(13, renk: r.soluk, yukseklik: 1.2)),
+            Text(dl('Ekle', 'Add'), style: maisonGovde(13, renk: r.soluk, yukseklik: 1.2)),
           ],
         ),
       ),
@@ -417,7 +417,7 @@ class _SalonKarti extends StatelessWidget {
                     Positioned(
                       left: 10,
                       bottom: 10,
-                      child: _Rozet(metin: 'Doğrulanmış salon', renk: r.zemin.withValues(alpha: 0.8)),
+                      child: _Rozet(metin: dl('Doğrulanmış salon', 'Verified salon'), renk: r.zemin.withValues(alpha: 0.8)),
                     ),
                 ],
               ),

@@ -56,8 +56,8 @@ class _KesfetEkraniState extends State<KesfetEkrani> {
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
         children: <Widget>[
           MaisonUstSatir(
-            sol: MaisonYuvarlakDugme(ikon: Icons.menu, etiket: 'Menüyü aç', onTap: widget.menuAc),
-            baslik: 'Keşfet',
+            sol: MaisonYuvarlakDugme(ikon: Icons.menu, etiket: dl('Menüyü aç', 'Open menu'), onTap: widget.menuAc),
+            baslik: dl('Keşfet', 'Discover'),
           ),
           const SizedBox(height: 18),
           TextField(
@@ -67,11 +67,11 @@ class _KesfetEkraniState extends State<KesfetEkrani> {
             style: maisonGovde(15, renk: r.yazi, yukseklik: 1.3),
             cursorColor: r.vurgu,
             decoration: InputDecoration(
-              hintText: 'Salon, semt ya da şehir ara',
+              hintText: dl('Salon, semt ya da şehir ara', 'Search salon, district or city'),
               hintStyle: maisonGovde(15, renk: r.soluk, yukseklik: 1.3),
               prefixIcon: Icon(Icons.search, color: r.soluk, size: 20),
               suffixIcon: IconButton(
-                tooltip: 'Ara',
+                tooltip: dl('Ara', 'Search'),
                 onPressed: _yenile,
                 icon: Icon(Icons.arrow_forward, color: r.vurgu, size: 20),
               ),
@@ -106,10 +106,10 @@ class _KesfetEkraniState extends State<KesfetEkrani> {
               if (salonlar.isEmpty) {
                 return MaisonBosDurum(
                   ikon: Icons.storefront_outlined,
-                  baslik: _arama.text.trim().isEmpty ? 'Henüz salon yok' : 'Sonuç bulunamadı',
+                  baslik: _arama.text.trim().isEmpty ? dl('Henüz salon yok', 'No salons yet') : dl('Sonuç bulunamadı', 'No results'),
                   aciklama: _arama.text.trim().isEmpty
-                      ? 'Salonlar Makas Pro\'dan katıldıkça burada görünecek.'
-                      : 'Başka bir salon adı, semt ya da şehir dene.',
+                      ? dl('Salonlar Makas Pro\'dan katıldıkça burada görünecek.', 'Salons will appear here as they join through Makas Pro.')
+                      : dl('Başka bir salon adı, semt ya da şehir dene.', 'Try another salon name, district or city.'),
                 );
               }
               return Column(

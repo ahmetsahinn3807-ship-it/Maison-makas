@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'amblem.dart';
+import 'dil.dart';
 import 'foto.dart';
 import 'renkler.dart';
 import 'tema.dart';
@@ -339,7 +340,7 @@ class MaisonHataKutusu extends StatelessWidget {
           Expanded(
             child: Text(mesaj, style: maisonGovde(14, renk: r.yazi, yukseklik: 1.4)),
           ),
-          if (t != null) TextButton(onPressed: t, child: const Text('Tekrar dene')),
+          if (t != null) TextButton(onPressed: t, child: Text(dl('Tekrar dene', 'Try again'))),
         ],
       ),
     );
@@ -533,7 +534,7 @@ class MaisonYakindaEkrani extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: MaisonYuvarlakDugme(
                 ikon: Icons.arrow_back,
-                etiket: 'Geri',
+                etiket: dl('Geri', 'Back'),
                 onTap: () => Navigator.of(context).maybePop(),
               ),
             ),
@@ -542,8 +543,8 @@ class MaisonYakindaEkrani extends StatelessWidget {
             const SizedBox(height: 40),
             MaisonBosDurum(
               ikon: ikon,
-              baslik: 'Çok yakında',
-              aciklama: aciklama ?? 'Bu bölüm sıradaki adımlarda geliyor.',
+              baslik: dl('Çok yakında', 'Coming soon'),
+              aciklama: aciklama ?? dl('Bu bölüm sıradaki adımlarda geliyor.', 'This section is coming in a future update.'),
             ),
           ],
         ),
@@ -585,6 +586,58 @@ class MaisonUstSatir extends StatelessWidget {
         ),
         sag ?? const SizedBox(width: 44, height: 44),
       ],
+    );
+  }
+}
+
+/// Türkçe / English seçici. Seçim telefonda saklanır, girişliyse hesaba da yazılır.
+class MaisonDilSecici extends StatelessWidget {
+  const MaisonDilSecici({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<MaisonDil>(
+      valueListenable: MaisonTercih.dil,
+      builder: (BuildContext context, MaisonDil dil, Widget? _) {
+        return MaisonSekmeSecici(
+          secenekler: <String>[for (final MaisonDil d in MaisonDil.values) d.ad],
+          secili: MaisonDil.values.indexOf(dil),
+          onSec: (int i) => MaisonTercih.dilSec(MaisonDil.values[i]),
+        );
+      },
+    );
+  }
+}
+
+/// Küçük / Normal / Büyük yazı seçici; telefonun kendi yazı boyutunun üstüne uygulanır.
+class MaisonYaziBoyutuSecici extends StatelessWidget {
+  const MaisonYaziBoyutuSecici({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final MaisonRenkler r = MaisonRenkler.of(context);
+    return ValueListenableBuilder<MaisonYaziBoyutu>(
+      valueListenable: MaisonTercih.yazi,
+      builder: (BuildContext context, MaisonYaziBoyutu yazi, Widget? _) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            MaisonSekmeSecici(
+              secenekler: <String>[for (final MaisonYaziBoyutu y in MaisonYaziBoyutu.values) y.ad],
+              secili: MaisonYaziBoyutu.values.indexOf(yazi),
+              onSec: (int i) => MaisonTercih.yaziSec(MaisonYaziBoyutu.values[i]),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              dl(
+                'Telefonunun yazı boyutu ayarıyla birlikte çalışır.',
+                "Works together with your phone's text size setting.",
+              ),
+              style: maisonGovde(12, renk: r.soluk, yukseklik: 1.4),
+            ),
+          ],
+        );
+      },
     );
   }
 }

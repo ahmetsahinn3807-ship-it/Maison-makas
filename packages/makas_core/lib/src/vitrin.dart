@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
 import 'package:url_launcher/url_launcher.dart' show LaunchMode, launchUrl;
 
 import 'bilesenler.dart';
+import 'dil.dart';
 import 'foto.dart';
 import 'isletme.dart';
 import 'oturum.dart';
@@ -96,7 +97,10 @@ class VitrinSalonu {
   /// "4,9" ya da "Yeni"
   String get puanMetni {
     final double? o = ortalama;
-    return o == null ? 'Yeni' : o.toStringAsFixed(1).replaceAll('.', ',');
+    if (o == null) {
+      return dl('Yeni', 'New');
+    }
+    return maisonOndalik(o);
   }
 
   /// Logo yokken gösterilen iki harf.
@@ -258,7 +262,7 @@ class VitrinYorumu {
   factory VitrinYorumu.json(Map<String, dynamic> m) {
     return VitrinYorumu(
       id: m['id'] as String,
-      gorunenAd: (m['gorunen_ad'] as String?) ?? 'Müşteri',
+      gorunenAd: (m['gorunen_ad'] as String?) ?? dl('Müşteri', 'Customer'),
       puan: (m['puan'] as num?)?.toInt() ?? 5,
       metin: m['metin'] as String?,
       yanit: m['yanit'] as String?,
@@ -350,7 +354,7 @@ class VitrinVerisi {
     final Object? salonSatiri = sonuc[0];
     final Object? puanSatiri = sonuc[1];
     if (salonSatiri is! Map<String, dynamic>) {
-      throw const MaisonHata('Salon bulunamadı.');
+      throw MaisonHata(dl('Salon bulunamadı.', 'Salon not found.'));
     }
     return VitrinVerisi(
       salon: VitrinSalonu.json(
@@ -535,7 +539,12 @@ class MaisonVitrinGorunumu extends StatefulWidget {
 class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
   int? _sekme;
 
-  static const List<String> _sekmeler = <String>['Hizmetler', 'Galeri', 'Ekip', 'Yorumlar'];
+  static List<String> get _sekmeler => <String>[
+        dl('Hizmetler', 'Services'),
+        dl('Galeri', 'Gallery'),
+        dl('Ekip', 'Team'),
+        dl('Yorumlar', 'Reviews'),
+      ];
 
   int get _gecerliSekme {
     final int? secili = _sekme;
@@ -558,7 +567,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
       acildi = false;
     }
     if (!acildi) {
-      mesaj?.showSnackBar(const SnackBar(content: Text('Bu bağlantı açılamadı.')));
+      mesaj?.showSnackBar(SnackBar(content: Text(dl('Bu bağlantı açılamadı.', 'This link could not be opened.'))));
     }
   }
 
@@ -650,7 +659,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
               top: ust + 8,
               child: MaisonYuvarlakDugme(
                 ikon: Icons.arrow_back,
-                etiket: 'Geri',
+                etiket: dl('Geri', 'Back'),
                 zemin: r.zemin.withValues(alpha: 0.6),
                 onTap: () => Navigator.of(context).maybePop(),
               ),
@@ -668,7 +677,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
                 border: Border.all(color: r.vurgu, width: 1.5),
               ),
               child: logo != null && logo.isNotEmpty
-                  ? MaisonFoto(url: logo, zemin: r.kart, etiket: '${s.ad} logosu')
+                  ? MaisonFoto(url: logo, zemin: r.kart, etiket: dl('${s.ad} logosu', '${s.ad} logo'))
                   : Center(
                       child: Text(
                         s.basHarfler,
@@ -709,7 +718,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
                   children: <Widget>[
                     Icon(Icons.verified_outlined, size: 16, color: r.vurgu),
                     const SizedBox(width: 4),
-                    Text('Doğrulanmış', style: maisonGovde(12, renk: r.vurgu, kalinlik: FontWeight.w500)),
+                    Text(dl('Doğrulanmış', 'Verified'), style: maisonGovde(12, renk: r.vurgu, kalinlik: FontWeight.w500)),
                   ],
                 ),
             ],
@@ -729,7 +738,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
                   text: s.puanMetni,
                   style: maisonGovde(14, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
                 ),
-                if (s.yorumAdet > 0) TextSpan(text: '  (${s.yorumAdet} yorum)'),
+                if (s.yorumAdet > 0) TextSpan(text: dl('  (${s.yorumAdet} yorum)', '  (${s.yorumAdet} review${s.yorumAdet == 1 ? '' : 's'})')),
                 if (s.yer.isNotEmpty) TextSpan(text: '  ·  ${s.yer}'),
               ],
             ),
@@ -751,7 +760,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
             height: 56,
             child: FilledButton(
               onPressed: widget.onizleme ? hic : widget.onRandevu,
-              child: const Text('Randevu Al'),
+              child: Text(dl('Randevu Al', 'Book')),
             ),
           ),
           const SizedBox(height: 12),
@@ -760,7 +769,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
               Expanded(
                 child: _EylemDugmesi(
                   ikon: Icons.call_outlined,
-                  etiket: 'Ara',
+                  etiket: dl('Ara', 'Call'),
                   onTap: telRakam.length < 7
                       ? null
                       : () => _ac(Uri(scheme: 'tel', path: telRakam)),
@@ -770,7 +779,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
               Expanded(
                 child: _EylemDugmesi(
                   ikon: Icons.place_outlined,
-                  etiket: 'Yol tarifi',
+                  etiket: dl('Yol tarifi', 'Directions'),
                   onTap: () => _ac(Uri.https('www.google.com', '/maps/search/', <String, String>{
                     'api': '1',
                     'query': yolSorgusu,
@@ -781,7 +790,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
               Expanded(
                 child: _EylemDugmesi(
                   ikon: Icons.chat_bubble_outline,
-                  etiket: 'Mesaj',
+                  etiket: dl('Mesaj', 'Message'),
                   onTap: whatsapp == null ? null : () => _ac(Uri.https('wa.me', '/$whatsapp')),
                 ),
               ),
@@ -795,7 +804,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
   /// "Şu an açık · 20:00'de kapanır" satırı; dokununca haftalık saatler açılır.
   Widget _durumSatiri(MaisonRenkler r, SalonSaatleri saatler) {
     final SalonDurumu? d = saatler.durum();
-    final String metin = d?.metin ?? 'Çalışma saatleri';
+    final String metin = d?.metin ?? dl('Çalışma saatleri', 'Opening hours');
     final bool acik = d?.acik ?? false;
     return Padding(
       padding: const EdgeInsets.only(top: 6),
@@ -805,7 +814,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
           borderRadius: BorderRadius.circular(10),
           onTap: widget.onizleme
               ? null
-              : () => maisonHaftalikSaatleriGoster(context, baslik: 'Çalışma saatleri', saatler: saatler),
+              : () => maisonHaftalikSaatleriGoster(context, baslik: dl('Çalışma saatleri', 'Opening hours'), saatler: saatler),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6),
             child: Row(
@@ -874,7 +883,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
 
   List<Widget> _hizmetler(MaisonRenkler r, VitrinSalonu s, List<VitrinHizmeti> hizmetler) {
     if (hizmetler.isEmpty) {
-      return _bos(Icons.content_cut, 'Hizmet menüsü yakında', 'Salon hizmetlerini ve fiyatlarını eklediğinde burada görünecek.');
+      return _bos(Icons.content_cut, dl('Hizmet menüsü yakında', 'Service menu coming soon'), dl('Salon hizmetlerini ve fiyatlarını eklediğinde burada görünecek.', 'It will appear here once the salon adds its services and prices.'));
     }
     // Kategori başlıkları yalnız birden çok kategori varsa gösterilir.
     final Set<HizmetKategorisi> kategoriler = hizmetler.map((VitrinHizmeti h) => h.kategori).toSet();
@@ -941,7 +950,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
 
   List<Widget> _galeri(MaisonRenkler r, VitrinSalonu s, List<VitrinFotografi> galeri) {
     if (galeri.isEmpty) {
-      return _bos(Icons.photo_library_outlined, 'Galeri yakında', 'Salon fotoğraf ekledikçe çalışmaları burada görünecek.');
+      return _bos(Icons.photo_library_outlined, dl('Galeri yakında', 'Gallery coming soon'), dl('Salon fotoğraf ekledikçe çalışmaları burada görünecek.', "The salon's work will appear here as photos are added."));
     }
     final List<Widget> sol = <Widget>[];
     final List<Widget> sag = <Widget>[];
@@ -977,7 +986,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
 
   List<Widget> _ekip(MaisonRenkler r, List<VitrinUstasi> ekip) {
     if (ekip.isEmpty) {
-      return _bos(Icons.groups_outlined, 'Ekip yakında', 'Salon ustalarını eklediğinde burada görünecek.');
+      return _bos(Icons.groups_outlined, dl('Ekip yakında', 'Team coming soon'), dl('Salon ustalarını eklediğinde burada görünecek.', 'It will appear here once the salon adds its barbers.'));
     }
     return <Widget>[
       SliverPadding(
@@ -1038,8 +1047,8 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
     if (yorumlar.isEmpty) {
       return _bos(
         Icons.rate_review_outlined,
-        'Henüz yorum yok',
-        'Yorumları yalnız bu salondan randevu alıp hizmeti tamamlayan müşteriler yazabilir.',
+        dl('Henüz yorum yok', 'No reviews yet'),
+        dl('Yorumları yalnız bu salondan randevu alıp hizmeti tamamlayan müşteriler yazabilir.', 'Only customers who booked and completed a service at this salon can write reviews.'),
       );
     }
     return <Widget>[
@@ -1054,7 +1063,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 6),
                 child: Text(
-                  '${s.yorumAdet} doğrulanmış yorum',
+                  dl('${s.yorumAdet} doğrulanmış yorum', '${s.yorumAdet} verified review${s.yorumAdet == 1 ? '' : 's'}'),
                   style: maisonGovde(13, renk: r.soluk, yukseklik: 1.3),
                 ),
               ),
@@ -1107,7 +1116,7 @@ class _MaisonVitrinGorunumuState extends State<MaisonVitrinGorunumu> {
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: Text(
-                        'Salonun yanıtı: ${yanit.trim()}',
+                        dl('Salonun yanıtı: ${yanit.trim()}', "Salon's reply: ${yanit.trim()}"),
                         style: maisonGovde(13, renk: r.soluk, yukseklik: 1.5),
                       ),
                     ),

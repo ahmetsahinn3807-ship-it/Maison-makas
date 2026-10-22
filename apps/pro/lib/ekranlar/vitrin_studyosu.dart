@@ -8,14 +8,9 @@ import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
 import '../salon.dart';
 
 /// Galeri fotoğraflarının kategorileri (veritabanındaki adlarla).
-const Map<String, String> _kategoriler = <String, String>{
-  'sac': 'Saç',
-  'sakal': 'Sakal',
-  'renk': 'Renk',
-  'bakim': 'Bakım',
-  'cocuk': 'Çocuk',
-  'diger': 'Diğer',
-};
+Map<String, String> get _kategoriler => <String, String>{
+      for (final HizmetKategorisi k in HizmetKategorisi.values) k.kimlik: k.ad,
+    };
 
 /// Vitrin Stüdyosu: müşterinin gördüğü salon sayfasını işletme burada hazırlar.
 /// Kapak (görünen kısmıyla), logo, galeri duvarı, vitrin filtresi ve tema. Değişiklikler hemen kaydedilir.
@@ -78,7 +73,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
     }
     if (!_duzenleyebilir) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Vitrini yalnız salon sahibi düzenleyebilir.')),
+        SnackBar(content: Text(dl('Vitrini yalnız salon sahibi düzenleyebilir.', 'Only the salon owner can edit the showcase.'))),
       );
       return;
     }
@@ -108,7 +103,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
     }
     if (!_duzenleyebilir) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Vitrini yalnız salon sahibi düzenleyebilir.')),
+        SnackBar(content: Text(dl('Vitrini yalnız salon sahibi düzenleyebilir.', 'Only the salon owner can edit the showcase.'))),
       );
       return false;
     }
@@ -127,7 +122,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
     final List<Map<String, dynamic>> satirlar =
         await i.from('salonlar').update(alanlar).eq('id', widget.salon.id).select('id');
     if (satirlar.isEmpty) {
-      throw const MaisonHata('Değişiklik kaydedilemedi: bu salonu düzenleme yetkin yok.');
+      throw MaisonHata(dl('Değişiklik kaydedilemedi: bu salonu düzenleme yetkin yok.', 'The change could not be saved: you are not allowed to edit this salon.'));
     }
   }
 
@@ -141,7 +136,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
     final String? eski = v.salon.kapakUrl;
     final FotoIslemi? islem = await maisonFotoIslemiSor(
       context,
-      baslik: 'Kapak fotoğrafı',
+      baslik: dl('Kapak fotoğrafı', 'Cover photo'),
       kaldirilabilir: eski != null,
       odakAyarlanabilir: eski != null,
     );
@@ -212,7 +207,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
     }
     final VitrinVerisi v = _veri!;
     final String? eski = v.salon.logoUrl;
-    final FotoIslemi? islem = await maisonFotoIslemiSor(context, baslik: 'Logo', kaldirilabilir: eski != null);
+    final FotoIslemi? islem = await maisonFotoIslemiSor(context, baslik: dl('Logo', 'Logo'), kaldirilabilir: eski != null);
     if (islem == null || islem == FotoIslemi.odak || !mounted) {
       return;
     }
@@ -255,8 +250,8 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
     final int bosYer = _galeriSiniri - v.galeri.length;
     if (bosYer <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Galeri dolu: en çok $_galeriSiniri fotoğraf. Yer açmak için eski bir fotoğrafı sil.'),
+        SnackBar(
+          content: Text(dl('Galeri dolu: en çok $_galeriSiniri fotoğraf. Yer açmak için eski bir fotoğrafı sil.', 'The gallery is full: at most $_galeriSiniri photos. Delete an old photo to make room.')),
         ),
       );
       return;
@@ -320,7 +315,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
         }
       }
       mesaj.showSnackBar(
-        SnackBar(content: Text(eklenen == 1 ? 'Fotoğraf galeriye eklendi.' : '$eklenen fotoğraf galeriye eklendi.')),
+        SnackBar(content: Text(eklenen == 1 ? dl('Fotoğraf galeriye eklendi.', 'Photo added to the gallery.') : dl('$eklenen fotoğraf galeriye eklendi.', '$eklenen photos added to the gallery.'))),
       );
     });
   }
@@ -346,16 +341,16 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
         context: context,
         builder: (BuildContext context) => AlertDialog(
           backgroundColor: r.kart,
-          title: Text('Fotoğraf silinsin mi?', style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600)),
+          title: Text(dl('Fotoğraf silinsin mi?', 'Delete this photo?'), style: maisonBaslik(24, renk: r.yazi, kalinlik: FontWeight.w600)),
           content: Text(
-            'Fotoğraf vitrinden ve depodan kalıcı olarak silinir.',
+            dl('Fotoğraf vitrinden ve depodan kalıcı olarak silinir.', 'The photo is permanently removed from the showcase and storage.'),
             style: maisonGovde(14, renk: r.soluk, yukseklik: 1.5),
           ),
           actions: <Widget>[
-            TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Vazgeç')),
+            TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(dl('Vazgeç', 'Cancel'))),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text('Sil', style: TextStyle(color: Theme.of(context).colorScheme.error)),
+              child: Text(dl('Sil', 'Delete'), style: TextStyle(color: Theme.of(context).colorScheme.error)),
             ),
           ],
         ),
@@ -375,7 +370,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
               );
             });
           }
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Fotoğraf silindi.')));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(dl('Fotoğraf silindi.', 'Photo deleted.'))));
         }
       });
       return;
@@ -426,7 +421,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
       widget.salonDegisti();
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Vitrinin yayında; müşteriler Keşfet\'te görür.')),
+          SnackBar(content: Text(dl('Vitrinin yayında; müşteriler Keşfet\'te görür.', 'Your showcase is live; customers can see it in Discover.'))),
         );
       }
     });
@@ -452,7 +447,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
                     salon: v.salon,
                     veri: v,
                     onRandevu: () => ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Müşteriler bu düğmeyle randevu alacak.')),
+                      SnackBar(content: Text(dl('Müşteriler bu düğmeyle randevu alacak.', 'Customers will book with this button.'))),
                     ),
                   ),
                 ),
@@ -470,7 +465,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
   Widget build(BuildContext context) {
     final MaisonRenkler r = MaisonRenkler.of(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: maisonSistemCubugu(MaisonPalet.ivoire),
+      value: maisonSistemCubugu(MaisonTercih.proPaleti),
       child: Scaffold(
         backgroundColor: r.zemin,
         body: SafeArea(
@@ -504,13 +499,13 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
       children: <Widget>[
         MaisonYuvarlakDugme(
           ikon: Icons.arrow_back,
-          etiket: 'Geri',
+          etiket: dl('Geri', 'Back'),
           onTap: () => Navigator.of(context).maybePop(),
         ),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
-            'Vitrin Stüdyosu',
+            dl('Vitrin Stüdyosu', 'Showcase Studio'),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: maisonBaslik(28, renk: r.yazi, yukseklik: 1.05),
@@ -521,7 +516,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
             height: 44,
             child: FilledButton(
               onPressed: _islem == null ? _yayinla : null,
-              child: const Text('Yayınla'),
+              child: Text(dl('Yayınla', 'Publish')),
             ),
           )
         else if (v != null && yayinda)
@@ -536,7 +531,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
               children: <Widget>[
                 Icon(Icons.check, size: 16, color: r.vurgu),
                 const SizedBox(width: 6),
-                Text('Yayında', style: maisonGovde(13, renk: r.vurgu, kalinlik: FontWeight.w600)),
+                Text(dl('Yayında', 'Live'), style: maisonGovde(13, renk: r.vurgu, kalinlik: FontWeight.w600)),
               ],
             ),
           ),
@@ -551,28 +546,28 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
       _onizleme(r, v),
       const SizedBox(height: 8),
       Text(
-        'Müşterinin gördüğü önizleme · tam ekran için dokun',
+        dl('Müşterinin gördüğü önizleme · tam ekran için dokun', 'Preview of what customers see · tap for full screen'),
         textAlign: TextAlign.center,
         style: maisonGovde(12, renk: r.soluk, yukseklik: 1.3),
       ),
       if (!_duzenleyebilir) ...<Widget>[
         const SizedBox(height: 14),
         Text(
-          'Vitrini yalnız salon sahibi düzenleyebilir.',
+          dl('Vitrini yalnız salon sahibi düzenleyebilir.', 'Only the salon owner can edit the showcase.'),
           textAlign: TextAlign.center,
           style: maisonGovde(13, renk: r.soluk, yukseklik: 1.4),
         ),
       ],
       const SizedBox(height: 22),
-      _baslik('KAPAK FOTOĞRAFI'),
+      _baslik(dl('KAPAK FOTOĞRAFI', 'COVER PHOTO')),
       const SizedBox(height: 10),
       _kapakKarti(r, s),
       const SizedBox(height: 22),
-      _baslik('LOGO'),
+      _baslik(dl('LOGO', 'LOGO')),
       const SizedBox(height: 10),
       _logoSatiri(r, s),
       const SizedBox(height: 22),
-      _baslik('GALERİ DUVARI · ${v.galeri.length} FOTOĞRAF'),
+      _baslik(dl('GALERİ DUVARI · ${v.galeri.length} FOTOĞRAF', 'GALLERY WALL · ${v.galeri.length} PHOTO${v.galeri.length == 1 ? '' : 'S'}')),
       const SizedBox(height: 10),
       if (_islem == 'galeri' && _galeriToplam > 0) ...<Widget>[
         LinearProgressIndicator(
@@ -584,33 +579,34 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
         ),
         const SizedBox(height: 6),
         Text(
-          '$_galeriBiten / $_galeriToplam fotoğraf yüklendi…',
+          dl('$_galeriBiten / $_galeriToplam fotoğraf yüklendi…', '$_galeriBiten / $_galeriToplam photos uploaded…'),
           style: maisonGovde(12, renk: r.soluk, yukseklik: 1.3),
         ),
         const SizedBox(height: 10),
       ],
       _galeriIzgarasi(r, v),
       const SizedBox(height: 22),
-      _baslik('VİTRİN FİLTRESİ'),
+      _baslik(dl('VİTRİN FİLTRESİ', 'SHOWCASE FILTER')),
       const SizedBox(height: 4),
       Text(
         ornekFoto == null
-            ? 'Seçtiğin renk ayarı kapak ve galerideki bütün fotoğraflara birlikte uygulanır. '
-                'Farkı görmek için önce bir kapak ya da galeri fotoğrafı ekle.'
-            : 'Seçtiğin renk ayarı kapak ve galerideki bütün fotoğraflara birlikte uygulanır.',
+            ? dl('Seçtiğin renk ayarı kapak ve galerideki bütün fotoğraflara birlikte uygulanır. '
+                'Farkı görmek için önce bir kapak ya da galeri fotoğrafı ekle.', 'The colour setting you choose applies to the cover and every gallery photo. '
+                    'Add a cover or gallery photo first to see the difference.')
+            : dl('Seçtiğin renk ayarı kapak ve galerideki bütün fotoğraflara birlikte uygulanır.', 'The colour setting you choose applies to the cover and every gallery photo.'),
         style: maisonGovde(13, renk: r.soluk, yukseklik: 1.4),
       ),
       const SizedBox(height: 12),
       _filtreSecici(r, s, ornekFoto),
       const SizedBox(height: 22),
-      _baslik('VİTRİN TEMASI'),
+      _baslik(dl('VİTRİN TEMASI', 'SHOWCASE THEME')),
       const SizedBox(height: 12),
       _temaSecici(r, s),
       const SizedBox(height: 14),
       _vurguSecici(r, s),
       const SizedBox(height: 22),
       Text(
-        'Değişiklikler hemen kaydedilir. Müşteriler vitrini salon yayındayken görür.',
+        dl('Değişiklikler hemen kaydedilir. Müşteriler vitrini salon yayındayken görür.', 'Changes are saved right away. Customers see the showcase while the salon is live.'),
         textAlign: TextAlign.center,
         style: maisonGovde(12, renk: r.soluk, yukseklik: 1.4),
       ),
@@ -629,7 +625,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
     );
     return Semantics(
       button: true,
-      label: 'Vitrini tam ekran önizle',
+      label: dl('Vitrini tam ekran önizle', 'Preview showcase full screen'),
       child: GestureDetector(
         onTap: _tamEkranOnizleme,
         child: Container(
@@ -708,8 +704,8 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
                   Expanded(
                     child: Text(
                       s.kapakUrl == null
-                          ? 'Kapak fotoğrafı ekle: salonunun en iyi görünen köşesi.'
-                          : 'Değiştirmek ya da görünen kısmı ayarlamak için dokun.',
+                          ? dl('Kapak fotoğrafı ekle: salonunun en iyi görünen köşesi.', 'Add a cover photo: the best-looking corner of your salon.')
+                          : dl('Değiştirmek ya da görünen kısmı ayarlamak için dokun.', 'Tap to change it or adjust the visible area.'),
                       style: maisonGovde(13, renk: r.soluk, yukseklik: 1.4),
                     ),
                   ),
@@ -759,8 +755,8 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
               Expanded(
                 child: Text(
                   logo == null
-                      ? 'Logo ekle. Kare bir logo en iyi görünür; yoksa salonun baş harfleri kullanılır.'
-                      : 'Logoyu değiştirmek ya da kaldırmak için dokun.',
+                      ? dl('Logo ekle. Kare bir logo en iyi görünür; yoksa salonun baş harfleri kullanılır.', 'Add a logo. A square logo looks best; otherwise the salon\'s initials are used.')
+                      : dl('Logoyu değiştirmek ya da kaldırmak için dokun.', 'Tap to change or remove the logo.'),
                   style: maisonGovde(13, renk: r.soluk, yukseklik: 1.4),
                 ),
               ),
@@ -775,7 +771,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
     final List<Widget> kutular = <Widget>[
       Semantics(
         button: true,
-        label: 'Galeriye fotoğraf ekle',
+        label: dl('Galeriye fotoğraf ekle', 'Add photos to the gallery'),
         child: Material(
           color: r.kart,
           borderRadius: BorderRadius.circular(14),
@@ -787,7 +783,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
               children: <Widget>[
                 Icon(Icons.add_photo_alternate_outlined, color: r.vurgu, size: 26),
                 const SizedBox(height: 6),
-                Text('Ekle', style: maisonGovde(13, renk: r.yazi, kalinlik: FontWeight.w500)),
+                Text(dl('Ekle', 'Add'), style: maisonGovde(13, renk: r.yazi, kalinlik: FontWeight.w500)),
               ],
             ),
           ),
@@ -832,7 +828,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
           return Semantics(
             button: true,
             selected: secili,
-            label: '${f.ad} filtresi',
+            label: dl('${f.ad} filtresi', '${f.ad} filter'),
             child: GestureDetector(
               onTap: _islem == null && !secili ? () => _ayariKaydet(s.ayar.copyWith(filtre: f)) : null,
               child: SizedBox(
@@ -884,7 +880,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
           Semantics(
             button: true,
             selected: p.kimlik == s.ayar.paletKimligi,
-            label: '${p.ad} teması',
+            label: dl('${p.ad} teması', '${p.ad} theme'),
             child: GestureDetector(
               onTap: _islem == null && p.kimlik != s.ayar.paletKimligi
                   ? () => _ayariKaydet(s.ayar.copyWith(paletKimligi: p.kimlik, vurgu: 0))
@@ -943,7 +939,7 @@ class _VitrinStudyosuState extends State<VitrinStudyosu> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(right: 12),
-          child: Text('Vurgu rengi', style: maisonGovde(13, renk: r.soluk, kalinlik: FontWeight.w500)),
+          child: Text(dl('Vurgu rengi', 'Accent colour'), style: maisonGovde(13, renk: r.soluk, kalinlik: FontWeight.w500)),
         ),
         for (int i = 0; i < secenekler.length; i++)
           Padding(
@@ -1030,14 +1026,14 @@ class _FotoDuzenleyiciState extends State<_FotoDuzenleyici> {
               ),
               const SizedBox(height: 16),
               MaisonAlan(
-                etiket: 'AÇIKLAMA',
+                etiket: dl('AÇIKLAMA', 'CAPTION'),
                 kontrol: _aciklama,
-                ipucu: 'Ör. Usta Mert · Fade',
+                ipucu: dl('Ör. Usta Mert · Fade', 'E.g. Mert · Fade'),
                 enFazla: 300,
                 buyukHarf: TextCapitalization.sentences,
               ),
               const SizedBox(height: 16),
-              const MaisonUstBaslik('KATEGORİ'),
+              MaisonUstBaslik(dl('KATEGORİ', 'CATEGORY')),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
@@ -1057,7 +1053,7 @@ class _FotoDuzenleyiciState extends State<_FotoDuzenleyici> {
                   TextButton.icon(
                     onPressed: () => Navigator.of(context).pop(const _FotoKarari(sil: true)),
                     icon: Icon(Icons.delete_outline, color: hataRengi),
-                    label: Text('Sil', style: maisonGovde(14, renk: hataRengi, kalinlik: FontWeight.w600)),
+                    label: Text(dl('Sil', 'Delete'), style: maisonGovde(14, renk: hataRengi, kalinlik: FontWeight.w600)),
                   ),
                   const Spacer(),
                   SizedBox(
@@ -1066,7 +1062,7 @@ class _FotoDuzenleyiciState extends State<_FotoDuzenleyici> {
                       onPressed: () => Navigator.of(context).pop(
                         _FotoKarari(aciklama: _aciklama.text, kategori: _kategori),
                       ),
-                      child: const Text('Kaydet'),
+                      child: Text(dl('Kaydet', 'Save')),
                     ),
                   ),
                 ],

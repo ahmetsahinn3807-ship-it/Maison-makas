@@ -133,7 +133,7 @@ class _RandevularEkraniState extends State<RandevularEkrani> {
       }
     }
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: maisonSistemCubugu(MaisonPalet.ivoire),
+      value: maisonSistemCubugu(MaisonTercih.proPaleti),
       child: Scaffold(
         backgroundColor: r.zemin,
         body: SafeArea(
@@ -147,14 +147,14 @@ class _RandevularEkraniState extends State<RandevularEkrani> {
                 MaisonUstSatir(
                   sol: MaisonYuvarlakDugme(
                     ikon: Icons.arrow_back,
-                    etiket: 'Geri',
+                    etiket: dl('Geri', 'Back'),
                     onTap: () => Navigator.of(context).maybePop(),
                   ),
-                  baslik: 'Randevular',
+                  baslik: dl('Randevular', 'Bookings'),
                 ),
                 const SizedBox(height: 16),
                 MaisonSekmeSecici(
-                  secenekler: const <String>['Yaklaşan', 'Geçmiş'],
+                  secenekler: <String>[dl('Yaklaşan', 'Upcoming'), dl('Geçmiş', 'Past')],
                   secili: _sekme,
                   onSec: _sekmeSec,
                 ),
@@ -164,7 +164,7 @@ class _RandevularEkraniState extends State<RandevularEkrani> {
                   onChanged: (String _) => setState(() {}),
                   style: maisonGovde(15, renk: r.yazi),
                   decoration: InputDecoration(
-                    hintText: 'Müşteri adı ya da telefon',
+                    hintText: dl('Müşteri adı ya da telefon', 'Customer name or phone'),
                     hintStyle: maisonGovde(14, renk: r.soluk),
                     prefixIcon: Icon(Icons.search, color: r.soluk),
                     filled: true,
@@ -193,11 +193,11 @@ class _RandevularEkraniState extends State<RandevularEkrani> {
                   MaisonBosDurum(
                     ikon: _sekme == 0 ? Icons.event_available_outlined : Icons.history,
                     baslik: aranan.isNotEmpty
-                        ? 'Eşleşen randevu yok'
-                        : (_sekme == 0 ? 'Yaklaşan randevu yok' : 'Geçmiş randevu yok'),
+                        ? dl('Eşleşen randevu yok', 'No matching bookings')
+                        : (_sekme == 0 ? dl('Yaklaşan randevu yok', 'No upcoming bookings') : dl('Geçmiş randevu yok', 'No past bookings')),
                     aciklama: _sekme == 0
-                        ? 'Önümüzdeki $_gun gün içindeki randevular burada görünür.'
-                        : 'Son $_gun günün randevuları burada görünür.',
+                        ? dl('Önümüzdeki $_gun gün içindeki randevular burada görünür.', 'Bookings in the next $_gun days appear here.')
+                        : dl('Son $_gun günün randevuları burada görünür.', 'Bookings from the last $_gun days appear here.'),
                   )
                 else
                   ...satirlar,

@@ -1,12 +1,18 @@
 import 'package:flutter/widgets.dart';
 
+import 'dil.dart';
+
 /// Bir paletin vurgu rengi seçeneği (ör. Altın, Şampanya).
 @immutable
 class MaisonVurgu {
-  const MaisonVurgu(this.ad, this.renk);
+  const MaisonVurgu(this._tr, this._en, this.renk);
 
-  final String ad;
+  final String _tr;
+  final String _en;
   final Color renk;
+
+  /// Ekranda görünen ad (seçili dilde).
+  String get ad => dl(_tr, _en);
 }
 
 /// Kullanıcının seçebildiği beş hazır görünümden biri.
@@ -81,10 +87,10 @@ class MaisonPalet {
     kapaliIz: Color(0xFF34343A),
     kapaliTopuz: Color(0xFFA39E94),
     vurgular: <MaisonVurgu>[
-      MaisonVurgu('Altın', Color(0xFFC9A96E)),
-      MaisonVurgu('Şampanya', Color(0xFFD6BE96)),
-      MaisonVurgu('Gül altını', Color(0xFFD4A08A)),
-      MaisonVurgu('Buz mavisi', Color(0xFF8FB8C9)),
+      MaisonVurgu('Altın', 'Gold', Color(0xFFC9A96E)),
+      MaisonVurgu('Şampanya', 'Champagne', Color(0xFFD6BE96)),
+      MaisonVurgu('Gül altını', 'Rose gold', Color(0xFFD4A08A)),
+      MaisonVurgu('Buz mavisi', 'Ice blue', Color(0xFF8FB8C9)),
     ],
   );
 
@@ -101,10 +107,10 @@ class MaisonPalet {
     kapaliIz: Color(0xFFDDD5C8),
     kapaliTopuz: Color(0xFFFFFFFF),
     vurgular: <MaisonVurgu>[
-      MaisonVurgu('Bronz', Color(0xFF7A5C34)),
-      MaisonVurgu('Berber yeşili', Color(0xFF1F4D3A)),
-      MaisonVurgu('Bordo', Color(0xFF7A2E3A)),
-      MaisonVurgu('Lacivert', Color(0xFF1F3A5F)),
+      MaisonVurgu('Bronz', 'Bronze', Color(0xFF7A5C34)),
+      MaisonVurgu('Berber yeşili', 'Barber green', Color(0xFF1F4D3A)),
+      MaisonVurgu('Bordo', 'Burgundy', Color(0xFF7A2E3A)),
+      MaisonVurgu('Lacivert', 'Navy', Color(0xFF1F3A5F)),
     ],
   );
 
@@ -121,10 +127,10 @@ class MaisonPalet {
     kapaliIz: Color(0xFF43292F),
     kapaliTopuz: Color(0xFFB8A49C),
     vurgular: <MaisonVurgu>[
-      MaisonVurgu('Şampanya', Color(0xFFD6BE96)),
-      MaisonVurgu('Altın', Color(0xFFC9A96E)),
-      MaisonVurgu('Pudra', Color(0xFFE0B4A8)),
-      MaisonVurgu('Adaçayı', Color(0xFFB9C7B0)),
+      MaisonVurgu('Şampanya', 'Champagne', Color(0xFFD6BE96)),
+      MaisonVurgu('Altın', 'Gold', Color(0xFFC9A96E)),
+      MaisonVurgu('Pudra', 'Powder pink', Color(0xFFE0B4A8)),
+      MaisonVurgu('Adaçayı', 'Sage', Color(0xFFB9C7B0)),
     ],
   );
 
@@ -141,10 +147,10 @@ class MaisonPalet {
     kapaliIz: Color(0xFFD3DCE3),
     kapaliTopuz: Color(0xFFFFFFFF),
     vurgular: <MaisonVurgu>[
-      MaisonVurgu('Akdeniz mavisi', Color(0xFF1F6F8B)),
-      MaisonVurgu('Deniz yeşili', Color(0xFF2F5D50)),
-      MaisonVurgu('Terrakota', Color(0xFF8A4B2F)),
-      MaisonVurgu('Mor', Color(0xFF4B3F72)),
+      MaisonVurgu('Akdeniz mavisi', 'Mediterranean blue', Color(0xFF1F6F8B)),
+      MaisonVurgu('Deniz yeşili', 'Sea green', Color(0xFF2F5D50)),
+      MaisonVurgu('Terrakota', 'Terracotta', Color(0xFF8A4B2F)),
+      MaisonVurgu('Mor', 'Purple', Color(0xFF4B3F72)),
     ],
   );
 
@@ -161,10 +167,10 @@ class MaisonPalet {
     kapaliIz: Color(0xFFDAD2C2),
     kapaliTopuz: Color(0xFFFFFFFF),
     vurgular: <MaisonVurgu>[
-      MaisonVurgu('Berber yeşili', Color(0xFF1F4D3A)),
-      MaisonVurgu('Bronz', Color(0xFF7A5C34)),
-      MaisonVurgu('Bordo', Color(0xFF7A2E3A)),
-      MaisonVurgu('Lacivert', Color(0xFF1F3A5F)),
+      MaisonVurgu('Berber yeşili', 'Barber green', Color(0xFF1F4D3A)),
+      MaisonVurgu('Bronz', 'Bronze', Color(0xFF7A5C34)),
+      MaisonVurgu('Bordo', 'Burgundy', Color(0xFF7A2E3A)),
+      MaisonVurgu('Lacivert', 'Navy', Color(0xFF1F3A5F)),
     ],
   );
 

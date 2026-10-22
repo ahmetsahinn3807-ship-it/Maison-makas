@@ -7,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart'
     show FileObject, FileOptions, SearchOptions, SupabaseClient;
 
 import 'bilesenler.dart';
+import 'dil.dart';
 import 'foto.dart';
 import 'oturum.dart';
 import 'renkler.dart';
@@ -66,24 +67,24 @@ Future<FotoIslemi?> maisonFotoIslemiSor(
             ),
             ListTile(
               leading: Icon(Icons.photo_library_outlined, color: r.yazi),
-              title: Text('Galeriden seç', style: maisonGovde(15, renk: r.yazi)),
+              title: Text(dl('Galeriden seç', 'Choose from gallery'), style: maisonGovde(15, renk: r.yazi)),
               onTap: () => Navigator.of(context).pop(FotoIslemi.galeri),
             ),
             ListTile(
               leading: Icon(Icons.photo_camera_outlined, color: r.yazi),
-              title: Text('Fotoğraf çek', style: maisonGovde(15, renk: r.yazi)),
+              title: Text(dl('Fotoğraf çek', 'Take a photo'), style: maisonGovde(15, renk: r.yazi)),
               onTap: () => Navigator.of(context).pop(FotoIslemi.kamera),
             ),
             if (odakAyarlanabilir)
               ListTile(
                 leading: Icon(Icons.center_focus_strong_outlined, color: r.yazi),
-                title: Text('Görünen kısmı ayarla', style: maisonGovde(15, renk: r.yazi)),
+                title: Text(dl('Görünen kısmı ayarla', 'Adjust the visible area'), style: maisonGovde(15, renk: r.yazi)),
                 onTap: () => Navigator.of(context).pop(FotoIslemi.odak),
               ),
             if (kaldirilabilir)
               ListTile(
                 leading: Icon(Icons.delete_outline, color: hataRengi),
-                title: Text('Fotoğrafı kaldır', style: maisonGovde(15, renk: hataRengi)),
+                title: Text(dl('Fotoğrafı kaldır', 'Remove photo'), style: maisonGovde(15, renk: hataRengi)),
                 onTap: () => Navigator.of(context).pop(FotoIslemi.kaldir),
               ),
             const SizedBox(height: 8),
@@ -130,7 +131,7 @@ Future<List<SecilenFoto>> maisonFotolarSec(FotoBoyu boy, {int sinir = 10}) async
 
 SecilenFoto _hazirla(Uint8List b) {
   if (b.length > 6 * 1024 * 1024) {
-    throw const MaisonHata('Fotoğraf çok büyük; en çok 6 MB olabilir.');
+    throw MaisonHata(dl('Fotoğraf çok büyük; en çok 6 MB olabilir.', 'The photo is too large; the limit is 6 MB.'));
   }
   if (b.length >= 3 && b[0] == 0xFF && b[1] == 0xD8 && b[2] == 0xFF) {
     return SecilenFoto(b, 'image/jpeg', 'jpg');
@@ -149,7 +150,7 @@ SecilenFoto _hazirla(Uint8List b) {
       b[11] == 0x50) {
     return SecilenFoto(b, 'image/webp', 'webp');
   }
-  throw const MaisonHata('Bu fotoğraf biçimi desteklenmiyor. JPG ya da PNG bir fotoğraf seç.');
+  throw MaisonHata(dl('Bu fotoğraf biçimi desteklenmiyor. JPG ya da PNG bir fotoğraf seç.', 'This photo format is not supported. Choose a JPG or PNG photo.'));
 }
 
 /// Fotoğrafı kovaya yükler ve herkese açık adresini döndürür.
@@ -233,7 +234,7 @@ Future<Offset?> maisonOdakSec(
   required ImageProvider resim,
   Offset baslangic = const Offset(0.5, 0.5),
   double oran = 4 / 3,
-  String baslik = 'Kapağı ayarla',
+  String? baslik,
 }) {
   return Navigator.of(context).push<Offset>(
     MaterialPageRoute<Offset>(
@@ -242,7 +243,7 @@ Future<Offset?> maisonOdakSec(
         resim: resim,
         baslangic: baslangic,
         oran: oran,
-        baslik: baslik,
+        baslik: baslik ?? dl('Kapağı ayarla', 'Adjust cover'),
       ),
     ),
   );
@@ -331,17 +332,17 @@ class _OdakSeciciState extends State<_OdakSecici> {
               MaisonUstSatir(
                 sol: MaisonYuvarlakDugme(
                   ikon: Icons.close,
-                  etiket: 'Vazgeç',
+                  etiket: dl('Vazgeç', 'Cancel'),
                   onTap: () => Navigator.of(context).pop(),
                 ),
                 baslik: widget.baslik,
                 sag: TextButton(
                   onPressed: () => Navigator.of(context).pop(_odak),
-                  child: const Text('Kaydet'),
+                  child: Text(dl('Kaydet', 'Save')),
                 ),
               ),
               const SizedBox(height: 18),
-              const MaisonUstBaslik('ÖNİZLEME'),
+              MaisonUstBaslik(dl('ÖNİZLEME', 'PREVIEW')),
               const SizedBox(height: 8),
               ClipRRect(
                 borderRadius: BorderRadius.circular(18),
@@ -357,7 +358,7 @@ class _OdakSeciciState extends State<_OdakSecici> {
               ),
               const SizedBox(height: 18),
               Text(
-                'Fotoğrafın görünmesini istediğin yerine dokun ya da parmağını kaydır.',
+                dl('Fotoğrafın görünmesini istediğin yerine dokun ya da parmağını kaydır.', 'Tap or drag to the part of the photo you want to show.'),
                 style: maisonGovde(14, renk: r.soluk, yukseklik: 1.45),
               ),
               const SizedBox(height: 12),

@@ -106,6 +106,18 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
   fotoğrafın kendisini değiştirmez, gösterilirken uygulanır.
 - Storage dosyaları SQL ile silinemez; uygulama eski dosyayı Storage API ile siler, hesap silinirken klasörleri boşaltır.
 
+## Dil ve görünüm
+
+- İki uygulama Türkçe ve İngilizcedir. Metinler kodun içinde yan yana yazılır: `dl('Kaydet', 'Save')`
+  (`packages/makas_core/lib/src/dil.dart`). Yeni bir ekran metni eklerken ikisi birlikte yazılır.
+- Seçili dil `MaisonTercih.dil` içindedir ve telefonda saklanır. İlk açılışta telefonun dili Türkçe değilse İngilizce açılır.
+  Giriş yapılınca dil hesaba (`profiller.dil`) yazılır; yeni bir telefonda hesaptaki dil uygulanır.
+- Tarih, gün adı, para (₺1,250 / 1.250 ₺), süre ve ondalık biçimleri seçili dile uyar (`tarih.dart`).
+- Sunucu hata mesajlarını Türkçe yazar; İngilizcesi `sunucu_mesajlari.dart` içindedir. Yeni bir SQL mesajı eklenince
+  buraya da eklenmeli: `apps/musteri/test/dil_test.dart` her `raise exception` mesajının çevirisi olduğunu denetler.
+- Yazı boyutu (Küçük / Normal / Büyük) telefonun kendi yazı boyutunun üstüne uygulanır ve telefonda saklanır.
+- Maison Makas'ta tema (5 palet), vurgu rengi ve koyu mod hesaba kaydedilir. Makas Pro'da koyu görünüm telefonda saklanır.
+
 ## Yazı tipleri
 
 Inter ve Cormorant Garamond, SIL Open Font License 1.1 ile dağıtılır.

@@ -51,13 +51,13 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
     }
     final String ad = _ad.text.trim();
     if (ad.length < 2) {
-      setState(() => _hata = 'Salonunun adını yaz.');
+      setState(() => _hata = dl('Salonunun adını yaz.', 'Enter your salon name.'));
       return;
     }
     final MaisonOturum oturum = OturumKapsami.oku(context);
     final User? k = oturum.kullanici;
     if (k == null) {
-      setState(() => _hata = 'Oturumun kapanmış. Çıkış yapıp yeniden giriş yap.');
+      setState(() => _hata = dl('Oturumun kapanmış. Çıkış yapıp yeniden giriş yap.', 'Your session has ended. Sign out and sign in again.'));
       return;
     }
     FocusScope.of(context).unfocus();
@@ -94,15 +94,15 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
       }
       final Map<String, dynamic>? kurulan = salon;
       if (kurulan == null) {
-        throw const MaisonHata('Bu adla bir salon kısa adı bulunamadı. Adı biraz değiştirip dene.');
+        throw MaisonHata(dl('Bu adla bir salon kısa adı bulunamadı. Adı biraz değiştirip dene.', 'No short name could be found for this salon name. Change the name slightly and try again.'));
       }
       if (_benDeCalisiyorum) {
-        final String ustaAdi = oturum.adSoyad.isEmpty ? 'Ben' : oturum.adSoyad;
+        final String ustaAdi = oturum.adSoyad.isEmpty ? dl('Ben', 'Me') : oturum.adSoyad;
         await i.from('ustalar').insert(<String, dynamic>{
           'salon_id': kurulan['id'],
           'kullanici_id': k.id,
           'ad': ustaAdi,
-          'unvan': 'Salon sahibi',
+          'unvan': dl('Salon sahibi', 'Salon owner'),
           'sira': 0,
         });
       }
@@ -146,7 +146,7 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
     final String onizleme = _ad.text.trim().isEmpty ? 'salonunun-adi' : kisaAdUret(_ad.text);
     final String? hata = _hata;
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: maisonSistemCubugu(MaisonPalet.ivoire),
+      value: maisonSistemCubugu(MaisonTercih.proPaleti),
       child: Scaffold(
         backgroundColor: r.zemin,
         body: SafeArea(
@@ -157,30 +157,30 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
                 children: <Widget>[
                   MaisonAmblem(renk: r.vurgu, zemin: r.zemin, genislik: 30),
                   const Spacer(),
-                  TextButton(onPressed: _cikis, child: const Text('Çıkış yap')),
+                  TextButton(onPressed: _cikis, child: Text(dl('Çıkış yap', 'Sign out'))),
                 ],
               ),
               const SizedBox(height: 22),
-              MaisonUstBaslik('MAKAS PRO · 1. ADIM', renk: r.vurgu),
+              MaisonUstBaslik(dl('MAKAS PRO · 1. ADIM', 'MAKAS PRO · STEP 1'), renk: r.vurgu),
               const SizedBox(height: 10),
-              Text('Salonunu kur', style: maisonBaslik(44, renk: r.yazi, yukseklik: 1.02)),
+              Text(dl('Salonunu kur', 'Set up your salon'), style: maisonBaslik(44, renk: r.yazi, yukseklik: 1.02)),
               const SizedBox(height: 10),
               Text(
-                'Önce temel bilgiler. Hizmetleri, ustaları ve çalışma saatlerini sonraki adımda ekleyeceksin.',
+                dl('Önce temel bilgiler. Hizmetleri, ustaları ve çalışma saatlerini sonraki adımda ekleyeceksin.', 'First the basics. You will add services, barbers and working hours in the next step.'),
                 style: maisonGovde(15, renk: r.soluk, yukseklik: 1.5),
               ),
               const SizedBox(height: 26),
               MaisonAlan(
-                etiket: 'SALON ADI',
+                etiket: dl('SALON ADI', 'SALON NAME'),
                 kontrol: _ad,
-                ipucu: 'Örn. Maison Ahmet',
+                ipucu: dl('Örn. Maison Ahmet', 'E.g. Maison Ahmet'),
                 buyukHarf: TextCapitalization.words,
                 eylem: TextInputAction.next,
                 enFazla: 80,
               ),
               const SizedBox(height: 8),
               Text(
-                'Web randevu sayfan: …/s/$onizleme',
+                dl('Web randevu sayfan: …/s/$onizleme', 'Your web booking page: …/s/$onizleme'),
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.4),
               ),
               const SizedBox(height: 16),
@@ -188,7 +188,7 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
                 children: <Widget>[
                   Expanded(
                     child: MaisonAlan(
-                      etiket: 'İLÇE',
+                      etiket: dl('İLÇE', 'DISTRICT'),
                       kontrol: _ilce,
                       ipucu: 'Sancaktepe',
                       buyukHarf: TextCapitalization.words,
@@ -199,7 +199,7 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: MaisonAlan(
-                      etiket: 'ŞEHİR',
+                      etiket: dl('ŞEHİR', 'CITY'),
                       kontrol: _sehir,
                       buyukHarf: TextCapitalization.words,
                       eylem: TextInputAction.next,
@@ -210,7 +210,7 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
               ),
               const SizedBox(height: 16),
               MaisonAlan(
-                etiket: 'SALON TELEFONU',
+                etiket: dl('SALON TELEFONU', 'SALON PHONE'),
                 kontrol: _telefon,
                 ipucu: '0216 xxx xx xx',
                 klavye: TextInputType.phone,
@@ -232,11 +232,11 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Ben de müşteri alıyorum',
+                            dl('Ben de müşteri alıyorum', 'I take customers too'),
                             style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
                           ),
                           Text(
-                            'Seni de usta olarak ekleriz; kendi takvimin olur.',
+                            dl('Seni de usta olarak ekleriz; kendi takvimin olur.', 'We will add you as a barber too, with your own calendar.'),
                             style: maisonGovde(13, renk: r.soluk, yukseklik: 1.35),
                           ),
                         ],
@@ -244,7 +244,7 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
                     ),
                     MaisonAnahtar(
                       deger: _benDeCalisiyorum,
-                      etiket: 'Ben de müşteri alıyorum',
+                      etiket: dl('Ben de müşteri alıyorum', 'I take customers too'),
                       onChanged: (bool deger) => setState(() => _benDeCalisiyorum = deger),
                     ),
                   ],
@@ -265,12 +265,12 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
                           height: 22,
                           child: CircularProgressIndicator(strokeWidth: 2, color: r.vurguUstu),
                         )
-                      : const Text('Salonu oluştur'),
+                      : Text(dl('Salonu oluştur', 'Create salon')),
                 ),
               ),
               const SizedBox(height: 12),
               Text(
-                'Salonun taslak olarak açılır; hazır olunca Ayarlar\'dan yayına alırsın.',
+                dl('Salonun taslak olarak açılır; hazır olunca Ayarlar\'dan yayına alırsın.', 'Your salon starts as a draft; publish it from Settings when ready.'),
                 textAlign: TextAlign.center,
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.5),
               ),
@@ -286,13 +286,14 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Text(
-                      'Bir salonda usta mısın?',
+                      dl('Bir salonda usta mısın?', 'Are you a barber at a salon?'),
                       style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Salon kurmana gerek yok. Salon sahibinden aldığın davet koduyla ekibe katıl; '
-                      'kendi randevularını burada görürsün.',
+                      dl('Salon kurmana gerek yok. Salon sahibinden aldığın davet koduyla ekibe katıl; '
+                      'kendi randevularını burada görürsün.', 'No need to set up a salon. Join the team with the invite code from the salon owner; '
+                          'you will see your own bookings here.'),
                       style: maisonGovde(13, renk: r.soluk, yukseklik: 1.4),
                     ),
                     const SizedBox(height: 12),
@@ -301,7 +302,7 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
                       child: OutlinedButton.icon(
                         onPressed: _kaydediliyor ? null : _davetKoduGir,
                         icon: const Icon(Icons.key_outlined, size: 18),
-                        label: const Text('Davet kodum var'),
+                        label: Text(dl('Davet kodum var', 'I have an invite code')),
                       ),
                     ),
                   ],
@@ -337,7 +338,7 @@ class _DavetKoduFormuState extends State<_DavetKoduFormu> {
   Future<void> _katil() async {
     final String kod = _kod.text.replaceAll(RegExp(r'[^A-Za-z0-9]'), '');
     if (kod.length != 8) {
-      setState(() => _hata = 'Kod 8 karakter olmalı (ör. ABCD-EFGH).');
+      setState(() => _hata = dl('Kod 8 karakter olmalı (ör. ABCD-EFGH).', 'The code must be 8 characters (e.g. ABCD-EFGH).'));
       return;
     }
     final MaisonOturum oturum = OturumKapsami.oku(context);
@@ -372,10 +373,10 @@ class _DavetKoduFormuState extends State<_DavetKoduFormu> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text('Davet kodu', style: maisonBaslik(28, renk: r.yazi, kalinlik: FontWeight.w600)),
+              Text(dl('Davet kodu', 'Invite code'), style: maisonBaslik(28, renk: r.yazi, kalinlik: FontWeight.w600)),
               const SizedBox(height: 6),
               Text(
-                'Salon sahibinin Makas Pro > Ekip ekranından oluşturup sana gönderdiği kodu yaz.',
+                dl('Salon sahibinin Makas Pro > Ekip ekranından oluşturup sana gönderdiği kodu yaz.', 'Enter the code the salon owner created in Makas Pro > Team and sent you.'),
                 style: maisonGovde(13, renk: r.soluk, yukseklik: 1.45),
               ),
               const SizedBox(height: 16),
@@ -415,7 +416,7 @@ class _DavetKoduFormuState extends State<_DavetKoduFormu> {
                 height: 52,
                 child: FilledButton(
                   onPressed: _gonderiliyor ? null : _katil,
-                  child: Text(_gonderiliyor ? 'Katılıyor…' : 'Ekibe katıl'),
+                  child: Text(_gonderiliyor ? dl('Katılıyor…', 'Joining…') : dl('Ekibe katıl', 'Join the team')),
                 ),
               ),
             ],

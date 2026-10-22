@@ -95,11 +95,11 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
     }
     final String ad = _ad.text.trim();
     if (ad.length < 2) {
-      setState(() => _uyari = 'Salonun adını yaz (en az 2 harf).');
+      setState(() => _uyari = dl('Salonun adını yaz (en az 2 harf).', 'Enter the salon name (at least 2 letters).'));
       return;
     }
     if (_aciklama.text.trim().length > 1000) {
-      setState(() => _uyari = 'Tanıtım en çok 1000 karakter olabilir.');
+      setState(() => _uyari = dl('Tanıtım en çok 1000 karakter olabilir.', 'The description can be at most 1000 characters.'));
       return;
     }
     final MaisonOturum oturum = OturumKapsami.oku(context);
@@ -127,10 +127,10 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
           .eq('id', widget.salon.id)
           .select('id');
       if (satirlar.isEmpty) {
-        throw const MaisonHata('Değişiklik kaydedilemedi: bu salonu düzenleme yetkin yok.');
+        throw MaisonHata(dl('Değişiklik kaydedilemedi: bu salonu düzenleme yetkin yok.', 'The change could not be saved: you are not allowed to edit this salon.'));
       }
       widget.salonDegisti();
-      mesaj.showSnackBar(const SnackBar(content: Text('Salon bilgileri kaydedildi.')));
+      mesaj.showSnackBar(SnackBar(content: Text(dl('Salon bilgileri kaydedildi.', 'Salon details saved.'))));
       gezgin.pop();
     } catch (hata) {
       if (mounted) {
@@ -144,9 +144,9 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
 
   String _iptalMetni(int dakika) {
     if (dakika == 0) {
-      return 'Son ana kadar';
+      return dl('Son ana kadar', 'Until the last moment');
     }
-    return dakika % 60 == 0 ? '${dakika ~/ 60} saat' : '$dakika dk';
+    return dakika % 60 == 0 ? dl('${dakika ~/ 60} saat', '${dakika ~/ 60} h') : dl('$dakika dk', '$dakika min');
   }
 
   @override
@@ -155,7 +155,7 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
     final Object? yuklemeHatasi = _yuklemeHatasi;
     final String? uyari = _uyari;
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: maisonSistemCubugu(MaisonPalet.ivoire),
+      value: maisonSistemCubugu(MaisonTercih.proPaleti),
       child: Scaffold(
         backgroundColor: r.zemin,
         body: SafeArea(
@@ -165,10 +165,10 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
               MaisonUstSatir(
                 sol: MaisonYuvarlakDugme(
                   ikon: Icons.arrow_back,
-                  etiket: 'Geri',
+                  etiket: dl('Geri', 'Back'),
                   onTap: () => Navigator.of(context).maybePop(),
                 ),
-                baslik: 'Salon bilgileri',
+                baslik: dl('Salon bilgileri', 'Salon details'),
               ),
               const SizedBox(height: 18),
               if (yuklemeHatasi != null && !_yuklendi)
@@ -184,7 +184,7 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
               else ...<Widget>[
                 if (!_sahibim) ...<Widget>[
                   Text(
-                    'Salon bilgilerini yalnız salon sahibi değiştirebilir.',
+                    dl('Salon bilgilerini yalnız salon sahibi değiştirebilir.', 'Only the salon owner can change salon details.'),
                     style: maisonGovde(13, renk: r.soluk, yukseklik: 1.45),
                   ),
                   const SizedBox(height: 14),
@@ -195,14 +195,14 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       MaisonAlan(
-                        etiket: 'SALON ADI',
+                        etiket: dl('SALON ADI', 'SALON NAME'),
                         kontrol: _ad,
                         enFazla: 80,
                         buyukHarf: TextCapitalization.words,
                         eylem: TextInputAction.next,
                       ),
                       const SizedBox(height: 16),
-                      const MaisonUstBaslik('TANITIM'),
+                      MaisonUstBaslik(dl('TANITIM', 'DESCRIPTION')),
                       const SizedBox(height: 8),
                       TextField(
                         controller: _aciklama,
@@ -212,8 +212,9 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
                         textCapitalization: TextCapitalization.sentences,
                         style: maisonGovde(15, renk: r.yazi, yukseklik: 1.5),
                         decoration: InputDecoration(
-                          hintText: 'Müşterilerin vitrinde okuyacağı birkaç cümle: salonun tarzı, '
-                              'öne çıkan hizmetler, otopark ya da ulaşım bilgisi…',
+                          hintText: dl('Müşterilerin vitrinde okuyacağı birkaç cümle: salonun tarzı, '
+                              'öne çıkan hizmetler, otopark ya da ulaşım bilgisi…', 'A few sentences customers will read on your showcase: your style, '
+                                  'signature services, parking or transport…'),
                           hintMaxLines: 4,
                           hintStyle: maisonGovde(14, renk: r.soluk, yukseklik: 1.45),
                           filled: true,
@@ -235,7 +236,7 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
                       ),
                       const SizedBox(height: 10),
                       MaisonAlan(
-                        etiket: 'TELEFON',
+                        etiket: dl('TELEFON', 'PHONE'),
                         kontrol: _telefon,
                         ipucu: '0216 xxx xx xx',
                         klavye: TextInputType.phone,
@@ -244,14 +245,14 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        'Vitrindeki Ara ve Mesaj (WhatsApp) düğmeleri bu numarayı kullanır.',
+                        dl('Vitrindeki Ara ve Mesaj (WhatsApp) düğmeleri bu numarayı kullanır.', 'The Call and Message (WhatsApp) buttons on your showcase use this number.'),
                         style: maisonGovde(12, renk: r.soluk, yukseklik: 1.4),
                       ),
                       const SizedBox(height: 16),
                       MaisonAlan(
-                        etiket: 'ADRES',
+                        etiket: dl('ADRES', 'ADDRESS'),
                         kontrol: _adres,
-                        ipucu: 'Mahalle, cadde, no',
+                        ipucu: dl('Mahalle, cadde, no', 'Neighbourhood, street, no.'),
                         enFazla: 200,
                         buyukHarf: TextCapitalization.sentences,
                         eylem: TextInputAction.next,
@@ -261,7 +262,7 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
                         children: <Widget>[
                           Expanded(
                             child: MaisonAlan(
-                              etiket: 'İLÇE',
+                              etiket: dl('İLÇE', 'DISTRICT'),
                               kontrol: _ilce,
                               enFazla: 60,
                               buyukHarf: TextCapitalization.words,
@@ -271,7 +272,7 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
                           const SizedBox(width: 12),
                           Expanded(
                             child: MaisonAlan(
-                              etiket: 'ŞEHİR',
+                              etiket: dl('ŞEHİR', 'CITY'),
                               kontrol: _sehir,
                               enFazla: 60,
                               buyukHarf: TextCapitalization.words,
@@ -281,10 +282,10 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
                         ],
                       ),
                       const SizedBox(height: 26),
-                      const MaisonUstBaslik('İKİ RANDEVU ARASI HAZIRLIK'),
+                      MaisonUstBaslik(dl('İKİ RANDEVU ARASI HAZIRLIK', 'PREPARATION BETWEEN BOOKINGS')),
                       const SizedBox(height: 4),
                       Text(
-                        'Bir randevu bitince ustanın bir sonrakine geçmeden önceki temizlik ve hazırlık payı.',
+                        dl('Bir randevu bitince ustanın bir sonrakine geçmeden önceki temizlik ve hazırlık payı.', 'Time for the barber to clean up and prepare after a booking before the next one.'),
                         style: maisonGovde(12, renk: r.soluk, yukseklik: 1.4),
                       ),
                       const SizedBox(height: 10),
@@ -294,17 +295,17 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
                         children: <Widget>[
                           for (final int t in _tamponlar)
                             ChoiceChip(
-                              label: Text(t == 0 ? 'Yok' : '$t dk'),
+                              label: Text(t == 0 ? dl('Yok', 'None') : '$t dk'),
                               selected: _tampon == t,
                               onSelected: (bool _) => setState(() => _tampon = t),
                             ),
                         ],
                       ),
                       const SizedBox(height: 22),
-                      const MaisonUstBaslik('ÜCRETSİZ İPTAL'),
+                      MaisonUstBaslik(dl('ÜCRETSİZ İPTAL', 'FREE CANCELLATION')),
                       const SizedBox(height: 4),
                       Text(
-                        'Müşteri randevusunu bu süreden daha geç iptal ederse "geç iptal" olarak işaretlenir.',
+                        dl('Müşteri randevusunu bu süreden daha geç iptal ederse "geç iptal" olarak işaretlenir.', 'If a customer cancels later than this, it is marked as a "late cancellation".'),
                         style: maisonGovde(12, renk: r.soluk, yukseklik: 1.4),
                       ),
                       const SizedBox(height: 10),
@@ -333,7 +334,7 @@ class _SalonBilgileriEkraniState extends State<SalonBilgileriEkrani> {
                     height: 56,
                     child: FilledButton(
                       onPressed: _kaydediliyor ? null : _kaydet,
-                      child: Text(_kaydediliyor ? 'Kaydediliyor…' : 'Kaydet'),
+                      child: Text(_kaydediliyor ? dl('Kaydediliyor…', 'Saving…') : dl('Kaydet', 'Save')),
                     ),
                   ),
                 ],

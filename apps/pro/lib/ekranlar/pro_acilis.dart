@@ -6,14 +6,14 @@ import 'package:makas_core/makas_core.dart';
 class ProAcilis extends StatelessWidget {
   const ProAcilis({super.key});
 
-  static const List<_Modul> _moduller = <_Modul>[
-    _Modul(Icons.today_outlined, 'Bugün', 'Günün randevuları tek bakışta'),
-    _Modul(Icons.calendar_month_outlined, 'Takvim', 'Haftalık görünüm, boş saatler'),
-    _Modul(Icons.groups_outlined, 'Ekip', 'Ustalar, çalışma saatleri, izinler'),
-    _Modul(Icons.content_cut, 'Hizmetler', 'Süre ve fiyat listesi'),
-    _Modul(Icons.storefront_outlined, 'Vitrin', 'Profil, duvar fotoğrafı, galeri'),
-    _Modul(Icons.insights_outlined, 'Kazanç', 'Günlük ve aylık özet'),
-  ];
+  static List<_Modul> get _moduller => <_Modul>[
+        _Modul(Icons.today_outlined, dl('Bugün', 'Today'), dl('Günün randevuları tek bakışta', "The day's bookings at a glance")),
+        _Modul(Icons.calendar_month_outlined, dl('Takvim', 'Calendar'), dl('Haftalık görünüm, boş saatler', 'Weekly view, free times')),
+        _Modul(Icons.groups_outlined, dl('Ekip', 'Team'), dl('Ustalar, çalışma saatleri, izinler', 'Barbers, working hours, time off')),
+        _Modul(Icons.content_cut, dl('Hizmetler', 'Services'), dl('Süre ve fiyat listesi', 'Durations and price list')),
+        _Modul(Icons.storefront_outlined, dl('Vitrin', 'Showcase'), dl('Profil, duvar fotoğrafı, galeri', 'Profile, cover photo, gallery')),
+        _Modul(Icons.insights_outlined, dl('Kazanç', 'Earnings'), dl('Günlük ve aylık özet', 'Daily and monthly summary')),
+      ];
 
   void _giris(BuildContext context, bool kayit) {
     final MaisonOturum oturum = OturumKapsami.oku(context);
@@ -23,8 +23,8 @@ class ProAcilis extends StatelessWidget {
           oturum: oturum,
           kayitModu: kayit,
           ustBaslik: 'MAKAS PRO',
-          girisAciklama: 'Salonunun takvimini, ekibini ve kasasını tek yerden yönet.',
-          kayitAciklama: 'Hesabını oluştur, ardından salonunu birkaç adımda kur.',
+          girisAciklama: dl('Salonunun takvimini, ekibini ve kasasını tek yerden yönet.', 'Manage your salon\'s calendar, team and till in one place.'),
+          kayitAciklama: dl('Hesabını oluştur, ardından salonunu birkaç adımda kur.', 'Create your account, then set up your salon in a few steps.'),
         ),
       ),
     );
@@ -34,7 +34,7 @@ class ProAcilis extends StatelessWidget {
   Widget build(BuildContext context) {
     final MaisonRenkler r = MaisonRenkler.of(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: maisonSistemCubugu(MaisonPalet.ivoire),
+      value: maisonSistemCubugu(MaisonTercih.proPaleti),
       child: Scaffold(
         backgroundColor: r.zemin,
         body: SafeArea(
@@ -65,7 +65,7 @@ class ProAcilis extends StatelessWidget {
                     ),
                     const SizedBox(height: 22),
                     Text(
-                      'İşletme paneli',
+                      dl('İşletme paneli', 'Business dashboard'),
                       style: maisonBaslik(
                         26,
                         renk: r.yazi,
@@ -75,11 +75,11 @@ class ProAcilis extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Salonunu kur, hizmetlerini ve ustalarını ekle; müşterilerin Maison Makas\'tan randevu alsın.',
+                      dl('Salonunu kur, hizmetlerini ve ustalarını ekle; müşterilerin Maison Makas\'tan randevu alsın.', 'Set up your salon, add your services and barbers, and let customers book on Maison Makas.'),
                       style: maisonGovde(15, renk: r.soluk, yukseklik: 1.55),
                     ),
                     const SizedBox(height: 24),
-                    const MaisonUstBaslik('MODÜLLER'),
+                    MaisonUstBaslik(dl('MODÜLLER', 'MODULES')),
                     const SizedBox(height: 12),
                     for (final _Modul modul in _moduller)
                       Padding(
@@ -98,7 +98,7 @@ class ProAcilis extends StatelessWidget {
                       height: 56,
                       child: FilledButton(
                         onPressed: () => _giris(context, false),
-                        child: const Text('Giriş yap'),
+                        child: Text(dl('Giriş yap', 'Sign in')),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -106,7 +106,7 @@ class ProAcilis extends StatelessWidget {
                       height: 52,
                       child: OutlinedButton(
                         onPressed: () => _giris(context, true),
-                        child: const Text('İşletme hesabı oluştur'),
+                        child: Text(dl('İşletme hesabı oluştur', 'Create a business account')),
                       ),
                     ),
                   ],
