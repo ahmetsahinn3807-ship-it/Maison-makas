@@ -2,7 +2,7 @@
 # Emülatör duman testi (derle.sh çağırır).
 #
 # Derlenen iki APK'yı bir Android emülatörüne kurar, açar, giriş ekranına geçer ve
-# yanlış bir şifreyle giriş dener. "E-posta ya da şifre hatalı" yanıtı gelirse uygulama
+# yanlış bir şifreyle giriş dener. "E-posta ya da şifre hatalı" (İngilizcede "Incorrect email or password") yanıtı gelirse uygulama
 # sunucuya ulaşabiliyor demektir. Hesap oluşturmaz, veritabanına yazmaz.
 #
 # Sonuçlar rapor klasörüne yazılır: ekran görüntüleri, logcat, ekran ağaçları, kısa özet.
@@ -214,10 +214,10 @@ dene() {
     > "$RAPOR/$ad-logcat-ozet.txt" 2>/dev/null
   local metin
   metin="$(grep -o -E '(text|content-desc)="[^"]+"' "$RAPOR/$ad-agac-4.xml" 2>/dev/null | sed -E 's/^[a-z-]+="//; s/"$//' | tr '\n' ' ')"
-  if echo "$metin" | grep -q "hatalı"; then
+  if echo "$metin" | grep -q -E "hatalı|Incorrect email or password"; then
     sonuc "$ad: sunucuya ulaştı ✓ (yanlış şifreye 'hatalı' yanıtı geldi)"
-  elif echo "$metin" | grep -q "Sunucu bağlantısı kurulamadı"; then
-    sonuc "$ad: BAŞLATMA HATASI — $(echo "$metin" | grep -o 'Sunucu bağlantısı kurulamadı[^|]*' | head -c 400)"
+  elif echo "$metin" | grep -q -E "Sunucu bağlantısı kurulamadı|Could not connect to the server"; then
+    sonuc "$ad: BAŞLATMA HATASI — $(echo "$metin" | grep -o -E '(Sunucu bağlantısı kurulamadı|Could not connect to the server)[^|]*' | head -c 400)"
   elif echo "$metin" | grep -q -i "internet"; then
     sonuc "$ad: ağ hatası — $(echo "$metin" | head -c 300)"
   else
@@ -225,6 +225,7 @@ dene() {
   fi
 }
 
-dene maison-makas com.maisonmakas.musteri "Hesabım var" "I have an account" "Ich habe ein Konto"
-dene makas-pro com.maisonmakas.pro "Giriş yap"
+# Emülatörün dili İngilizce olabilir: uygulamalar telefonun diliyle açılır.
+dene maison-makas com.maisonmakas.musteri "Hesabım var" "I have an account"
+dene makas-pro com.maisonmakas.pro "Giriş yap" "Sign in"
 yaz "Bitti"

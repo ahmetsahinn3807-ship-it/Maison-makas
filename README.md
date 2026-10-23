@@ -50,6 +50,17 @@ Her derlemenin sonunda:
 giriş dener. "E-posta ya da şifre hatalı" yanıtı gelirse uygulama sunucuya ulaşabiliyor demektir.
 Hesap açmaz, veritabanına yazmaz, derlemeyi hiçbir zaman durdurmaz. Kapatmak için betiği silmek yeter.
 
+### iOS derleme denetimi
+
+`.github/workflows/ios.yml` (elle başlatılır: Actions → iOS derleme denetimi → Run workflow) iki uygulamayı macOS'ta
+imzasız derler (`ci/ios-denetim.sh`). Apple hesabı ya da iPhone gerekmez; iOS tarafında derleme hatası olmadığını gösterir.
+Sonuç `ios-raporu` dalına yazılır. Depo gizliyse macOS dakikaları ücretsiz kotadan katlı düşer; bu yüzden her yüklemede değil,
+iOS'u etkileyen bir değişiklikten sonra başlatılır.
+
+- iOS'ta bildirimler için `AppDelegate.swift` içinde `UNUserNotificationCenter` temsilcisi ayarlıdır.
+- `Info.plist`: kamera ve fotoğraf izin metinleri (Türkçe), desteklenen diller `tr`, `en`.
+- TestFlight'a gönderim (Codemagic + App Store Connect API anahtarı) Apple Developer hesabı ve bir iPhone olunca eklenecek.
+
 Bir dosyayı silmek gerektiğinde, zip içine `ci/silinecekler.txt` konur (her satıra bir yol).
 
 ## Sunucu (Supabase)
