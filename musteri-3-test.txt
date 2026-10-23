@@ -1,0 +1,18 @@
+
+::group::✅ Passing tests
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/dil_test.dart: dl seçili dile göre metin verir
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/dil_test.dart: Tarih, para ve süre biçimleri dile uyar
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/dil_test.dart: Salonun açık/kapalı satırı İngilizcede de kurulur
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/dil_test.dart: Sunucunun her Türkçe hata mesajının İngilizcesi var
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Saat ekleri Türkçe ses uyumuna uyar
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Dakika metni okunur ve yazılır
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Hafta özeti aynı saatlerdeki ardışık günleri birleştirir
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Gün denetimi çakışmayı ve ters saati yakalar
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Salonun açık ya da kapalı olduğu salonun yerel saatine göre hesaplanır
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Fiyat Türkçe yazımla okunur
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Türkçe büyük harf
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/widget_test.dart: Açılış markayı gösterir, dil değişir, kayıt ekranı açılır
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/widget_test.dart: Ana kabuk: menü açılır, sekmeler ve görünüm çalışır
+::endgroup::
+
+🎉 13 tests passed.

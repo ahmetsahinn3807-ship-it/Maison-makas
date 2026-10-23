@@ -1,0 +1,4 @@
+derleme: #13
+durum: basarili
+tarih: 2026-10-23T18:07:33Z
+commit: 7a041387b1fdf6fe03b9e17d7f6d07d00ca38923

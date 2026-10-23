@@ -1,0 +1,9 @@
+
+::group::✅ Passing tests
+✅ Pro tanıtımı açılır, giriş ekranına geçilir
+✅ Makas Pro İngilizce açılır
+✅ Salon kısa adı Türkçe harfleri ve işaretleri temizler
+✅ Canlı bildirimdeki randevu aralığının başlangıcı okunur
+::endgroup::
+
+🎉 4 tests passed.

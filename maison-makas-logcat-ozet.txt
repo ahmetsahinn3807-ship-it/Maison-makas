@@ -1,0 +1,28 @@
+10-23 18:06:09.314 D/AndroidRuntime( 1832): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-23 18:06:09.317 I/AndroidRuntime( 1832): Using default boot image
+10-23 18:06:09.317 I/AndroidRuntime( 1832): Leaving lock profiling enabled
+10-23 18:06:09.408 D/AndroidRuntime( 1832): Calling main entry com.android.commands.monkey.Monkey
+10-23 18:06:09.437 I/AndroidRuntime( 1832): VM exiting with result code 0.
+10-23 18:06:09.553 I/flutter ( 1848): [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+10-23 18:06:24.776 D/AndroidRuntime( 1892): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-23 18:06:24.781 I/AndroidRuntime( 1892): Using default boot image
+10-23 18:06:24.781 I/AndroidRuntime( 1892): Leaving lock profiling enabled
+10-23 18:06:24.938 D/AndroidRuntime( 1892): Calling main entry com.android.commands.uiautomator.Launcher
+10-23 18:06:26.055 D/AndroidRuntime( 1892): Shutting down VM
+10-23 18:06:31.006 D/AndroidRuntime( 1916): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-23 18:06:31.009 I/AndroidRuntime( 1916): Using default boot image
+10-23 18:06:31.009 I/AndroidRuntime( 1916): Leaving lock profiling enabled
+10-23 18:06:31.090 D/AndroidRuntime( 1916): Calling main entry com.android.commands.uiautomator.Launcher
+10-23 18:06:32.140 D/AndroidRuntime( 1916): Shutting down VM
+10-23 18:06:33.014 D/InputMethodManager( 1848): showSoftInput() view=io.flutter.embedding.android.FlutterView{d38ca9a VFE...... .F....ID 0,0-1080,2272 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+10-23 18:06:34.174 D/AndroidRuntime( 1945): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-23 18:06:34.177 I/AndroidRuntime( 1945): Using default boot image
+10-23 18:06:34.177 I/AndroidRuntime( 1945): Leaving lock profiling enabled
+10-23 18:06:34.251 D/AndroidRuntime( 1945): Calling main entry com.android.commands.uiautomator.Launcher
+10-23 18:06:35.285 D/AndroidRuntime( 1945): Shutting down VM
+10-23 18:06:36.166 D/InputMethodManager( 1848): showSoftInput() view=io.flutter.embedding.android.FlutterView{d38ca9a VFE...... .F...... 0,0-1080,2272 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+10-23 18:06:47.308 D/AndroidRuntime( 1987): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-23 18:06:47.311 I/AndroidRuntime( 1987): Using default boot image
+10-23 18:06:47.311 I/AndroidRuntime( 1987): Leaving lock profiling enabled
+10-23 18:06:47.378 D/AndroidRuntime( 1987): Calling main entry com.android.commands.uiautomator.Launcher
+10-23 18:06:48.400 D/AndroidRuntime( 1987): Shutting down VM

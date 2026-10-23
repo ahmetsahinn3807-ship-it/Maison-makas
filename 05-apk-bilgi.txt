@@ -1,0 +1,25 @@
+== cikti/maison-makas-13.apk
+imza: 0ae9d325ce773b7df4bde176184cc86fbab4c4ebc08db9acfadc81396f5776f9
+package: name='com.maisonmakas.musteri' versionCode='13' versionName='0.7.1' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'
+targetSdkVersion:'36'
+uses-permission: name='android.permission.INTERNET'
+uses-permission: name='android.permission.RECEIVE_BOOT_COMPLETED'
+uses-permission: name='android.permission.VIBRATE'
+uses-permission: name='android.permission.POST_NOTIFICATIONS'
+uses-permission: name='com.maisonmakas.musteri.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
+application-label:'Maison Makas'
+native-code: 'arm64-v8a' 'armeabi-v7a' 'x86_64'
+eklenti kaydı (GeneratedPluginRegistrant): var
+
+== cikti/makas-pro-13.apk
+imza: 0ae9d325ce773b7df4bde176184cc86fbab4c4ebc08db9acfadc81396f5776f9
+package: name='com.maisonmakas.pro' versionCode='13' versionName='0.7.1' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'
+targetSdkVersion:'36'
+uses-permission: name='android.permission.INTERNET'
+uses-permission: name='android.permission.VIBRATE'
+uses-permission: name='android.permission.POST_NOTIFICATIONS'
+uses-permission: name='com.maisonmakas.pro.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
+application-label:'Makas Pro'
+native-code: 'arm64-v8a' 'armeabi-v7a' 'x86_64'
+eklenti kaydı (GeneratedPluginRegistrant): var
+
