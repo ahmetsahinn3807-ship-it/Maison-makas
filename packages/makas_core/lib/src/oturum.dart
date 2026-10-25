@@ -16,6 +16,7 @@ import 'package:supabase_flutter/supabase_flutter.dart'
 import 'baslatma.dart';
 import 'dil.dart';
 import 'fotograf_yukleme.dart';
+import 'push.dart';
 import 'sunucu_mesajlari.dart';
 
 /// Kullanıcıya gösterilecek, Türkçe hata.
@@ -195,6 +196,7 @@ class MaisonOturum extends ChangeNotifier {
   Future<void> cikisYap() async {
     final SupabaseClient? i = _istemci;
     if (i != null) {
+      await MaisonPush.cikisOncesi();
       await i.auth.signOut();
     }
     _profil = null;

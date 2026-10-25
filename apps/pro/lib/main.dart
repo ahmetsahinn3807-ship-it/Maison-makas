@@ -24,16 +24,19 @@ class MakasProUygulamasi extends StatefulWidget {
 
 class _MakasProUygulamasiState extends State<MakasProUygulamasi> {
   late final MaisonDilEsitleyici _dilEsitleyici;
+  late final MaisonPushBaglayici _push;
 
   @override
   void initState() {
     super.initState();
     _dilEsitleyici = MaisonDilEsitleyici(widget.oturum);
+    _push = MaisonPushBaglayici(widget.oturum, 'pro');
   }
 
   @override
   void dispose() {
     _dilEsitleyici.kapat();
+    _push.kapat();
     super.dispose();
   }
 

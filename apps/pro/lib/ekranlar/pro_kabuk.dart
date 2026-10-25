@@ -77,7 +77,8 @@ class _ProKabukState extends State<ProKabuk> with WidgetsBindingObserver {
         }
         if (_onde) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$baslik · $metin')));
-        } else {
+        } else if (!MaisonPush.etkin) {
+          // Uzaktan bildirim kuruluysa telefon onu zaten gösterir; ikinci kez gösterilmez.
           MaisonBildirim.goster(id: 3000 + (_bildirimNo++ % 50), baslik: baslik, metin: metin);
         }
       },

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:makas_core/makas_core.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
@@ -235,6 +237,8 @@ class Veri {
       throw MaisonHata(dl('Randevu alınamadı. Bir daha dene.', 'The booking could not be made. Try again.'));
     }
     randevuSurumu.value++;
+    // Salon sahibine ve ustaya bildirim (uygulamaları kapalı olsa da).
+    unawaited(MaisonPush.olayBildir(i, sonuc));
     return sonuc;
   }
 
@@ -257,5 +261,6 @@ class Veri {
     }
     await i.rpc('randevu_iptal', params: <String, dynamic>{'p_randevu': randevuId});
     randevuSurumu.value++;
+    unawaited(MaisonPush.olayBildir(i, randevuId));
   }
 }

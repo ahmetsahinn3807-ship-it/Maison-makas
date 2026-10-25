@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Firebase ayarları (google-services.json'dan). Gizli değildir; uygulamayı Firebase projesine bağlar. -->
+<resources>
+    <string name="google_app_id" translatable="false">1:917904334655:android:6be29ea3de829fd1ee3d8a</string>
+    <string name="gcm_defaultSenderId" translatable="false">917904334655</string>
+    <string name="google_api_key" translatable="false">AIzaSyB0U1ZtAyac3PPejSf7wuIOMZF4OfbTLEg</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyB0U1ZtAyac3PPejSf7wuIOMZF4OfbTLEg</string>
+    <string name="project_id" translatable="false">maison-makas</string>
+    <string name="google_storage_bucket" translatable="false">maison-makas.firebasestorage.app</string>
+</resources>

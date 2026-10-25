@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:makas_core/makas_core.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
@@ -122,6 +124,8 @@ class _RandevuAyrintisiState extends State<_RandevuAyrintisi> {
     }
     await _calistir((SupabaseClient i) async {
       await i.rpc('randevu_iptal', params: <String, dynamic>{'p_randevu': widget.kayit.id});
+      // Müşteriye bildirim (uygulaması kapalı olsa da).
+      unawaited(MaisonPush.olayBildir(i, widget.kayit.id));
     });
   }
 

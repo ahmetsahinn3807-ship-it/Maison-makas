@@ -53,6 +53,20 @@ class MaisonBildirim {
           ),
         ),
       );
+      // Kanal önceden kurulur: uygulama kapalıyken gelen Firebase bildirimleri de bu kanala düşer.
+      await _eklenti
+          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(
+            AndroidNotificationChannel(
+              'randevu',
+              dl('Randevular', 'Appointments'),
+              description: dl(
+                'Randevu hatırlatmaları, yeni randevular ve iptaller',
+                'Appointment reminders, new bookings and cancellations',
+              ),
+              importance: Importance.high,
+            ),
+          );
       return sonuc ?? true;
     } catch (_) {
       return false;

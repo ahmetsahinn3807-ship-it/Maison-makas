@@ -25,6 +25,7 @@ class MaisonMakasUygulamasi extends StatefulWidget {
 class _MaisonMakasUygulamasiState extends State<MaisonMakasUygulamasi> {
   late final Gorunum _gorunum = Gorunum(kaydet: _gorunumuKaydet);
   late final MaisonDilEsitleyici _dilEsitleyici;
+  late final MaisonPushBaglayici _push;
   String? _uygulananKullanici;
 
   @override
@@ -33,6 +34,7 @@ class _MaisonMakasUygulamasiState extends State<MaisonMakasUygulamasi> {
     widget.oturum.addListener(_oturumDegisti);
     _oturumDegisti();
     _dilEsitleyici = MaisonDilEsitleyici(widget.oturum);
+    _push = MaisonPushBaglayici(widget.oturum, 'musteri');
   }
 
   Future<void> _gorunumuKaydet(Map<String, dynamic> alanlar) async {
@@ -59,6 +61,7 @@ class _MaisonMakasUygulamasiState extends State<MaisonMakasUygulamasi> {
   void dispose() {
     widget.oturum.removeListener(_oturumDegisti);
     _dilEsitleyici.kapat();
+    _push.kapat();
     _gorunum.dispose();
     super.dispose();
   }

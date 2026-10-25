@@ -99,7 +99,8 @@ class RandevuDinleyici {
 
   void _degisti(PostgresChangePayload olay) {
     final Map<String, dynamic> yeni = olay.newRecord;
-    if (yeni['durum'] == 'iptal' && yeni['iptal_eden'] != _kullaniciId) {
+    // Uygulama arka plandaysa ve uzaktan bildirim kuruluysa telefon onu gösterir; ikinci kez gösterilmez.
+    if (yeni['durum'] == 'iptal' && yeni['iptal_eden'] != _kullaniciId && (MaisonPush.onde || !MaisonPush.etkin)) {
       unawaited(
         MaisonBildirim.goster(
           id: 2000,

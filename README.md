@@ -104,7 +104,18 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
   RLS geçerlidir: herkes yalnız görmeye yetkili olduğu satırların değişikliğini alır.
   - Makas Pro açıkken: müşteri uygulamadan randevu alır ya da iptal ederse liste anında yenilenir ve uyarı çıkar.
   - Maison Makas açıkken: salon randevuyu iptal ederse müşteriye bildirim gelir.
-- Uygulamalar tamamen kapalıyken anlık bildirim (Firebase push) mağaza yayınından önce eklenecek.
+- **Uygulama kapalıyken bildirim** Firebase Cloud Messaging iledir (şimdilik Android):
+  - Telefon, giriş yapılınca bildirim jetonunu `bildirim_jetonu_kaydet` ile hesaba yazar; çıkışta siler (0007).
+  - Randevu alınınca ya da iptal edilince uygulama `supabase/functions/randevu-bildirimi` fonksiyonunu çağırır.
+    Fonksiyon kime ne gideceğini çağıranın yetkisiyle `randevu_bildirimi_hazirla`'ya sorar (her olay bir kez)
+    ve Firebase'e gönderir: yeni randevu ve müşteri iptali salon sahibine ve ustaya (Makas Pro), salonun iptali
+    müşteriye (Maison Makas). Metin alıcının dilindedir.
+  - Fonksiyonun tek sırrı `FIREBASE_SERVICE_ACCOUNT` (Firebase hizmet hesabı JSON'u) yalnız Supabase → Edge Functions →
+    Secrets'tadır; koda, depoya ve zip'e yazılmaz. Fonksiyonda "Verify JWT" kapalıdır; yetkiyi veritabanı denetler.
+  - Android uygulamaları Firebase'e `android/app/src/main/res/values/firebase.xml` ile bağlanır (google-services.json'dan
+    üretilir; Google Services Gradle eklentisi kullanılmaz). Bu dosya yoksa uzaktan bildirim sessizce kapalı kalır.
+  - Uygulama ekrandayken bildirimi Realtime dinleyicisi gösterir; arka plandayken Firebase gösterir (çift bildirim olmaz).
+  - iOS için APNs anahtarı (Apple Developer hesabı) gerekir; o zaman eklenecek.
 - Android'de zamanlanmış bildirimler için `AndroidManifest.xml` alıcıları ve `build.gradle.kts` içinde
   core library desugaring gerekir; ikisi de projede hazır.
 
