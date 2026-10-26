@@ -13,7 +13,7 @@ import 'oturum.dart';
 /// Uygulama kapalıyken gelen bildirimler (Firebase Cloud Messaging).
 ///
 /// Telefonun bildirim jetonu hesaba kaydedilir; randevu alınınca ya da iptal edilince uygulama
-/// sunucudaki "randevu-bildirimi" fonksiyonunu çağırır, o da karşı tarafın telefonlarına gönderir.
+/// sunucudaki bildirim fonksiyonunu ([fonksiyon]) çağırır, o da karşı tarafın telefonlarına gönderir.
 /// Firebase kurulmamışsa (android/app/src/main/res/values/firebase.xml yoksa) sessizce devre dışı kalır;
 /// uygulama açıkken canlı bildirimler (Realtime) yine çalışır.
 class MaisonPush {
@@ -27,6 +27,10 @@ class MaisonPush {
 
   /// Bu telefon uzaktan bildirim alabiliyor mu (jeton hesaba kaydedildi mi)?
   static bool get etkin => _jeton != null;
+
+  /// Supabase'teki bildirim fonksiyonunun adı (kaynak: supabase/functions/randevu-bildirimi/index.ts).
+  /// Panelden kurulurken Supabase bu adı verdi; ad sonradan değiştirilemiyor.
+  static const String fonksiyon = 'smart-function';
 
   /// Uygulama şu an ekranda mı? Ekrandayken Firebase bildirimi göstermez; uygulama kendi gösterir.
   static bool get onde => WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed;
@@ -106,7 +110,7 @@ class MaisonPush {
   static Future<void> olayBildir(SupabaseClient istemci, String randevuId) async {
     try {
       await istemci.functions
-          .invoke('randevu-bildirimi', body: <String, dynamic>{'randevu': randevuId})
+          .invoke(fonksiyon, body: <String, dynamic>{'randevu': randevuId})
           .timeout(const Duration(seconds: 20));
     } catch (hata) {
       debugPrint('MAISON: randevu bildirimi gönderilemedi: $hata');

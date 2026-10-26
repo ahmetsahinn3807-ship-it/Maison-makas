@@ -106,7 +106,8 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
   - Maison Makas açıkken: salon randevuyu iptal ederse müşteriye bildirim gelir.
 - **Uygulama kapalıyken bildirim** Firebase Cloud Messaging iledir (şimdilik Android):
   - Telefon, giriş yapılınca bildirim jetonunu `bildirim_jetonu_kaydet` ile hesaba yazar; çıkışta siler (0007).
-  - Randevu alınınca ya da iptal edilince uygulama `supabase/functions/randevu-bildirimi` fonksiyonunu çağırır.
+  - Randevu alınınca ya da iptal edilince uygulama bildirim fonksiyonunu çağırır. Kaynağı
+    `supabase/functions/randevu-bildirimi/index.ts`; Supabase'te **`smart-function`** adıyla kurulu (`MaisonPush.fonksiyon`).
     Fonksiyon kime ne gideceğini çağıranın yetkisiyle `randevu_bildirimi_hazirla`'ya sorar (her olay bir kez)
     ve Firebase'e gönderir: yeni randevu ve müşteri iptali salon sahibine ve ustaya (Makas Pro), salonun iptali
     müşteriye (Maison Makas). Metin alıcının dilindedir.
