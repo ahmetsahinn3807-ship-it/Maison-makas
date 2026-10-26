@@ -5,6 +5,7 @@ import 'dil.dart';
 import 'oturum.dart';
 import 'renkler.dart';
 import 'tema.dart';
+import 'yasal.dart';
 
 /// E-posta ve şifreyle giriş / hesap oluşturma. İki uygulama da kullanır.
 ///
@@ -215,11 +216,7 @@ class _MaisonGirisEkraniState extends State<MaisonGirisEkrani> {
                 ),
               ),
               const SizedBox(height: 22),
-              Text(
-                dl('Devam ederek Kullanım Şartları\'nı ve Gizlilik Politikası\'nı kabul etmiş olursun.', 'By continuing you accept the Terms of Use and the Privacy Policy.'),
-                textAlign: TextAlign.center,
-                style: maisonGovde(12, renk: r.soluk, yukseklik: 1.6),
-              ),
+              const MaisonOnayNotu(),
             ],
           ),
         ),

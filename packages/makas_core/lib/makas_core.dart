@@ -20,3 +20,4 @@ export 'src/tarih.dart';
 export 'src/tema.dart';
 export 'src/vitrin.dart';
 export 'src/vitrin_ayari.dart';
+export 'src/yasal.dart';

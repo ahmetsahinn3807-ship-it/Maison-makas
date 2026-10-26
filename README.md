@@ -141,6 +141,23 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
 - Yazı boyutu (Küçük / Normal / Büyük) telefonun kendi yazı boyutunun üstüne uygulanır ve telefonda saklanır.
 - Maison Makas'ta tema (5 palet), vurgu rengi ve koyu mod hesaba kaydedilir. Makas Pro'da koyu görünüm telefonda saklanır.
 
+## Yasal metinler (web sitesi)
+
+`docs/` klasörü GitHub Pages ile yayımlanır (Settings → Pages → Branch: main, klasör: /docs):
+https://ahmetsahinn3807-ship-it.github.io/Maison-makas/
+
+| Sayfa | Türkçe | İngilizce |
+|---|---|---|
+| Gizlilik politikası | `gizlilik.html` | `privacy.html` |
+| Kullanım şartları | `kosullar.html` | `terms.html` |
+| KVKK aydınlatma metni | `kvkk.html` | — |
+| Hesap ve veri silme (Google Play bu adresi ister) | `hesap-silme.html` | `delete-account.html` |
+
+- Metinler taslaktır; yayından önce bir avukata gözden geçirtilmeli. `[VERİ SORUMLUSU …]` yer tutucusu doldurulacak.
+- Uygulamalar bu sayfaları `MaisonBelge` ile açar (giriş ekranının altı ve Ayarlar). Site adresi `maisonSiteAdresi`'nde;
+  alan adı alınırsa yalnız orası değişir.
+- Uygulamada toplanan veriler değişirse (yeni bir alan, yeni bir hizmet sağlayıcı) gizlilik metni de güncellenmeli.
+
 ## Yazı tipleri
 
 Inter ve Cormorant Garamond, SIL Open Font License 1.1 ile dağıtılır.

@@ -304,10 +304,14 @@ class _ProAyarlarState extends State<ProAyarlar> {
                 style: maisonGovde(14, renk: Theme.of(context).colorScheme.error, kalinlik: FontWeight.w600),
               ),
             ),
+            const SizedBox(height: 22),
+            MaisonUstBaslik(dl('GİZLİLİK VE ŞARTLAR', 'PRIVACY AND TERMS')),
+            const SizedBox(height: 12),
+            const MaisonBelgeBaglantilari(),
             const SizedBox(height: 28),
             Center(
               child: Text(
-                dl('Makas Pro · sürüm 0.8.1', 'Makas Pro · version 0.8.1'),
+                dl('Makas Pro · sürüm 0.8.2', 'Makas Pro · version 0.8.2'),
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.2),
               ),
             ),

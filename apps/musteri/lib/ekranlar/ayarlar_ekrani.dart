@@ -215,10 +215,12 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
                   'You can delete your account here at any time; your personal data is deleted too.'),
               style: maisonGovde(14, renk: r.soluk, yukseklik: 1.55),
             ),
+            const SizedBox(height: 12),
+            const MaisonBelgeBaglantilari(),
             const SizedBox(height: 28),
             Center(
               child: Text(
-                dl('Maison Makas · sürüm 0.8.1', 'Maison Makas · version 0.8.1'),
+                dl('Maison Makas · sürüm 0.8.2', 'Maison Makas · version 0.8.2'),
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.2),
               ),
             ),
