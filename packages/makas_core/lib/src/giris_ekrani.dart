@@ -4,6 +4,7 @@ import 'bilesenler.dart';
 import 'dil.dart';
 import 'oturum.dart';
 import 'renkler.dart';
+import 'sifre_sifirlama.dart';
 import 'tema.dart';
 import 'yasal.dart';
 
@@ -103,6 +104,19 @@ class _MaisonGirisEkraniState extends State<MaisonGirisEkrani> {
     }
   }
 
+  void _sifremiUnuttum() {
+    setState(() => _hata = null);
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => MaisonSifreSifirlamaEkrani(
+          oturum: widget.oturum,
+          eposta: _eposta.text,
+          ustBaslik: widget.ustBaslik,
+        ),
+      ),
+    );
+  }
+
   void _modDegistir(int sira) {
     setState(() {
       _kayit = sira == 1;
@@ -197,6 +211,17 @@ class _MaisonGirisEkraniState extends State<MaisonGirisEkrani> {
                   ),
                 ),
               ),
+              if (!_kayit)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: _gonderiliyor ? null : _sifremiUnuttum,
+                    child: Text(
+                      dl('Şifremi unuttum', 'Forgot password?'),
+                      style: maisonGovde(13, renk: r.vurgu, kalinlik: FontWeight.w600),
+                    ),
+                  ),
+                ),
               if (hata != null) ...<Widget>[
                 const SizedBox(height: 16),
                 MaisonHataKutusu(hata),

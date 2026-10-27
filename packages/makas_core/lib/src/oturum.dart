@@ -7,11 +7,13 @@ import 'package:supabase_flutter/supabase_flutter.dart'
         AuthException,
         AuthResponse,
         AuthState,
+        OtpType,
         PostgrestException,
         Session,
         StorageException,
         SupabaseClient,
-        User;
+        User,
+        UserAttributes;
 
 import 'baslatma.dart';
 import 'dil.dart';
@@ -193,6 +195,28 @@ class MaisonOturum extends ChangeNotifier {
     }
   }
 
+  /// Şifremi unuttum, 1. adım: e-postaya tek kullanımlık sıfırlama kodu gönderilir.
+  /// (Supabase → Authentication → Emails → "Reset password" şablonunda {{ .Token }} bulunmalı.)
+  Future<void> sifreKoduGonder(String eposta) async {
+    final SupabaseClient i = await istemciGerekli();
+    await i.auth.resetPasswordForEmail(eposta.trim());
+  }
+
+  /// Şifremi unuttum, 2. adım: kod doğrulanır (oturum açılır), ardından yeni şifre kaydedilir.
+  Future<void> sifreyiYenile({
+    required String eposta,
+    required String kod,
+    required String yeniSifre,
+  }) async {
+    final SupabaseClient i = await istemciGerekli();
+    await i.auth.verifyOTP(
+      email: eposta.trim(),
+      token: kod.replaceAll(RegExp(r'\s'), ''),
+      type: OtpType.recovery,
+    );
+    await i.auth.updateUser(UserAttributes(password: yeniSifre));
+  }
+
   Future<void> cikisYap() async {
     final SupabaseClient? i = _istemci;
     if (i != null) {
@@ -349,6 +373,15 @@ String maisonHataMetni(Object hata) {
     }
     if (kod.contains('rate_limit') || hata.statusCode == '429') {
       return dl('Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.', 'Too many attempts. Wait a little and try again.');
+    }
+    if (kod == 'otp_expired' || kod == 'otp_disabled' || mesaj.contains('token has expired') || mesaj.contains('invalid otp')) {
+      return dl('Kod hatalı ya da süresi dolmuş. Yeni kod iste.', 'The code is wrong or has expired. Request a new code.');
+    }
+    if (kod == 'same_password' || mesaj.contains('different from the old')) {
+      return dl('Yeni şifre eskisiyle aynı olamaz.', 'The new password must be different from the old one.');
+    }
+    if (kod == 'email_address_not_authorized' || mesaj.contains('not authorized')) {
+      return dl('E-posta şu an gönderilemiyor. Biraz sonra tekrar dene.', 'The email cannot be sent right now. Try again later.');
     }
     if (kod == 'signup_disabled') {
       return dl('Yeni kayıtlar şu an kapalı.', 'New sign-ups are currently closed.');

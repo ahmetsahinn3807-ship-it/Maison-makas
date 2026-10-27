@@ -18,7 +18,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.maisonmakas.pro"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
@@ -33,9 +32,11 @@ android {
         versionName = flutter.versionName
     }
 
-    // Maison Makas: test derlemeleri depodaki ci/debug.keystore ile imzalanır.
-    // Her derleme aynı anahtarı kullandığı için yeni sürüm eskisinin üstüne kurulur.
-    // Google Play için ayrı bir yükleme anahtarı kullanılacak (rehber 13. adım).
+    // Maison Makas imzaları:
+    //  - Test derlemeleri (ci/derle.sh) depodaki ci/debug.keystore ile imzalanır; her yeni APK eskisinin üstüne kurulur.
+    //  - Google Play paketleri (ci/play.sh) yükleme anahtarıyla imzalanır. Anahtar depoda yalnız şifreli durur
+    //    (ci/play/upload.p12.gpg); play.sh onu GitHub Secrets'taki parolayla geçici bir klasöre açar ve yolunu verir.
+    val maisonYukleme: String? = System.getenv("MAISON_UPLOAD_STORE_FILE")?.takeIf { it.isNotBlank() }
     signingConfigs {
         create("maisonTest") {
             storeFile = file("../../../../ci/debug.keystore")
@@ -44,11 +45,21 @@ android {
             keyAlias = "androiddebugkey"
             keyPassword = "android"
         }
+        if (maisonYukleme != null) {
+            create("maisonYukleme") {
+                storeFile = file(maisonYukleme)
+                storeType = "pkcs12"
+                storePassword = System.getenv("MAISON_UPLOAD_PASSWORD")
+                keyAlias = "upload"
+                keyPassword = System.getenv("MAISON_UPLOAD_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("maisonTest")
+            // Küçültme (R8) Flutter eklentisince açılır; kurallar: app/proguard-rules.pro ve res/raw/keep.xml.
+            signingConfig = signingConfigs.getByName(if (maisonYukleme != null) "maisonYukleme" else "maisonTest")
         }
     }
 }

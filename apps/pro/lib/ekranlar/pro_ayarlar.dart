@@ -311,7 +311,7 @@ class _ProAyarlarState extends State<ProAyarlar> {
             const SizedBox(height: 28),
             Center(
               child: Text(
-                dl('Makas Pro · sürüm 0.8.2', 'Makas Pro · version 0.8.2'),
+                dl('Makas Pro · sürüm 0.9.0', 'Makas Pro · version 0.9.0'),
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.2),
               ),
             ),

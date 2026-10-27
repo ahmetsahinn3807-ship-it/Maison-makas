@@ -220,7 +220,7 @@ class _AyarlarEkraniState extends State<AyarlarEkrani> {
             const SizedBox(height: 28),
             Center(
               child: Text(
-                dl('Maison Makas · sürüm 0.8.2', 'Maison Makas · version 0.8.2'),
+                dl('Maison Makas · sürüm 0.9.0', 'Maison Makas · version 0.9.0'),
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.2),
               ),
             ),

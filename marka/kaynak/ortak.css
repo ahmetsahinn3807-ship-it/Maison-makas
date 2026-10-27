@@ -1,0 +1,15 @@
+@font-face{font-family:Cormorant;src:url(../../packages/makas_core/lib/fonts/CormorantGaramond-Medium.ttf);font-weight:500}
+@font-face{font-family:Cormorant;src:url(../../packages/makas_core/lib/fonts/CormorantGaramond-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Cormorant;src:url(../../packages/makas_core/lib/fonts/CormorantGaramond-MediumItalic.ttf);font-weight:500;font-style:italic}
+@font-face{font-family:Inter;src:url(../../packages/makas_core/lib/fonts/Inter-Medium.ttf);font-weight:500}
+@font-face{font-family:Inter;src:url(../../packages/makas_core/lib/fonts/Inter-SemiBold.ttf);font-weight:600}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1024px;height:500px;overflow:hidden}
+.kart{width:1024px;height:500px;position:relative;display:flex;align-items:center;justify-content:center;gap:56px}
+.ust{font-family:Inter;font-weight:600;font-size:15px;letter-spacing:6px}
+.ad{font-family:Cormorant;font-weight:500;font-size:96px;line-height:.95;margin-top:14px}
+.ad i{font-style:italic}
+.slogan{font-family:Cormorant;font-style:italic;font-weight:500;font-size:34px;margin-top:18px}
+.cizgi{width:64px;height:2px;margin-top:26px}
+.alt{font-family:Inter;font-weight:500;font-size:16px;letter-spacing:1px;margin-top:18px}
+.kemer{position:absolute;inset:0;pointer-events:none}

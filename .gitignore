@@ -28,3 +28,10 @@ packages/makas_core/pubspec.lock
 # Derleme çıktısı
 cikti/
 cikti-rapor/
+cikti-play/
+
+# İmza anahtarları: depoya yalnız şifreli hâli (ci/play/upload.p12.gpg) girer.
+*.p12
+*.jks
+*.pem
+*.aab

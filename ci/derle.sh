@@ -207,6 +207,14 @@ for apk in cikti/*.apk; do
       echo "eklenti kaydı (GeneratedPluginRegistrant): YOK"
     fi
     rm -rf "$tmp"
+    # Google Play: Android 15+ telefonlar için yerel kütüphaneler 16 KB sayfaya hizalı olmalı.
+    if [ -x "${ARAC}zipalign" ]; then
+      if "${ARAC}zipalign" -c -P 16 4 "$apk" > /dev/null 2>&1; then
+        echo "16 KB hizalama: uygun"
+      else
+        echo "16 KB hizalama: UYGUN DEGIL"
+      fi
+    fi
     echo
   } >> "$RAPOR/05-apk-bilgi.txt"
 done

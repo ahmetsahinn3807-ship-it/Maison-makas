@@ -43,6 +43,15 @@ void main() {
     await tester.tap(find.text('Giriş yap'));
     await tester.pump();
     expect(find.text('Geçerli bir e-posta adresi yaz.'), findsOneWidget);
+
+    // Şifremi unuttum: ayrı ekran açılır; e-posta yoksa kod istenmez.
+    await tester.ensureVisible(find.text('Şifremi unuttum'));
+    await tester.tap(find.text('Şifremi unuttum'));
+    await tester.pumpAndSettle();
+    expect(find.text('Şifreni yenile'), findsOneWidget);
+    await tester.tap(find.text('Kod gönder'));
+    await tester.pump();
+    expect(find.text('Geçerli bir e-posta adresi yaz.'), findsOneWidget);
   });
 
   testWidgets('Ana kabuk: menü açılır, sekmeler ve görünüm çalışır', (WidgetTester tester) async {

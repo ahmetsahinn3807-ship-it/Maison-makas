@@ -14,6 +14,7 @@ export 'src/oturum.dart';
 export 'src/palet.dart';
 export 'src/push.dart';
 export 'src/renkler.dart';
+export 'src/sifre_sifirlama.dart';
 export 'src/sunucu_mesajlari.dart';
 export 'src/supabase_ayar.dart';
 export 'src/tarih.dart';

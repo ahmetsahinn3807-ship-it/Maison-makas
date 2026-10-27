@@ -30,11 +30,33 @@ ci/                 GitHub Actions betikleri ve test imza anahtarı
 
 Her APK `ci/debug.keystore` ile imzalanır (`apps/*/android/app/build.gradle.kts` içindeki `maisonTest` ayarı);
 bu sayede yeni sürüm eskisini kaldırmadan üstüne kurulur. `ci/derle.sh` imzanın SHA-256 özetini denetler;
-APK başka bir anahtarla imzalanmışsa derleme kırmızı biter. Bu anahtar yalnızca test içindir; Google Play'e
-yükleme için ayrı bir yükleme anahtarı oluşturulacak (rehberde 13. adım).
+APK başka bir anahtarla imzalanmışsa derleme kırmızı biter. Bu anahtar yalnızca test içindir.
 
-Test derlemelerinde R8 küçültmesi kapalıdır (`apps/*/android/gradle.properties` → `shrink=false`).
-Google Play'den önce yeniden açılacak; eklentiler için kurallar `apps/*/android/app/proguard-rules.pro` içinde hazır.
+R8 küçültmesi açıktır (Google Play paketiyle aynı ayar; emülatör testi küçültülmüş APK'yı dener).
+Kurallar: `apps/*/android/app/proguard-rules.pro` (eklenti sınıfları) ve `res/raw/keep.xml`
+(adıyla çağrılan bildirim simgesi ve Firebase ayarları).
+
+## Google Play paketi (AAB)
+
+Play'e yüklenecek paketler ayrı bir iş akışıyla, elle başlatılarak derlenir:
+**Actions → Google Play paketi → Run workflow**. İş akışının kaynağı `ci/play.yml`; GitHub'da
+`.github/workflows/play.yml` olarak durur (zip `.github/` klasörünü açmaz, bu dosya elle eklenir).
+
+- `ci/play.sh` iki uygulamayı `flutter build appbundle` ile derler ve **yükleme anahtarıyla** imzalar.
+- Yükleme anahtarı depoda yalnız şifreli durur: `ci/play/upload.p12.gpg` (AES-256). Parolası GitHub'da
+  **Settings → Secrets and variables → Actions** altında `MAISON_PLAY_PAROLA` sırrıdır; depoya yazılmaz.
+  Anahtar derleme sırasında geçici bir klasöre açılır ve iş bitince silinir.
+- Yükleme sertifikasının SHA-256 özeti `cf:a7:4d:21:…:2a:2e:45`; `ci/play.sh` başka bir anahtarı reddeder.
+- Sürüm kodu 2026-01-01'den bu yana geçen dakikadır; her pakette büyür.
+- Çıktı: **Artifacts → google-play-aab-N** (iki `.aab` ve iki `mapping.txt`). Ayrıntılar `play-raporu` dalında:
+  imza, sürüm, hedef SDK, izinler, Play doğrulaması (bundletool) ve tahmini indirme boyutu.
+- Aynı iş akışı her gün bir kez **sunucu nöbeti** tutar (`ci/nobet.sh`): Supabase ücretsiz planda 7 gün hiç
+  kullanılmayan projeyi durdurduğu için herkese açık anahtarla tek satır okur. Yanıt gelmezse çalışma kırmızı biter.
+- Google Play App Signing açık olur: Google uygulamayı kendi anahtarıyla yeniden imzalar. Yükleme anahtarı
+  kaybolursa Play Console'dan yenisi istenebilir; uygulama kaybolmaz.
+
+Mağaza görselleri `marka/` klasöründe: `play-ikon-*-512.png` (uygulama simgesi) ve
+`play-tanitim-*-1024x500.png` (öne çıkan görsel; kaynakları `marka/kaynak/`).
 
 ### Derleme raporu
 
@@ -76,6 +98,16 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
 - Randevu yalnız `randevu_al` fonksiyonuyla alınır; aynı ustaya çakışan iki randevu veritabanı düzeyinde engellenir.
 - Hesap silme uygulama içindedir (`hesabimi_sil`). Salon sahibi Makas Pro'dan salonuyla birlikte siler;
   yaklaşan randevusu olan salon silinmez.
+
+### Giriş ve e-postalar
+
+- Kayıt e-posta onayı istemez (Supabase → Authentication → Sign In / Providers → Email → **Confirm email kapalı**);
+  hesap açılır açılmaz giriş yapılır. Açık bırakılırsa uygulama "onay bağlantısına dokun" der.
+- **Şifremi unuttum** (giriş ekranı): e-postaya tek kullanımlık kod gider, uygulamada kod + yeni şifre yazılır
+  (`resetPasswordForEmail` → `verifyOTP(type: recovery)` → `updateUser`). Bağlantıya gerek yoktur.
+  Şablon: `supabase/eposta/sifre-sifirlama.html` → Authentication → Emails → **Reset password** (içinde `{{ .Token }}`).
+- Supabase'in kendi e-posta servisi yalnız proje ekibine ve saatte 2 e-posta gönderir; bu yüzden
+  **özel SMTP** (Gmail uygulama şifresi: `smtp.gmail.com`, port 465) tanımlıdır.
 
 ### Ekip ve çalışma saatleri
 
