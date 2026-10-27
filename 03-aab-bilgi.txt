@@ -1,0 +1,43 @@
+== maison-makas-0.9.0-431675.aab
+imza SHA-256: cfa74d211a9bd4352b634040df384b057e6c1e6b6640d1d3ea235b5c472a2e45
+paket: package="com.maisonmakas.musteri"
+surum: 0.9.0 (431675) · minSdk 24 · targetSdk 36
+izinler:
+  android.permission.ACCESS_NETWORK_STATE
+  android.permission.INTERNET
+  android.permission.POST_NOTIFICATIONS
+  android.permission.RECEIVE_BOOT_COMPLETED
+  android.permission.VIBRATE
+  android.permission.WAKE_LOCK
+  com.google.android.c2dm.permission.RECEIVE
+  com.maisonmakas.musteri.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+debuggable: 0
+dogrulama:
+  		File: root/play-services-base.properties
+  		File: root/play-services-basement.properties
+  		File: root/play-services-cloud-messaging.properties
+  		File: root/play-services-stats.properties
+  		File: root/play-services-tasks.properties
+indirme boyutu (MIN,MAX bayt): 9397466,10030078
+
+== makas-pro-0.9.0-431675.aab
+imza SHA-256: cfa74d211a9bd4352b634040df384b057e6c1e6b6640d1d3ea235b5c472a2e45
+paket: package="com.maisonmakas.pro"
+surum: 0.9.0 (431675) · minSdk 24 · targetSdk 36
+izinler:
+  android.permission.ACCESS_NETWORK_STATE
+  android.permission.INTERNET
+  android.permission.POST_NOTIFICATIONS
+  android.permission.VIBRATE
+  android.permission.WAKE_LOCK
+  com.google.android.c2dm.permission.RECEIVE
+  com.maisonmakas.pro.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+debuggable: 0
+dogrulama:
+  		File: root/play-services-base.properties
+  		File: root/play-services-basement.properties
+  		File: root/play-services-cloud-messaging.properties
+  		File: root/play-services-stats.properties
+  		File: root/play-services-tasks.properties
+indirme boyutu (MIN,MAX bayt): 9682863,10295240
+
