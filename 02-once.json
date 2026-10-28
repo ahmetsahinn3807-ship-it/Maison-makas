@@ -1,0 +1,21 @@
+{
+  "site_url": "http://localhost:3000",
+  "uri_allow_list": "",
+  "disable_signup": false,
+  "external_email_enabled": true,
+  "onay_epostasi_kapali": true,
+  "mailer_otp_exp": 3600,
+  "mailer_otp_length": 8,
+  "password_min_length": 6,
+  "rate_limit_email_sent": 30,
+  "smtp_admin_email": "ahmetsahinn3807@gmail.com",
+  "smtp_sender_name": "Maison Makas",
+  "smtp_host": "smtp.gmail.com",
+  "smtp_port": "465",
+  "smtp_user": "ahmetsahinn3807@gmail.com",
+  "smtp_max_frequency": 60,
+  "smtp_sifresi_var": true,
+  "security_update_password_require_reauthentication": false,
+  "mailer_subjects_recovery": "Reset your password",
+  "sifirlama_sablonunda_kod_var": false
+}

@@ -1,0 +1,6 @@
+✓ Şifre sıfırlama e-postasında kod var
+✓ E-posta konusu Türkçe
+✓ Kayıtta onay e-postası kapalı
+✓ Gmail SMTP tanımlı (smtp.gmail.com)
+✓ En kısa şifre 8 karakter
+✓ Kod süresi 1 saat
