@@ -1,0 +1,141 @@
+name: Supabase ayarlari
+
+# Elle başlatılır: Actions → Supabase ayarlari → Run workflow.
+# Supabase panelindeki ayarları API ile yazar ve denetler (telefondan panelde düzenlemesi zor olanlar):
+# şifre sıfırlama e-postasının konusu ve şablonu (supabase/eposta/sifre-sifirlama.html), kodun süresi,
+# en kısa şifre uzunluğu ve site adresi. Sonucu supabase-raporu dalına yazar.
+# Gereken sır: SUPABASE_ERISIM (yalnız bu projeye, yalnız "Auth" izniyle, kısa süreli bir Supabase erişim anahtarı).
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ayar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Giris ayarlarini uygula ve denetle
+        env:
+          SUPABASE_ERISIM: ${{ secrets.SUPABASE_ERISIM }}
+        run: |
+          set -uo pipefail
+          REF="fhxwtfefinoaetlpxbpr"
+          API="${SUPABASE_API:-https://api.supabase.com}/v1/projects/$REF/config/auth"
+          KONU="Maison Makas şifre sıfırlama kodu"
+          SITE="https://ahmetsahinn3807-ship-it.github.io/Maison-makas/"
+          SABLON="supabase/eposta/sifre-sifirlama.html"
+          RAPOR="$(pwd)/supabase-rapor"
+          GECICI="$(mktemp -d)"
+          rm -rf "$RAPOR"; mkdir -p "$RAPOR"
+          ozet() { if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then echo "$*" >> "$GITHUB_STEP_SUMMARY"; fi; }
+
+          # Rapor: yalnız gizli olmayan alanlar yazılır (SMTP şifresi yalnız "var/yok" olarak).
+          goster() {
+            jq '{site_url, uri_allow_list, disable_signup, external_email_enabled,
+                 onay_epostasi_kapali: .mailer_autoconfirm, mailer_otp_exp, mailer_otp_length,
+                 password_min_length, rate_limit_email_sent,
+                 smtp_admin_email, smtp_sender_name, smtp_host, smtp_port, smtp_user, smtp_max_frequency,
+                 smtp_sifresi_var: ((.smtp_pass // "") | tostring | length > 0),
+                 security_update_password_require_reauthentication,
+                 mailer_subjects_recovery,
+                 sifirlama_sablonunda_kod_var: ((.mailer_templates_recovery_content // "") | contains("{{ .Token }}"))}' "$1"
+          }
+          bitir() {
+            local durum=$?
+            {
+              echo "supabase ayarlari: #${GITHUB_RUN_NUMBER:-1}"
+              if [ "$durum" -eq 0 ]; then echo "durum: basarili"; else echo "durum: HATA (cikis kodu $durum)"; fi
+              echo "tarih: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            } > "$RAPOR/00-durum.txt"
+            if [ -n "${GITHUB_ACTIONS:-}" ]; then
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              (
+                GIT_INDEX_FILE="$(mktemp -u)"; export GIT_INDEX_FILE
+                git read-tree --empty
+                for f in "$RAPOR"/*; do
+                  git update-index --add --cacheinfo "100644,$(git hash-object -w "$f"),$(basename "$f")"
+                done
+                kayit="$(git commit-tree "$(git write-tree)" -m "Supabase ayarlari #${GITHUB_RUN_NUMBER:-1}")"
+                rm -f "$GIT_INDEX_FILE"
+                git push -q -f origin "$kayit:refs/heads/supabase-raporu"
+              ) && echo "Rapor supabase-raporu dalına yazıldı." || echo "::warning::Rapor dalı yazılamadı."
+            fi
+            rm -rf "$GECICI"
+            exit "$durum"
+          }
+          trap bitir EXIT
+
+          ozet "## Supabase ayarları"
+          if [ -z "${SUPABASE_ERISIM:-}" ]; then
+            echo "SUPABASE_ERISIM tanimli degil" > "$RAPOR/01-hata.txt"
+            ozet "**Sır eksik:** GitHub → Settings → Secrets and variables → Actions → \`SUPABASE_ERISIM\`."
+            echo "::error::SUPABASE_ERISIM sırrı tanımlı değil."
+            exit 1
+          fi
+          oku() {
+            curl -sS -m 30 -o "$1" -w '%{http_code}' -H "Authorization: Bearer $SUPABASE_ERISIM" "$API" || echo 000
+          }
+          hata_yaz() {
+            {
+              echo "$1: HTTP $2"
+              jq -r '.message // .error // .' "$3" 2>/dev/null | head -c 600 || true
+            } > "$RAPOR/01-hata.txt"
+            ozet "**$1 başarısız** (HTTP $2). Ayrıntı supabase-raporu dalında."
+            echo "::error::$1 başarısız (HTTP $2)."
+          }
+
+          # 1) Önceki hâli oku
+          kod="$(oku "$GECICI/once.json")"
+          if [ "$kod" != "200" ]; then
+            hata_yaz "Ayarları okuma" "$kod" "$GECICI/once.json"
+            if [ "$kod" = "401" ] || [ "$kod" = "403" ]; then
+              ozet "Erişim anahtarı geçersiz, süresi dolmuş ya da bu projede **Auth** izni yok."
+            fi
+            exit 1
+          fi
+          goster "$GECICI/once.json" > "$RAPOR/02-once.json"
+
+          # 2) Yaz
+          jq -n --arg konu "$KONU" --rawfile sablon "$SABLON" --arg site "$SITE" \
+            '{mailer_subjects_recovery: $konu, mailer_templates_recovery_content: $sablon,
+              mailer_otp_exp: 3600, password_min_length: 8, site_url: $site}' > "$GECICI/yeni.json"
+          kod="$(curl -sS -m 30 -o "$GECICI/yanit.json" -w '%{http_code}' -X PATCH \
+            -H "Authorization: Bearer $SUPABASE_ERISIM" -H "Content-Type: application/json" \
+            --data-binary @"$GECICI/yeni.json" "$API" || echo 000)"
+          if [ "$kod" != "200" ]; then
+            hata_yaz "Ayarları yazma" "$kod" "$GECICI/yanit.json"
+            exit 1
+          fi
+
+          # 3) Sonraki hâli oku ve denetle
+          kod="$(oku "$GECICI/sonra.json")"
+          if [ "$kod" != "200" ]; then
+            hata_yaz "Ayarları yeniden okuma" "$kod" "$GECICI/sonra.json"
+            exit 1
+          fi
+          goster "$GECICI/sonra.json" > "$RAPOR/03-sonra.json"
+          sorun=0
+          denet() {
+            if jq -e "$2" "$RAPOR/03-sonra.json" > /dev/null; then
+              echo "✓ $1" >> "$RAPOR/04-denetim.txt"; ozet "- ✓ $1"
+            else
+              echo "✗ $1" >> "$RAPOR/04-denetim.txt"; ozet "- ✗ $1"; sorun=1
+            fi
+          }
+          : > "$RAPOR/04-denetim.txt"
+          denet "Şifre sıfırlama e-postasında kod var" '.sifirlama_sablonunda_kod_var == true'
+          denet "E-posta konusu Türkçe" ".mailer_subjects_recovery == \"$KONU\""
+          denet "Kayıtta onay e-postası kapalı" '.onay_epostasi_kapali == true'
+          denet "Gmail SMTP tanımlı (smtp.gmail.com)" '.smtp_host == "smtp.gmail.com"'
+          denet "En kısa şifre 8 karakter" '.password_min_length == 8'
+          denet "Kod süresi 1 saat" '.mailer_otp_exp == 3600'
+          if [ "$sorun" = 1 ]; then
+            echo "::error::Bazı denetimler geçmedi (supabase-raporu → 04-denetim.txt)."
+            exit 1
+          fi

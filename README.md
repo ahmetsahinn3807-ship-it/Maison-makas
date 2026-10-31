@@ -108,6 +108,11 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
   Şablon: `supabase/eposta/sifre-sifirlama.html` → Authentication → Emails → **Reset password** (içinde `{{ .Token }}`).
 - Supabase'in kendi e-posta servisi yalnız proje ekibine ve saatte 2 e-posta gönderir; bu yüzden
   **özel SMTP** (Gmail uygulama şifresi: `smtp.gmail.com`, port 465) tanımlıdır.
+- Panelde telefondan düzenlemesi zor ayarlar (şifre sıfırlama e-postasının konusu ve şablonu, kod süresi 1 saat,
+  en kısa şifre 8, site adresi) **Actions → Supabase ayarlari** ile API üzerinden yazılır ve denetlenir
+  (kaynak: `ci/supabase.yml`, GitHub'da `.github/workflows/supabase.yml`). Sır: `SUPABASE_ERISIM`, yalnız bu projeye
+  ve yalnız **Auth** iznine sahip, kısa süreli bir Supabase erişim anahtarı. Sonuç `supabase-raporu` dalında;
+  SMTP şifresi rapora yazılmaz.
 
 ### Ekip ve çalışma saatleri
 

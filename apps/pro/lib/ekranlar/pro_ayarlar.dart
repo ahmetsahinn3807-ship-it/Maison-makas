@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
 
 import '../salon.dart';
 import 'salon_bilgileri_ekrani.dart';
+import 'salon_qr_ekrani.dart';
 
 /// Makas Pro ayarları: salonu yayına alma, çıkış ve hesap silme.
 class ProAyarlar extends StatefulWidget {
@@ -169,6 +170,46 @@ class _ProAyarlarState extends State<ProAyarlar> {
                             ),
                             Text(
                               dl('Tanıtım, adres, telefon, hazırlık ve iptal süresi', 'About, address, phone, preparation and cancellation time'),
+                              style: maisonGovde(13, renk: r.soluk, yukseklik: 1.35),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Icon(Icons.chevron_right, color: r.soluk),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Material(
+              color: r.kart,
+              borderRadius: BorderRadius.circular(18),
+              clipBehavior: Clip.antiAlias,
+              child: InkWell(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => SalonQrEkrani(salon: widget.salon),
+                  ),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: r.cizgi),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              dl('Randevu QR kodu', 'Booking QR code'),
+                              style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
+                            ),
+                            Text(
+                              dl('Müşteriler okutup salondan randevu alır', 'Customers scan it to book with your salon'),
                               style: maisonGovde(13, renk: r.soluk, yukseklik: 1.35),
                             ),
                           ],

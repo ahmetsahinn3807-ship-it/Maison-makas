@@ -13,6 +13,7 @@ dependencies:
   makas_core:
     path: ../../packages/makas_core
   supabase_flutter: ^2.18.0
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

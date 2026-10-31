@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Randevu · Maison Makas</title>
+<style>
+  :root {
+    --zemin: #0e0e10;
+    --kart: #17171b;
+    --girdi: #101013;
+    --cizgi: #2a2a2e;
+    --yazi: #f3ede2;
+    --soluk: #a39c90;
+    --vurgu: #c9a96e;
+    --hata-zemin: #2a1714;
+    --hata-cizgi: #5a2a22;
+    --hata-yazi: #f3c4b8;
+  }
+  body { margin: 0; background: var(--zemin); color: var(--yazi); font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.5; }
+  main { max-width: 520px; margin: 0 auto; padding: 20px 16px 56px; }
+  .marka { letter-spacing: 4px; font-size: 12px; color: var(--vurgu); margin: 4px 0 12px; }
+  h1 { font-family: Georgia, 'Times New Roman', serif; font-weight: 500; font-size: 30px; line-height: 1.15; margin: 0 0 6px; }
+  .soluk { color: var(--soluk); font-size: 13px; line-height: 1.45; }
+  .kart { background: var(--kart); border: 1px solid var(--cizgi); border-radius: 16px; padding: 16px; margin: 14px 0; }
+  .baslik { font-size: 12px; letter-spacing: 2px; color: var(--vurgu); margin: 0 0 10px; }
+  .liste { display: flex; flex-direction: column; gap: 8px; }
+  .secenek { display: flex; align-items: center; gap: 12px; padding: 12px; min-height: 52px; border: 1px solid var(--cizgi); border-radius: 12px; cursor: pointer; }
+  .secenek:has(input:checked) { border-color: var(--vurgu); }
+  .secenek input { accent-color: var(--vurgu); width: 20px; height: 20px; margin: 0; flex: none; }
+  .secenek .ad { flex: 1; }
+  .secenek .not { color: var(--soluk); font-size: 13px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: transparent; color: var(--yazi); border: 1px solid var(--cizgi); border-radius: 999px; padding: 10px 14px; min-height: 44px; font: inherit; cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--vurgu); color: #0e0e10; border-color: var(--vurgu); font-weight: 700; }
+  .chip:disabled { opacity: .35; cursor: not-allowed; }
+  input.metin, textarea.metin { width: 100%; background: var(--girdi); border: 1px solid var(--cizgi); color: var(--yazi); border-radius: 12px; padding: 14px; font: inherit; font-size: 16px; min-height: 52px; box-sizing: border-box; }
+  textarea.metin { min-height: 80px; resize: vertical; }
+  .alan { margin-top: 12px; }
+  .alan label { display: block; font-size: 12px; letter-spacing: 1.5px; color: var(--soluk); margin-bottom: 6px; }
+  .dugme { width: 100%; min-height: 56px; background: var(--vurgu); color: #0e0e10; border: 0; border-radius: 14px; font: inherit; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 14px; }
+  .dugme:disabled { opacity: .5; cursor: default; }
+  .hata { background: var(--hata-zemin); border: 1px solid var(--hata-cizgi); color: var(--hata-yazi); border-radius: 12px; padding: 12px 14px; margin: 14px 0 0; }
+  .ozet { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 14px; margin: 0; }
+  .ozet dt { color: var(--soluk); }
+  .ozet dd { margin: 0; }
+  a { color: var(--vurgu); }
+  .adim { margin-top: 26px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="marka">MAISON MAKAS</p>
+  <h1 id="salonAd">Randevu</h1>
+  <div id="uyg" aria-live="polite"></div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var SB = 'https://fhxwtfefinoaetlpxbpr.supabase.co';
+  var KEY = 'sb_publishable_DL9ZhXeclsp_eI3MrMK9cQ_-dgK5Pdy';
+  var TZ = 'Europe/Istanbul';
+  var GUN_SAYISI = 14;
+  var kok = document.getElementById('uyg');
+
+  var fmtSaat = new Intl.DateTimeFormat('tr-TR', { timeZone: TZ, hour: '2-digit', minute: '2-digit' });
+  var fmtTarih = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' });
+
+  var S = {
+    yukleniyor: true,
+    hata: null,
+    salon: null,
+    hizmetler: [],
+    ustalar: [],
+    hizmetIdler: [],
+    usta: '',
+    slotlar: [],
+    slotYukleniyor: false,
+    sorgu: 0,
+    gun: '',
+    saat: '',
+    ad: '',
+    tel: '',
+    not: '',
+    gonderiliyor: false,
+    tamam: false
+  };
+
+  // ------------------------------------------------------------ yardımcılar
+
+  function el(tag, props) {
+    var e = document.createElement(tag);
+    for (var k in (props || {})) {
+      var v = props[k];
+      if (v === undefined || v === null || v === false) { continue; }
+      if (k === 'text') { e.textContent = v; }
+      else if (k === 'value') { e.value = v; }
+      else if (k === 'checked') { e.checked = !!v; }
+      else if (k === 'disabled') { e.disabled = !!v; }
+      else if (k === 'onclick') { e.addEventListener('click', v); }
+      else if (k === 'oninput') { e.addEventListener('input', v); }
+      else if (k === 'onchange') { e.addEventListener('change', v); }
+      else { e.setAttribute(k, v === true ? '' : String(v)); }
+    }
+    for (var i = 2; i < arguments.length; i++) {
+      var c = arguments[i];
+      if (c === null || c === undefined || c === false) { continue; }
+      e.append(typeof c === 'string' ? document.createTextNode(c) : c);
+    }
+    return e;
+  }
+
+  function tl(n) {
+    return Number(n).toLocaleString('tr-TR', { style: 'currency', currency: 'TRY', maximumFractionDigits: 0 });
+  }
+
+  function bugunTarih() { return fmtTarih.format(new Date()); }
+
+  function tarihEkle(t, n) {
+    var p = t.split('-').map(Number);
+    return new Date(Date.UTC(p[0], p[1] - 1, p[2] + n)).toISOString().slice(0, 10);
+  }
+
+  function gunEtiketi(t, i) {
+    if (i === 0) { return 'Bugün'; }
+    if (i === 1) { return 'Yarın'; }
+    return new Date(t + 'T12:00:00+03:00').toLocaleDateString('tr-TR', { timeZone: TZ, weekday: 'long', day: 'numeric', month: 'long' });
+  }
+
+  function hataCevir(v, kod) {
+    var m = (v && typeof v === 'object' && (v.message || v.msg || v.error_description || v.error)) || '';
+    if (m) { return m; }
+    return 'Bir sorun oluştu (hata kodu ' + kod + '). Tekrar dene.';
+  }
+
+  function istek(yol, o) {
+    o = o || {};
+    var h = { apikey: KEY, Authorization: 'Bearer ' + KEY };
+    var init = { method: o.metod || 'GET', headers: h };
+    if (o.govde !== undefined) {
+      h['Content-Type'] = 'application/json';
+      init.body = JSON.stringify(o.govde);
+    }
+    return fetch(SB + yol, init).then(function (r) {
+      return r.text().then(function (metin) {
+        var v = null;
+        try { v = metin ? JSON.parse(metin) : null; } catch (e) { v = metin; }
+        if (!r.ok) { throw new Error(hataCevir(v, r.status)); }
+        return v;
+      });
+    }, function () {
+      throw new Error('Bağlantı kurulamadı. İnternetini kontrol edip tekrar dene.');
+    });
+  }
+
+  // ------------------------------------------------------------ veri
+
+  function yukle() {
+    var s = new URLSearchParams(location.search).get('s') || '';
+    if (!/^[a-z0-9][a-z0-9-]{1,38}[a-z0-9]$/.test(s)) {
+      S.hata = 'Bu bağlantı geçersiz. Salonun QR kodunu yeniden okut.';
+      S.yukleniyor = false;
+      return ciz();
+    }
+    istek('/rest/v1/salonlar?kisa_ad=eq.' + encodeURIComponent(s) +
+      '&yayinda=eq.true&select=id,ad,aciklama,telefon,adres,ilce,sehir,ucretsiz_iptal_dk')
+      .then(function (sa) {
+        if (!sa.length) {
+          S.hata = 'Bu salon şu anda randevu almıyor.';
+          return null;
+        }
+        S.salon = sa[0];
+        document.getElementById('salonAd').textContent = S.salon.ad;
+        document.title = S.salon.ad + ' · Randevu';
+        return Promise.all([
+          istek('/rest/v1/hizmetler?salon_id=eq.' + S.salon.id + '&aktif=eq.true&select=id,ad,sure_dk,fiyat,kategori&order=sira.asc'),
+          istek('/rest/v1/ustalar?salon_id=eq.' + S.salon.id + '&aktif=eq.true&select=id,ad,unvan&order=sira.asc')
+        ]).then(function (sonuc) {
+          S.hizmetler = sonuc[0];
+          S.ustalar = sonuc[1];
+        });
+      })
+      .catch(function (e) { S.hata = e.message; })
+      .then(function () {
+        S.yukleniyor = false;
+        ciz();
+      });
+  }
+
+  function slotlariGetir() {
+    var no = ++S.sorgu;
+    S.slotlar = [];
+    S.gun = '';
+    S.saat = '';
+    if (!S.hizmetIdler.length) { return ciz(); }
+    S.slotYukleniyor = true;
+    S.hata = null;
+    ciz();
+    istek('/rest/v1/rpc/musait_saatler', {
+      metod: 'POST',
+      govde: {
+        p_salon: S.salon.id,
+        p_bas: bugunTarih(),
+        p_gun_sayisi: GUN_SAYISI,
+        p_hizmetler: S.hizmetIdler,
+        p_usta: S.usta || null
+      }
+    }).then(function (satirlar) {
+      if (no !== S.sorgu) { return; }
+      S.slotlar = satirlar || [];
+    }).catch(function (e) {
+      if (no !== S.sorgu) { return; }
+      S.hata = e.message;
+    }).then(function () {
+      if (no !== S.sorgu) { return; }
+      S.slotYukleniyor = false;
+      ciz();
+    });
+  }
+
+  // gün -> saat (iso) -> usta_id; aynı saatte birden çok usta varsa ilki
+  function takvim() {
+    var harita = {};
+    S.slotlar.forEach(function (s) {
+      var gun = fmtTarih.format(new Date(s.baslangic));
+      if (!harita[gun]) { harita[gun] = {}; }
+      if (!harita[gun][s.baslangic]) { harita[gun][s.baslangic] = s.usta_id; }
+    });
+    return harita;
+  }
+
+  function secilenHizmetler() {
+    return S.hizmetler.filter(function (h) { return S.hizmetIdler.indexOf(h.id) !== -1; });
+  }
+
+  function toplamFiyat() {
+    return secilenHizmetler().reduce(function (t, h) { return t + Number(h.fiyat); }, 0);
+  }
+
+  function ustaAdi(id) {
+    var u = S.ustalar.filter(function (x) { return x.id === id; })[0];
+    return u ? u.ad : '';
+  }
+
+  function randevuOnayla() {
+    var harita = takvim();
+    var ustaId = harita[S.gun] && harita[S.gun][S.saat];
+    if (!ustaId) {
+      S.hata = 'Önce gün ve saat seç.';
+      S.saat = '';
+      return ciz();
+    }
+    if (S.ad.trim().length < 2) { S.hata = 'Adını yaz (en az 2 harf).'; return ciz(); }
+    if (S.tel.replace(/\D/g, '').length < 10) { S.hata = 'Telefon numaranı yaz (örnek: 0532 123 45 67).'; return ciz(); }
+
+    S.gonderiliyor = true;
+    S.hata = null;
+    ciz();
+    istek('/rest/v1/rpc/qr_randevu_al', {
+      metod: 'POST',
+      govde: {
+        p_salon: S.salon.id,
+        p_baslangic: S.saat,
+        p_hizmetler: S.hizmetIdler,
+        p_usta: ustaId,
+        p_ad: S.ad.trim(),
+        p_tel: S.tel.trim(),
+        p_not: S.not.trim() || null
+      }
+    }).then(function () {
+      S.tamam = true;
+    }).catch(function (e) {
+      S.hata = e.message;
+      // Saat dolmuş olabilir: boş saatleri yeniden al, kullanıcı başka saat seçsin.
+      if (/boş değil|doldu|bulunamadı/i.test(e.message)) { S.saat = ''; slotlariGetir(); }
+    }).then(function () {
+      S.gonderiliyor = false;
+      ciz();
+    });
+  }
+
+  // ------------------------------------------------------------ görünüm
+
+  function salonKarti() {
+    var s = S.salon;
+    var konum = [s.ilce, s.sehir].filter(Boolean).join(' / ');
+    return el('section', { class: 'kart' },
+      s.adres ? el('p', { text: s.adres, class: 'soluk', style: 'margin:0 0 4px' }) : null,
+      konum ? el('p', { text: konum, class: 'soluk', style: 'margin:0 0 4px' }) : null,
+      s.telefon ? el('p', { class: 'soluk', style: 'margin:0' }, el('a', { href: 'tel:' + s.telefon.replace(/\s/g, ''), text: s.telefon })) : null,
+      s.aciklama ? el('p', { text: s.aciklama, style: 'margin:12px 0 0' }) : null
+    );
+  }
+
+  function hizmetBolumu() {
+    var kutu = el('div', { class: 'liste' });
+    S.hizmetler.forEach(function (h) {
+      var secili = S.hizmetIdler.indexOf(h.id) !== -1;
+      var onay = el('input', {
+        type: 'checkbox',
+        checked: secili,
+        onchange: function () {
+          var i = S.hizmetIdler.indexOf(h.id);
+          if (i === -1) { S.hizmetIdler.push(h.id); } else { S.hizmetIdler.splice(i, 1); }
+          slotlariGetir();
+        }
+      });
+      kutu.append(el('label', { class: 'secenek' }, onay,
+        el('span', { class: 'ad' }, h.ad, el('span', { class: 'not' }, ' · ' + h.sure_dk + ' dk')),
+        el('span', { text: tl(h.fiyat) })
+      ));
+    });
+    if (!S.hizmetler.length) {
+      kutu.append(el('p', { class: 'soluk', text: 'Bu salonda henüz hizmet tanımlanmamış.' }));
+    }
+    return el('section', { class: 'kart' }, el('p', { class: 'baslik', text: '1 · HİZMET' }), kutu);
+  }
+
+  function ustaBolumu() {
+    var kutu = el('div', { class: 'chips' });
+    var secenekler = [{ id: '', ad: 'Fark etmez' }].concat(S.ustalar.map(function (u) {
+      return { id: u.id, ad: u.ad + (u.unvan ? ' · ' + u.unvan : '') };
+    }));
+    secenekler.forEach(function (o) {
+      kutu.append(el('button', {
+        class: 'chip',
+        type: 'button',
+        'aria-pressed': S.usta === o.id ? 'true' : 'false',
+        text: o.ad,
+        onclick: function () {
+          if (S.usta === o.id) { return; }
+          S.usta = o.id;
+          slotlariGetir();
+        }
+      }));
+    });
+    return el('section', { class: 'kart' }, el('p', { class: 'baslik', text: '2 · USTA' }), kutu);
+  }
+
+  function zamanBolumu() {
+    var kart = el('section', { class: 'kart' }, el('p', { class: 'baslik', text: '3 · GÜN VE SAAT' }));
+    if (!S.hizmetIdler.length) {
+      kart.append(el('p', { class: 'soluk', text: 'Önce bir hizmet seç.' }));
+      return kart;
+    }
+    if (S.slotYukleniyor) {
+      kart.append(el('p', { class: 'soluk', text: 'Boş saatler aranıyor…' }));
+      return kart;
+    }
+    var harita = takvim();
+    var bugun = bugunTarih();
+    var gunKutu = el('div', { class: 'chips' });
+    for (var i = 0; i < GUN_SAYISI; i++) {
+      (function (t, idx) {
+        var bos = harita[t] ? Object.keys(harita[t]).length : 0;
+        gunKutu.append(el('button', {
+          class: 'chip',
+          type: 'button',
+          disabled: bos === 0,
+          'aria-pressed': S.gun === t ? 'true' : 'false',
+          text: gunEtiketi(t, idx),
+          onclick: function () {
+            S.gun = t;
+            S.saat = '';
+            ciz();
+          }
+        }));
+      })(tarihEkle(bugun, i), i);
+    }
+    kart.append(gunKutu);
+    if (!S.slotlar.length) {
+      kart.append(el('p', { class: 'soluk', text: 'Önümüzdeki 14 günde boş saat yok. Başka bir hizmet ya da usta dene.' }));
+    }
+    if (S.gun && harita[S.gun]) {
+      var saatler = Object.keys(harita[S.gun]).sort();
+      var saatKutu = el('div', { class: 'chips', style: 'margin-top:12px' });
+      saatler.forEach(function (iso) {
+        saatKutu.append(el('button', {
+          class: 'chip',
+          type: 'button',
+          'aria-pressed': S.saat === iso ? 'true' : 'false',
+          text: fmtSaat.format(new Date(iso)),
+          onclick: function () {
+            S.saat = iso;
+            ciz();
+          }
+        }));
+      });
+      kart.append(saatKutu);
+    }
+    return kart;
+  }
+
+  function ozetBolumu() {
+    var kart = el('section', { class: 'kart' }, el('p', { class: 'baslik', text: '4 · BİLGİLERİN' }));
+    if (!S.gun || !S.saat) {
+      kart.append(el('p', { class: 'soluk', text: 'Gün ve saat seçince özet ve formu burada göreceksin.' }));
+      return kart;
+    }
+    var ustaId = takvim()[S.gun][S.saat];
+    kart.append(el('dl', { class: 'ozet' },
+      el('dt', { text: 'Hizmet' }), el('dd', { text: secilenHizmetler().map(function (h) { return h.ad; }).join(', ') }),
+      el('dt', { text: 'Usta' }), el('dd', { text: ustaAdi(ustaId) }),
+      el('dt', { text: 'Zaman' }), el('dd', { text: gunEtiketi(S.gun, -1) + ', saat ' + fmtSaat.format(new Date(S.saat)) }),
+      el('dt', { text: 'Toplam' }), el('dd', { text: tl(toplamFiyat()) })
+    ));
+
+    kart.append(el('div', { class: 'alan' },
+      el('label', { text: 'ADIN SOYADIN' }),
+      el('input', { class: 'metin', type: 'text', autocomplete: 'name', placeholder: 'Ad Soyad', value: S.ad, maxlength: 80, oninput: function (e) { S.ad = e.target.value; } })
+    ));
+    kart.append(el('div', { class: 'alan' },
+      el('label', { text: 'TELEFON' }),
+      el('input', { class: 'metin', type: 'tel', inputmode: 'tel', autocomplete: 'tel', placeholder: '0532 123 45 67', value: S.tel, maxlength: 20, oninput: function (e) { S.tel = e.target.value; } })
+    ));
+    kart.append(el('div', { class: 'alan' },
+      el('label', { text: 'NOT (İSTEĞE BAĞLI)' }),
+      el('textarea', { class: 'metin', maxlength: 300, value: S.not, oninput: function (e) { S.not = e.target.value; } })
+    ));
+    kart.append(el('p', { class: 'soluk', style: 'margin-top:10px', text: 'Randevunu bu telefon numarasıyla salon takip eder. Değişiklik ya da iptal için salonu ara.' }));
+    kart.append(el('button', { class: 'dugme', type: 'button', disabled: S.gonderiliyor, text: S.gonderiliyor ? 'Gönderiliyor…' : 'Randevuyu onayla', onclick: randevuOnayla }));
+    return kart;
+  }
+
+  function tamamKarti() {
+    return el('section', { class: 'kart' },
+      el('p', { class: 'baslik', text: 'RANDEVUN ALINDI' }),
+      el('p', { text: S.salon.ad + ' salonunda ' + gunEtiketi(S.gun, -1) + ', saat ' + fmtSaat.format(new Date(S.saat)) + ' için randevun kaydedildi.' }),
+      S.salon.telefon ? el('p', { class: 'soluk', style: 'margin:10px 0 0' }, 'Değişiklik için salonu ara: ', el('a', { href: 'tel:' + S.salon.telefon.replace(/\s/g, ''), text: S.salon.telefon })) : null
+    );
+  }
+
+  function ciz() {
+    kok.replaceChildren();
+    if (S.yukleniyor) {
+      kok.append(el('p', { class: 'soluk', text: 'Yükleniyor…' }));
+      return;
+    }
+    if (!S.salon) {
+      kok.append(el('div', { class: 'hata', text: S.hata || 'Salon bulunamadı.' }));
+      return;
+    }
+    if (S.tamam) {
+      kok.append(tamamKarti());
+      return;
+    }
+    kok.append(salonKarti());
+    kok.append(el('div', { class: 'adim' }, hizmetBolumu()));
+    kok.append(el('div', { class: 'adim' }, ustaBolumu()));
+    kok.append(el('div', { class: 'adim' }, zamanBolumu()));
+    kok.append(el('div', { class: 'adim' }, ozetBolumu()));
+    if (S.hata) {
+      kok.append(el('div', { class: 'hata', role: 'alert', text: S.hata }));
+    }
+  }
+
+  yukle();
+})();
+</script>
+</body>
+</html>
