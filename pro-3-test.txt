@@ -1,0 +1,10 @@
+
+::group::✅ Passing tests
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/pro/test/surum_test.dart: Ayarlarda yazan sürüm pubspec.yaml ile aynı
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/pro/test/widget_test.dart: Pro tanıtımı açılır, giriş ekranına geçilir
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/pro/test/widget_test.dart: Makas Pro İngilizce açılır
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/pro/test/widget_test.dart: Salon kısa adı Türkçe harfleri ve işaretleri temizler
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/pro/test/widget_test.dart: Canlı bildirimdeki randevu aralığının başlangıcı okunur
+::endgroup::
+
+🎉 5 tests passed.

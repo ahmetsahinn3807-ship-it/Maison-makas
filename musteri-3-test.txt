@@ -1,0 +1,36 @@
+
+::group::✅ Passing tests
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Saat ekleri Türkçe ses uyumuna uyar
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Dakika metni okunur ve yazılır
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Hafta özeti aynı saatlerdeki ardışık günleri birleştirir
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Gün denetimi çakışmayı ve ters saati yakalar
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Salonun açık ya da kapalı olduğu salonun yerel saatine göre hesaplanır
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Fiyat Türkçe yazımla okunur
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/saatler_test.dart: Türkçe büyük harf
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/surum_test.dart: Ayarlarda yazan sürüm pubspec.yaml ile aynı
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/dil_test.dart: dl seçili dile göre metin verir
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/dil_test.dart: Tarih, para ve süre biçimleri dile uyar
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/dil_test.dart: Salonun açık/kapalı satırı İngilizcede de kurulur
+::endgroup::
+::group::❌ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/dil_test.dart: Sunucunun her Türkçe hata mesajının İngilizcesi var (failed)
+Expected: empty
+  Actual: [
+            'Bu salon şu anda randevu almıyor.',
+            'Adını yaz (en az 2 harf).',
+            'Telefon numarasını yaz (örnek: 0532 123 45 67).',
+            'Bu saat için randevu alınamıyor. Başka bir saat seç.',
+            'En az bir hizmet seç.',
+            'Bu telefonla bu salonda zaten 3 yaklaşan randevun var. Değişiklik için salonu ara.',
+            'Bu saat artık boş değil. Başka bir saat seç.'
+          ]
+
+package:matcher                                     expect
+package:flutter_test/src/widget_tester.dart 473:18  expect
+test/dil_test.dart 85:5                             main.<fn>
+::endgroup::
+::group::✅ Passing tests
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/widget_test.dart: Açılış markayı gösterir, dil değişir, kayıt ekranı açılır
+✅ /home/runner/work/Maison-makas/Maison-makas/apps/musteri/test/widget_test.dart: Ana kabuk: menü açılır, sekmeler ve görünüm çalışır
+::endgroup::
+
+::error::13 tests passed, 1 failed.
