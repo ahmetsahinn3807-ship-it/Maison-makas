@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:makas_core/makas_core.dart';
@@ -31,6 +33,7 @@ class ProKabuk extends StatefulWidget {
 class _ProKabukState extends State<ProKabuk> with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _iskele = GlobalKey<ScaffoldState>();
   SalonDinleyici? _dinleyici;
+  Timer? _yenilemeZamanlayici;
   bool _onde = true;
   int _bildirimNo = 0;
 
@@ -39,11 +42,18 @@ class _ProKabukState extends State<ProKabuk> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((Duration _) => _canliTakibiBaslat());
+    // Canlı bağlantı bir ara kopsa bile liste en geç bir dakika içinde güncellenir.
+    _yenilemeZamanlayici = Timer.periodic(const Duration(minutes: 1), (Timer _) {
+      if (mounted && _onde) {
+        setState(() => _surum++);
+      }
+    });
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _yenilemeZamanlayici?.cancel();
     _dinleyici?.durdur();
     super.dispose();
   }
@@ -51,6 +61,10 @@ class _ProKabukState extends State<ProKabuk> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState durum) {
     _onde = durum == AppLifecycleState.resumed;
+    if (_onde && mounted) {
+      // Uygulama arka plandan öne gelince listeyi hemen yenile.
+      setState(() => _surum++);
+    }
   }
 
   /// Yeni randevu ve iptaller: uygulama öndeyse ekranda, arkadaysa bildirim olarak.
@@ -76,7 +90,9 @@ class _ProKabukState extends State<ProKabuk> with WidgetsBindingObserver {
           return;
         }
         if (_onde) {
+          // Uygulama açıkken de bildirim gösterilir: ses çalar, kayıt kaçmaz.
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$baslik · $metin')));
+          MaisonBildirim.goster(id: 3000 + (_bildirimNo++ % 50), baslik: baslik, metin: metin);
         } else if (!MaisonPush.etkin) {
           // Uzaktan bildirim kuruluysa telefon onu zaten gösterir; ikinci kez gösterilmez.
           MaisonBildirim.goster(id: 3000 + (_bildirimNo++ % 50), baslik: baslik, metin: metin);

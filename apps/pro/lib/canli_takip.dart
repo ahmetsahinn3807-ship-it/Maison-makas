@@ -69,7 +69,8 @@ class SalonDinleyici {
     if (yeni['tur'] == 'randevu') {
       final String zaman = _zaman(araliginBasi(yeni['aralik']));
       final Object? musteri = yeni['musteri_id'];
-      if (olay.eventType == PostgresChangeEvent.insert && yeni['kaynak'] == 'uygulama') {
+      // Yeni randevu: müşteri uygulamadan ya da salonun QR kodundan (web) aldıysa.
+      if (olay.eventType == PostgresChangeEvent.insert && (yeni['kaynak'] == 'uygulama' || yeni['kaynak'] == 'web')) {
         onBildir(dl('Yeni randevu', 'New booking'), zaman.isEmpty ? dl('Maison Makas\'tan yeni bir randevu alındı.', 'A new booking came in from Maison Makas.') : zaman);
       } else if (olay.eventType == PostgresChangeEvent.update &&
           yeni['durum'] == 'iptal' &&
