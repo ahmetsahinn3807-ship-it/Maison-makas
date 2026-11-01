@@ -316,7 +316,7 @@ class _HizmetlerEkraniState extends State<HizmetlerEkrani> {
           const SizedBox(height: 8),
           Text(
             _sahibim
-                ? dl('Müşteriler randevu alırken bu menüden seçer. Hazır berber menüsünden seçip yalnız fiyatları yazabilirsin.', 'Customers choose from this menu when booking. You can pick from the ready-made barber menu and just enter prices.')
+                ? dl('Müşteriler randevu alırken bu menüden seçer. Hazır menüden (berber ya da bayan) seçip yalnız fiyatları yazabilirsin.', 'Customers choose from this menu when booking. You can pick from the ready-made barber or women menu and just enter prices.')
                 : dl('Salon sahibi hizmet ekledikçe burada görünecek.', 'Services will appear here as the salon owner adds them.'),
             style: maisonGovde(14, renk: r.soluk, yukseklik: 1.5),
           ),
@@ -741,6 +741,24 @@ class _HazirMenuState extends State<_HazirMenu> {
   final Set<int> _secili = <int>{};
   String? _uyari;
 
+  /// false: berber menüsü, true: bayan menüsü.
+  bool _bayan = false;
+
+  List<HizmetSablonu> get _liste => _bayan ? HizmetSablonu.bayan : HizmetSablonu.berber;
+
+  void _sekmeDegistir(bool bayan) {
+    if (_bayan == bayan) {
+      return;
+    }
+    // Liste değişince indeksler de değişir; seçimler ve fiyat alanları sıfırlanır.
+    setState(() {
+      _bayan = bayan;
+      _secili.clear();
+      _fiyatlar.clear();
+      _uyari = null;
+    });
+  }
+
   @override
   void dispose() {
     for (final TextEditingController k in _fiyatlar.values) {
@@ -758,7 +776,7 @@ class _HazirMenuState extends State<_HazirMenu> {
     }
     final List<HizmetTaslagi> taslaklar = <HizmetTaslagi>[];
     for (final int i in _secili.toList()..sort()) {
-      final HizmetSablonu s = HizmetSablonu.berber[i];
+      final HizmetSablonu s = _liste[i];
       final double? fiyat = maisonFiyatOku(_fiyat(i).text);
       if (fiyat == null) {
         setState(() => _uyari = dl('${s.ad} için fiyat yaz.', 'Enter a price for ${s.ad}.'));
@@ -793,13 +811,31 @@ class _HazirMenuState extends State<_HazirMenu> {
                   style: maisonGovde(13, renk: r.soluk, yukseklik: 1.45),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                child: Wrap(
+                  spacing: 8,
+                  children: <Widget>[
+                    ChoiceChip(
+                      label: Text(dl('Berber', 'Barber')),
+                      selected: !_bayan,
+                      onSelected: (bool _) => _sekmeDegistir(false),
+                    ),
+                    ChoiceChip(
+                      label: Text(dl('Bayan', 'Women')),
+                      selected: _bayan,
+                      onSelected: (bool _) => _sekmeDegistir(true),
+                    ),
+                  ],
+                ),
+              ),
               Flexible(
                 child: ListView.builder(
                   shrinkWrap: true,
                   padding: const EdgeInsets.fromLTRB(12, 0, 20, 8),
-                  itemCount: HizmetSablonu.berber.length,
+                  itemCount: _liste.length,
                   itemBuilder: (BuildContext context, int i) {
-                    final HizmetSablonu s = HizmetSablonu.berber[i];
+                    final HizmetSablonu s = _liste[i];
                     final bool menudeVar = widget.mevcut.contains(s.ad.toLowerCase());
                     final bool secili = _secili.contains(i);
                     return Padding(

@@ -201,6 +201,27 @@ class HizmetSablonu {
     HizmetSablonu('Çocuk saç kesimi', "Kids' haircut", HizmetKategorisi.cocuk, 20),
     HizmetSablonu('Damat tıraşı', 'Groom shave', HizmetKategorisi.diger, 90),
   ];
+
+  /// Bayan kuaför menüsü.
+  static const List<HizmetSablonu> bayan = <HizmetSablonu>[
+    HizmetSablonu('Saç kesimi', 'Haircut', HizmetKategorisi.sac, 60),
+    HizmetSablonu('Saç yıkama ve fön', 'Wash and blow-dry', HizmetKategorisi.sac, 30),
+    HizmetSablonu('Fön ve şekillendirme', 'Styling and blow-dry', HizmetKategorisi.sac, 45),
+    HizmetSablonu('Perma', 'Perm', HizmetKategorisi.sac, 90),
+    HizmetSablonu('Saç boyama (kök)', 'Root colouring', HizmetKategorisi.renk, 60),
+    HizmetSablonu('Saç boyama (komple)', 'Full colouring', HizmetKategorisi.renk, 90),
+    HizmetSablonu('Röfle ve balyaj', 'Highlights and balayage', HizmetKategorisi.renk, 150),
+    HizmetSablonu('Keratin bakımı', 'Keratin treatment', HizmetKategorisi.bakim, 120),
+    HizmetSablonu('Saç bakım maskesi', 'Hair mask treatment', HizmetKategorisi.bakim, 30),
+    HizmetSablonu('Kaş alma', 'Eyebrow shaping', HizmetKategorisi.bakim, 15),
+    HizmetSablonu('Ağda (yüz)', 'Waxing (face)', HizmetKategorisi.bakim, 15),
+    HizmetSablonu('Ağda (bacak)', 'Waxing (legs)', HizmetKategorisi.bakim, 40),
+    HizmetSablonu('Cilt bakımı', 'Skin care', HizmetKategorisi.bakim, 60),
+    HizmetSablonu('Makyaj', 'Makeup', HizmetKategorisi.diger, 45),
+    HizmetSablonu('Gelin saçı ve makyajı', 'Bridal hair and makeup', HizmetKategorisi.diger, 180),
+    HizmetSablonu('Manikür', 'Manicure', HizmetKategorisi.diger, 40),
+    HizmetSablonu('Pedikür', 'Pedicure', HizmetKategorisi.diger, 50),
+  ];
 }
 
 /// Uzmanlık önerileri (usta kartında etiket olarak görünür; seçili dilde).
