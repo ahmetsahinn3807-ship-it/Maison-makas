@@ -83,12 +83,6 @@ class SalonQrEkrani extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: maisonBaslik(24, renk: r.yazi),
               ),
-              const SizedBox(height: 12),
-              SelectableText(
-                baglanti,
-                textAlign: TextAlign.center,
-                style: maisonGovde(13, renk: r.soluk, yukseklik: 1.4),
-              ),
               const SizedBox(height: 20),
               SizedBox(
                 height: 56,
