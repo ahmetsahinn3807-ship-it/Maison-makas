@@ -1,0 +1,4 @@
+play paketi: #6
+durum: basarili
+tarih: 2026-11-01T10:13:49Z
+commit: ad2e31158194d954fb4adf99a98f7ef8b6c2b182

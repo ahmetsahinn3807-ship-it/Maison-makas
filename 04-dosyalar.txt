@@ -1,0 +1,7 @@
+total 138104
+drwxr-xr-x  2 runner runner     4096 Nov  1 10:13 .
+drwxr-xr-x 12 runner runner     4096 Nov  1 10:06 ..
+-rw-r--r--  1 runner runner 12695129 Nov  1 10:11 maison-makas-0.9.0-438367-mapping.txt
+-rw-r--r--  1 runner runner 57063034 Nov  1 10:11 maison-makas-0.9.0-438367.aab
+-rw-r--r--  1 runner runner 12695121 Nov  1 10:13 makas-pro-0.9.0-438367-mapping.txt
+-rw-r--r--  1 runner runner 58945817 Nov  1 10:13 makas-pro-0.9.0-438367.aab
