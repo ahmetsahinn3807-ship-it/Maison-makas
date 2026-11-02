@@ -1,0 +1,552 @@
+--------- beginning of main
+11-02 07:09:22.618 W/Role    (  805): Cannot get ApplicationInfo for default holder: com.android.contacts
+11-02 07:09:22.619 W/Role    (  805): Cannot get ApplicationInfo for default holder: com.android.settings.intelligence
+11-02 07:09:22.621 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:22.621 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:22.622 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 10108
+11-02 07:09:22.623 I/InputReader(  512): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-02 07:09:22.625 I/SafetyLabelChangedBroadcastReceiver(  805): received broadcast packageName: com.maisonmakas.musteri, current user: UserHandle{0}, packageChangeEvent: NEW_INSTALL, intent user: UserHandle{0}
+--------- beginning of system
+11-02 07:09:22.628 W/TextServicesManagerService(  512): no available spell checker services found
+11-02 07:09:22.630 E/DocumentManagerRoleBehavior(  805): There should be exactly one documenter; found 0: matches=[]
+11-02 07:09:22.630 D/CarrierSvcBindHelper(  922): onPackageModified: com.maisonmakas.musteri
+11-02 07:09:22.630 W/Role    (  805): Cannot get ApplicationInfo for default holder: com.android.gallery3d
+11-02 07:09:22.630 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:22.638 W/Searchables(  512): No global search activity found
+11-02 07:09:22.650 W/Searchables(  512): No global search activity found
+11-02 07:09:22.655 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:22.660 W/Role    (  805): Cannot get ApplicationInfo for default holder: com.android.dialer
+11-02 07:09:22.661 W/Role    (  805): Cannot get ApplicationInfo for default holder: com.android.systemui
+11-02 07:09:22.667 I/system_server(  512): Background concurrent copying GC freed 90488(4518KB) AllocSpace objects, 5(100KB) LOS objects, 50% free, 14MB/28MB, paused 7.618ms,30us total 84.991ms
+11-02 07:09:22.668 W/JavaBinder(  512): BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.am.ActivityManagerService$14
+11-02 07:09:22.668 I/BpBinder(  512): onLastStrongRef automatically unlinking death recipients: 
+11-02 07:09:22.668 W/JavaBinder(  512): BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.am.ActivityManagerService$14
+11-02 07:09:22.668 I/BpBinder(  512): onLastStrongRef automatically unlinking death recipients: 
+11-02 07:09:22.693 D/AndroidRuntime( 1834): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-02 07:09:22.695 I/AndroidRuntime( 1834): Using default boot image
+11-02 07:09:22.695 I/AndroidRuntime( 1834): Leaving lock profiling enabled
+11-02 07:09:22.696 I/app_process( 1834): Core platform API reporting enabled, enforcing=false
+11-02 07:09:22.697 I/app_process( 1834): Using CollectorTypeCC GC.
+11-02 07:09:22.774 D/nativeloader( 1834): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-02 07:09:22.782 D/app_process( 1834): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+11-02 07:09:22.782 D/app_process( 1834): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+11-02 07:09:22.786 W/app_process( 1834): Unexpected CPU variant for x86: x86_64.
+11-02 07:09:22.786 W/app_process( 1834): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-02 07:09:22.798 W/libc    ( 1834): Access denied finding property "ro.product.name_for_attestation"
+11-02 07:09:22.799 W/libc    ( 1834): Access denied finding property "ro.product.brand_for_attestation"
+11-02 07:09:22.796 W/main    ( 1834): type=1400 audit(0.0:15): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+--------- beginning of kernel
+11-02 07:09:22.987 W/audit   (    0): audit_lost=1 audit_rate_limit=5 audit_backlog_limit=64
+11-02 07:09:22.991 E/audit   (    0): rate limit exceeded
+11-02 07:09:22.796 W/main    ( 1834): type=1400 audit(0.0:16): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:09:22.807 W/libc    ( 1834): Access denied finding property "ro.product.model_for_attestation"
+11-02 07:09:22.808 D/AndroidRuntime( 1834): Calling main entry com.android.commands.monkey.Monkey
+11-02 07:09:22.809 W/Monkey  ( 1834): args: [-p, com.maisonmakas.musteri, -c, android.intent.category.LAUNCHER, 1]
+11-02 07:09:22.809 W/Monkey  ( 1834):  arg: "-p"
+11-02 07:09:22.809 W/Monkey  ( 1834):  arg: "com.maisonmakas.musteri"
+11-02 07:09:22.809 W/Monkey  ( 1834):  arg: "-c"
+11-02 07:09:22.809 W/Monkey  ( 1834):  arg: "android.intent.category.LAUNCHER"
+11-02 07:09:22.809 W/Monkey  ( 1834):  arg: "1"
+11-02 07:09:22.809 W/Monkey  ( 1834): data="com.maisonmakas.musteri"
+11-02 07:09:22.809 W/Monkey  ( 1834): data="android.intent.category.LAUNCHER"
+11-02 07:09:22.815 W/ActivityManager(  512): registerReceiverWithFeature: no app for null
+11-02 07:09:22.816 W/System  ( 1834): No Compatibility callbacks set! Querying change 263076149
+11-02 07:09:22.816 W/System  ( 1834): No Compatibility callbacks set! Querying change 263076149
+11-02 07:09:22.816 W/System  ( 1834): No Compatibility callbacks set! Querying change 263076149
+11-02 07:09:22.818 D/CompatibilityChangeReporter(  512): Compat change id reported: 161252188; UID 10108; state: DISABLED
+11-02 07:09:22.818 W/ActivityTaskManager(  512): callingPackage for (uid=2000, pid=1834) has no WPC
+11-02 07:09:22.818 D/CompatibilityChangeReporter(  512): Compat change id reported: 244637991; UID 2000; state: ENABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 265464455; UID 10108; state: DISABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 265452344; UID 10108; state: DISABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 266124927; UID 10108; state: DISABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 265451093; UID 10108; state: DISABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 265456536; UID 10108; state: DISABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 255940284; UID 10108; state: DISABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 236283604; UID 10108; state: DISABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 263959004; UID 10108; state: DISABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 264304459; UID 10108; state: DISABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 264301586; UID 10108; state: DISABLED
+11-02 07:09:22.819 D/CompatibilityChangeReporter(  512): Compat change id reported: 254631730; UID 10108; state: DISABLED
+11-02 07:09:22.820 D/CompatibilityChangeReporter(  512): Compat change id reported: 273509367; UID 10108; state: DISABLED
+11-02 07:09:22.820 D/CompatibilityChangeReporter(  512): Compat change id reported: 263259275; UID 10108; state: DISABLED
+11-02 07:09:22.820 D/CompatibilityChangeReporter(  512): Compat change id reported: 174042980; UID 10108; state: DISABLED
+11-02 07:09:22.820 D/CompatibilityChangeReporter(  512): Compat change id reported: 174042936; UID 10108; state: DISABLED
+11-02 07:09:22.820 D/CompatibilityChangeReporter(  512): Compat change id reported: 181136395; UID 10108; state: DISABLED
+11-02 07:09:22.821 D/CompatibilityChangeReporter(  512): Compat change id reported: 194480991; UID 10108; state: ENABLED
+11-02 07:09:22.825 D/CompatibilityChangeReporter(  512): Compat change id reported: 184838306; UID 10108; state: DISABLED
+11-02 07:09:22.825 D/CompatibilityChangeReporter(  512): Compat change id reported: 185004937; UID 10108; state: DISABLED
+11-02 07:09:22.825 D/CompatibilityChangeReporter(  512): Compat change id reported: 197654537; UID 10108; state: ENABLED
+11-02 07:09:22.826 D/CompatibilityChangeReporter(  512): Compat change id reported: 205907456; UID 10108; state: ENABLED
+11-02 07:09:22.826 D/CompatibilityChangeReporter(  512): Compat change id reported: 194833441; UID 10108; state: ENABLED
+11-02 07:09:22.826 I/ActivityTaskManager(  512): START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.maisonmakas.musteri/.MainActivity} with LAUNCH_SINGLE_TOP from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+11-02 07:09:22.826 D/CompatibilityChangeReporter(  512): Compat change id reported: 135634846; UID 10108; state: DISABLED
+11-02 07:09:22.827 D/CompatibilityChangeReporter(  512): Compat change id reported: 143937733; UID 10108; state: ENABLED
+11-02 07:09:22.828 I/Monkey  ( 1834): Events injected: 1
+11-02 07:09:22.829 I/Monkey  ( 1834): ## Network stats: elapsed time=12ms (0ms mobile, 0ms wifi, 12ms not connected)
+11-02 07:09:22.830 D/CompatibilityChangeReporter(  512): Compat change id reported: 265195908; UID 10108; state: ENABLED
+11-02 07:09:22.832 I/app_process( 1834): System.exit called, status: 0
+11-02 07:09:22.832 I/AndroidRuntime( 1834): VM exiting with result code 0.
+11-02 07:09:22.839 D/Zygote  (  331): Forked child process 1849
+11-02 07:09:22.839 I/ActivityManager(  512): Start proc 1849:com.maisonmakas.musteri/u0a108 for next-top-activity {com.maisonmakas.musteri/com.maisonmakas.musteri.MainActivity}
+11-02 07:09:22.849 I/BpBinder(  396): onLastStrongRef automatically unlinking death recipients: 
+11-02 07:09:22.875 I/onmakas.musteri( 1849): Using CollectorTypeCC GC.
+11-02 07:09:22.875 W/onmakas.musteri( 1849): Unexpected CPU variant for x86: x86_64.
+11-02 07:09:22.875 W/onmakas.musteri( 1849): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-02 07:09:22.876 E/onmakas.musteri( 1849): Not starting debugger since process cannot load the jdwp agent.
+11-02 07:09:22.880 D/CompatibilityChangeReporter( 1849): Compat change id reported: 171979766; UID 10108; state: ENABLED
+11-02 07:09:22.880 D/CompatibilityChangeReporter( 1849): Compat change id reported: 242716250; UID 10108; state: ENABLED
+11-02 07:09:22.882 D/CompatibilityChangeReporter(  512): Compat change id reported: 170503758; UID 10108; state: ENABLED
+11-02 07:09:22.883 D/ApplicationLoaders( 1849): Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+11-02 07:09:22.883 D/ApplicationLoaders( 1849): Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+11-02 07:09:22.884 D/nativeloader( 1849): Configuring clns-6 for other apk /data/app/~~pOFYUEfiZCTZ4cqF7mzq8g==/com.maisonmakas.musteri-InqQLOnHijAbn8Rh5yPTkg==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~pOFYUEfiZCTZ4cqF7mzq8g==/com.maisonmakas.musteri-InqQLOnHijAbn8Rh5yPTkg==/lib/x86_64:/data/app/~~pOFYUEfiZCTZ4cqF7mzq8g==/com.maisonmakas.musteri-InqQLOnHijAbn8Rh5yPTkg==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.maisonmakas.musteri
+11-02 07:09:22.886 V/GraphicsEnvironment( 1849): Currently set values for:
+11-02 07:09:22.886 V/GraphicsEnvironment( 1849):   angle_gl_driver_selection_pkgs=[]
+11-02 07:09:22.886 V/GraphicsEnvironment( 1849):   angle_gl_driver_selection_values=[]
+11-02 07:09:22.886 V/GraphicsEnvironment( 1849): ANGLE GameManagerService for com.maisonmakas.musteri: false
+11-02 07:09:22.887 V/GraphicsEnvironment( 1849): com.maisonmakas.musteri is not listed in per-application setting
+11-02 07:09:22.887 V/GraphicsEnvironment( 1849): Neither updatable production driver nor prerelease driver is supported.
+11-02 07:09:22.888 D/CompatibilityChangeReporter( 1849): Compat change id reported: 183155436; UID 10108; state: ENABLED
+11-02 07:09:22.889 I/FirebaseApp( 1849): Device unlocked: initializing all Firebase APIs for app [DEFAULT]
+11-02 07:09:22.890 I/FirebaseInitProvider( 1849): FirebaseApp initialization successful
+11-02 07:09:22.890 D/FLTFireContextHolder( 1849): received application context.
+11-02 07:09:22.891 W/GooglePlayServicesUtil( 1849): com.maisonmakas.musteri requires the Google Play Store, but it is missing.
+11-02 07:09:22.891 W/GoogleApiManager( 1849): The service for oi0 is not available: x8{statusCode=SERVICE_INVALID, resolution=null, message=null, clientMethodKey=null}
+11-02 07:09:22.905 I/ActivityManager(  512): Flag disabled. Ignoring finishAttachApplication from uid: 10108. pid: 1849
+11-02 07:09:22.906 W/Metadata( 1849): Failed to find package android.content.pm.PackageManager$NameNotFoundException: com.google.android.gms
+11-02 07:09:22.906 E/FirebaseMessaging( 1849): Google Play services missing or without correct permission.
+11-02 07:09:22.910 D/libEGL  ( 1849): loaded /vendor/lib64/egl/libEGL_emulation.so
+11-02 07:09:22.916 D/libEGL  ( 1849): loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+11-02 07:09:22.917 D/libEGL  ( 1849): loaded /vendor/lib64/egl/libGLESv2_emulation.so
+11-02 07:09:22.917 D/skia    ( 1849): [SkFontMgr Android Parser] '/product/etc/fonts_customization.xml' could not be opened
+11-02 07:09:22.940 D/FLTFireContextHolder( 1849): received application context.
+11-02 07:09:22.943 I/flutter ( 1849): [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+11-02 07:09:22.948 D/CompatibilityChangeReporter( 1849): Compat change id reported: 237531167; UID 10108; state: DISABLED
+11-02 07:09:22.949 W/OpenGLRenderer( 1849): Unknown dataspace 0
+11-02 07:09:22.960 D/CoreBackPreview(  512): Window{4c5f99a u0 com.maisonmakas.musteri/com.maisonmakas.musteri.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@6e460a7, mPriority=0, mIsAnimationCallback=false}
+11-02 07:09:22.961 W/ServiceManagerCppClient(  396): Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10108 pid=1849
+11-02 07:09:22.961 D/PermissionCache(  396): checking android.permission.ROTATE_SURFACE_FLINGER for uid=10108 => denied (89 us)
+11-02 07:09:22.961 W/ServiceManagerCppClient(  396): Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10108 pid=1849
+11-02 07:09:22.961 D/PermissionCache(  396): checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10108 => denied (212 us)
+11-02 07:09:22.961 W/ServiceManagerCppClient(  396): Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10108 pid=1849
+11-02 07:09:22.961 D/PermissionCache(  396): checking android.permission.ACCESS_SURFACE_FLINGER for uid=10108 => denied (27 us)
+11-02 07:09:22.964 W/OpenGLRenderer( 1849): Failed to initialize 101010-2 format, error = EGL_SUCCESS
+11-02 07:09:22.968 I/hwservicemanager(  139): getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+11-02 07:09:22.968 I/Gralloc4( 1849): mapper 4.x is not supported
+11-02 07:09:23.151 I/servicemanager(    0): Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+11-02 07:09:23.525 W/ServiceManagerCppClient(  512): Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10108 pid=0
+11-02 07:09:23.525 D/PermissionCache(  512): checking android.permission.ROTATE_SURFACE_FLINGER for uid=10108 => denied (175 us)
+11-02 07:09:23.525 W/ServiceManagerCppClient(  512): Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10108 pid=0
+11-02 07:09:23.525 D/PermissionCache(  512): checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10108 => denied (12 us)
+11-02 07:09:23.525 W/ServiceManagerCppClient(  512): Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10108 pid=0
+11-02 07:09:23.525 D/PermissionCache(  512): checking android.permission.ACCESS_SURFACE_FLINGER for uid=10108 => denied (6 us)
+11-02 07:09:23.542 I/ActivityTaskManager(  512): Displayed com.maisonmakas.musteri/.MainActivity for user 0: +717ms
+11-02 07:09:23.542 I/ActivityTaskManager(  512): Fully drawn com.maisonmakas.musteri/.MainActivity: +717ms
+11-02 07:09:23.551 D/CompatibilityChangeReporter(  512): Compat change id reported: 214016041; UID 10108; state: ENABLED
+11-02 07:09:23.551 I/ImeTracker(  512): com.maisonmakas.musteri:eba2f0e: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-02 07:09:23.551 I/ImeTracker(  512): com.maisonmakas.musteri:eba2f0e: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-02 07:09:23.845 D/WifiNl80211Manager(  512): Scan result ready event
+11-02 07:09:23.846 D/WifiNative(  512): Scan result ready event
+11-02 07:09:24.114 W/Searchables(  512): No global search activity found
+11-02 07:09:24.117 I/InputReader(  512): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-02 07:09:24.118 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 1001
+11-02 07:09:24.119 D/CarrierSvcBindHelper(  922): onPackageModified: com.android.stk
+11-02 07:09:24.120 I/InputReader(  512): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-02 07:09:24.124 I/InputReader(  512): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-02 07:09:24.127 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.127 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.127 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.127 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.127 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.127 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.127 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.127 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.128 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:24.128 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 10060
+11-02 07:09:24.129 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 10100
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.131 V/MediaPlayerList(  894): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-02 07:09:24.132 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 10083
+11-02 07:09:24.132 I/InputReader(  512): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-02 07:09:24.134 D/CarrierSvcBindHelper(  922): onPackageModified: com.android.statementservice
+11-02 07:09:24.135 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:24.135 D/CarrierSvcBindHelper(  922): onPackageModified: com.android.rkpdapp
+11-02 07:09:24.136 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:24.137 D/CarrierSvcBindHelper(  922): onPackageModified: com.android.sdksetup
+11-02 07:09:24.138 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:24.138 I/InputReader(  512): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-02 07:09:24.139 D/CarrierSvcBindHelper(  922): onPackageModified: com.android.carrierdefaultapp
+11-02 07:09:24.139 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:24.140 D/CarrierSvcBindHelper(  922): onPackageModified: com.android.cellbroadcastreceiver.module
+11-02 07:09:24.140 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:24.141 D/CarrierSvcBindHelper(  922): onPackageModified: com.android.providers.media.module
+11-02 07:09:24.141 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:24.142 D/CarrierSvcBindHelper(  922): onPackageModified: com.android.permissioncontroller
+11-02 07:09:24.142 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:24.145 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 10067
+11-02 07:09:24.155 D/CarrierSvcBindHelper(  922): onPackageModified: com.android.bluetooth
+11-02 07:09:24.155 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:24.156 D/CarrierSvcBindHelper(  922): onPackageModified: com.android.devicelockcontroller
+11-02 07:09:24.156 D/CarrierSvcBindHelper(  922): No carrier app for: 0
+11-02 07:09:24.158 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:24.163 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 10105
+11-02 07:09:24.164 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 10103
+11-02 07:09:24.167 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 10099
+11-02 07:09:24.168 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 1002
+11-02 07:09:24.173 I/PermissionControllerServiceImpl(  805): Updating user sensitive for uid 10101
+11-02 07:09:24.177 I/InputReader(  512): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-02 07:09:24.177 W/Searchables(  512): No global search activity found
+11-02 07:09:24.180 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:24.181 W/Searchables(  512): No global search activity found
+11-02 07:09:24.181 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:24.181 W/Searchables(  512): No global search activity found
+11-02 07:09:24.181 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:24.182 W/Searchables(  512): No global search activity found
+11-02 07:09:24.184 I/InputReader(  512): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-02 07:09:24.185 I/InputReader(  512): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-02 07:09:24.192 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:24.192 W/Searchables(  512): No global search activity found
+11-02 07:09:24.194 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:24.194 W/Searchables(  512): No global search activity found
+11-02 07:09:24.194 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:24.194 W/Searchables(  512): No global search activity found
+11-02 07:09:24.196 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:24.196 W/Searchables(  512): No global search activity found
+11-02 07:09:24.196 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:24.196 W/Searchables(  512): No global search activity found
+11-02 07:09:24.196 W/VoiceInteractionManager(  512): no available voice recognition services found for user 0
+11-02 07:09:24.722 I/apexd   (    0): Deleting unused dm device com.android.apex.cts.shim
+11-02 07:09:24.723 E/apexd   (    0): Didn't generate uevent for [com.android.apex.cts.shim] removal
+11-02 07:09:24.724 W/apexd   (    0): Failed to delete dm-device com.android.apex.cts.shim
+11-02 07:09:24.725 I/apexd   (    0): Deleting unused dm device com.android.btservices
+11-02 07:09:24.726 E/apexd   (    0): Didn't generate uevent for [com.android.btservices] removal
+11-02 07:09:24.727 W/apexd   (    0): Failed to delete dm-device com.android.btservices
+11-02 07:09:24.728 I/apexd   (    0): Deleting unused dm device com.android.devicelock
+11-02 07:09:24.729 E/apexd   (    0): Didn't generate uevent for [com.android.devicelock] removal
+11-02 07:09:24.730 W/apexd   (    0): Failed to delete dm-device com.android.devicelock
+11-02 07:09:24.731 I/apexd   (    0): Deleting unused dm device com.android.healthfitness
+11-02 07:09:24.732 E/apexd   (    0): Didn't generate uevent for [com.android.healthfitness] removal
+11-02 07:09:24.733 W/apexd   (    0): Failed to delete dm-device com.android.healthfitness
+11-02 07:09:24.734 I/apexd   (    0): Deleting unused dm device com.android.i18n
+11-02 07:09:24.735 E/apexd   (    0): Didn't generate uevent for [com.android.i18n] removal
+11-02 07:09:24.736 W/apexd   (    0): Failed to delete dm-device com.android.i18n
+11-02 07:09:24.737 I/apexd   (    0): Deleting unused dm device com.android.os.statsd
+11-02 07:09:24.738 E/apexd   (    0): Didn't generate uevent for [com.android.os.statsd] removal
+11-02 07:09:24.739 W/apexd   (    0): Failed to delete dm-device com.android.os.statsd
+11-02 07:09:24.740 I/apexd   (    0): Deleting unused dm device com.android.rkpd
+11-02 07:09:24.741 E/apexd   (    0): Didn't generate uevent for [com.android.rkpd] removal
+11-02 07:09:24.742 W/apexd   (    0): Failed to delete dm-device com.android.rkpd
+11-02 07:09:24.743 I/apexd   (    0): Deleting unused dm device com.android.runtime
+11-02 07:09:24.744 E/apexd   (    0): Didn't generate uevent for [com.android.runtime] removal
+11-02 07:09:24.745 W/apexd   (    0): Failed to delete dm-device com.android.runtime
+11-02 07:09:24.746 I/apexd   (    0): Deleting unused dm device com.android.sdkext
+11-02 07:09:24.747 E/apexd   (    0): Didn't generate uevent for [com.android.sdkext] removal
+11-02 07:09:24.748 W/apexd   (    0): Failed to delete dm-device com.android.sdkext
+11-02 07:09:24.749 I/apexd   (    0): Deleting unused dm device com.android.tzdata
+11-02 07:09:24.750 E/apexd   (    0): Didn't generate uevent for [com.android.tzdata] removal
+11-02 07:09:24.751 W/apexd   (    0): Failed to delete dm-device com.android.tzdata
+11-02 07:09:24.752 I/apexd   (    0): Deleting unused dm device com.android.virt
+11-02 07:09:24.752 E/apexd   (    0): Didn't generate uevent for [com.android.virt] removal
+11-02 07:09:24.754 W/apexd   (    0): Failed to delete dm-device com.android.virt
+11-02 07:09:24.754 I/apexd   (    0): Deleting unused dm device com.android.vndk.v34
+11-02 07:09:24.755 E/apexd   (    0): Didn't generate uevent for [com.android.vndk.v34] removal
+11-02 07:09:24.756 W/apexd   (    0): Failed to delete dm-device com.android.vndk.v34
+11-02 07:09:24.757 I/AidlLazyServiceRegistrar(    0): Trying to shut down the service. No clients in use for any service in process.
+11-02 07:09:24.759 I/servicemanager(    0): Unregistering apexservice
+11-02 07:09:24.760 I/BpBinder(    0): onLastStrongRef automatically unlinking death recipients:
+11-02 07:09:24.761 I/AidlLazyServiceRegistrar(    0): Unregistered all clients and exiting
+11-02 07:09:24.765 I/init    (    0): Service 'apexd' (pid 204) exited with status 0 oneshot service took 21.667999 seconds in background
+11-02 07:09:24.766 I/init    (    0): Sending signal 9 to service 'apexd' (pid 204) process group...
+11-02 07:09:24.767 I/libprocessgroup(    0): Successfully killed process cgroup uid 0 pid 204 in 0ms
+11-02 07:09:25.766 D/AvrcpBrowsablePlayerConnector(  894): Received a message: msg.what=2
+11-02 07:09:25.766 V/AvrcpBrowsablePlayerConnector(  894): Timed out waiting for players
+11-02 07:09:25.767 I/AvrcpBrowsablePlayerConnector(  894): Successfully connected to 0 browsable players.
+11-02 07:09:25.767 I/MediaPlayerList(  894): init: Browsable Player list size is 0
+11-02 07:09:25.828 E/TaskPersister(  512): File error accessing recents directory (directory doesn't exist?).
+11-02 07:09:25.947 D/AvrcpBrowsablePlayerConnector(  894): Received a message: msg.what=2
+11-02 07:09:25.947 V/AvrcpBrowsablePlayerConnector(  894): Timed out waiting for players
+11-02 07:09:25.947 I/AvrcpBrowsablePlayerConnector(  894): Successfully connected to 0 browsable players.
+11-02 07:09:25.947 I/MediaPlayerList(  894): init: Browsable Player list size is 0
+11-02 07:09:25.984 W/BroadcastLoopers(  512): Found previously unknown looper Thread[appscheduling.default,5,main]
+11-02 07:09:26.222 I/servicemanager(    0): Notifying artd they don't (previously: do) have clients when we now have no record of a client
+11-02 07:09:26.036 I/AidlLazyServiceRegistrar( 1819): Process has 0 (of 1 available) client(s) in use after notification artd has clients: 0
+11-02 07:09:26.036 I/AidlLazyServiceRegistrar( 1819): Trying to shut down the service. No clients in use for any service in process.
+11-02 07:09:26.038 I/AidlLazyServiceRegistrar( 1819): Unregistered all clients and exiting
+11-02 07:09:26.225 I/servicemanager(    0): Unregistering artd
+11-02 07:09:26.225 I/BpBinder(    0): onLastStrongRef automatically unlinking death recipients:
+11-02 07:09:26.229 I/init    (    0): Service 'artd' (pid 1819) exited with status 0 oneshot service took 3.669000 seconds in background
+11-02 07:09:26.230 I/init    (    0): Sending signal 9 to service 'artd' (pid 1819) process group...
+11-02 07:09:26.231 I/libprocessgroup(    0): Successfully killed process cgroup uid 1082 pid 1819 in 0ms
+11-02 07:09:26.160 D/ActivityManager(  512): freezing 1334 com.android.sdksetup
+11-02 07:09:26.593 D/ActivityManager(  512): freezing 1160 com.android.printspooler
+11-02 07:09:26.891 D/ActivityManager(  512): freezing 1608 com.android.externalstorage
+11-02 07:09:27.111 D/ActivityManager(  512): freezing 1552 com.android.carrierconfig
+11-02 07:09:27.238 D/ActivityManager(  512): freezing 1666 com.android.carrierdefaultapp
+11-02 07:09:28.210 D/ProfileInstaller( 1849): Installing profile for com.maisonmakas.musteri
+11-02 07:09:29.287 W/OverlayManager(  512): service 'idmap' died
+11-02 07:09:29.472 I/init    (    0): Sending signal 9 to service 'idmap2d' (pid 435) process group...
+11-02 07:09:29.479 I/libprocessgroup(    0): Successfully killed process cgroup uid 1000 pid 435 in 5ms
+11-02 07:09:29.480 I/init    (    0): Control message: Processed ctl.stop for 'idmap2d' from pid: 512 (system_server)
+11-02 07:09:29.481 I/init    (    0): Service 'idmap2d' (pid 435) received signal 9
+11-02 07:09:32.915 D/ActivityManager(  512): freezing 1293 com.android.cellbroadcastreceiver
+11-02 07:09:33.098 I/keystore2(  161): system/security/keystore2/src/watchdog.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-02 07:09:33.250 D/DhcpClient(  878): Received packet: 02:15:b2:00:00:00 OFFER, ip /10.0.2.16, mask /255.255.255.0, DNS servers: /10.0.2.3 , gateways [/10.0.2.2], lease time 86400, domain null
+11-02 07:09:33.250 D/DhcpClient(  878): Received packet: 02:15:b2:00:00:00 ACK: your new IP /10.0.2.16, netmask /255.255.255.0, gateways [/10.0.2.2] DNS servers: /10.0.2.3 , lease time 86400
+11-02 07:09:34.176 D/OomAdjuster(  512): Not killing cached processes
+11-02 07:09:34.469 I/DropBoxManagerService(  512): add tag=system_app_strictmode isTagEnabled=true flags=0x2
+11-02 07:09:35.100 D/WifiNl80211Manager(  512): Scan result ready event
+11-02 07:09:35.100 D/WifiNative(  512): Scan result ready event
+11-02 07:09:35.248 I/SdkSandboxManager(  512): Reconciling sdk data package directories for 0
+11-02 07:09:35.861 W/GpuWork (  395): Failed to attach bpf program to power/gpu_work_period tracepoint [2(No such file or directory)]
+11-02 07:09:37.899 W/BpBinder( 1900): Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+11-02 07:09:37.899 W/ProcessState( 1900): Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+11-02 07:09:37.900 W/ServiceManagerCppClient(  396): Permission failure: android.permission.CAPTURE_BLACKOUT_CONTENT from uid=2000 pid=1900
+11-02 07:09:37.900 D/PermissionCache(  396): checking android.permission.CAPTURE_BLACKOUT_CONTENT for uid=2000 => denied (160 us)
+11-02 07:09:38.094 I/servicemanager(    0): Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+11-02 07:09:37.910 I/hwservicemanager(  139): getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+11-02 07:09:37.910 I/Gralloc4( 1900): mapper 4.x is not supported
+11-02 07:09:38.131 D/AndroidRuntime( 1902): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-02 07:09:38.133 I/AndroidRuntime( 1902): Using default boot image
+11-02 07:09:38.134 I/AndroidRuntime( 1902): Leaving lock profiling enabled
+11-02 07:09:38.135 I/app_process( 1902): Core platform API reporting enabled, enforcing=false
+11-02 07:09:38.135 I/app_process( 1902): Using CollectorTypeCC GC.
+11-02 07:09:38.241 D/nativeloader( 1902): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-02 07:09:38.250 D/app_process( 1902): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+11-02 07:09:38.250 D/app_process( 1902): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+11-02 07:09:38.257 W/app_process( 1902): Unexpected CPU variant for x86: x86_64.
+11-02 07:09:38.257 W/app_process( 1902): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-02 07:09:38.260 W/app_process( 1902): ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-02 07:09:38.262 W/app_process( 1902): ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-02 07:09:38.277 W/libc    ( 1902): Access denied finding property "ro.product.name_for_attestation"
+11-02 07:09:38.278 W/libc    ( 1902): Access denied finding property "ro.product.brand_for_attestation"
+11-02 07:09:38.278 W/libc    ( 1902): Access denied finding property "ro.product.model_for_attestation"
+11-02 07:09:38.279 D/AndroidRuntime( 1902): Calling main entry com.android.commands.uiautomator.Launcher
+11-02 07:09:38.276 W/main    ( 1902): type=1400 audit(0.0:19): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:09:38.282 D/UiAutomationConnection( 1902): Created on user UserHandle{0}
+11-02 07:09:38.282 I/UiAutomation( 1902): Initialized for user 0 on display 0
+11-02 07:09:38.282 W/UiAutomation( 1902): Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-02 07:09:38.276 W/main    ( 1902): type=1400 audit(0.0:20): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:09:38.286 D/AccessibilityManagerService(  512): changeCurrentUserForTestAutomationIfNeededLocked(0): ignoring because device doesn't support visible background users
+11-02 07:09:38.287 I/UiAutomationManager(  512): Registering UiTestAutomationService (id=com.android.server.accessibility/UiAutomation) when called by user 0
+11-02 07:09:38.276 W/main    ( 1902): type=1400 audit(0.0:21): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:09:38.297 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:09:38.306 V/UiAutomation( 1902): Init UiAutomation@2283899[id=1, displayId=0, flags=0]
+11-02 07:09:38.307 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:09:38.314 D/BatterySaverPolicy(  512): accessibility changed to true, updating policy.
+11-02 07:09:38.331 D/SafetySourceDataValidator(  512): No cert check requested for package com.android.permissioncontroller
+11-02 07:09:38.356 D/EGL_emulation( 1849): app_time_stats: avg=7425.41ms min=12.49ms max=14838.33ms count=2
+11-02 07:09:39.356 D/CompatibilityChangeReporter( 1093): Compat change id reported: 183155436; UID 10103; state: ENABLED
+11-02 07:09:39.358 D/CompatibilityChangeReporter(  512): Compat change id reported: 149924527; UID 2000; state: ENABLED
+11-02 07:09:39.359 D/CompatibilityChangeReporter(  512): Compat change id reported: 132649864; UID 2000; state: DISABLED
+11-02 07:09:39.363 W/MediaProvider( 1093): isAppCloneUserPair for user 0: false
+11-02 07:09:39.369 W/AccessibilityNodeInfoDumper( 1902): Fetch time: 20ms
+11-02 07:09:39.374 D/EGL_emulation( 1849): app_time_stats: avg=1013.61ms min=1013.61ms max=1013.61ms count=1
+11-02 07:09:39.377 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:09:39.377 D/AccessibilityManagerService(  512): restoreCurrentUserForTestAutomationIfNeededLocked(): ignoring because device doesn't support visible background users
+11-02 07:09:39.378 D/BatterySaverPolicy(  512): accessibility changed to false, updating policy.
+11-02 07:09:39.379 D/AndroidRuntime( 1902): Shutting down VM
+11-02 07:09:40.258 W/AS.SfxHelper(  512): MediaPlayer IOException: java.io.FileNotFoundException: /system/media/audio/ui/Effect_Tick.ogg: open failed: ENOENT (No such file or directory)
+11-02 07:09:40.286 W/WindowOnBackDispatcher( 1849): OnBackInvokedCallback is not enabled for the application.
+11-02 07:09:40.286 W/WindowOnBackDispatcher( 1849): Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+11-02 07:09:40.640 D/EGL_emulation( 1849): app_time_stats: avg=421.95ms min=19.63ms max=923.71ms count=3
+11-02 07:09:44.115 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.115 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.116 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.117 W/System  (  922): A resource failed to call AbstractCursor.close. 
+11-02 07:09:44.218 W/d.fakesystemapp(  929): Cleared Reference was only reachable from finalizer (only reported once)
+11-02 07:09:44.306 D/AndroidRuntime( 1926): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-02 07:09:44.309 I/AndroidRuntime( 1926): Using default boot image
+11-02 07:09:44.309 I/AndroidRuntime( 1926): Leaving lock profiling enabled
+11-02 07:09:44.310 I/app_process( 1926): Core platform API reporting enabled, enforcing=false
+11-02 07:09:44.310 I/app_process( 1926): Using CollectorTypeCC GC.
+11-02 07:09:44.383 D/nativeloader( 1926): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-02 07:09:44.388 D/app_process( 1926): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+11-02 07:09:44.388 D/app_process( 1926): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+11-02 07:09:44.391 W/app_process( 1926): Unexpected CPU variant for x86: x86_64.
+11-02 07:09:44.391 W/app_process( 1926): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-02 07:09:44.392 W/app_process( 1926): ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-02 07:09:44.393 W/app_process( 1926): ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-02 07:09:44.400 W/libc    ( 1926): Access denied finding property "ro.product.name_for_attestation"
+11-02 07:09:44.400 W/libc    ( 1926): Access denied finding property "ro.product.brand_for_attestation"
+11-02 07:09:44.400 W/libc    ( 1926): Access denied finding property "ro.product.model_for_attestation"
+11-02 07:09:44.401 D/AndroidRuntime( 1926): Calling main entry com.android.commands.uiautomator.Launcher
+11-02 07:09:44.402 D/UiAutomationConnection( 1926): Created on user UserHandle{0}
+11-02 07:09:44.402 I/UiAutomation( 1926): Initialized for user 0 on display 0
+11-02 07:09:44.402 W/UiAutomation( 1926): Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-02 07:09:44.402 D/AccessibilityManagerService(  512): changeCurrentUserForTestAutomationIfNeededLocked(0): ignoring because device doesn't support visible background users
+11-02 07:09:44.402 I/UiAutomationManager(  512): Registering UiTestAutomationService (id=com.android.server.accessibility/UiAutomation) when called by user 0
+11-02 07:09:44.396 W/main    ( 1926): type=1400 audit(0.0:22): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:09:44.404 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:09:44.404 D/BatterySaverPolicy(  512): accessibility changed to true, updating policy.
+11-02 07:09:44.405 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:09:44.405 V/UiAutomation( 1926): Init UiAutomation@ea7539c[id=2, displayId=0, flags=0]
+11-02 07:09:44.406 D/SafetySourceDataValidator(  512): No cert check requested for package com.android.permissioncontroller
+11-02 07:09:44.396 W/main    ( 1926): type=1400 audit(0.0:23): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:09:44.396 W/main    ( 1926): type=1400 audit(0.0:24): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:09:44.428 D/EGL_emulation( 1849): app_time_stats: avg=1893.79ms min=23.57ms max=3764.00ms count=2
+11-02 07:09:45.428 W/AccessibilityNodeInfoDumper( 1926): Fetch time: 2ms
+11-02 07:09:45.429 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:09:45.429 D/AccessibilityManagerService(  512): restoreCurrentUserForTestAutomationIfNeededLocked(): ignoring because device doesn't support visible background users
+11-02 07:09:45.430 D/BatterySaverPolicy(  512): accessibility changed to false, updating policy.
+11-02 07:09:45.430 D/AndroidRuntime( 1926): Shutting down VM
+11-02 07:09:45.443 D/EGL_emulation( 1849): app_time_stats: avg=1015.20ms min=1015.20ms max=1015.20ms count=1
+11-02 07:09:46.299 I/ImeTracker( 1849): com.maisonmakas.musteri:1c659d44: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+11-02 07:09:46.302 D/InputMethodManager( 1849): showSoftInput() view=vk{e314569 VFE...... .F....ID 0,0-1080,2272 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+11-02 07:09:46.302 E/InputMethodBindingController(  512): mSelectedMethodId is null!
+11-02 07:09:46.303 D/AutofillManagerServiceImpl(  512): Reset component for user 0:null
+11-02 07:09:46.303 D/AutofillUI(  512): destroySaveUiUiThread(): already destroyed
+11-02 07:09:46.306 D/OomAdjuster(  512): Not killing cached processes
+11-02 07:09:46.340 D/ActivityManager(  512): freezing 1416 com.android.traceur
+11-02 07:09:46.341 D/ActivityManager(  512): freezing 1162 com.android.cellbroadcastreceiver.module
+11-02 07:09:46.370 D/ActivityManager(  512): freezing 1202 com.android.providers.calendar
+11-02 07:09:46.386 D/ActivityManager(  512): freezing 1728 com.android.localtransport
+11-02 07:09:46.386 D/ActivityManager(  512): freezing 1477 com.android.dynsystem:dynsystem
+11-02 07:09:46.386 D/ActivityManager(  512): freezing 1437 com.android.dynsystem
+11-02 07:09:46.387 D/ActivityManager(  512): freezing 1209 com.android.keychain
+11-02 07:09:46.638 D/ActivityManager(  512): freezing 1526 com.android.rkpdapp
+11-02 07:09:46.798 D/ActivityManager(  512): freezing 1589 com.android.statementservice
+11-02 07:09:46.886 D/EGL_emulation( 1849): app_time_stats: avg=287.36ms min=14.14ms max=869.61ms count=5
+11-02 07:09:47.426 D/AndroidRuntime( 1958): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-02 07:09:47.428 I/AndroidRuntime( 1958): Using default boot image
+11-02 07:09:47.428 I/AndroidRuntime( 1958): Leaving lock profiling enabled
+11-02 07:09:47.429 I/app_process( 1958): Core platform API reporting enabled, enforcing=false
+11-02 07:09:47.429 I/app_process( 1958): Using CollectorTypeCC GC.
+11-02 07:09:47.462 D/nativeloader( 1958): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-02 07:09:47.468 D/app_process( 1958): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+11-02 07:09:47.468 D/app_process( 1958): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+11-02 07:09:47.471 W/app_process( 1958): Unexpected CPU variant for x86: x86_64.
+11-02 07:09:47.471 W/app_process( 1958): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-02 07:09:47.472 W/app_process( 1958): ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-02 07:09:47.472 W/app_process( 1958): ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-02 07:09:47.480 W/libc    ( 1958): Access denied finding property "ro.product.name_for_attestation"
+11-02 07:09:47.480 W/libc    ( 1958): Access denied finding property "ro.product.brand_for_attestation"
+11-02 07:09:47.480 W/libc    ( 1958): Access denied finding property "ro.product.model_for_attestation"
+11-02 07:09:47.481 D/AndroidRuntime( 1958): Calling main entry com.android.commands.uiautomator.Launcher
+11-02 07:09:47.482 D/UiAutomationConnection( 1958): Created on user UserHandle{0}
+11-02 07:09:47.482 I/UiAutomation( 1958): Initialized for user 0 on display 0
+11-02 07:09:47.482 W/UiAutomation( 1958): Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-02 07:09:47.483 D/AccessibilityManagerService(  512): changeCurrentUserForTestAutomationIfNeededLocked(0): ignoring because device doesn't support visible background users
+11-02 07:09:47.483 I/UiAutomationManager(  512): Registering UiTestAutomationService (id=com.android.server.accessibility/UiAutomation) when called by user 0
+11-02 07:09:47.476 W/main    ( 1958): type=1400 audit(0.0:25): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:09:47.484 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:09:47.484 D/BatterySaverPolicy(  512): accessibility changed to true, updating policy.
+11-02 07:09:47.485 V/UiAutomation( 1958): Init UiAutomation@2089bb[id=3, displayId=0, flags=0]
+11-02 07:09:47.476 W/main    ( 1958): type=1400 audit(0.0:26): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:09:47.487 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:09:47.488 D/SafetySourceDataValidator(  512): No cert check requested for package com.android.permissioncontroller
+11-02 07:09:47.476 W/main    ( 1958): type=1400 audit(0.0:27): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:09:47.674 D/ActivityManager(  512): freezing 805 com.android.permissioncontroller
+11-02 07:09:47.886 D/EGL_emulation( 1849): app_time_stats: avg=333.28ms min=129.53ms max=499.59ms count=3
+11-02 07:09:48.509 W/AccessibilityNodeInfoDumper( 1958): Fetch time: 2ms
+11-02 07:09:48.510 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:09:48.510 D/AccessibilityManagerService(  512): restoreCurrentUserForTestAutomationIfNeededLocked(): ignoring because device doesn't support visible background users
+11-02 07:09:48.510 D/BatterySaverPolicy(  512): accessibility changed to false, updating policy.
+11-02 07:09:48.511 D/AndroidRuntime( 1958): Shutting down VM
+11-02 07:09:49.368 I/ImeTracker( 1849): com.maisonmakas.musteri:be2d7973: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+11-02 07:09:49.368 D/InputMethodManager( 1849): showSoftInput() view=vk{e314569 VFE...... .F...... 0,0-1080,2272 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+11-02 07:09:49.368 E/InputMethodBindingController(  512): mSelectedMethodId is null!
+11-02 07:09:49.368 I/ImeTracker(  512): com.maisonmakas.musteri:1c659d44: onCancelled at PHASE_SERVER_WAIT_IME
+11-02 07:09:49.371 D/EGL_emulation( 1849): app_time_stats: avg=371.11ms min=143.71ms max=500.94ms count=4
+11-02 07:09:50.085 D/ConnectivityService(  512): handleLingerComplete for [100 CELLULAR]
+11-02 07:09:50.085 I/ConnectivityService(  512): Update capabilities for net 100 : -FOREGROUND
+11-02 07:09:50.086 I/Netd    (  330): Destroyed 1 sockets for netId 100 permission=1 in 351us
+11-02 07:09:50.088 I/netd    (  330): networkSetPermissionForNetwork(100, 1) <2.19ms>
+11-02 07:09:50.453 I/resolv  (  330): GetAddrInfoHandler::run: {101 101 101 983141 10108 0}
+11-02 07:09:50.454 I/resolv  (  330): res_nmkquery: (QUERY, IN, A)
+11-02 07:09:50.454 I/ImeTracker( 1849): com.maisonmakas.musteri:ed05d9ec: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+11-02 07:09:50.455 I/ImeTracker(  512): com.maisonmakas.musteri:ed05d9ec: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-02 07:09:50.455 I/ImeTracker(  512): com.maisonmakas.musteri:be2d7973: onCancelled at PHASE_SERVER_WAIT_IME
+11-02 07:09:50.464 I/resolv  (  330): GetAddrInfoHandler::run: {101 101 101 983141 10108 0}
+11-02 07:09:50.464 I/resolv  (  330): res_nmkquery: (QUERY, IN, AAAA)
+11-02 07:09:50.471 D/EGL_emulation( 1849): app_time_stats: avg=182.09ms min=13.16ms max=501.60ms count=6
+11-02 07:09:50.476 I/resolv  (  330): res_nsend: used send_dg 82 terrno: 0
+11-02 07:09:50.476 I/resolv  (  330): doQuery: rcode=0, ancount=2, return value=82
+11-02 07:09:50.490 I/resolv  (  330): res_nsend: used send_dg 117 terrno: 0
+11-02 07:09:50.490 I/resolv  (  330): doQuery: rcode=0, ancount=0, return value=117
+11-02 07:09:50.491 I/resolv  (  330): GetAddrInfoHandler::run: {101 101 101 983141 10108 0}
+11-02 07:09:50.491 I/resolv  (  330): res_nmkquery: (QUERY, IN, AAAA)
+11-02 07:09:50.491 I/resolv  (  330): resolv_cache_lookup: FOUND IN CACHE entry=0x761d5a618f50
+11-02 07:09:50.491 I/resolv  (  330): doQuery: rcode=0, ancount=0, return value=117
+11-02 07:09:51.471 D/EGL_emulation( 1849): app_time_stats: avg=17.06ms min=5.45ms max=33.65ms count=47
+11-02 07:09:55.105 D/WifiNl80211Manager(  512): Scan result ready event
+11-02 07:09:55.105 D/WifiNative(  512): Scan result ready event
+11-02 07:09:58.729 E/WifiHealthMonitor(  512):  Hit PackageManager exception
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): android.content.pm.PackageManager$NameNotFoundException: No module info for package: com.android.wifi
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at android.app.ApplicationPackageManager.getModuleInfo(ApplicationPackageManager.java:1190)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at com.android.server.wifi.WifiHealthMonitor.getWifiStackVersion(WifiHealthMonitor.java:367)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at com.android.server.wifi.WifiHealthMonitor.extractCurrentSoftwareBuildInfo(WifiHealthMonitor.java:588)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at com.android.server.wifi.WifiHealthMonitor.postBootSwBuildCheck(WifiHealthMonitor.java:523)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at com.android.server.wifi.WifiHealthMonitor.postBootDetectionHandler(WifiHealthMonitor.java:514)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at com.android.server.wifi.WifiHealthMonitor.-$$Nest$mpostBootDetectionHandler(WifiHealthMonitor.java:0)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at com.android.server.wifi.WifiHealthMonitor$2.onAlarm(WifiHealthMonitor.java:190)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at android.app.AlarmManager$ListenerWrapper.run(AlarmManager.java:375)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at android.os.Handler.handleCallback(Handler.java:958)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at com.android.server.wifi.RunnerHandler.dispatchMessage(RunnerHandler.java:122)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at android.os.Looper.loopOnce(Looper.java:205)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at android.os.Looper.loop(Looper.java:294)
+11-02 07:09:58.729 E/WifiHealthMonitor(  512): 	at android.os.HandlerThread.run(HandlerThread.java:67)
+11-02 07:10:00.499 D/AndroidRuntime( 1998): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-02 07:10:00.501 I/AndroidRuntime( 1998): Using default boot image
+11-02 07:10:00.501 I/AndroidRuntime( 1998): Leaving lock profiling enabled
+11-02 07:10:00.502 I/app_process( 1998): Core platform API reporting enabled, enforcing=false
+11-02 07:10:00.503 I/app_process( 1998): Using CollectorTypeCC GC.
+11-02 07:10:00.538 D/nativeloader( 1998): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-02 07:10:00.544 D/app_process( 1998): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+11-02 07:10:00.544 D/app_process( 1998): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+11-02 07:10:00.547 W/app_process( 1998): Unexpected CPU variant for x86: x86_64.
+11-02 07:10:00.547 W/app_process( 1998): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-02 07:10:00.548 W/app_process( 1998): ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-02 07:10:00.548 W/app_process( 1998): ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-02 07:10:00.555 W/libc    ( 1998): Access denied finding property "ro.product.name_for_attestation"
+11-02 07:10:00.552 W/main    ( 1998): type=1400 audit(0.0:28): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:10:00.559 W/libc    ( 1998): Access denied finding property "ro.product.brand_for_attestation"
+11-02 07:10:00.559 W/libc    ( 1998): Access denied finding property "ro.product.model_for_attestation"
+11-02 07:10:00.559 D/AndroidRuntime( 1998): Calling main entry com.android.commands.uiautomator.Launcher
+11-02 07:10:00.561 D/UiAutomationConnection( 1998): Created on user UserHandle{0}
+11-02 07:10:00.561 I/UiAutomation( 1998): Initialized for user 0 on display 0
+11-02 07:10:00.561 W/UiAutomation( 1998): Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-02 07:10:00.562 D/AccessibilityManagerService(  512): changeCurrentUserForTestAutomationIfNeededLocked(0): ignoring because device doesn't support visible background users
+11-02 07:10:00.562 I/UiAutomationManager(  512): Registering UiTestAutomationService (id=com.android.server.accessibility/UiAutomation) when called by user 0
+11-02 07:10:00.556 W/main    ( 1998): type=1400 audit(0.0:29): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:10:00.563 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:10:00.563 D/BatterySaverPolicy(  512): accessibility changed to true, updating policy.
+11-02 07:10:00.564 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:10:00.565 V/UiAutomation( 1998): Init UiAutomation@6831eec[id=4, displayId=0, flags=0]
+11-02 07:10:00.556 W/main    ( 1998): type=1400 audit(0.0:30): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-02 07:10:00.593 D/EGL_emulation( 1849): app_time_stats: avg=1296.24ms min=8.29ms max=8968.54ms count=7
+11-02 07:10:01.589 W/AccessibilityNodeInfoDumper( 1998): Fetch time: 1ms
+11-02 07:10:01.590 W/WindowMagnificationMgr(  512): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-02 07:10:01.590 D/AccessibilityManagerService(  512): restoreCurrentUserForTestAutomationIfNeededLocked(): ignoring because device doesn't support visible background users
+11-02 07:10:01.590 D/AndroidRuntime( 1998): Shutting down VM
+11-02 07:10:01.591 D/BatterySaverPolicy(  512): accessibility changed to false, updating policy.
+11-02 07:10:01.608 D/EGL_emulation( 1849): app_time_stats: avg=1014.88ms min=1014.88ms max=1014.88ms count=1
+11-02 07:10:02.456 W/BpBinder( 2019): Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+11-02 07:10:02.456 W/ProcessState( 2019): Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+11-02 07:10:02.467 I/hwservicemanager(  139): getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+11-02 07:10:02.468 I/Gralloc4( 2019): mapper 4.x is not supported
+11-02 07:10:02.651 I/servicemanager(    0): Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+11-02 07:10:02.794 I/logd    (    0): logdr: UID=2000 GID=2000 PID=2021 n tail=0 logMask=99 pid=0 start=0ns deadline=0ns

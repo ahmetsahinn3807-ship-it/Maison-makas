@@ -1,0 +1,2 @@
+maison-makas: sunucuya ulaştı ✓ (yanlış şifreye 'hatalı' yanıtı geldi)
+makas-pro: sunucuya ulaştı ✓ (yanlış şifreye 'hatalı' yanıtı geldi)
