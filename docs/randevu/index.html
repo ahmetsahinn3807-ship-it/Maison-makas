@@ -49,6 +49,9 @@
   .sepet-kalem:first-of-type { border-top: 0; padding-top: 0; }
   .sepet-kalem .govde { flex: 1; min-width: 0; }
   .sepet-kalem .isim { font-weight: 700; }
+  .usta-satir { padding: 10px 0; border-top: 1px solid var(--cizgi); }
+  .usta-satir:first-of-type { border-top: 0; padding-top: 0; }
+  .usta-satir .isim { font-weight: 700; }
   .toplam { display: flex; justify-content: space-between; border-top: 1px solid var(--cizgi); margin-top: 6px; padding-top: 12px; font-weight: 700; }
   a { color: var(--vurgu); }
   .adim { margin-top: 26px; }
@@ -83,8 +86,11 @@
     salon: null,
     hizmetler: [],
     ustalar: [],
-    // Sepete eklenecek kalemin formu (bir kişi, bir randevu).
-    form: { kisi: '', hizmetIdler: [], usta: '', gun: '', saat: '' },
+    // usta_id -> o ustanın yaptığı hizmet kimlikleri (kaydı olmayan usta bütün hizmetleri yapar)
+    ustaHizmet: {},
+    // Sepete eklenecek kalemin formu (bir kişi; her hizmet için ayrı usta seçilebilir).
+    // ustalar: hizmet_id -> usta_id ('' ya da yok = fark etmez)
+    form: { kisi: '', hizmetIdler: [], ustalar: {}, gun: '', saat: '' },
     slotlar: [],
     slotYukleniyor: false,
     sorgu: 0,
@@ -115,6 +121,10 @@
     for (var i = 2; i < arguments.length; i++) {
       var c = arguments[i];
       if (c === null || c === undefined || c === false) { continue; }
+      if (Array.isArray(c)) {
+        c.forEach(function (a) { e.append(a); });
+        continue;
+      }
       e.append(typeof c === 'string' ? document.createTextNode(c) : c);
     }
     return e;
@@ -179,6 +189,66 @@
 
   function telefonGecerli(t) { return t.replace(/\D/g, '').length >= 10; }
 
+  // Salonun telefonundan WhatsApp numarası (Türkiye: 90 ile başlar). Geçersizse null.
+  function whatsappNumarasi(t) {
+    var d = String(t || '').replace(/\D/g, '');
+    if (d.indexOf('00') === 0) { d = d.slice(2); }
+    if (d.indexOf('0') === 0) { d = '9' + d; }
+    else if (d.length === 10) { d = '90' + d; }
+    return d.length >= 12 ? d : null;
+  }
+
+  // ------------------------------------------------------------ usta / hizmet eşleşmesi
+
+  // Usta bu hizmeti yapar mı? (hiç hizmet kaydı olmayan usta hepsini yapar)
+  function ustaYapar(ustaId, hizmetId) {
+    var liste = S.ustaHizmet[ustaId];
+    return !liste || liste.indexOf(hizmetId) !== -1;
+  }
+
+  function hizmeteUstalar(hizmetId) {
+    return S.ustalar.filter(function (u) { return ustaYapar(u.id, hizmetId); });
+  }
+
+  // Hizmet için geçerli usta: seçilmişse o; seçilmemiş ama yalnız bir usta yapıyorsa o; yoksa '' (fark etmez).
+  function etkinUsta(hizmetId) {
+    var secilen = S.form.ustalar[hizmetId] || '';
+    if (secilen && ustaYapar(secilen, hizmetId)) { return secilen; }
+    var yapanlar = hizmeteUstalar(hizmetId);
+    return yapanlar.length === 1 ? yapanlar[0].id : '';
+  }
+
+  // Seçili hizmetleri ustalarına göre parçalara ayırır. Aynı ustayı seçtiğin hizmetler tek parça,
+  // "fark etmez" dediklerin tek parça olur. Parçalar listedeki sırayla art arda yapılır.
+  function parcalar() {
+    var gruplar = [];
+    var harita = {};
+    secilenHizmetler(S.form.hizmetIdler).forEach(function (h) {
+      var u = etkinUsta(h.id);
+      if (!harita[u]) {
+        harita[u] = { usta: u || null, hizmetler: [] };
+        gruplar.push(harita[u]);
+      }
+      harita[u].hizmetler.push(h);
+    });
+    return gruplar;
+  }
+
+  // Sepetteki (henüz kaydedilmemiş) randevuların usta doluluğu: sunucu bu ustaları o saatlerde boş saymasın.
+  function sepetMesgul() {
+    var liste = [];
+    S.sepet.forEach(function (k) {
+      k.parcalar.forEach(function (p) {
+        liste.push({ usta: p.usta, bas: p.baslangic, bit: p.bitis });
+      });
+    });
+    return liste;
+  }
+
+  function sepetParcaSayisi() {
+    return S.sepet.reduce(function (t, k) { return t + k.parcalar.length; }, 0);
+  }
+
   // ------------------------------------------------------------ veri
 
   function yukle() {
@@ -200,10 +270,16 @@
         document.title = S.salon.ad + ' · Randevu';
         return Promise.all([
           istek('/rest/v1/hizmetler?salon_id=eq.' + S.salon.id + '&aktif=eq.true&select=id,ad,sure_dk,fiyat,kategori&order=sira.asc'),
-          istek('/rest/v1/ustalar?salon_id=eq.' + S.salon.id + '&aktif=eq.true&select=id,ad,unvan&order=sira.asc')
+          istek('/rest/v1/ustalar?salon_id=eq.' + S.salon.id + '&aktif=eq.true&select=id,ad,unvan&order=sira.asc'),
+          istek('/rest/v1/usta_hizmet?salon_id=eq.' + S.salon.id + '&select=usta_id,hizmet_id')
         ]).then(function (sonuc) {
           S.hizmetler = sonuc[0];
           S.ustalar = sonuc[1];
+          S.ustaHizmet = {};
+          (sonuc[2] || []).forEach(function (r) {
+            if (!S.ustaHizmet[r.usta_id]) { S.ustaHizmet[r.usta_id] = []; }
+            S.ustaHizmet[r.usta_id].push(r.hizmet_id);
+          });
         });
       })
       .catch(function (e) { S.hata = e.message; })
@@ -221,14 +297,16 @@
     if (!S.form.hizmetIdler.length) { return ciz(); }
     S.slotYukleniyor = true;
     ciz();
-    istek('/rest/v1/rpc/musait_saatler', {
+    istek('/rest/v1/rpc/musait_saatler_zincir', {
       metod: 'POST',
       govde: {
         p_salon: S.salon.id,
         p_bas: bugunTarih(),
         p_gun_sayisi: GUN_SAYISI,
-        p_hizmetler: S.form.hizmetIdler,
-        p_usta: S.form.usta || null
+        p_parcalar: parcalar().map(function (g) {
+          return { hizmetler: g.hizmetler.map(function (h) { return h.id; }), usta: g.usta };
+        }),
+        p_mesgul: sepetMesgul()
       }
     }).then(function (satirlar) {
       if (no !== S.sorgu) { return; }
@@ -243,13 +321,13 @@
     });
   }
 
-  // gün -> saat (iso) -> usta_id; aynı saatte birden çok usta varsa ilki
+  // gün -> saat (iso) -> parçalar için atanan ustalar (parça sırasıyla)
   function takvim() {
     var harita = {};
     S.slotlar.forEach(function (s) {
       var gun = fmtTarih.format(new Date(s.baslangic));
       if (!harita[gun]) { harita[gun] = {}; }
-      if (!harita[gun][s.baslangic]) { harita[gun][s.baslangic] = s.usta_id; }
+      if (!harita[gun][s.baslangic]) { harita[gun][s.baslangic] = s.usta_idler; }
     });
     return harita;
   }
@@ -260,25 +338,48 @@
     var kisi = S.form.kisi.trim();
     if (kisi.length < 2) { S.hata = 'Randevu kimin için? Adını yaz (en az 2 harf).'; return ciz(); }
     if (!S.form.hizmetIdler.length) { S.hata = 'En az bir hizmet seç.'; return ciz(); }
-    var ustaId = takvim()[S.form.gun] && takvim()[S.form.gun][S.form.saat];
-    if (!ustaId) { S.hata = 'Önce gün ve saat seç.'; return ciz(); }
+    var atananlar = takvim()[S.form.gun] && takvim()[S.form.gun][S.form.saat];
+    if (!atananlar) { S.hata = 'Önce gün ve saat seç.'; return ciz(); }
 
-    var hizmetler = secilenHizmetler(S.form.hizmetIdler);
-    var sureDk = hizmetler.reduce(function (t, h) { return t + h.sure_dk; }, 0);
-    var baslangic = new Date(S.form.saat);
-    var bitis = new Date(baslangic.getTime() + sureDk * 60000);
+    // Her parça (usta + hizmetleri) bir öncekinin bittiği dakikada başlar.
+    var grup = parcalar();
+    var ofset = 0;
+    var parca = grup.map(function (g, i) {
+      var dk = g.hizmetler.reduce(function (t, h) { return t + h.sure_dk; }, 0);
+      var bas = new Date(new Date(S.form.saat).getTime() + ofset * 60000);
+      var bit = new Date(bas.getTime() + dk * 60000);
+      ofset += dk;
+      return {
+        usta: atananlar[i],
+        ustaAd: ustaAdi(atananlar[i]),
+        hizmetIdler: g.hizmetler.map(function (h) { return h.id; }),
+        hizmetAdlari: g.hizmetler.map(function (h) { return h.ad; }).join(', '),
+        baslangic: bas.toISOString(),
+        bitis: bit.toISOString(),
+        sureDk: dk,
+        fiyat: g.hizmetler.reduce(function (t, h) { return t + Number(h.fiyat); }, 0)
+      };
+    });
+    var baslangic = new Date(parca[0].baslangic);
+    var bitis = new Date(parca[parca.length - 1].bitis);
 
-    // Aynı usta ya da aynı kişi için sepette çakışan kalem olmasın.
+    // Aynı kişi ya da aynı usta için sepette çakışan randevu olmasın.
     var cakisan = S.sepet.filter(function (k) {
-      return (k.usta === ustaId || k.kisi.toLowerCase() === kisi.toLowerCase()) &&
-        baslangic < new Date(k.bitis) && new Date(k.baslangic) < bitis;
+      if (k.kisi.toLowerCase() === kisi.toLowerCase() && baslangic < new Date(k.bitis) && new Date(k.baslangic) < bitis) {
+        return true;
+      }
+      return k.parcalar.some(function (e) {
+        return parca.some(function (y) {
+          return y.usta === e.usta && new Date(y.baslangic) < new Date(e.bitis) && new Date(e.baslangic) < new Date(y.bitis);
+        });
+      });
     })[0];
     if (cakisan) {
-      S.hata = 'Bu saat sepetteki ' + (cakisan.usta === ustaId ? '"' + cakisan.kisi + '" randevusuyla çakışıyor.' : 'randevuyla çakışıyor.') + ' Başka saat seç.';
+      S.hata = 'Bu saat sepetteki "' + cakisan.kisi + '" randevusuyla çakışıyor. Başka saat seç.';
       return ciz();
     }
-    if (S.sepet.length >= SEPET_UST) {
-      S.hata = 'Bir seferde en çok ' + SEPET_UST + ' randevu alınabilir.';
+    if (sepetParcaSayisi() + parca.length > SEPET_UST) {
+      S.hata = 'Bir seferde en çok ' + SEPET_UST + ' usta randevusu alınabilir.';
       return ciz();
     }
 
@@ -286,18 +387,14 @@
     S.sepet.push({
       id: S.sepetSayac,
       kisi: kisi,
-      hizmetIdler: S.form.hizmetIdler.slice(),
-      hizmetAdlari: hizmetler.map(function (h) { return h.ad; }).join(', '),
-      usta: ustaId,
-      ustaAd: ustaAdi(ustaId),
-      baslangic: S.form.saat,
+      parcalar: parca,
+      baslangic: parca[0].baslangic,
       bitis: bitis.toISOString(),
-      sureDk: sureDk,
-      fiyat: hizmetler.reduce(function (t, h) { return t + Number(h.fiyat); }, 0)
+      fiyat: parca.reduce(function (t, p) { return t + p.fiyat; }, 0)
     });
 
     // Formu bir sonraki kişi için sıfırla.
-    S.form = { kisi: '', hizmetIdler: [], usta: '', gun: '', saat: '' };
+    S.form = { kisi: '', hizmetIdler: [], ustalar: {}, gun: '', saat: '' };
     S.slotlar = [];
     S.hata = null;
     S.bilgi = 'Sepete eklendi. Bir kişi daha ekleyebilirsin ya da randevuları onaylayabilirsin.';
@@ -327,9 +424,13 @@
         p_salon: S.salon.id,
         p_ad: S.iletisim.ad.trim(),
         p_tel: S.iletisim.tel.trim(),
-        p_kalemler: gonderilen.map(function (k) {
-          return { kisi: k.kisi, baslangic: k.baslangic, usta: k.usta, hizmetler: k.hizmetIdler };
-        }),
+        // Her parça (usta) ayrı randevu olur; aynı kişinin parçaları art arda saatlerdedir.
+        p_kalemler: gonderilen.reduce(function (liste, k) {
+          k.parcalar.forEach(function (p) {
+            liste.push({ kisi: k.kisi, baslangic: p.baslangic, usta: p.usta, hizmetler: p.hizmetIdler });
+          });
+          return liste;
+        }, []),
         p_not: S.iletisim.not.trim() || null
       }
     }).then(function () {
@@ -349,11 +450,16 @@
   function salonKarti() {
     var s = S.salon;
     var konum = [s.ilce, s.sehir].filter(Boolean).join(' / ');
+    var wa = whatsappNumarasi(s.telefon);
     return el('section', { class: 'kart' },
       s.adres ? el('p', { text: s.adres, class: 'soluk', style: 'margin:0 0 4px' }) : null,
       konum ? el('p', { text: konum, class: 'soluk', style: 'margin:0 0 4px' }) : null,
       s.telefon ? el('p', { class: 'soluk', style: 'margin:0' }, el('a', { href: 'tel:' + s.telefon.replace(/\s/g, ''), text: s.telefon })) : null,
-      s.aciklama ? el('p', { text: s.aciklama, style: 'margin:12px 0 0' }) : null
+      s.aciklama ? el('p', { text: s.aciklama, style: 'margin:12px 0 0' }) : null,
+      s.telefon ? el('div', { style: 'display:flex;gap:10px;margin-top:12px' },
+        el('a', { class: 'dugme ikinci', style: 'margin-top:0;display:flex;align-items:center;justify-content:center;text-decoration:none;flex:1', href: 'tel:' + s.telefon.replace(/\s/g, ''), text: 'Ara' }),
+        wa ? el('a', { class: 'dugme ikinci', style: 'margin-top:0;display:flex;align-items:center;justify-content:center;text-decoration:none;flex:1', href: 'https://wa.me/' + wa, target: '_blank', rel: 'noopener', text: 'Mesaj' }) : null
+      ) : null
     );
   }
 
@@ -392,25 +498,64 @@
     return el('section', { class: 'kart' }, el('p', { class: 'baslik', text: '2 · HİZMET' }), kutu);
   }
 
+  // Her seçili hizmet için ayrı usta seçilir (yalnız o hizmeti yapan ustalar listelenir).
   function ustaBolumu() {
-    var kutu = el('div', { class: 'chips' });
-    var secenekler = [{ id: '', ad: 'Fark etmez' }].concat(S.ustalar.map(function (u) {
-      return { id: u.id, ad: u.ad + (u.unvan ? ' · ' + u.unvan : '') };
-    }));
-    secenekler.forEach(function (o) {
-      kutu.append(el('button', {
-        class: 'chip',
-        type: 'button',
-        'aria-pressed': S.form.usta === o.id ? 'true' : 'false',
-        text: o.ad,
-        onclick: function () {
-          if (S.form.usta === o.id) { return; }
-          S.form.usta = o.id;
-          slotlariGetir();
-        }
-      }));
+    var kart = el('section', { class: 'kart' }, el('p', { class: 'baslik', text: '3 · USTA' }));
+    var secili = secilenHizmetler(S.form.hizmetIdler);
+    if (!secili.length) {
+      kart.append(el('p', { class: 'soluk', text: 'Önce hizmet seç. Her hizmet için ayrı usta seçebilirsin.' }));
+      return kart;
+    }
+    secili.forEach(function (h) {
+      var yapanlar = hizmeteUstalar(h.id);
+      var etkin = etkinUsta(h.id);
+      var satir = el('div', { class: 'usta-satir' }, el('div', { class: 'isim', text: h.ad }));
+      if (!yapanlar.length) {
+        satir.append(el('p', { class: 'soluk', style: 'margin:6px 0 0', text: 'Bu hizmeti şu anda yapan usta yok.' }));
+        kart.append(satir);
+        return;
+      }
+      // Hizmeti tek usta yapıyorsa seçenek yok: o usta kendiliğinden seçili görünür.
+      var secenekler = yapanlar.length === 1 ? [] : [{ id: '', ad: 'Fark etmez' }];
+      yapanlar.forEach(function (u) {
+        secenekler.push({ id: u.id, ad: u.ad + (u.unvan ? ' · ' + u.unvan : '') });
+      });
+      var kutu = el('div', { class: 'chips', style: 'margin-top:8px' });
+      secenekler.forEach(function (o) {
+        kutu.append(el('button', {
+          class: 'chip',
+          type: 'button',
+          'aria-pressed': etkin === o.id ? 'true' : 'false',
+          text: o.ad,
+          onclick: function () {
+            if (etkin === o.id) { return; }
+            S.form.ustalar[h.id] = o.id;
+            slotlariGetir();
+          }
+        }));
+      });
+      satir.append(kutu);
+      kart.append(satir);
     });
-    return el('section', { class: 'kart' }, el('p', { class: 'baslik', text: '3 · USTA' }), kutu);
+    var g = parcalar();
+    if (g.length > 1) {
+      kart.append(el('p', {
+        class: 'soluk',
+        style: 'margin:12px 0 0',
+        text: 'İşlemler sırayla yapılır, biri biter bitmez diğeri başlar: ' + g.map(function (p) {
+          return (p.usta ? ustaAdi(p.usta) : 'Fark etmez') + ' (' + p.hizmetler.map(function (h) { return h.ad; }).join(', ') + ')';
+        }).join(' → ')
+      }));
+    }
+    return kart;
+  }
+
+  // Bir sepet kaleminin usta satırları: tek usta ise "Usta · hizmetler", birden çok ustada saatiyle.
+  function parcaSatirlari(k) {
+    return k.parcalar.map(function (p) {
+      var on = k.parcalar.length > 1 ? fmtSaat.format(new Date(p.baslangic)) + ' · ' : '';
+      return el('div', { class: 'soluk', text: on + (p.ustaAd || 'Usta') + ' · ' + p.hizmetAdlari });
+    });
   }
 
   function zamanBolumu() {
@@ -445,7 +590,13 @@
     }
     kart.append(gunKutu);
     if (!S.slotlar.length) {
-      kart.append(el('p', { class: 'soluk', text: 'Önümüzdeki 14 günde boş saat yok. Başka bir hizmet ya da usta dene.' }));
+      var birlesik = parcalar().some(function (g) { return !g.usta && g.hizmetler.length > 1; });
+      kart.append(el('p', {
+        class: 'soluk',
+        text: 'Önümüzdeki 14 günde bu seçimle boş saat yok. ' + (birlesik
+          ? 'Bu işlemleri tek bir usta yapmıyor olabilir; her işlem için ayrı usta seçmeyi dene.'
+          : 'Başka bir hizmet ya da usta dene.')
+      }));
     }
     if (S.form.gun && harita[S.form.gun]) {
       var saatler = Object.keys(harita[S.form.gun]).sort();
@@ -463,6 +614,21 @@
         }));
       });
       kart.append(saatKutu);
+    }
+    // Birden çok usta varsa seçilen saatin planı gösterilir.
+    var atanan = S.form.saat && harita[S.form.gun] && harita[S.form.gun][S.form.saat];
+    var grup = parcalar();
+    if (atanan && grup.length > 1) {
+      var plan = el('div', { class: 'soluk', style: 'margin-top:12px' });
+      var ofset = 0;
+      grup.forEach(function (g, i) {
+        var bas = new Date(new Date(S.form.saat).getTime() + ofset * 60000);
+        ofset += g.hizmetler.reduce(function (t, h) { return t + h.sure_dk; }, 0);
+        plan.append(el('div', {
+          text: fmtSaat.format(bas) + ' · ' + ustaAdi(atanan[i]) + ' · ' + g.hizmetler.map(function (h) { return h.ad; }).join(', ')
+        }));
+      });
+      kart.append(plan);
     }
     return kart;
   }
@@ -483,8 +649,8 @@
       kart.append(el('div', { class: 'sepet-kalem' },
         el('div', { class: 'govde' },
           el('div', { class: 'isim', text: k.kisi }),
-          el('div', { class: 'soluk', text: k.hizmetAdlari }),
-          el('div', { class: 'soluk', text: (k.ustaAd || 'Fark etmez') + ' · ' + zamanMetni(k.baslangic) }),
+          el('div', { class: 'soluk', text: zamanMetni(k.baslangic) }),
+          parcaSatirlari(k),
           el('div', { class: 'soluk', text: tl(k.fiyat) })
         ),
         el('button', { class: 'chip kucuk', type: 'button', text: 'Çıkar', onclick: function () { sepettenCikar(k.id); } })
@@ -528,8 +694,8 @@
       kart.append(el('div', { class: 'sepet-kalem' },
         el('div', { class: 'govde' },
           el('div', { class: 'isim', text: k.kisi }),
-          el('div', { class: 'soluk', text: k.hizmetAdlari }),
-          el('div', { class: 'soluk', text: (k.ustaAd || 'Fark etmez') + ' · ' + zamanMetni(k.baslangic) })
+          el('div', { class: 'soluk', text: zamanMetni(k.baslangic) }),
+          parcaSatirlari(k)
         )
       ));
     });
