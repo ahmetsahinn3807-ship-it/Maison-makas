@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src https://fhxwtfefinoaetlpxbpr.supabase.co; img-src 'self' data: https://fhxwtfefinoaetlpxbpr.supabase.co; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
 <title>Randevu · Maison Makas</title>
 <style>
   :root {
@@ -76,6 +78,10 @@
 <script>
 (function () {
   'use strict';
+
+  // Başka bir sitenin içine gömülüp üstü örtülerek kandırmak (clickjacking) için kullanılamasın.
+  try { if (window.top !== window.self) { document.body.textContent = ''; return; } }
+  catch (e) { document.body.textContent = ''; return; }
 
   var SB = 'https://fhxwtfefinoaetlpxbpr.supabase.co';
   var KEY = 'sb_publishable_DL9ZhXeclsp_eI3MrMK9cQ_-dgK5Pdy';
