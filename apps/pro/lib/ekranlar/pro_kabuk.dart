@@ -23,7 +23,7 @@ class ProKabuk extends StatefulWidget {
 
   final ProSalon salon;
 
-  /// Salon bilgisi değişince (ör. yayına alınınca) yeniden yükler.
+  /// Salon bilgisi değişince yeniden yükler.
   final VoidCallback yenile;
 
   @override
@@ -41,7 +41,10 @@ class _ProKabukState extends State<ProKabuk> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    WidgetsBinding.instance.addPostFrameCallback((Duration _) => _canliTakibiBaslat());
+    WidgetsBinding.instance.addPostFrameCallback((Duration _) {
+      _canliTakibiBaslat();
+      _otomatikYayinla();
+    });
     // Canlı bağlantı bir ara kopsa bile liste en geç bir dakika içinde güncellenir.
     _yenilemeZamanlayici = Timer.periodic(const Duration(minutes: 1), (Timer _) {
       if (mounted && _onde) {
@@ -64,6 +67,29 @@ class _ProKabukState extends State<ProKabuk> with WidgetsBindingObserver {
     if (_onde && mounted) {
       // Uygulama arka plandan öne gelince listeyi hemen yenile.
       setState(() => _surum++);
+    }
+  }
+
+  bool _yayinDenendi = false;
+
+  /// Salon sahibi için "yayına alma" adımı yoktur: salon her zaman yayındadır, müşteri QR sayfası hemen çalışır.
+  /// Taslakta kalmış salon açılışta kendiliğinden yayına alınır; olmazsa uygulama yeniden açılınca tekrar denenir.
+  Future<void> _otomatikYayinla() async {
+    if (!mounted || _yayinDenendi || widget.salon.yayinda || !widget.salon.sahibim) {
+      return;
+    }
+    _yayinDenendi = true;
+    final SupabaseClient? istemci = OturumKapsami.oku(context).istemci;
+    if (istemci == null) {
+      return;
+    }
+    try {
+      await istemci.from('salonlar').update(<String, dynamic>{'yayinda': true}).eq('id', widget.salon.id);
+      if (mounted) {
+        widget.yenile();
+      }
+    } catch (_) {
+      // Bağlantı yoksa sessizce geçilir; QR ekranı ve üstteki "Taslak" etiketi durumu gösterir.
     }
   }
 
@@ -554,7 +580,7 @@ class _BugunEkraniState extends State<_BugunEkrani> {
                       baslik: dl('Bugün randevu yok', 'No bookings today'),
                       aciklama: widget.salon.yayinda
                           ? dl('Müşteriler randevu aldıkça burada saat sırasıyla görünecek.', 'Bookings will appear here in time order as customers book.')
-                          : dl('Hizmetlerini ve çalışma saatlerini ekleyip salonu yayına aldığında randevular burada görünecek.', 'Once you add your services and working hours and publish the salon, bookings will appear here.'),
+                          : dl('Hizmetlerini ve çalışma saatlerini ekleyince randevular burada görünecek.', 'Once you add your services and working hours, bookings will appear here.'),
                     )
                   else
                     for (final TakvimKaydi k in liste)

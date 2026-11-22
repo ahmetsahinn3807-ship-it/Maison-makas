@@ -57,8 +57,8 @@ class SalonQrEkrani extends StatelessWidget {
               if (!salon.yayinda) ...<Widget>[
                 MaisonHataKutusu(
                   dl(
-                    'Salon taslakta. Müşteriler randevu sayfasını göremez. Ayarlar\'dan salonu yayına al.',
-                    'Your salon is a draft. Customers cannot open the booking page. Turn the salon live in Settings.',
+                    'Salon henüz yayına açılamadı, müşteriler randevu sayfasını göremez. İnternetini kontrol edip uygulamayı kapatıp yeniden aç.',
+                    'Your salon could not be set live yet, so customers cannot open the booking page. Check your connection and reopen the app.',
                   ),
                 ),
                 const SizedBox(height: 16),

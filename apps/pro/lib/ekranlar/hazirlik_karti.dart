@@ -82,7 +82,6 @@ class _HazirlikKartiState extends State<HazirlikKarti> {
     final int saatli = _sayi(d, 'saatli_usta');
     final bool kapak = d['kapak'] == true;
     final bool aciklama = d['aciklama'] == true;
-    final bool yayinda = d['yayinda'] == true;
     final List<_Madde> maddeler = <_Madde>[
       _Madde(
         baslik: dl('Hizmet menüsü', 'Service menu'),
@@ -117,12 +116,6 @@ class _HazirlikKartiState extends State<HazirlikKarti> {
         tamam: aciklama,
         aciklama: aciklama ? dl('Tanıtım yazıldı', 'Description written') : dl('Vitrinde görünecek birkaç cümle yaz', 'Write a few sentences for your showcase'),
         onTap: widget.bilgiler,
-      ),
-      _Madde(
-        baslik: dl('Yayına al', 'Publish'),
-        tamam: yayinda,
-        aciklama: yayinda ? dl('Salonun Keşfet\'te görünüyor', 'Your salon appears in Discover') : dl('Hazır olunca Ayarlar\'dan yayına al', 'Publish it from Settings when ready'),
-        onTap: widget.ayarlar,
       ),
     ];
     final int biten = maddeler.where((_Madde m) => m.tamam).length;

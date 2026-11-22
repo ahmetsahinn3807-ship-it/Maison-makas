@@ -270,7 +270,7 @@ class _SalonKurEkraniState extends State<SalonKurEkrani> {
               ),
               const SizedBox(height: 12),
               Text(
-                dl('Salonun taslak olarak açılır; hazır olunca Ayarlar\'dan yayına alırsın.', 'Your salon starts as a draft; publish it from Settings when ready.'),
+                dl('Salonun hemen yayında olur; hizmetlerini ekleyince müşteriler QR kodla randevu alabilir.', 'Your salon goes live right away; once you add services, customers can book with your QR code.'),
                 textAlign: TextAlign.center,
                 style: maisonGovde(12, renk: r.soluk, yukseklik: 1.5),
               ),

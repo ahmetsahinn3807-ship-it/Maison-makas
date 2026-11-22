@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:makas_core/makas_core.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' show SupabaseClient;
 
 import '../salon.dart';
 import 'salon_bilgileri_ekrani.dart';
 import 'salon_qr_ekrani.dart';
 
-/// Makas Pro ayarları: salonu yayına alma, çıkış ve hesap silme.
+/// Makas Pro ayarları: salon bilgileri, QR kod, görünüm, çıkış ve hesap silme.
 class ProAyarlar extends StatefulWidget {
   const ProAyarlar({super.key, required this.salon, required this.salonDegisti});
 
@@ -18,36 +17,7 @@ class ProAyarlar extends StatefulWidget {
 }
 
 class _ProAyarlarState extends State<ProAyarlar> {
-  late bool _yayinda = widget.salon.yayinda;
   bool _isleniyor = false;
-
-  Future<void> _yayinDegistir(bool yeni) async {
-    final SupabaseClient? i = OturumKapsami.oku(context).istemci;
-    final ScaffoldMessengerState mesaj = ScaffoldMessenger.of(context);
-    if (i == null) {
-      return;
-    }
-    setState(() {
-      _yayinda = yeni;
-      _isleniyor = true;
-    });
-    try {
-      await i.from('salonlar').update(<String, dynamic>{'yayinda': yeni}).eq('id', widget.salon.id);
-      widget.salonDegisti();
-      mesaj.showSnackBar(SnackBar(
-        content: Text(yeni ? dl('Salonun yayında; müşteriler Keşfet\'te görür.', 'Your salon is live; customers can see it in Discover.') : dl('Salonun taslağa alındı.', 'Your salon is now a draft.')),
-      ));
-    } catch (hata) {
-      if (mounted) {
-        setState(() => _yayinda = !yeni);
-      }
-      mesaj.showSnackBar(SnackBar(content: Text(maisonHataMetni(hata))));
-    } finally {
-      if (mounted) {
-        setState(() => _isleniyor = false);
-      }
-    }
-  }
 
   Future<void> _cikisYap() async {
     final MaisonOturum oturum = OturumKapsami.oku(context);
@@ -220,51 +190,6 @@ class _ProAyarlarState extends State<ProAyarlar> {
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-              decoration: BoxDecoration(
-                color: r.kart,
-                borderRadius: BorderRadius.circular(18),
-                border: Border.all(color: r.cizgi),
-              ),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          dl('Salon yayında', 'Salon is live'),
-                          style: maisonGovde(15, renk: r.yazi, kalinlik: FontWeight.w600, yukseklik: 1.3),
-                        ),
-                        Text(
-                          widget.salon.sahibim
-                              ? dl('Açıkken müşteriler salonunu Maison Makas\'ta görür.', 'When on, customers see your salon on Maison Makas.')
-                              : dl('Bu ayarı yalnız salon sahibi değiştirebilir.', 'Only the salon owner can change this.'),
-                          style: maisonGovde(13, renk: r.soluk, yukseklik: 1.35),
-                        ),
-                      ],
-                    ),
-                  ),
-                  MaisonAnahtar(
-                    deger: _yayinda,
-                    etiket: dl('Salon yayında', 'Salon is live'),
-                    onChanged: (bool yeni) {
-                      if (!widget.salon.sahibim || _isleniyor) {
-                        return;
-                      }
-                      _yayinDegistir(yeni);
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              dl('Hizmet ve çalışma saati eklemeden yayına alırsan müşteriler salonunu görür ama henüz randevu alamaz.', 'If you publish before adding services and working hours, customers will see your salon but cannot book yet.'),
-              style: maisonGovde(12, renk: r.soluk, yukseklik: 1.45),
             ),
             const SizedBox(height: 28),
             MaisonUstBaslik(dl('GÖRÜNÜM', 'APPEARANCE')),
