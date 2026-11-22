@@ -55,5 +55,4 @@ PY
   echo "  ✓ $dizin hazır: $(grep -o 'android:label="[^"]*"' "$manifest")"
 }
 
-kur musteri musteri "Maison Makas" "0.0549 0.0549 0.0627"
 kur pro pro "Makas Pro" "0.9686 0.9529 0.9255"

@@ -1,10 +1,9 @@
 # Maison Makas
 
-Berber ve kuaförler için randevu sistemi. İki uygulama, tek tasarım sistemi:
+Berber ve kuaförler için randevu sistemi. Salon sahipleri Makas Pro'yu kullanır; müşteriler salonun QR kodundan açılan randevu sayfasından (`docs/randevu`) üye olmadan randevu alır.
 
 | Uygulama | Klasör | Paket adı | Kimin için |
 |---|---|---|---|
-| **Maison Makas** | `apps/musteri` | `com.maisonmakas.musteri` | Müşteriler: salon bul, randevu al |
 | **Makas Pro** | `apps/pro` | `com.maisonmakas.pro` | Salon sahipleri ve ustalar |
 
 Ortak renkler, tema, yazı tipleri ve amblem `packages/makas_core` içinde.
@@ -12,7 +11,7 @@ Ortak renkler, tema, yazı tipleri ve amblem `packages/makas_core` içinde.
 ## Klasörler
 
 ```
-apps/musteri        Müşteri uygulaması (Flutter)
+docs/randevu        Müşteri randevu sayfası (QR kodundan açılır)
 apps/pro            İşletme uygulaması (Flutter)
 packages/makas_core Paletler (5 görünüm), tema, Inter + Cormorant Garamond, amblem çizimi
 marka/              Logo SVG'leri, Play (512) ve App Store (1024) ikonları
@@ -174,7 +173,7 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
   Giriş yapılınca dil hesaba (`profiller.dil`) yazılır; yeni bir telefonda hesaptaki dil uygulanır.
 - Tarih, gün adı, para (₺1,250 / 1.250 ₺), süre ve ondalık biçimleri seçili dile uyar (`tarih.dart`).
 - Sunucu hata mesajlarını Türkçe yazar; İngilizcesi `sunucu_mesajlari.dart` içindedir. Yeni bir SQL mesajı eklenince
-  buraya da eklenmeli: `apps/musteri/test/dil_test.dart` her `raise exception` mesajının çevirisi olduğunu denetler.
+  buraya da eklenmeli (Makas Pro'nun gösterdiği mesajlar için).
 - Yazı boyutu (Küçük / Normal / Büyük) telefonun kendi yazı boyutunun üstüne uygulanır ve telefonda saklanır.
 - Maison Makas'ta tema (5 palet), vurgu rengi ve koyu mod hesaba kaydedilir. Makas Pro'da koyu görünüm telefonda saklanır.
 

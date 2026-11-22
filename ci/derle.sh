@@ -161,7 +161,6 @@ derle() {
   cp "apps/$dizin/build/app/outputs/flutter-apk/app-release.apk" "cikti/$dosya-$NO.apk"
   echo "::endgroup::"
 }
-derle musteri maison-makas
 derle pro makas-pro
 
 # 5) İmza ve paket bilgisi. İmza beklenen anahtar değilse derleme durur:
@@ -229,7 +228,7 @@ done
 } > "$RAPOR/06-imza-teshis.txt" 2>&1 || true
 ls -la cikti || true
 echo "::endgroup::"
-for d in musteri pro; do
+for d in pro; do
   analiz="$(grep -E 'issues? found|No issues found' "$RAPOR/$d-2-analiz.txt" 2>/dev/null | tail -1 || true)"
   test_sonuc="$(grep -E 'tests? passed|Some tests failed|tests? failed' "$RAPOR/$d-3-test.txt" 2>/dev/null | tail -1 || true)"
   ozet ""

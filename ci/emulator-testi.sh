@@ -226,6 +226,5 @@ dene() {
 }
 
 # Emülatörün dili İngilizce olabilir: uygulamalar telefonun diliyle açılır.
-dene maison-makas com.maisonmakas.musteri "Hesabım var" "I have an account"
 dene makas-pro com.maisonmakas.pro "Giriş yap" "Sign in"
 yaz "Bitti"

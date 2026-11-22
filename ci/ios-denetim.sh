@@ -65,7 +65,7 @@ ozet "| Uygulama | Sonuç |"
 ozet "|---|---|"
 
 hata=0
-for dizin in musteri pro; do
+for dizin in pro; do
   echo "::group::$dizin: iOS derleniyor"
   if [ ! -f "apps/$dizin/ios/Runner.xcodeproj/project.pbxproj" ]; then
     echo "iOS klasörü yok (önce Android derlemesi bir kez çalışmalı)." | tee "$RAPOR/$dizin-ios.txt"

@@ -162,7 +162,6 @@ paketle() {
   fi
   echo "::endgroup::"
 }
-paketle musteri maison-makas
 paketle pro makas-pro
 rm -rf "$GIZLI"
 
