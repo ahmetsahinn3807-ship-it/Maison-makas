@@ -55,6 +55,14 @@
   .toplam { display: flex; justify-content: space-between; border-top: 1px solid var(--cizgi); margin-top: 6px; padding-top: 12px; font-weight: 700; }
   a { color: var(--vurgu); }
   .adim { margin-top: 26px; }
+  [hidden] { display: none !important; }
+  .grup { margin-top: 10px; }
+  .grup-baslik { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 58px; padding: 0 14px; background: transparent; color: var(--yazi); border: 1px solid var(--cizgi); border-left-width: 5px; border-radius: 12px; font: inherit; cursor: pointer; text-align: left; }
+  .grup-ad { flex: 1; font-weight: 700; letter-spacing: 2px; }
+  .grup-say { color: var(--soluk); font-size: 13px; }
+  .grup-say.secili { color: var(--vurgu); font-weight: 700; }
+  .grup-ok { color: var(--soluk); width: 16px; text-align: center; }
+  .grup-icerik { margin-top: 8px; }
 </style>
 </head>
 <body>
@@ -85,6 +93,8 @@
     bilgi: null,
     salon: null,
     hizmetler: [],
+    // Hizmet başlıklarından açık olanlar (anahtar -> true)
+    acik: {},
     ustalar: [],
     // usta_id -> o ustanın yaptığı hizmet kimlikleri (kaydı olmayan usta bütün hizmetleri yapar)
     ustaHizmet: {},
@@ -187,6 +197,17 @@
     return u ? u.ad : '';
   }
 
+  // Hizmet başlıkları. hizmetler.hedef: bayan = Kadın, bay = Erkek, ikisi (ya da boş) = Güzellik.
+  var GRUPLAR = [
+    { anahtar: 'bayan', ad: 'KADIN', renk: '#E0218A' },
+    { anahtar: 'bay', ad: 'ERKEK', renk: '#1E6FD9' },
+    { anahtar: 'ikisi', ad: 'GÜZELLİK', renk: '#c9a96e' }
+  ];
+
+  function hizmetGrubu(h) {
+    return h.hedef === 'bay' || h.hedef === 'bayan' ? h.hedef : 'ikisi';
+  }
+
   function telefonGecerli(t) { return t.replace(/\D/g, '').length >= 10; }
 
   // Salonun telefonundan WhatsApp numarası (Türkiye: 90 ile başlar). Geçersizse null.
@@ -269,7 +290,11 @@
         document.getElementById('salonAd').textContent = S.salon.ad;
         document.title = S.salon.ad + ' · Randevu';
         return Promise.all([
-          istek('/rest/v1/hizmetler?salon_id=eq.' + S.salon.id + '&aktif=eq.true&select=id,ad,sure_dk,fiyat,kategori&order=sira.asc'),
+          istek('/rest/v1/hizmetler?salon_id=eq.' + S.salon.id + '&aktif=eq.true&select=id,ad,sure_dk,fiyat,kategori,hedef&order=sira.asc')
+            .catch(function () {
+              // hedef sütunu henüz yoksa başlıksız (düz liste) çalışmaya devam et.
+              return istek('/rest/v1/hizmetler?salon_id=eq.' + S.salon.id + '&aktif=eq.true&select=id,ad,sure_dk,fiyat,kategori&order=sira.asc');
+            }),
           istek('/rest/v1/ustalar?salon_id=eq.' + S.salon.id + '&aktif=eq.true&select=id,ad,unvan&order=sira.asc'),
           istek('/rest/v1/usta_hizmet?salon_id=eq.' + S.salon.id + '&select=usta_id,hizmet_id')
         ]).then(function (sonuc) {
@@ -297,17 +322,36 @@
     if (!S.form.hizmetIdler.length) { return ciz(); }
     S.slotYukleniyor = true;
     ciz();
+    var parcaListesi = parcalar();
     istek('/rest/v1/rpc/musait_saatler_zincir', {
       metod: 'POST',
       govde: {
         p_salon: S.salon.id,
         p_bas: bugunTarih(),
         p_gun_sayisi: GUN_SAYISI,
-        p_parcalar: parcalar().map(function (g) {
+        p_parcalar: parcaListesi.map(function (g) {
           return { hizmetler: g.hizmetler.map(function (h) { return h.id; }), usta: g.usta };
         }),
         p_mesgul: sepetMesgul()
       }
+    }).catch(function (e) {
+      // Veritabanı güncellemesi (musait_saatler_zincir) henüz yapılmadıysa eski tek usta hesabına dön.
+      if (!/musait_saatler_zincir|schema cache/i.test(e.message)) { throw e; }
+      if (parcaListesi.length > 1) {
+        throw new Error('Birden çok usta seçimi henüz açılmadı. Tüm hizmetler için aynı ustayı seç ya da "Fark etmez" de.');
+      }
+      return istek('/rest/v1/rpc/musait_saatler', {
+        metod: 'POST',
+        govde: {
+          p_salon: S.salon.id,
+          p_bas: bugunTarih(),
+          p_gun_sayisi: GUN_SAYISI,
+          p_hizmetler: S.form.hizmetIdler,
+          p_usta: parcaListesi[0].usta
+        }
+      }).then(function (satirlar) {
+        return (satirlar || []).map(function (r) { return { baslangic: r.baslangic, usta_idler: [r.usta_id] }; });
+      });
     }).then(function (satirlar) {
       if (no !== S.sorgu) { return; }
       S.slotlar = satirlar || [];
@@ -474,28 +518,69 @@
     );
   }
 
+  function hizmetSatiri(h) {
+    var secili = S.form.hizmetIdler.indexOf(h.id) !== -1;
+    return el('label', { class: 'secenek' },
+      el('input', {
+        type: 'checkbox',
+        checked: secili,
+        onchange: function () {
+          var i = S.form.hizmetIdler.indexOf(h.id);
+          if (i === -1) { S.form.hizmetIdler.push(h.id); } else { S.form.hizmetIdler.splice(i, 1); }
+          slotlariGetir();
+        }
+      }),
+      el('span', { class: 'ad' }, h.ad, el('span', { class: 'not' }, ' · ' + h.sure_dk + ' dk')),
+      el('span', { text: tl(h.fiyat) })
+    );
+  }
+
+  // Başlığa dokununca altındaki hizmetler açılır / kapanır.
+  function grupKutusu(g, liste) {
+    var secilen = liste.filter(function (h) { return S.form.hizmetIdler.indexOf(h.id) !== -1; }).length;
+    var acik = !!S.acik[g.anahtar];
+    var icerik = el('div', { class: 'liste grup-icerik' });
+    liste.forEach(function (h) { icerik.append(hizmetSatiri(h)); });
+    icerik.hidden = !acik;
+    var ok = el('span', { class: 'grup-ok', text: acik ? '▴' : '▾' });
+    var dugme = el('button', {
+      class: 'grup-baslik',
+      type: 'button',
+      'aria-expanded': acik ? 'true' : 'false',
+      style: 'border-left-color:' + g.renk,
+      onclick: function () {
+        acik = !acik;
+        S.acik[g.anahtar] = acik;
+        icerik.hidden = !acik;
+        dugme.setAttribute('aria-expanded', acik ? 'true' : 'false');
+        ok.textContent = acik ? '▴' : '▾';
+      }
+    },
+      el('span', { class: 'grup-ad', text: g.ad }),
+      el('span', { class: 'grup-say' + (secilen ? ' secili' : ''), text: secilen ? secilen + ' seçili' : liste.length + ' işlem' }),
+      ok
+    );
+    return el('div', { class: 'grup' }, dugme, icerik);
+  }
+
   function hizmetBolumu() {
-    var kutu = el('div', { class: 'liste' });
-    S.hizmetler.forEach(function (h) {
-      var secili = S.form.hizmetIdler.indexOf(h.id) !== -1;
-      kutu.append(el('label', { class: 'secenek' },
-        el('input', {
-          type: 'checkbox',
-          checked: secili,
-          onchange: function () {
-            var i = S.form.hizmetIdler.indexOf(h.id);
-            if (i === -1) { S.form.hizmetIdler.push(h.id); } else { S.form.hizmetIdler.splice(i, 1); }
-            slotlariGetir();
-          }
-        }),
-        el('span', { class: 'ad' }, h.ad, el('span', { class: 'not' }, ' · ' + h.sure_dk + ' dk')),
-        el('span', { text: tl(h.fiyat) })
-      ));
-    });
+    var kart = el('section', { class: 'kart' }, el('p', { class: 'baslik', text: '2 · HİZMET' }));
     if (!S.hizmetler.length) {
-      kutu.append(el('p', { class: 'soluk', text: 'Bu salonda henüz hizmet tanımlanmamış.' }));
+      kart.append(el('p', { class: 'soluk', text: 'Bu salonda henüz hizmet tanımlanmamış.' }));
+      return kart;
     }
-    return el('section', { class: 'kart' }, el('p', { class: 'baslik', text: '2 · HİZMET' }), kutu);
+    var gruplar = GRUPLAR.map(function (g) {
+      return { g: g, liste: S.hizmetler.filter(function (h) { return hizmetGrubu(h) === g.anahtar; }) };
+    }).filter(function (x) { return x.liste.length > 0; });
+    // Tek başlık varsa (salon hizmetleri henüz ayırmadıysa) düz liste göster.
+    if (gruplar.length < 2) {
+      var duz = el('div', { class: 'liste' });
+      S.hizmetler.forEach(function (h) { duz.append(hizmetSatiri(h)); });
+      kart.append(duz);
+      return kart;
+    }
+    gruplar.forEach(function (x) { kart.append(grupKutusu(x.g, x.liste)); });
+    return kart;
   }
 
   // Her seçili hizmet için ayrı usta seçilir (yalnız o hizmeti yapan ustalar listelenir).

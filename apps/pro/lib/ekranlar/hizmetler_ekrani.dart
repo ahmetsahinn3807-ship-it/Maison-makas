@@ -537,6 +537,9 @@ class _HizmetFormuState extends State<_HizmetFormu> {
   late HizmetKategorisi _kategori = widget.hizmet?.kategori ?? HizmetKategorisi.sac;
   late int _sure = widget.hizmet?.sureDk ?? 30;
   late bool _aktif = widget.hizmet?.aktif ?? true;
+
+  /// Müşteri sayfasındaki başlık: 'bayan' = Kadın, 'bay' = Erkek, 'ikisi' = Güzellik.
+  late String _hedef = widget.hizmet?.hedef ?? 'ikisi';
   String? _uyari;
 
   @override
@@ -576,6 +579,7 @@ class _HizmetFormuState extends State<_HizmetFormu> {
           fiyat: fiyat,
           aciklama: aciklama.isEmpty ? null : aciklama,
           aktif: _aktif,
+          hedef: _hedef,
         ),
       ),
     );
@@ -619,6 +623,25 @@ class _HizmetFormuState extends State<_HizmetFormu> {
                       label: Text(k.ad),
                       selected: _kategori == k,
                       onSelected: (bool _) => setState(() => _kategori = k),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 18),
+              MaisonUstBaslik(dl('MÜŞTERİ SAYFASINDA BAŞLIK', 'HEADING ON THE BOOKING PAGE')),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: <Widget>[
+                  for (final MapEntry<String, String> e in <String, String>{
+                    'bayan': dl('Kadın', 'Women'),
+                    'bay': dl('Erkek', 'Men'),
+                    'ikisi': dl('Güzellik', 'Beauty'),
+                  }.entries)
+                    ChoiceChip(
+                      label: Text(e.value),
+                      selected: _hedef == e.key,
+                      onSelected: (bool _) => setState(() => _hedef = e.key),
                     ),
                 ],
               ),
@@ -782,7 +805,7 @@ class _HazirMenuState extends State<_HazirMenu> {
         setState(() => _uyari = dl('${s.ad} için fiyat yaz.', 'Enter a price for ${s.ad}.'));
         return;
       }
-      taslaklar.add(HizmetTaslagi(ad: s.ad, kategori: s.kategori, sureDk: s.sureDk, fiyat: fiyat));
+      taslaklar.add(HizmetTaslagi(ad: s.ad, kategori: s.kategori, sureDk: s.sureDk, fiyat: fiyat, hedef: s.hedef));
     }
     Navigator.of(context).pop(taslaklar);
   }

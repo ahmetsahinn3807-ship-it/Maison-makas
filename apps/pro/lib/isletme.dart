@@ -13,6 +13,7 @@ class ProHizmet {
     this.aciklama,
     this.aktif = true,
     this.sira = 0,
+    this.hedef = 'ikisi',
   });
 
   factory ProHizmet.json(Map<String, dynamic> m) {
@@ -25,11 +26,12 @@ class ProHizmet {
       fiyat: (m['fiyat'] as num?)?.toDouble() ?? 0,
       aktif: m['aktif'] != false,
       sira: (m['sira'] as num?)?.toInt() ?? 0,
+      hedef: (m['hedef'] as String?) ?? 'ikisi',
     );
   }
 
   /// Sorgularda istenen sütunlar.
-  static const String sutunlar = 'id, ad, aciklama, kategori, sure_dk, fiyat, aktif, sira';
+  static const String sutunlar = 'id, ad, aciklama, kategori, sure_dk, fiyat, aktif, sira, hedef';
 
   final String id;
   final String ad;
@@ -40,6 +42,9 @@ class ProHizmet {
   final bool aktif;
   final int sira;
 
+  /// Müşteri sayfasındaki başlık: 'bayan' = Kadın, 'bay' = Erkek, 'ikisi' = Güzellik.
+  final String hedef;
+
   /// Kaydedilecek alanlar (salon ve sıra hariç).
   Map<String, dynamic> kayit() => <String, dynamic>{
         'ad': ad,
@@ -48,6 +53,7 @@ class ProHizmet {
         'sure_dk': sureDk,
         'fiyat': fiyat,
         'aktif': aktif,
+        'hedef': hedef,
       };
 
   ProHizmet copyWith({int? sira, bool? aktif}) {
@@ -60,6 +66,7 @@ class ProHizmet {
       fiyat: fiyat,
       aktif: aktif ?? this.aktif,
       sira: sira ?? this.sira,
+      hedef: hedef,
     );
   }
 }
@@ -74,6 +81,7 @@ class HizmetTaslagi {
     required this.fiyat,
     this.aciklama,
     this.aktif = true,
+    this.hedef = 'ikisi',
   });
 
   final String ad;
@@ -83,6 +91,9 @@ class HizmetTaslagi {
   final String? aciklama;
   final bool aktif;
 
+  /// 'bayan' = Kadın, 'bay' = Erkek, 'ikisi' = Güzellik (müşteri sayfasındaki başlık).
+  final String hedef;
+
   Map<String, dynamic> kayit() => <String, dynamic>{
         'ad': ad,
         'aciklama': aciklama,
@@ -90,6 +101,7 @@ class HizmetTaslagi {
         'sure_dk': sureDk,
         'fiyat': fiyat,
         'aktif': aktif,
+        'hedef': hedef,
       };
 }
 
@@ -175,7 +187,7 @@ class ProUsta {
 /// Hazır berber menüsünden bir kalem.
 @immutable
 class HizmetSablonu {
-  const HizmetSablonu(this._tr, this._en, this.kategori, this.sureDk);
+  const HizmetSablonu(this._tr, this._en, this.kategori, this.sureDk, this.hedef);
 
   final String _tr;
   final String _en;
@@ -186,41 +198,44 @@ class HizmetSablonu {
   final HizmetKategorisi kategori;
   final int sureDk;
 
+  /// 'bayan' = Kadın, 'bay' = Erkek, 'ikisi' = Güzellik.
+  final String hedef;
+
   static const List<HizmetSablonu> berber = <HizmetSablonu>[
-    HizmetSablonu('Saç kesimi', 'Haircut', HizmetKategorisi.sac, 30),
-    HizmetSablonu('Saç ve sakal', 'Hair and beard', HizmetKategorisi.sac, 45),
-    HizmetSablonu('Saç yıkama ve fön', 'Wash and blow-dry', HizmetKategorisi.sac, 15),
-    HizmetSablonu('Sakal tıraşı', 'Beard shave', HizmetKategorisi.sakal, 20),
-    HizmetSablonu('Ustura ile tıraş', 'Straight razor shave', HizmetKategorisi.sakal, 30),
-    HizmetSablonu('Sakal şekillendirme', 'Beard shaping', HizmetKategorisi.sakal, 20),
-    HizmetSablonu('Saç boyama', 'Hair colouring', HizmetKategorisi.renk, 60),
-    HizmetSablonu('Sakal boyama', 'Beard colouring', HizmetKategorisi.renk, 30),
-    HizmetSablonu('Cilt bakımı', 'Skin care', HizmetKategorisi.bakim, 30),
-    HizmetSablonu('Kaş düzeltme', 'Eyebrow tidy', HizmetKategorisi.bakim, 10),
-    HizmetSablonu('Ağda (kulak, burun)', 'Waxing (ears, nose)', HizmetKategorisi.bakim, 10),
-    HizmetSablonu('Çocuk saç kesimi', "Kids' haircut", HizmetKategorisi.cocuk, 20),
-    HizmetSablonu('Damat tıraşı', 'Groom shave', HizmetKategorisi.diger, 90),
+    HizmetSablonu('Saç kesimi', 'Haircut', HizmetKategorisi.sac, 30, 'bay'),
+    HizmetSablonu('Saç ve sakal', 'Hair and beard', HizmetKategorisi.sac, 45, 'bay'),
+    HizmetSablonu('Saç yıkama ve fön', 'Wash and blow-dry', HizmetKategorisi.sac, 15, 'bay'),
+    HizmetSablonu('Sakal tıraşı', 'Beard shave', HizmetKategorisi.sakal, 20, 'bay'),
+    HizmetSablonu('Ustura ile tıraş', 'Straight razor shave', HizmetKategorisi.sakal, 30, 'bay'),
+    HizmetSablonu('Sakal şekillendirme', 'Beard shaping', HizmetKategorisi.sakal, 20, 'bay'),
+    HizmetSablonu('Saç boyama', 'Hair colouring', HizmetKategorisi.renk, 60, 'bay'),
+    HizmetSablonu('Sakal boyama', 'Beard colouring', HizmetKategorisi.renk, 30, 'bay'),
+    HizmetSablonu('Cilt bakımı', 'Skin care', HizmetKategorisi.bakim, 30, 'ikisi'),
+    HizmetSablonu('Kaş düzeltme', 'Eyebrow tidy', HizmetKategorisi.bakim, 10, 'ikisi'),
+    HizmetSablonu('Ağda (kulak, burun)', 'Waxing (ears, nose)', HizmetKategorisi.bakim, 10, 'ikisi'),
+    HizmetSablonu('Çocuk saç kesimi', "Kids' haircut", HizmetKategorisi.cocuk, 20, 'bay'),
+    HizmetSablonu('Damat tıraşı', 'Groom shave', HizmetKategorisi.diger, 90, 'bay'),
   ];
 
   /// Bayan kuaför menüsü.
   static const List<HizmetSablonu> bayan = <HizmetSablonu>[
-    HizmetSablonu('Saç kesimi', 'Haircut', HizmetKategorisi.sac, 60),
-    HizmetSablonu('Saç yıkama ve fön', 'Wash and blow-dry', HizmetKategorisi.sac, 30),
-    HizmetSablonu('Fön ve şekillendirme', 'Styling and blow-dry', HizmetKategorisi.sac, 45),
-    HizmetSablonu('Perma', 'Perm', HizmetKategorisi.sac, 90),
-    HizmetSablonu('Saç boyama (kök)', 'Root colouring', HizmetKategorisi.renk, 60),
-    HizmetSablonu('Saç boyama (komple)', 'Full colouring', HizmetKategorisi.renk, 90),
-    HizmetSablonu('Röfle ve balyaj', 'Highlights and balayage', HizmetKategorisi.renk, 150),
-    HizmetSablonu('Keratin bakımı', 'Keratin treatment', HizmetKategorisi.bakim, 120),
-    HizmetSablonu('Saç bakım maskesi', 'Hair mask treatment', HizmetKategorisi.bakim, 30),
-    HizmetSablonu('Kaş alma', 'Eyebrow shaping', HizmetKategorisi.bakim, 15),
-    HizmetSablonu('Ağda (yüz)', 'Waxing (face)', HizmetKategorisi.bakim, 15),
-    HizmetSablonu('Ağda (bacak)', 'Waxing (legs)', HizmetKategorisi.bakim, 40),
-    HizmetSablonu('Cilt bakımı', 'Skin care', HizmetKategorisi.bakim, 60),
-    HizmetSablonu('Makyaj', 'Makeup', HizmetKategorisi.diger, 45),
-    HizmetSablonu('Gelin saçı ve makyajı', 'Bridal hair and makeup', HizmetKategorisi.diger, 180),
-    HizmetSablonu('Manikür', 'Manicure', HizmetKategorisi.diger, 40),
-    HizmetSablonu('Pedikür', 'Pedicure', HizmetKategorisi.diger, 50),
+    HizmetSablonu('Saç kesimi', 'Haircut', HizmetKategorisi.sac, 60, 'bayan'),
+    HizmetSablonu('Saç yıkama ve fön', 'Wash and blow-dry', HizmetKategorisi.sac, 30, 'bayan'),
+    HizmetSablonu('Fön ve şekillendirme', 'Styling and blow-dry', HizmetKategorisi.sac, 45, 'bayan'),
+    HizmetSablonu('Perma', 'Perm', HizmetKategorisi.sac, 90, 'bayan'),
+    HizmetSablonu('Saç boyama (kök)', 'Root colouring', HizmetKategorisi.renk, 60, 'bayan'),
+    HizmetSablonu('Saç boyama (komple)', 'Full colouring', HizmetKategorisi.renk, 90, 'bayan'),
+    HizmetSablonu('Röfle ve balyaj', 'Highlights and balayage', HizmetKategorisi.renk, 150, 'bayan'),
+    HizmetSablonu('Keratin bakımı', 'Keratin treatment', HizmetKategorisi.bakim, 120, 'bayan'),
+    HizmetSablonu('Saç bakım maskesi', 'Hair mask treatment', HizmetKategorisi.bakim, 30, 'bayan'),
+    HizmetSablonu('Kaş alma', 'Eyebrow shaping', HizmetKategorisi.bakim, 15, 'ikisi'),
+    HizmetSablonu('Ağda (yüz)', 'Waxing (face)', HizmetKategorisi.bakim, 15, 'ikisi'),
+    HizmetSablonu('Ağda (bacak)', 'Waxing (legs)', HizmetKategorisi.bakim, 40, 'ikisi'),
+    HizmetSablonu('Cilt bakımı', 'Skin care', HizmetKategorisi.bakim, 60, 'ikisi'),
+    HizmetSablonu('Makyaj', 'Makeup', HizmetKategorisi.diger, 45, 'ikisi'),
+    HizmetSablonu('Gelin saçı ve makyajı', 'Bridal hair and makeup', HizmetKategorisi.diger, 180, 'bayan'),
+    HizmetSablonu('Manikür', 'Manicure', HizmetKategorisi.diger, 40, 'ikisi'),
+    HizmetSablonu('Pedikür', 'Pedicure', HizmetKategorisi.diger, 50, 'ikisi'),
   ];
 }
 
