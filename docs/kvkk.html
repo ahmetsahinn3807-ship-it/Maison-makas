@@ -10,24 +10,30 @@
 <main>
 <header class="ust">
   <a class="marka" href="index.html"><span>MAISON</span>Makas</a>
-  
+
 </header>
 <h1>KVKK Aydınlatma Metni</h1>
-<p class="tarih">Son güncelleme: 27 Ekim 2026</p>
+<p class="tarih">Son güncelleme: 22 Kasım 2026</p>
 
-<p>Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun (“Kanun”) 10. maddesi uyarınca, <b>Maison Makas</b> ve
-<b>Makas Pro</b> uygulamalarını kullananları bilgilendirmek için hazırlanmıştır.</p>
+<p>Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun (“Kanun”) 10. maddesi uyarınca, berber ve kuaförler için randevu
+uygulaması <b>Makas Pro</b> ile salonların QR kodlu randevu sayfasını kullananları bilgilendirmek için hazırlanmıştır. İki bölümden oluşur:</p>
+<ul>
+  <li><a href="#kullanici">A. Makas Pro kullanıcıları (salon sahibi ve ustalar)</a>: veri sorumlusu Ahmet Şahin.</li>
+  <li><a href="#musteri">B. Salon müşterileri (randevu alanlar)</a>: veri sorumlusu randevu aldığın salon.</li>
+</ul>
+
+<h2 id="kullanici" style="font-size:22px;margin-top:44px">A. Makas Pro kullanıcıları (salon sahibi ve ustalar)</h2>
 
 <h2>1. Veri sorumlusu</h2>
-<div class="kutu"><mark>[VERİ SORUMLUSU ADI SOYADI / UNVANI]</mark><br>Sancaktepe, İstanbul, Türkiye<br>E-posta: <a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a></div>
+<div class="kutu"><b>Ahmet Şahin</b><br>Sancaktepe, İstanbul, Türkiye<br>E-posta: <a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a></div>
 
 <h2>2. İşlenen kişisel veriler</h2>
 <table>
   <tr><th>Kategori</th><th>Veriler</th></tr>
   <tr><td>Kimlik</td><td>Ad soyad</td></tr>
   <tr><td>İletişim</td><td>E-posta adresi, telefon numarası (isteğe bağlı)</td></tr>
-  <tr><td>Müşteri işlem</td><td>Randevu bilgileri (salon, usta, tarih, saat, hizmet, tutar, not, durum), yorum ve puanlar, favoriler</td></tr>
-  <tr><td>Görsel kayıt</td><td>Profil, kapak, salon ve usta fotoğrafları</td></tr>
+  <tr><td>İşletme</td><td>Salon adı, adresi, telefonu, tanıtım yazısı, çalışma saatleri, hizmetler ve fiyatlar, ekip adları ve unvanları</td></tr>
+  <tr><td>Görsel kayıt</td><td>Salon kapak, logo ve galeri fotoğrafları, usta fotoğrafları</td></tr>
   <tr><td>İşlem güvenliği</td><td>Şifrelenmiş şifre, oturum bilgileri, bildirim jetonu, cihaz türü</td></tr>
   <tr><td>Tercihler</td><td>Dil, tema ve bildirim tercihleri</td></tr>
 </table>
@@ -35,8 +41,8 @@
 <h2>3. İşleme amaçları</h2>
 <ul>
   <li>Üyelik ve hesap işlemlerinin yürütülmesi,</li>
-  <li>Randevu süreçlerinin yürütülmesi ve salonlara iletilmesi,</li>
-  <li>Randevu hatırlatma ve bilgilendirme bildirimlerinin gönderilmesi,</li>
+  <li>Salon ve ekip yönetimi ile randevu süreçlerinin yürütülmesi,</li>
+  <li>Yeni randevu ve iptal bildirimlerinin gönderilmesi,</li>
   <li>Bilgi güvenliği süreçlerinin yürütülmesi,</li>
   <li>Talep ve şikâyetlerin takibi,</li>
   <li>Yetkili kişi ve kurumlara bilgi verilmesi.</li>
@@ -48,25 +54,79 @@ doğrudan ilgili olması (c), veri sorumlusunun hukuki yükümlülüğünü yeri
 korunması (e) ve temel hak ve özgürlüklerine zarar vermemek kaydıyla veri sorumlusunun meşru menfaati (f).</p>
 
 <h2>5. Toplama yöntemi</h2>
-<p>Veriler, uygulamalara girdiğin bilgilerden ve uygulamaları kullanırken elektronik ortamda otomatik yollarla toplanır.</p>
+<p>Veriler, uygulamaya girdiğin bilgilerden ve uygulamayı kullanırken elektronik ortamda otomatik yollarla toplanır.</p>
 
 <h2>6. Aktarım</h2>
 <ul>
-  <li><b>Randevu aldığın salona</b> (salon sahibi ve usta): randevunun yürütülmesi için.</li>
-  <li><b>Hizmet sağlayıcılara:</b> Supabase (veritabanı ve depolama; Avrupa Birliği), Google Firebase Cloud Messaging (bildirim iletimi) ve Google Gmail (hesap e-postalarının gönderimi).
-      Bu sağlayıcıların sunucuları yurt dışında olduğundan aktarım, Kanun'un 9. maddesinde öngörülen uygun güvencelerle
-      (standart sözleşme) yapılır.</li>
+  <li><b>Salonun ekibine</b> (salon sahibi ve ustalar): ekip ve randevu yönetimi için, ilgili oldukları ölçüde.</li>
+  <li><b>Hizmet sağlayıcılara</b> (veri işleyen): Supabase (veritabanı ve depolama; Avrupa Birliği), Google Firebase Cloud Messaging
+      (bildirim iletimi), Google Gmail (hesap e-postalarının gönderimi) ve GitHub Pages (randevu sayfasının barındırılması).</li>
+  <li><b>Yetkili kamu kurum ve kuruluşlarına:</b> hukuki yükümlülük hâlinde.</li>
+</ul>
+<p>Hizmet sağlayıcıların bir kısmının sunucuları yurt dışında (Avrupa Birliği ve ABD) olduğundan verilerin yurt dışına aktarımı söz
+konusudur. Bu aktarım, Kanun'un 9. maddesi çerçevesinde yapılır.</p>
+
+<h2 id="musteri" style="font-size:22px;margin-top:52px;padding-top:24px;border-top:1px solid var(--cizgi)">B. Salon müşterileri (randevu alanlar)</h2>
+<p>Bu bölüm, bir salonun QR kodundaki sayfadan randevu alanlar ile salonun kendi takvimine eklediği müşteriler içindir.</p>
+
+<h2>1. Veri sorumlusu ve veri işleyen</h2>
+<div class="kutu"><b>Veri sorumlusu:</b> randevu aldığın salon. Salonun adı, adresi ve telefonu randevu sayfasının en üstünde yazar.<br>
+<b>Veri işleyen:</b> randevu yazılımını sağlayan ve verileri salon adına saklayan <b>Ahmet Şahin</b>, Sancaktepe, İstanbul, Türkiye,
+<a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a></div>
+
+<h2>2. İşlenen kişisel veriler</h2>
+<table>
+  <tr><th>Kategori</th><th>Veriler</th></tr>
+  <tr><td>Kimlik</td><td>Ad soyad (randevu aldığın kişinin adı)</td></tr>
+  <tr><td>İletişim</td><td>Telefon numarası</td></tr>
+  <tr><td>Müşteri işlem</td><td>Seçilen hizmetler, usta, tarih ve saat, tutar, randevunun durumu (onaylandı, iptal, geldi, gelmedi), randevu notu</td></tr>
+</table>
+<p>Bu hizmette <b>sağlık bilgisi gibi özel nitelikli kişisel veri istenmez</b>. Not alanına alerji, hastalık gibi bilgiler yazma.
+Randevu aldığın kişi çocuksa randevuyu velisi ya da vasisi alır.</p>
+
+<h2>3. İşleme amaçları</h2>
+<ul>
+  <li>Randevunun oluşturulması, salona iletilmesi ve yürütülmesi,</li>
+  <li>Çifte randevunun önlenmesi ve salon takviminin yönetimi,</li>
+  <li>Randevunun durumunun (iptal, geldi, gelmedi) kaydedilmesi,</li>
+  <li>Bilgi güvenliği süreçlerinin yürütülmesi,</li>
+  <li>Yetkili kişi ve kurumlara bilgi verilmesi.</li>
+</ul>
+
+<h2>4. Hukuki sebepler</h2>
+<p>Verilerin, Kanun'un 5. maddesinin 2. fıkrasındaki şu sebeplere dayanılarak işlenir: randevu sözleşmesinin kurulması ve ifasıyla
+doğrudan ilgili olması (c), veri sorumlusunun hukuki yükümlülüğünü yerine getirebilmesi (ç), bir hakkın tesisi, kullanılması veya
+korunması (e) ve temel hak ve özgürlüklerine zarar vermemek kaydıyla salonun meşru menfaati (f; ör. çifte randevuyu önlemek, gelmeme
+kayıtlarını tutmak). Randevu için ayrıca açık rıza istenmez. Reklam ya da kampanya mesajı için ayrı izin gerekir; bu hizmet bunun için kullanılmaz.</p>
+
+<h2>5. Toplama yöntemi</h2>
+<p>Veriler, randevu sayfasına yazdığın bilgilerden elektronik ortamda ya da salonun sana yüz yüze sorduğu bilgilerden toplanır.</p>
+
+<h2>6. Aktarım</h2>
+<ul>
+  <li><b>Randevu aldığın salona</b> (salon sahibi ve ilgili usta): randevunun yürütülmesi için.</li>
+  <li><b>Hizmet sağlayıcılara</b> (salon adına veri işleyen): Supabase (veritabanı; Avrupa Birliği), Google Firebase Cloud Messaging
+      (salon ekibine bildirim; randevu bildirimi metni) ve GitHub Pages (randevu sayfasının barındırılması).
+      Sunucuların bir kısmı yurt dışında olduğundan aktarım, Kanun'un 9. maddesi çerçevesinde yapılır.</li>
   <li><b>Yetkili kamu kurum ve kuruluşlarına:</b> hukuki yükümlülük hâlinde.</li>
 </ul>
 
-<h2>7. Hakların (Kanun md. 11)</h2>
-<p>Kişisel verilerinin işlenip işlenmediğini öğrenme, işlenmişse bilgi talep etme, işlenme amacını ve amacına uygun kullanılıp
-kullanılmadığını öğrenme, aktarıldığı üçüncü kişileri bilme, eksik veya yanlış işlenmişse düzeltilmesini, Kanun'a uygun olarak silinmesini
-veya yok edilmesini isteme, bu işlemlerin aktarıldığı üçüncü kişilere bildirilmesini isteme, otomatik sistemlerle analiz edilmesi
-sonucu aleyhine bir sonuç çıkmasına itiraz etme ve kanuna aykırı işleme nedeniyle zarara uğraman hâlinde zararın giderilmesini
-talep etme haklarına sahipsin.</p>
-<p>Başvurunu kimliğini doğrulayacak bilgilerle birlikte <a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a> adresine iletebilirsin. Başvurular en geç 30 gün içinde ücretsiz
-sonuçlandırılır.</p>
+<h2>7. Saklama</h2>
+<p>Randevu kayıtların, salonun hesabı açık olduğu sürece salonun kayıtlarında durur. Adının ve telefonunun silinmesini ya da
+kaldırılmasını istersen en geç 30 gün içinde yerine getirilir; yasal saklama süresi olan kayıtlar bu süre boyunca saklanır.</p>
+
+<h2>Haklarınız ve başvuru (her iki bölüm için)</h2>
+<p>Kanun'un 11. maddesi uyarınca; kişisel verilerinin işlenip işlenmediğini öğrenme, işlenmişse bilgi talep etme, işlenme amacını ve
+amacına uygun kullanılıp kullanılmadığını öğrenme, yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme, eksik veya yanlış
+işlenmişse düzeltilmesini, Kanun'a uygun olarak silinmesini veya yok edilmesini isteme, bu işlemlerin aktarıldığı üçüncü kişilere
+bildirilmesini isteme, işlenen verilerin otomatik sistemlerle analiz edilmesi sonucu aleyhine bir sonuç çıkmasına itiraz etme ve
+kanuna aykırı işleme nedeniyle zarara uğraman hâlinde zararın giderilmesini talep etme haklarına sahipsin.</p>
+<p>Başvurunu kimliğini doğrulayacak bilgilerle birlikte <a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a> adresine iletebilirsin.
+B bölümündeki verilerin için başvuruyu doğrudan randevu aldığın salona da yapabilirsin; biz de başvurunun yerine getirilmesinde salona
+yardım ederiz. Başvurular en geç 30 gün içinde sonuçlandırılır. Başvurun genellikle ücretsizdir; işlem ayrıca bir maliyet gerektirirse
+Kişisel Verileri Koruma Kurulu'nun belirlediği tarifedeki ücret istenebilir. Cevabı yetersiz bulursan ya da süresinde cevap
+alamazsan, cevabı öğrendiğin tarihten itibaren 30 gün içinde ve her hâlükârda başvuru tarihinden itibaren 60 gün içinde
+<a href="https://www.kvkk.gov.tr">Kişisel Verileri Koruma Kurulu</a>'na şikâyet edebilirsin.</p>
 
 <footer><a href="index.html">Maison Makas</a> · <a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Kullanım şartları</a> · <a href="kvkk.html">KVKK</a> · <a href="hesap-silme.html">Hesap silme</a><br>İletişim: <a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a></footer>
 </main>

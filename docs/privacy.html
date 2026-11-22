@@ -13,70 +13,90 @@
   <a class="dil" href="gizlilik.html" hreflang="tr">Türkçe</a>
 </header>
 <h1>Privacy Policy</h1>
-<p class="tarih">Last updated: 27 October 2026</p>
+<p class="tarih">Last updated: 22 November 2026</p>
 
-<p>This policy explains which personal data is processed when you use <b>Maison Makas</b> (customer app) and <b>Makas Pro</b>
-(business app), why, who it is shared with, and your rights.</p>
-<div class="kutu">Owner and data controller: <mark>[DATA CONTROLLER NAME]</mark><br>Sancaktepe, İstanbul, Türkiye<br>Email: <a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a></div>
+<p>This policy explains which personal data is processed when you use <b>Makas Pro</b>, the booking app for barbers and hairdressers,
+and the salons' <b>QR booking page</b>, why, who it is shared with, and your rights.</p>
+<div class="kutu">App owner: <b>Ahmet Şahin</b><br>Sancaktepe, İstanbul, Türkiye<br>Email: <a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a></div>
+
+<h2>Who is responsible for what?</h2>
+<ul>
+  <li>For the <b>accounts of salon owners and barbers</b>, the data controller is <b>Ahmet Şahin</b>.</li>
+  <li>For the data of a <b>salon's customers</b> (people who book through the QR page and customers the salon adds itself), the
+      <b>data controller is the salon</b>. Ahmet Şahin only stores this data on the salon's behalf (data processor).
+      Details for customers: <a href="kvkk.html#musteri">KVKK notice</a> (Turkish).</li>
+</ul>
 
 <h2>1. Data we collect</h2>
 <ul>
-  <li><b>Account:</b> full name, email address and password (stored only as a one-way hash).</li>
-  <li><b>Contact:</b> your phone number, if you add it.</li>
-  <li><b>Bookings:</b> salon and barber, date and time, services, price, your note to the salon, status (confirmed, cancelled,
-      arrived, no-show) and cancellation time.</li>
-  <li><b>Photos:</b> your profile and cover photo if you upload them; for business accounts, salon cover, logo, gallery and barber photos.</li>
-  <li><b>Reviews and favourites:</b> ratings and reviews written after a completed booking, favourite salons and barbers.</li>
-  <li><b>Preferences:</b> theme, colour, language, text size and notification settings.</li>
+  <li><b>Account (salon owners and barbers):</b> full name, email address, password and, optionally, phone number. The password is
+      stored only as a one-way hash.</li>
+  <li><b>Salon details:</b> salon name, address, phone, description, opening hours, services and prices, team members' names and titles.</li>
+  <li><b>Photos:</b> the salon's cover, logo and gallery photos and barber photos, if you upload them.</li>
+  <li><b>Salon customers' data:</b> full name, phone number, booking note, chosen services, barber, date and time, price and booking
+      status (confirmed, cancelled, arrived, no-show). It is entered through the QR page or by the salon in its calendar.
+      <b>Please do not write health information (allergies, illnesses) in the note.</b></li>
   <li><b>Device:</b> a push notification token (Firebase Cloud Messaging), device type (Android/iOS) and app language.</li>
-  <li><b>Business data</b> (Makas Pro): salon name, address, phone, description, opening hours, services and prices, team members'
-      names and titles, the name and phone of walk-in customers the salon adds to its calendar, and the name, phone and note of guests who book through the salon's QR code page without an account.</li>
+  <li><b>Preferences:</b> theme, colour, language, text size and notification settings.</li>
+  <li><b>Technical records:</b> when you open the QR page your IP address is briefly visible in the server logs of the hosting service
+      (GitHub Pages) and the database service (Supabase). The QR page does not use cookies and does not store anything in your browser.</li>
 </ul>
 <p>We do not track your location, show ads, use advertising IDs or analytics tools, or sell your data.</p>
 
 <h2>2. Why we use it</h2>
 <ul>
   <li>To create and secure your account and let you sign in.</li>
-  <li>To let you book and cancel, and let salons manage bookings; to prevent double bookings.</li>
-  <li>To send booking reminders and new-booking/cancellation notifications.</li>
-  <li>To show salon showcases and reviews.</li>
+  <li>To let salons manage bookings and to prevent double bookings.</li>
+  <li>To send new-booking and cancellation notifications to the salon team.</li>
+  <li>To show the salon's showcase on the booking page.</li>
   <li>To fix errors, keep the service secure and meet legal obligations.</li>
 </ul>
 
 <h2>3. Who can see it</h2>
 <ul>
-  <li><b>The salon you book with:</b> the owner and your barber see your name, phone, booking details and note. Other salons do not.</li>
-  <li><b>Everyone:</b> published salon showcases and reviews. Your name appears shortened in reviews (e.g. “Ahmet Ş.”).</li>
-  <li><b>Our service providers</b>, who process data only on our behalf: <b>Supabase</b> (database, sign-in and file storage; servers in
-      the EU, Frankfurt), <b>Google Firebase Cloud Messaging</b> (delivering notifications; only the token and notification text) and
-      <b>Google Gmail</b> (sending account emails such as password reset codes; only your email address and the message).</li>
+  <li><b>The salon:</b> the owner and the booked barber see the customer's name, phone, booking details and note. Other salons do not.</li>
+  <li><b>Everyone:</b> the salon's showcase on its booking page (name, address, phone, description, services, prices and barbers).</li>
+  <li><b>Our service providers</b>, who process data only on our behalf:
+    <ul>
+      <li>Supabase: database, sign-in and file storage; servers in the EU (Frankfurt).</li>
+      <li>Google Firebase Cloud Messaging: delivering notifications; only the token and notification text.</li>
+      <li>Google (Gmail): sending account emails such as password reset codes; only your email address and the message.</li>
+      <li>GitHub Pages: publishing the QR booking page and these legal texts.</li>
+    </ul></li>
   <li><b>Authorities:</b> only where required by law.</li>
 </ul>
-<p>Because our providers' servers are outside Türkiye, your data is transferred abroad with the safeguards required by law
-(e.g. standard contractual clauses).</p>
+<p>Some of our providers' servers are outside Türkiye (European Union and USA), so data is transferred abroad. These transfers are
+made in line with Article 9 of Law No. 6698.</p>
 
 <h2>4. How long we keep it</h2>
 <ul>
-  <li>Account data is kept while your account exists.</li>
+  <li>Account and salon data are kept while your account exists.</li>
+  <li>Customer booking records stay in the salon's records while the salon's account exists. If a customer asks for a record to be
+      deleted or the name removed, we do so within 30 days.</li>
   <li>Notification tokens are deleted when you sign out, or automatically after 90 days without use.</li>
-  <li>When you delete your account, your profile, photos, favourites and tokens are deleted and upcoming bookings are cancelled.
-      Past bookings (date, service, price) remain in the salon's records <b>without your name</b>. Reviews may remain with your shortened
-      name; email us to have them removed.</li>
+  <li>When you delete your account, your profile, photos and tokens are deleted. For salon owners, the salon, team, services, hours,
+      photos, bookings and customer records are deleted too.</li>
   <li>Records we must keep by law are kept for the legal period.</li>
 </ul>
 
 <h2>5. Security</h2>
-<p>Connections are encrypted (HTTPS), and each user can only access records they are authorised to see (row-level security).</p>
+<p>Connections are encrypted (HTTPS), and each user can only access records they are authorised to see (row-level security). No system
+is completely risk-free; if a data breach occurs we notify the Personal Data Protection Board and the people affected in the way and
+within the time the law requires. If a breach affects data we hold on behalf of a salon, we tell that salon without delay.</p>
 
 <h2>6. Your rights</h2>
-<p>You can request access, correction, deletion or object to processing by emailing <a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a>. You can edit your name and phone in the
-Profile screen and delete your account in Settings (<a href="delete-account.html">how</a>).</p>
+<p>To access, correct or delete your data, object to its processing or use the other rights in Article 11 of the Law, email
+<a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a>. If you are a salon's customer you can also contact the salon you booked with. Requests are answered within 30 days.
+If you find the answer insufficient or get none in time, you may complain to the Personal Data Protection Board. You can delete your
+Makas Pro account in the app under Settings (<a href="delete-account.html">how to</a>). See the
+<a href="kvkk.html">KVKK notice</a> (Turkish) for details.</p>
 
 <h2>7. Children</h2>
-<p>The apps are not for children under 13. Users under 18 may use them with a parent's or guardian's permission.</p>
+<p>Makas Pro is for businesses and cannot be used by people under 18 to open an account. A parent or guardian books for a child and
+enters the child's details.</p>
 
 <h2>8. Changes</h2>
-<p>We may update this policy; important changes are announced in the app. The date above shows the latest update.</p>
+<p>We may update this policy. Important changes are announced in the app; the date on this page shows the last update.</p>
 
 <footer><a href="index.html">Maison Makas</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="delete-account.html">Delete account</a><br>Contact: <a href="mailto:ahmetsahinn3807@gmail.com">ahmetsahinn3807@gmail.com</a></footer>
 </main>

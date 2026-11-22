@@ -92,7 +92,7 @@ class MaisonBelgeBaglantilari extends StatelessWidget {
   }
 }
 
-/// Giriş ekranının altı için: "Devam ederek … kabul etmiş olursun" ve iki bağlantı.
+/// Giriş ekranının altı için: "Devam ederek … kabul etmiş olursun" ve üç bağlantı.
 class MaisonOnayNotu extends StatelessWidget {
   const MaisonOnayNotu({super.key});
 
@@ -104,8 +104,8 @@ class MaisonOnayNotu extends StatelessWidget {
       children: <Widget>[
         Text(
           dl(
-            'Devam ederek Kullanım Şartları\'nı kabul etmiş ve Gizlilik Politikası\'nı okumuş olursun.',
-            'By continuing you accept the Terms of Use and confirm you have read the Privacy Policy.',
+            'Devam ederek Kullanım Şartları\'nı (salonlar için veri işleme şartları dahil) kabul etmiş, Gizlilik Politikası ve KVKK Aydınlatma Metni\'ni okumuş olursun.',
+            'By continuing you accept the Terms of Use (including the data processing terms for salons) and confirm you have read the Privacy Policy and the KVKK notice.',
           ),
           textAlign: TextAlign.center,
           style: maisonGovde(12, renk: r.soluk, yukseklik: 1.6),
@@ -120,6 +120,10 @@ class MaisonOnayNotu extends StatelessWidget {
             TextButton(
               onPressed: () => _ac(context, MaisonBelge.gizlilik),
               child: Text(MaisonBelge.gizlilik.ad, style: baglanti),
+            ),
+            TextButton(
+              onPressed: () => _ac(context, MaisonBelge.kvkk),
+              child: Text(MaisonBelge.kvkk.ad, style: baglanti),
             ),
           ],
         ),

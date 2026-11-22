@@ -70,7 +70,7 @@
   <p class="marka">MAISON MAKAS</p>
   <h1 id="salonAd">Randevu</h1>
   <div id="uyg" aria-live="polite"></div>
-  <p class="soluk" style="text-align:center;margin-top:28px"><a href="../gizlilik.html">Gizlilik politikası</a> · <a href="../kvkk.html">KVKK aydınlatma</a></p>
+  <p class="soluk" style="text-align:center;margin-top:28px"><a href="../gizlilik.html">Gizlilik politikası</a> · <a href="../kvkk.html#musteri">KVKK aydınlatma</a> · <a href="../kosullar.html">Kullanım şartları</a></p>
 </main>
 
 <script>
@@ -759,9 +759,15 @@
       ),
       el('div', { class: 'alan' },
         el('label', { text: 'NOT (İSTEĞE BAĞLI)' }),
-        el('textarea', { class: 'metin', maxlength: 300, value: S.iletisim.not, oninput: function (e) { S.iletisim.not = e.target.value; } })
+        el('textarea', { class: 'metin', maxlength: 300, value: S.iletisim.not, oninput: function (e) { S.iletisim.not = e.target.value; } }),
+        el('p', { class: 'soluk', style: 'margin-top:6px', text: 'Lütfen sağlık bilgisi (alerji, hastalık gibi) yazma; yalnız randevuyla ilgili not bırak.' })
       ),
       el('p', { class: 'soluk', style: 'margin-top:10px', text: 'Randevular bu telefonla takip edilir. Değişiklik ya da iptal için salonu ara.' }),
+      el('p', { class: 'soluk', style: 'margin-top:10px' },
+        'Adın, telefonun ve notun randevuyu yürütmek için yalnız ' + S.salon.ad + ' salonuna iletilir; veri sorumlusu salondur, Makas Pro yalnız randevu yazılımını sağlar. Ayrıntı: ',
+        el('a', { href: '../kvkk.html#musteri', target: '_blank', rel: 'noopener', text: 'KVKK aydınlatma metni' }),
+        '.'
+      ),
       el('button', {
         class: 'dugme',
         type: 'button',
