@@ -180,7 +180,7 @@ Hesaplar, salonlar ve randevular Supabase'te durur (proje: `fhxwtfefinoaetlpxbpr
 ## Yasal metinler (web sitesi)
 
 `docs/` klasörü GitHub Pages ile yayımlanır (Settings → Pages → Branch: main, klasör: /docs):
-https://ahmetsahinn3807-ship-it.github.io/Maison-makas/
+https://maisonmakaspro.github.io/Maison-makas/
 
 | Sayfa | Türkçe | İngilizce |
 |---|---|---|

@@ -6,7 +6,7 @@ import 'renkler.dart';
 import 'tema.dart';
 
 /// Yasal metinlerin yayımlandığı site (GitHub Pages, depodaki docs/ klasörü).
-const String maisonSiteAdresi = 'https://ahmetsahinn3807-ship-it.github.io/Maison-makas/';
+const String maisonSiteAdresi = 'https://maisonmakaspro.github.io/Maison-makas/';
 
 /// Sitedeki belgeler. İngilizcesi olmayanlar (KVKK) Türkçe açılır.
 enum MaisonBelge {
