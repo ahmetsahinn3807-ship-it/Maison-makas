@@ -15,7 +15,7 @@ cd "$(dirname "$0")/.."
 KOK="$(pwd)"
 NO="${GITHUB_RUN_NUMBER:-1}"
 # Yükleme sertifikasının SHA-256 özeti. Başka bir anahtarla imzalanan paket Play'e yüklenemez; derleme durur.
-BEKLENEN_YUKLEME="cfa74d211a9bd4352b634040df384b057e6c1e6b6640d1d3ea235b5c472a2e45"
+BEKLENEN_YUKLEME="74faed6bfb25a81ff715185550dbf6c19d215bcbff4787259f410f502acfb07d"
 BUNDLETOOL_SURUM="1.18.3"
 RAPOR="$KOK/cikti-rapor-play"
 CIKTI="$KOK/cikti-play"

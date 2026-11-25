@@ -45,7 +45,7 @@ Play'e yüklenecek paketler ayrı bir iş akışıyla, elle başlatılarak derle
 - Yükleme anahtarı depoda yalnız şifreli durur: `ci/play/upload.p12.gpg` (AES-256). Parolası GitHub'da
   **Settings → Secrets and variables → Actions** altında `MAISON_PLAY_PAROLA` sırrıdır; depoya yazılmaz.
   Anahtar derleme sırasında geçici bir klasöre açılır ve iş bitince silinir.
-- Yükleme sertifikasının SHA-256 özeti `cf:a7:4d:21:…:2a:2e:45`; `ci/play.sh` başka bir anahtarı reddeder.
+- Yükleme sertifikasının SHA-256 özeti `74:fa:ed:6b:…:cf:b0:7d`; `ci/play.sh` başka bir anahtarı reddeder.
 - Sürüm kodu 2026-01-01'den bu yana geçen dakikadır; her pakette büyür.
 - Çıktı: **Artifacts → google-play-aab-N** (iki `.aab` ve iki `mapping.txt`). Ayrıntılar `play-raporu` dalında:
   imza, sürüm, hedef SDK, izinler, Play doğrulaması (bundletool) ve tahmini indirme boyutu.
