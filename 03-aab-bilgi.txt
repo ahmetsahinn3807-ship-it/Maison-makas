@@ -1,0 +1,21 @@
+== makas-pro-0.9.0-473214.aab
+imza SHA-256: 74faed6bfb25a81ff715185550dbf6c19d215bcbff4787259f410f502acfb07d
+paket: package="com.maisonmakas.pro"
+surum: 0.9.0 (473214) · minSdk 24 · targetSdk 36
+izinler:
+  android.permission.ACCESS_NETWORK_STATE
+  android.permission.INTERNET
+  android.permission.POST_NOTIFICATIONS
+  android.permission.VIBRATE
+  android.permission.WAKE_LOCK
+  com.google.android.c2dm.permission.RECEIVE
+  com.maisonmakas.pro.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+debuggable: 0
+dogrulama:
+  		File: root/play-services-base.properties
+  		File: root/play-services-basement.properties
+  		File: root/play-services-cloud-messaging.properties
+  		File: root/play-services-stats.properties
+  		File: root/play-services-tasks.properties
+indirme boyutu (MIN,MAX bayt): 9726286,10295453
+
