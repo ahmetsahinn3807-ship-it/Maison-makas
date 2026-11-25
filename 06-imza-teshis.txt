@@ -1,0 +1,5 @@
+ANDROID_USER_HOME=
+ANDROID_SDK_HOME=
+ANDROID_PREFS_ROOT=
+HOME=/home/runner
+/home/runner/.android/debug.keystore

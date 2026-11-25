@@ -1,0 +1,4 @@
+derleme: #41
+durum: basarili
+tarih: 2026-11-25T16:54:15Z
+commit: e186e77dffec41312cf1f1d8a47438685b3f780c

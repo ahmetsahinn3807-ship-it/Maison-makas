@@ -1,0 +1,1067 @@
+--------- beginning of main
+11-25 16:53:32.120 W/Role    (  799): Cannot get ApplicationInfo for default holder: com.android.contacts
+11-25 16:53:32.120 W/Role    (  799): Cannot get ApplicationInfo for default holder: com.android.settings.intelligence
+11-25 16:53:32.136 E/DocumentManagerRoleBehavior(  799): There should be exactly one documenter; found 0: matches=[]
+11-25 16:53:32.136 W/Role    (  799): Cannot get ApplicationInfo for default holder: com.android.gallery3d
+--------- beginning of system
+11-25 16:53:32.147 D/CompatibilityChangeReporter(  508): Compat change id reported: 265195908; UID 10047; state: ENABLED
+11-25 16:53:32.149 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:32.149 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:32.149 D/CarrierSvcBindHelper(  916): onPackageModified: com.maisonmakas.pro
+11-25 16:53:32.150 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:32.158 W/TextServicesManagerService(  508): no available spell checker services found
+11-25 16:53:32.158 W/Searchables(  508): No global search activity found
+11-25 16:53:32.158 W/Searchables(  508): No global search activity found
+11-25 16:53:32.159 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 10108
+11-25 16:53:32.160 I/InputReader(  508): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-25 16:53:32.160 I/SafetyLabelChangedBroadcastReceiver(  799): received broadcast packageName: com.maisonmakas.pro, current user: UserHandle{0}, packageChangeEvent: NEW_INSTALL, intent user: UserHandle{0}
+11-25 16:53:32.165 I/ActivityManager(  508): reportOnUserCompletedEvent(0): stored=10, eligible=111
+11-25 16:53:32.165 D/SystemServerTimingAsync(  508): ssm.CompletedEventUser-0
+11-25 16:53:32.165 I/SystemServiceManager(  508): Calling onCompletedEventUser 0
+11-25 16:53:32.170 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:32.173 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.Installer
+11-25 16:53:32.173 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.Installer took to complete: 0ms
+11-25 16:53:32.173 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.os.DeviceIdentifiersPolicyService
+11-25 16:53:32.173 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.os.DeviceIdentifiersPolicyService took to complete: 0ms
+11-25 16:53:32.173 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.uri.UriGrantsManagerService$Lifecycle
+11-25 16:53:32.173 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.uri.UriGrantsManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.173 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.powerstats.PowerStatsService
+11-25 16:53:32.173 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.powerstats.PowerStatsService took to complete: 0ms
+11-25 16:53:32.173 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.permission.access.AccessCheckingService
+11-25 16:53:32.173 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.permission.access.AccessCheckingService took to complete: 0ms
+11-25 16:53:32.173 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wm.ActivityTaskManagerService$Lifecycle
+11-25 16:53:32.173 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wm.ActivityTaskManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.173 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.am.ActivityManagerService$Lifecycle
+11-25 16:53:32.173 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.am.ActivityManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.173 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.DataLoaderManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.DataLoaderManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.power.PowerManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.power.PowerManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.power.ThermalManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.power.ThermalManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.power.hint.HintManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.power.hint.HintManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.recoverysystem.RecoverySystemService$Lifecycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.recoverysystem.RecoverySystemService$Lifecycle took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.lights.LightsService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.lights.LightsService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.display.DisplayManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.display.DisplayManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.verify.domain.DomainVerificationService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.verify.domain.DomainVerificationService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.PackageInstallerService$Lifecycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.PackageInstallerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.UserManagerService$LifeCycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.UserManagerService$LifeCycle took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.om.OverlayManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.om.OverlayManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.resources.ResourcesManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.resources.ResourcesManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.sensorprivacy.SensorPrivacyService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.sensorprivacy.SensorPrivacyService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.sensors.SensorService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.sensors.SensorService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.SystemConfigService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.SystemConfigService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.BatteryService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.BatteryService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.usage.UsageStatsService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.usage.UsageStatsService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.webkit.WebViewUpdateService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.webkit.WebViewUpdateService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.CachedDeviceStateService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.CachedDeviceStateService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.BinderCallsStatsService$LifeCycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.BinderCallsStatsService$LifeCycle took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.LooperStatsService$Lifecycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.LooperStatsService$Lifecycle took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.rollback.RollbackManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.rollback.RollbackManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.os.NativeTombstoneManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.os.NativeTombstoneManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.os.BugreportManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.os.BugreportManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.gpu.GpuService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.gpu.GpuService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.security.rkp.RemoteProvisioningService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.security.rkp.RemoteProvisioningService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.cpu.CpuMonitorService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.cpu.CpuMonitorService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.security.KeyChainSystemService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.security.KeyChainSystemService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.BinaryTransparencyService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.BinaryTransparencyService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.telecom.TelecomLoaderService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.telecom.TelecomLoaderService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.accounts.AccountManagerService$Lifecycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.accounts.AccountManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.content.ContentService$Lifecycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.content.ContentService$Lifecycle took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.deviceconfig.DeviceConfigInit$Lifecycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.deviceconfig.DeviceConfigInit$Lifecycle took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.DropBoxManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.DropBoxManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.role.RoleService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.role.RoleService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.vibrator.VibratorManagerService$Lifecycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.vibrator.VibratorManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.tare.InternalResourceService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.tare.InternalResourceService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.alarm.AlarmManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.alarm.AlarmManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.devicestate.DeviceStateManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.devicestate.DeviceStateManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.camera.CameraServiceProxy
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.camera.CameraServiceProxy took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.bluetooth.BluetoothService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.bluetooth.BluetoothService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.connectivity.IpConnectivityMetrics
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.connectivity.IpConnectivityMetrics took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.net.watchlist.NetworkWatchlistService$Lifecycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.net.watchlist.NetworkWatchlistService$Lifecycle took to complete: 1ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.PinnerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.PinnerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.integrity.AppIntegrityManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.integrity.AppIntegrityManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.logcat.LogcatManagerService
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.logcat.LogcatManagerService took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.inputmethod.InputMethodManagerService$Lifecycle
+11-25 16:53:32.174 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.inputmethod.InputMethodManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.174 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.accessibility.AccessibilityManagerService$Lifecycle
+11-25 16:53:32.175 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.accessibility.AccessibilityManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.175 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.StorageManagerService$Lifecycle
+11-25 16:53:32.175 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.StorageManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.175 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.usage.StorageStatsService$Lifecycle
+11-25 16:53:32.175 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.usage.StorageStatsService$Lifecycle took to complete: 0ms
+11-25 16:53:32.175 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.UiModeManagerService
+11-25 16:53:32.175 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.UiModeManagerService took to complete: 0ms
+11-25 16:53:32.175 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.locales.LocaleManagerService
+11-25 16:53:32.175 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.locales.LocaleManagerService took to complete: 0ms
+11-25 16:53:32.175 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.grammaticalinflection.GrammaticalInflectionService
+11-25 16:53:32.176 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.grammaticalinflection.GrammaticalInflectionService took to complete: 0ms
+11-25 16:53:32.176 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.apphibernation.AppHibernationService
+11-25 16:53:32.176 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.apphibernation.AppHibernationService took to complete: 0ms
+11-25 16:53:32.176 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.locksettings.LockSettingsService$Lifecycle
+11-25 16:53:32.176 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.locksettings.LockSettingsService$Lifecycle took to complete: 0ms
+11-25 16:53:32.176 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.testharness.TestHarnessModeService
+11-25 16:53:32.176 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.testharness.TestHarnessModeService took to complete: 0ms
+11-25 16:53:32.176 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.DeviceIdleController
+11-25 16:53:32.176 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.DeviceIdleController took to complete: 0ms
+11-25 16:53:32.176 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.devicepolicy.DevicePolicyManagerService$Lifecycle
+11-25 16:53:32.176 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.devicepolicy.DevicePolicyManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.176 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.texttospeech.TextToSpeechManagerService
+11-25 16:53:32.176 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.texttospeech.TextToSpeechManagerService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.ambientcontext.AmbientContextManagerService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.ambientcontext.AmbientContextManagerService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wearable.WearableSensingManagerService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wearable.WearableSensingManagerService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.speech.SpeechRecognitionManagerService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.speech.SpeechRecognitionManagerService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.searchui.SearchUiManagerService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.searchui.SearchUiManagerService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.smartspace.SmartspaceManagerService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.smartspace.SmartspaceManagerService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.graphics.fonts.FontManagerService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.graphics.fonts.FontManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.textservices.TextServicesManagerService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.textservices.TextServicesManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.textclassifier.TextClassificationManagerService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.textclassifier.TextClassificationManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.NetworkScoreService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.NetworkScoreService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.NetworkStatsServiceInitializer
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.NetworkStatsServiceInitializer took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wifi.WifiService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wifi.WifiService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wifi.scanner.WifiScanningService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wifi.scanner.WifiScanningService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wifi.p2p.WifiP2pService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wifi.p2p.WifiP2pService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.ConnectivityServiceInitializer
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.ConnectivityServiceInitializer took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.notification.NotificationManagerService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.notification.NotificationManagerService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.storage.DeviceStorageMonitorService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.storage.DeviceStorageMonitorService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.timedetector.TimeDetectorService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.timedetector.TimeDetectorService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.location.LocationManagerService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.location.LocationManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.timezonedetector.TimeZoneDetectorService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.timezonedetector.TimeZoneDetectorService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.location.altitude.AltitudeService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.location.altitude.AltitudeService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.timezonedetector.location.LocationTimeZoneManagerService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.timezonedetector.location.LocationTimeZoneManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.search.SearchManagerService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.search.SearchManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wallpapereffectsgeneration.WallpaperEffectsGenerationManagerService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.wallpapereffectsgeneration.WallpaperEffectsGenerationManagerService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.audio.AudioService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.audio.AudioService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.soundtrigger_middleware.SoundTriggerMiddlewareService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.soundtrigger_middleware.SoundTriggerMiddlewareService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.DockObserver
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.DockObserver took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.midi.MidiService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.midi.MidiService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.adb.AdbService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.adb.AdbService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.usb.UsbService$Lifecycle
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.usb.UsbService$Lifecycle took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.twilight.TwilightService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.twilight.TwilightService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.display.color.ColorDisplayService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.display.color.ColorDisplayService took to complete: 0ms
+11-25 16:53:32.177 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.job.JobSchedulerService
+11-25 16:53:32.177 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.job.JobSchedulerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.soundtrigger.SoundTriggerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.soundtrigger.SoundTriggerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.trust.TrustManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.trust.TrustManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.backup.BackupManagerService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.backup.BackupManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.appwidget.AppWidgetService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.appwidget.AppWidgetService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.voiceinteraction.VoiceInteractionManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.voiceinteraction.VoiceInteractionManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.GestureLauncherService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.GestureLauncherService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.SensorNotificationService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.SensorNotificationService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.emergency.EmergencyAffordanceService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.emergency.EmergencyAffordanceService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.blob.BlobStoreManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.blob.BlobStoreManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.dreams.DreamManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.dreams.DreamManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.print.PrintManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.print.PrintManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.security.AttestationVerificationManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.security.AttestationVerificationManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.companion.CompanionDeviceManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.companion.CompanionDeviceManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.companion.virtual.VirtualDeviceManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.companion.virtual.VirtualDeviceManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.restrictions.RestrictionsManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.restrictions.RestrictionsManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.media.MediaSessionService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.media.MediaSessionService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.biometrics.sensors.face.FaceService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.biometrics.sensors.face.FaceService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.biometrics.sensors.fingerprint.FingerprintService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.biometrics.sensors.fingerprint.FingerprintService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.biometrics.BiometricService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.biometrics.BiometricService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.biometrics.AuthService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.biometrics.AuthService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.ShortcutService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.ShortcutService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.LauncherAppsService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.LauncherAppsService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.CrossProfileAppsService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.CrossProfileAppsService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.people.PeopleService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.people.PeopleService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.media.metrics.MediaMetricsManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.media.metrics.MediaMetricsManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.BackgroundInstallControlService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.BackgroundInstallControlService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.media.projection.MediaProjectionManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.media.projection.MediaProjectionManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.slice.SliceManagerService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.slice.SliceManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.stats.StatsCompanion$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.stats.StatsCompanion$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.scheduling.RebootReadinessManagerService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.scheduling.RebootReadinessManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.stats.pull.StatsPullAtomService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.stats.pull.StatsPullAtomService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.stats.bootstrap.StatsBootstrapAtomService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.stats.bootstrap.StatsBootstrapAtomService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.incident.IncidentCompanionService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.incident.IncidentCompanionService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.sdksandbox.SdkSandboxManagerService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.sdksandbox.SdkSandboxManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.adservices.AdServicesManagerService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.adservices.AdServicesManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.ondevicepersonalization.OnDevicePersonalizationSystemService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.ondevicepersonalization.OnDevicePersonalizationSystemService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.MmsServiceBroker
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.MmsServiceBroker took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.autofill.AutofillManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.autofill.AutofillManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.selectiontoolbar.SelectionToolbarManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.selectiontoolbar.SelectionToolbarManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.clipboard.ClipboardService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.clipboard.ClipboardService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.appbinding.AppBindingService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.appbinding.AppBindingService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.tracing.TracingServiceProxy
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.tracing.TracingServiceProxy took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.policy.PermissionPolicyService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.policy.PermissionPolicyService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.StagingManager$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.pm.StagingManager$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.app.GameManagerService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.app.GameManagerService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.safetycenter.SafetyCenterService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.safetycenter.SafetyCenterService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.appsearch.AppSearchModule$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.appsearch.AppSearchModule$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.media.MediaCommunicationService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.media.MediaCommunicationService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.compat.overrides.AppCompatOverridesService$Lifecycle
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.compat.overrides.AppCompatOverridesService$Lifecycle took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.healthconnect.HealthConnectManagerService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.healthconnect.HealthConnectManagerService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.devicelock.DeviceLockService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.devicelock.DeviceLockService took to complete: 0ms
+11-25 16:53:32.178 D/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.security.FileIntegrityService
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.onCompletedEventUser-0_{|Unlocked|}_com.android.server.security.FileIntegrityService took to complete: 0ms
+11-25 16:53:32.178 V/SystemServerTimingAsync(  508): ssm.CompletedEventUser-0 took to complete: 13ms
+11-25 16:53:32.179 W/Role    (  799): Cannot get ApplicationInfo for default holder: com.android.dialer
+11-25 16:53:32.182 W/Role    (  799): Cannot get ApplicationInfo for default holder: com.android.systemui
+11-25 16:53:32.222 D/AndroidRuntime( 1803): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-25 16:53:32.223 I/system_server(  508): Background concurrent copying GC freed 302138(14MB) AllocSpace objects, 34(724KB) LOS objects, 49% free, 13MB/26MB, paused 36us,31us total 135.055ms
+11-25 16:53:32.223 W/JavaBinder(  508): BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.am.ActivityManagerService$14
+11-25 16:53:32.223 I/BpBinder(  508): onLastStrongRef automatically unlinking death recipients: 
+11-25 16:53:32.223 W/JavaBinder(  508): BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.am.ActivityManagerService$14
+11-25 16:53:32.223 I/BpBinder(  508): onLastStrongRef automatically unlinking death recipients: 
+11-25 16:53:32.224 W/JavaBinder(  508): BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.am.ActivityManagerService$14
+11-25 16:53:32.224 I/BpBinder(  508): onLastStrongRef automatically unlinking death recipients: 
+11-25 16:53:32.224 W/JavaBinder(  508): BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.am.ActivityManagerService$14
+11-25 16:53:32.224 I/BpBinder(  508): onLastStrongRef automatically unlinking death recipients: 
+11-25 16:53:32.224 W/JavaBinder(  508): BinderProxy is being destroyed but the application did not call unlinkToDeath to unlink all of its death recipients beforehand.  Releasing leaked death recipient: com.android.server.am.ActivityManagerService$14
+11-25 16:53:32.224 I/BpBinder(  508): onLastStrongRef automatically unlinking death recipients: 
+11-25 16:53:32.225 I/AndroidRuntime( 1803): Using default boot image
+11-25 16:53:32.227 I/DropBoxManagerService(  508): add tag=system_server_strictmode isTagEnabled=true flags=0x2
+11-25 16:53:32.227 I/AndroidRuntime( 1803): Leaving lock profiling enabled
+11-25 16:53:32.228 I/app_process( 1803): Core platform API reporting enabled, enforcing=false
+11-25 16:53:32.228 I/app_process( 1803): Using CollectorTypeCC GC.
+11-25 16:53:32.283 D/nativeloader( 1803): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-25 16:53:32.290 D/app_process( 1803): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+11-25 16:53:32.290 D/app_process( 1803): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+11-25 16:53:32.294 W/app_process( 1803): Unexpected CPU variant for x86: x86_64.
+11-25 16:53:32.294 W/app_process( 1803): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-25 16:53:32.304 D/CompatibilityChangeReporter( 1150): Compat change id reported: 253665015; UID 10045; state: ENABLED
+11-25 16:53:32.304 D/CompatibilityChangeReporter( 1150): Compat change id reported: 194532703; UID 10045; state: ENABLED
+11-25 16:53:32.304 D/CompatibilityChangeReporter(  508): Compat change id reported: 253665015; UID 10045; state: ENABLED
+11-25 16:53:32.304 D/CompatibilityChangeReporter(  508): Compat change id reported: 194532703; UID 10045; state: ENABLED
+11-25 16:53:32.307 D/CompatibilityChangeReporter(  508): Compat change id reported: 261072174; UID 1000; state: ENABLED
+11-25 16:53:32.313 W/libc    ( 1803): Access denied finding property "ro.product.name_for_attestation"
+11-25 16:53:32.313 W/libc    ( 1803): Access denied finding property "ro.product.brand_for_attestation"
+11-25 16:53:32.309 W/main    ( 1803): type=1400 audit(0.0:15): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+--------- beginning of kernel
+11-25 16:53:32.503 W/audit   (    0): audit_lost=1 audit_rate_limit=5 audit_backlog_limit=64
+11-25 16:53:32.507 E/audit   (    0): rate limit exceeded
+11-25 16:53:32.313 W/main    ( 1803): type=1400 audit(0.0:16): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:53:32.321 W/libc    ( 1803): Access denied finding property "ro.product.model_for_attestation"
+11-25 16:53:32.329 D/AndroidRuntime( 1803): Calling main entry com.android.commands.monkey.Monkey
+11-25 16:53:32.330 W/Monkey  ( 1803): args: [-p, com.maisonmakas.pro, -c, android.intent.category.LAUNCHER, 1]
+11-25 16:53:32.330 W/Monkey  ( 1803):  arg: "-p"
+11-25 16:53:32.330 W/Monkey  ( 1803):  arg: "com.maisonmakas.pro"
+11-25 16:53:32.331 W/Monkey  ( 1803):  arg: "-c"
+11-25 16:53:32.331 W/Monkey  ( 1803):  arg: "android.intent.category.LAUNCHER"
+11-25 16:53:32.331 W/Monkey  ( 1803):  arg: "1"
+11-25 16:53:32.331 W/Monkey  ( 1803): data="com.maisonmakas.pro"
+11-25 16:53:32.331 W/Monkey  ( 1803): data="android.intent.category.LAUNCHER"
+11-25 16:53:32.340 W/ActivityManager(  508): registerReceiverWithFeature: no app for null
+11-25 16:53:32.341 W/System  ( 1803): No Compatibility callbacks set! Querying change 263076149
+11-25 16:53:32.341 W/System  ( 1803): No Compatibility callbacks set! Querying change 263076149
+11-25 16:53:32.341 W/System  ( 1803): No Compatibility callbacks set! Querying change 263076149
+11-25 16:53:32.342 D/CompatibilityChangeReporter(  508): Compat change id reported: 161252188; UID 10108; state: DISABLED
+11-25 16:53:32.343 W/ActivityTaskManager(  508): callingPackage for (uid=2000, pid=1803) has no WPC
+11-25 16:53:32.343 D/CompatibilityChangeReporter(  508): Compat change id reported: 244637991; UID 2000; state: ENABLED
+11-25 16:53:32.343 D/CompatibilityChangeReporter(  508): Compat change id reported: 265464455; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 265452344; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 266124927; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 265451093; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 265456536; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 255940284; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 236283604; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 263959004; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 264304459; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 264301586; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 254631730; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 273509367; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 263259275; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 174042980; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 174042936; UID 10108; state: DISABLED
+11-25 16:53:32.344 D/CompatibilityChangeReporter(  508): Compat change id reported: 181136395; UID 10108; state: DISABLED
+11-25 16:53:32.345 D/CompatibilityChangeReporter(  508): Compat change id reported: 194480991; UID 10108; state: ENABLED
+11-25 16:53:32.349 D/CompatibilityChangeReporter(  508): Compat change id reported: 184838306; UID 10108; state: DISABLED
+11-25 16:53:32.349 D/CompatibilityChangeReporter(  508): Compat change id reported: 185004937; UID 10108; state: DISABLED
+11-25 16:53:32.349 D/CompatibilityChangeReporter(  508): Compat change id reported: 197654537; UID 10108; state: ENABLED
+11-25 16:53:32.350 D/CompatibilityChangeReporter(  508): Compat change id reported: 205907456; UID 10108; state: ENABLED
+11-25 16:53:32.351 D/CompatibilityChangeReporter(  508): Compat change id reported: 194833441; UID 10108; state: ENABLED
+11-25 16:53:32.351 I/ActivityTaskManager(  508): START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.maisonmakas.pro/.MainActivity} with LAUNCH_SINGLE_TOP from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+11-25 16:53:32.351 I/Monkey  ( 1803): Events injected: 1
+11-25 16:53:32.353 D/CompatibilityChangeReporter(  508): Compat change id reported: 135634846; UID 10108; state: DISABLED
+11-25 16:53:32.353 I/Monkey  ( 1803): ## Network stats: elapsed time=11ms (0ms mobile, 0ms wifi, 11ms not connected)
+11-25 16:53:32.354 D/CompatibilityChangeReporter(  508): Compat change id reported: 143937733; UID 10108; state: ENABLED
+11-25 16:53:32.358 D/CompatibilityChangeReporter(  508): Compat change id reported: 265195908; UID 10108; state: ENABLED
+11-25 16:53:32.358 I/app_process( 1803): System.exit called, status: 0
+11-25 16:53:32.358 I/AndroidRuntime( 1803): VM exiting with result code 0.
+11-25 16:53:32.361 D/Zygote  (  327): Forked child process 1824
+11-25 16:53:32.361 I/ActivityManager(  508): Start proc 1824:com.maisonmakas.pro/u0a108 for next-top-activity {com.maisonmakas.pro/com.maisonmakas.pro.MainActivity}
+11-25 16:53:32.366 I/maisonmakas.pro( 1824): Using CollectorTypeCC GC.
+11-25 16:53:32.367 W/maisonmakas.pro( 1824): Unexpected CPU variant for x86: x86_64.
+11-25 16:53:32.367 W/maisonmakas.pro( 1824): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-25 16:53:32.368 E/maisonmakas.pro( 1824): Not starting debugger since process cannot load the jdwp agent.
+11-25 16:53:32.374 D/CompatibilityChangeReporter( 1824): Compat change id reported: 171979766; UID 10108; state: ENABLED
+11-25 16:53:32.374 D/CompatibilityChangeReporter( 1824): Compat change id reported: 242716250; UID 10108; state: ENABLED
+11-25 16:53:32.375 D/CompatibilityChangeReporter(  508): Compat change id reported: 170503758; UID 10108; state: ENABLED
+11-25 16:53:32.376 D/ApplicationLoaders( 1824): Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+11-25 16:53:32.376 D/ApplicationLoaders( 1824): Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+11-25 16:53:32.377 D/nativeloader( 1824): Configuring clns-6 for other apk /data/app/~~8i_v09HIbf_YhY6WGQGa3g==/com.maisonmakas.pro-emxcB2NVpk_dmunDKxMgnw==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~8i_v09HIbf_YhY6WGQGa3g==/com.maisonmakas.pro-emxcB2NVpk_dmunDKxMgnw==/lib/x86_64:/data/app/~~8i_v09HIbf_YhY6WGQGa3g==/com.maisonmakas.pro-emxcB2NVpk_dmunDKxMgnw==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.maisonmakas.pro
+11-25 16:53:32.380 I/BpBinder(  390): onLastStrongRef automatically unlinking death recipients: 
+11-25 16:53:32.381 V/GraphicsEnvironment( 1824): Currently set values for:
+11-25 16:53:32.381 V/GraphicsEnvironment( 1824):   angle_gl_driver_selection_pkgs=[]
+11-25 16:53:32.381 V/GraphicsEnvironment( 1824):   angle_gl_driver_selection_values=[]
+11-25 16:53:32.381 V/GraphicsEnvironment( 1824): ANGLE GameManagerService for com.maisonmakas.pro: false
+11-25 16:53:32.381 V/GraphicsEnvironment( 1824): com.maisonmakas.pro is not listed in per-application setting
+11-25 16:53:32.381 V/GraphicsEnvironment( 1824): Neither updatable production driver nor prerelease driver is supported.
+11-25 16:53:32.383 D/CompatibilityChangeReporter( 1824): Compat change id reported: 183155436; UID 10108; state: ENABLED
+11-25 16:53:32.384 I/FirebaseApp( 1824): Device unlocked: initializing all Firebase APIs for app [DEFAULT]
+11-25 16:53:32.388 W/GooglePlayServicesUtil( 1824): com.maisonmakas.pro requires the Google Play Store, but it is missing.
+11-25 16:53:32.388 W/GoogleApiManager( 1824): The service for qi0 is not available: x8{statusCode=SERVICE_INVALID, resolution=null, message=null, clientMethodKey=null}
+11-25 16:53:32.388 I/FirebaseInitProvider( 1824): FirebaseApp initialization successful
+11-25 16:53:32.388 D/FLTFireContextHolder( 1824): received application context.
+11-25 16:53:32.413 I/ActivityManager(  508): Flag disabled. Ignoring finishAttachApplication from uid: 10108. pid: 1824
+11-25 16:53:32.414 E/FirebaseMessaging( 1824): Google Play services missing or without correct permission.
+11-25 16:53:32.414 W/Metadata( 1824): Failed to find package android.content.pm.PackageManager$NameNotFoundException: com.google.android.gms
+11-25 16:53:32.421 D/libEGL  ( 1824): loaded /vendor/lib64/egl/libEGL_emulation.so
+11-25 16:53:32.423 D/libEGL  ( 1824): loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+11-25 16:53:32.425 D/libEGL  ( 1824): loaded /vendor/lib64/egl/libGLESv2_emulation.so
+11-25 16:53:32.430 D/CompatibilityChangeReporter(  508): Compat change id reported: 259743961; UID 10108; state: ENABLED
+11-25 16:53:32.432 D/skia    ( 1824): [SkFontMgr Android Parser] '/product/etc/fonts_customization.xml' could not be opened
+11-25 16:53:32.457 I/flutter ( 1824): [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(105)] Using the Impeller rendering backend (OpenGLES).
+11-25 16:53:32.469 D/FLTFireContextHolder( 1824): received application context.
+11-25 16:53:32.479 D/CompatibilityChangeReporter( 1824): Compat change id reported: 237531167; UID 10108; state: DISABLED
+11-25 16:53:32.479 W/OpenGLRenderer( 1824): Unknown dataspace 0
+11-25 16:53:32.492 D/CoreBackPreview(  508): Window{7a1afda u0 com.maisonmakas.pro/com.maisonmakas.pro.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@ec0cde7, mPriority=0, mIsAnimationCallback=false}
+11-25 16:53:32.494 W/ServiceManagerCppClient(  390): Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10108 pid=1824
+11-25 16:53:32.494 D/PermissionCache(  390): checking android.permission.ROTATE_SURFACE_FLINGER for uid=10108 => denied (123 us)
+11-25 16:53:32.494 W/ServiceManagerCppClient(  390): Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10108 pid=1824
+11-25 16:53:32.494 D/PermissionCache(  390): checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10108 => denied (86 us)
+11-25 16:53:32.494 W/ServiceManagerCppClient(  390): Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10108 pid=1824
+11-25 16:53:32.494 D/PermissionCache(  390): checking android.permission.ACCESS_SURFACE_FLINGER for uid=10108 => denied (152 us)
+11-25 16:53:32.499 W/OpenGLRenderer( 1824): Failed to initialize 101010-2 format, error = EGL_SUCCESS
+11-25 16:53:32.500 I/hwservicemanager(  135): getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+11-25 16:53:32.500 I/Gralloc4( 1824): mapper 4.x is not supported
+11-25 16:53:32.687 I/servicemanager(    0): Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+11-25 16:53:32.941 W/ServiceManagerCppClient(  508): Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10108 pid=0
+11-25 16:53:32.941 D/PermissionCache(  508): checking android.permission.ROTATE_SURFACE_FLINGER for uid=10108 => denied (646 us)
+11-25 16:53:32.941 W/ServiceManagerCppClient(  508): Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10108 pid=0
+11-25 16:53:32.941 D/PermissionCache(  508): checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10108 => denied (29 us)
+11-25 16:53:32.941 W/ServiceManagerCppClient(  508): Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10108 pid=0
+11-25 16:53:32.941 D/PermissionCache(  508): checking android.permission.ACCESS_SURFACE_FLINGER for uid=10108 => denied (13 us)
+11-25 16:53:32.987 I/ActivityTaskManager(  508): Displayed com.maisonmakas.pro/.MainActivity for user 0: +631ms
+11-25 16:53:32.987 I/ActivityTaskManager(  508): Fully drawn com.maisonmakas.pro/.MainActivity: +631ms
+11-25 16:53:33.032 D/CompatibilityChangeReporter(  508): Compat change id reported: 214016041; UID 10108; state: ENABLED
+11-25 16:53:33.033 I/ImeTracker(  508): com.maisonmakas.pro:707b2ea: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-25 16:53:33.033 I/ImeTracker(  508): com.maisonmakas.pro:707b2ea: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-25 16:53:34.065 I/wpa_supplicant(  785): wlan0: SME: Trying to authenticate with 02:15:b2:00:00:01 (SSID='AndroidWifi' freq=2437 MHz)
+11-25 16:53:34.066 I/wpa_supplicant(  785): assoc key_mgmt 0x4 network key_mgmt 0x4
+11-25 16:53:34.066 I/wificond(  430): Received external scan result notification from kernel.
+11-25 16:53:34.067 D/WifiNl80211Manager(  508): Scan result ready event
+11-25 16:53:34.067 D/WifiNative(  508): Scan result ready event
+11-25 16:53:34.255 I/wlan0   (    0): authenticate with 02:15:b2:00:00:01
+11-25 16:53:34.256 I/wlan0   (    0): No basic rates, using min rate instead
+11-25 16:53:34.257 I/wlan0   (    0): send auth to 02:15:b2:00:00:01 (try 1/3)
+11-25 16:53:34.070 I/wpa_supplicant(  785): wlan0: Trying to associate with 02:15:b2:00:00:01 (SSID='AndroidWifi' freq=2437 MHz)
+11-25 16:53:34.070 I/wpa_supplicant(  785): assoc key_mgmt 0x4 network key_mgmt 0x4
+11-25 16:53:34.072 W/ContextImpl(  508): Calling a method in the system process without a qualified user: android.app.ContextImpl.sendStickyBroadcast:1626 com.android.server.wifi.ClientModeImpl.sendNetworkChangeBroadcast:3008 com.android.server.wifi.ClientModeImpl.lambda$sendNetworkChangeBroadcastWithCurrentState$14:2985 com.android.server.wifi.ClientModeImpl.$r8$lambda$q-j88Pjw4gROgoJFr8wBlBVbuJI:0 com.android.server.wifi.ClientModeImpl$$ExternalSyntheticLambda4.send:0 
+11-25 16:53:34.073 I/WifiClientModeImpl[24074:wlan0](  508): Update current security type to 0
+11-25 16:53:34.259 I/wlan0   (    0): authenticated
+11-25 16:53:34.263 I/wlan0   (    0): associate with 02:15:b2:00:00:01 (try 1/3)
+11-25 16:53:34.075 I/WifiClientModeImpl[24074:wlan0](  508): Update current security type to 0
+11-25 16:53:34.264 I/wlan0   (    0): RX AssocResp from 02:15:b2:00:00:01 (capab=0x1 status=0 aid=1)
+11-25 16:53:34.266 I/wlan0   (    0): No basic rates, using min rate instead
+11-25 16:53:34.078 I/wpa_supplicant(  785): assoc key_mgmt 0x4 network key_mgmt 0x4
+11-25 16:53:34.079 I/wpa_supplicant(  785): wlan0: Associated with 02:15:b2:00:00:01
+11-25 16:53:34.079 I/wpa_supplicant(  785): wlan0: CTRL-EVENT-CONNECTED - Connection to 02:15:b2:00:00:01 completed [id=0 id_str=%7B%22configKey%22%3A%22%5C%22AndroidWifi%5C%22NONE%22%2C%22creatorUid%22%3A%2210083%22%7D]
+11-25 16:53:34.079 I/wpa_supplicant(  785): assoc key_mgmt 0x4 network key_mgmt 0x4
+11-25 16:53:34.079 I/wpa_supplicant(  785): wlan0: CTRL-EVENT-SUBNET-STATUS-UPDATE status=0
+11-25 16:53:34.080 I/Tethering(  850): adding IpServer for: wlan0
+11-25 16:53:34.268 I/wlan0   (    0): associated
+11-25 16:53:34.084 I/WifiClientModeImpl[24074:wlan0](  508): Update current security type to 0
+11-25 16:53:34.085 I/WifiService(  508): updateInterfaceIpState uid=1073
+11-25 16:53:34.086 I/WifiClientModeImpl[24074:wlan0](  508): Update current security type to 0 from network connection event.
+11-25 16:53:34.089 I/ConnectivityService(  508): Update score for net 101 : +IS_UNMETERED
+11-25 16:53:34.089 D/ConnectivityService(  508): registerNetworkAgent NetworkAgentInfo{network{101}  handle{437197393933}  ni{WIFI CONNECTING extra: } created=2026-11-25T16:53:34.089Z Score(Policies : IS_UNMETERED ; KeepConnected : 0)   lp{{LinkAddresses: [ ] DnsAddresses: [ ] Domains: null MTU: 0 Routes: [ ]}}  nc{[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&NOT_ROAMING&NOT_CONGESTED&NOT_SUSPENDED&NOT_VCN_MANAGED LinkUpBandwidth>=54000Kbps LinkDnBandwidth>=54000Kbps Specifier: <WifiNetworkAgentSpecifier [WifiConfiguration=, SSID="AndroidWifi", BSSID=02:15:b2:00:00:01, band=1, mMatchLocalOnlySpecifiers=false]> TransportInfo: <SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: null, Security type: 0, Supplicant state: ASSOCIATED, Wi-Fi standard: 1, RSSI: -127, Link speed: -1Mbps, Tx Link speed: -1Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: -1Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 0, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>> AllowedUids: <{10083}> OwnerUid: 10083 AdminUids: [10083] SSID: "AndroidWifi" UnderlyingNetworks: Null]}  factorySerialNumber=3}
+11-25 16:53:34.090 I/netd    (  326): getFwmarkForNetwork(101) -> {MarkMaskParcel{mark: 101, mask: 65535}} <0.00ms>
+11-25 16:53:34.091 W/ContextImpl(  508): Calling a method in the system process without a qualified user: android.app.ContextImpl.sendStickyBroadcast:1626 com.android.server.wifi.ClientModeImpl.sendNetworkChangeBroadcast:3008 com.android.server.wifi.ClientModeImpl.lambda$sendNetworkChangeBroadcastWithCurrentState$14:2985 com.android.server.wifi.ClientModeImpl.$r8$lambda$q-j88Pjw4gROgoJFr8wBlBVbuJI:0 com.android.server.wifi.ClientModeImpl$$ExternalSyntheticLambda4.send:0 
+11-25 16:53:34.092 D/CompatibilityChangeReporter(  850): Compat change id reported: 186082280; UID 1073; state: ENABLED
+11-25 16:53:34.094 I/WifiClientModeImpl[24074:wlan0](  508): Update current security type to 0
+11-25 16:53:34.094 I/netd    (  326): interfaceGetCfg(wlan0) -> {InterfaceConfigurationParcel{ifName: wlan0, hwAddr: 02:15:b2:00:00:00, ipv4Addr: 0.0.0.0, prefixLength: 0, flags: [up, broadcast, running, multicast]}} <0.07ms>
+11-25 16:53:34.095 D/ConnectivityService(  508): [101 WIFI] EVENT_NETWORK_INFO_CHANGED, going from CONNECTING to CONNECTING
+11-25 16:53:34.095 I/netd    (  326): interfaceGetCfg(wlan0) -> {InterfaceConfigurationParcel{ifName: wlan0, hwAddr: 02:15:b2:00:00:00, ipv4Addr: 0.0.0.0, prefixLength: 0, flags: [up, broadcast, running, multicast]}} <0.03ms>
+11-25 16:53:34.095 D/CompatibilityChangeReporter(  508): Compat change id reported: 171306433; UID 1073; state: ENABLED
+11-25 16:53:34.095 D/WifiService(  508): updateInterfaceIpState: ifaceName=wlan0 mode=-1 previous LOHS mode= -1
+11-25 16:53:34.098 D/NetworkMonitor/101(  850): checkAndRenewResourceConfig: update captive portal https urls to [https://www.google.com/generate_204]
+11-25 16:53:34.098 I/ConnectivityService(  508): Update score for net 101 : +TRANSPORT_PRIMARY
+11-25 16:53:34.099 E/WifiStaIfaceAidlImpl(  508): installApfPacketFilter failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+11-25 16:53:34.099 E/WifiStaIfaceAidlImpl(  508): installApfPacketFilter failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+11-25 16:53:34.099 D/NetworkMonitor/101(  850): checkAndRenewResourceConfig: update captive portal http urls to [http://connectivitycheck.gstatic.com/generate_204]
+11-25 16:53:34.099 D/NetworkMonitor/101(  850): checkAndRenewResourceConfig: update captive portal fallback urls to[http://www.google.com/gen_204, http://play.googleapis.com/generate_204]
+11-25 16:53:34.099 D/NetworkMonitor(  850): Starting on network 101 with capport HTTPS URL [https://www.google.com/generate_204] and HTTP URL [http://connectivitycheck.gstatic.com/generate_204]
+11-25 16:53:34.099 D/ConnectivityService(  508): NetReassign [no changes] [c 0] [a 0] [i 0]
+11-25 16:53:34.100 D/ConnectivityService(  508): NetReassign [no changes] [c 0] [a 0] [i 0]
+11-25 16:53:34.118 D/ApfFilter(  850): (wlan0): begin monitoring
+11-25 16:53:34.119 I/netd    (  326): setProcSysNet(6, 1, wlan0, accept_ra, 2) <0.07ms>
+11-25 16:53:34.119 I/netd    (  326): interfaceSetIPv6PrivacyExtensions(wlan0, true) <0.04ms>
+11-25 16:53:34.121 I/netd    (  326): setIPv6AddrGenMode(wlan0, 2) <1.71ms>
+11-25 16:53:34.121 I/netd    (  326): interfaceSetEnableIPv6(wlan0, true) <0.12ms>
+11-25 16:53:34.122 I/netd    (  326): setProcSysNet(4, 2, wlan0, retrans_time_ms, 750) <0.04ms>
+11-25 16:53:34.123 I/netd    (  326): setProcSysNet(4, 2, wlan0, ucast_solicit, 5) <0.04ms>
+11-25 16:53:34.123 I/netd    (  326): setProcSysNet(4, 2, wlan0, mcast_resolicit, 3) <0.09ms>
+11-25 16:53:34.123 I/netd    (  326): setProcSysNet(6, 2, wlan0, retrans_time_ms, 750) <0.06ms>
+11-25 16:53:34.123 I/netd    (  326): setProcSysNet(6, 2, wlan0, ucast_solicit, 5) <0.05ms>
+11-25 16:53:34.123 I/netd    (  326): setProcSysNet(6, 2, wlan0, mcast_resolicit, 3) <0.05ms>
+11-25 16:53:34.123 I/netd    (  326): setProcSysNet(4, 2, wlan0, retrans_time_ms, 750) <0.01ms>
+11-25 16:53:34.123 I/netd    (  326): setProcSysNet(4, 2, wlan0, ucast_solicit, 10) <0.07ms>
+11-25 16:53:34.124 I/netd    (  326): setProcSysNet(6, 2, wlan0, retrans_time_ms, 750) <0.05ms>
+11-25 16:53:34.124 I/netd    (  326): setProcSysNet(6, 2, wlan0, ucast_solicit, 10) <0.03ms>
+11-25 16:53:34.125 D/IpClient/wlan0(  850): routeUpdated: fe80::/64 -> :: wlan0 mtu 0
+11-25 16:53:34.125 D/IpClient/wlan0(  850): addressUpdated: fe80::e7a8:4406:e6a8:16c0/64 on ifindex 16 flags 0x000008C4 scope 253
+11-25 16:53:34.126 D/TrafficStats(  850): tagSocket(103) with statsTag=0xfffffe01, statsUid=-1
+11-25 16:53:34.127 D/IpClient.wlan0(  850): set max DTIM multiplier to 1
+11-25 16:53:34.128 D/ConnectivityService(  508): Adding iface wlan0 to network 101
+11-25 16:53:34.128 E/Netd    (  326): no such netId 101
+11-25 16:53:34.128 I/netd    (  326): networkAddInterface(101, wlan0) -> ServiceSpecificException(64, "Machine is not on the network") <0.03ms>
+11-25 16:53:34.128 E/WifiStaIfaceAidlImpl(  508): setDtimMultiplier failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+11-25 16:53:34.128 W/ConnectivityService(  508): Exception adding interface: android.os.ServiceSpecificException: Machine is not on the network (code 64)
+11-25 16:53:34.128 E/Netd    (  326): no such netId 101
+11-25 16:53:34.128 I/netd    (  326): networkAddRouteParcel(101, RouteInfoParcel{destination: fe80::/64, ifName: wlan0, nextHop: , mtu: 0}) -> ServiceSpecificException(64, "Machine is not on the network") <0.01ms>
+11-25 16:53:34.130 D/CompatibilityChangeReporter(  508): Compat change id reported: 265195908; UID 10044; state: ENABLED
+11-25 16:53:34.133 D/DhcpClient(  850): Broadcasting DHCPDISCOVER
+11-25 16:53:34.135 D/DhcpClient(  850): Received packet: 02:15:b2:00:00:00 OFFER, ip /10.0.2.16, mask /255.255.255.0, DNS servers: /10.0.2.3 , gateways [/10.0.2.2], lease time 86400, domain null
+11-25 16:53:34.135 D/DhcpClient(  850): Got pending lease: com.android.networkstack.android.net.DhcpResults@78227676 DHCP server /10.0.2.2 Vendor info null lease 86400 seconds Servername 
+11-25 16:53:34.136 D/DhcpClient(  850): Broadcasting DHCPREQUEST ciaddr=0.0.0.0 request=10.0.2.16 serverid=10.0.2.2
+11-25 16:53:34.137 D/DhcpClient(  850): Received packet: 02:15:b2:00:00:00 ACK: your new IP /10.0.2.16, netmask /255.255.255.0, gateways [/10.0.2.2] DNS servers: /10.0.2.3 , lease time 86400
+11-25 16:53:34.138 D/DhcpClient(  850): Confirmed lease: com.android.networkstack.android.net.DhcpResults@78227676 DHCP server /10.0.2.2 Vendor info null lease 86400 seconds Servername 
+11-25 16:53:34.140 I/WifiClientModeImpl[24074:wlan0](  508): Update current security type to 0
+11-25 16:53:34.141 W/ContextImpl(  508): Calling a method in the system process without a qualified user: android.app.ContextImpl.sendStickyBroadcast:1626 com.android.server.wifi.ClientModeImpl.sendNetworkChangeBroadcast:3008 com.android.server.wifi.ClientModeImpl.lambda$sendNetworkChangeBroadcastWithCurrentState$14:2985 com.android.server.wifi.ClientModeImpl.$r8$lambda$q-j88Pjw4gROgoJFr8wBlBVbuJI:0 com.android.server.wifi.ClientModeImpl$$ExternalSyntheticLambda4.send:0 
+11-25 16:53:34.141 I/netd    (  326): interfaceSetCfg(InterfaceConfigurationParcel{ifName: wlan0, hwAddr: , ipv4Addr: 10.0.2.16, prefixLength: 24, flags: []}) <0.19ms>
+11-25 16:53:34.142 D/IpClient/wlan0(  850): addressUpdated: 10.0.2.16/24 on ifindex 16 flags 0x00000080 scope 0
+11-25 16:53:34.143 D/DhcpClient(  850): Scheduling renewal in 43199s
+11-25 16:53:34.143 D/DhcpClient(  850): Scheduling rebind in 75599s
+11-25 16:53:34.143 D/DhcpClient(  850): Scheduling expiry in 86399s
+11-25 16:53:34.144 E/WifiStaIfaceAidlImpl(  508): installApfPacketFilter failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+11-25 16:53:34.145 W/ContextImpl(  508): Calling a method in the system process without a qualified user: android.app.ContextImpl.sendStickyBroadcast:1626 com.android.server.wifi.ClientModeImpl.sendNetworkChangeBroadcast:3008 com.android.server.wifi.ClientModeImpl.lambda$sendNetworkChangeBroadcastWithCurrentState$14:2985 com.android.server.wifi.ClientModeImpl.$r8$lambda$q-j88Pjw4gROgoJFr8wBlBVbuJI:0 com.android.server.wifi.ClientModeImpl$$ExternalSyntheticLambda4.send:0 
+11-25 16:53:34.146 I/netd    (  326): tetherGetStats() -> {[]} <0.52ms>
+11-25 16:53:34.149 E/Netd    (  326): no such netId 101
+11-25 16:53:34.149 I/netd    (  326): networkAddRouteParcel(101, RouteInfoParcel{destination: 10.0.2.0/24, ifName: wlan0, nextHop: , mtu: 0}) -> ServiceSpecificException(64, "Machine is not on the network") <0.02ms>
+11-25 16:53:34.149 E/ConnectivityService(  508): Exception in networkAddRouteParcel for non-gateway: android.os.ServiceSpecificException: Machine is not on the network (code 64)
+11-25 16:53:34.149 E/Netd    (  326): no such netId 101
+11-25 16:53:34.149 I/netd    (  326): networkAddRouteParcel(101, RouteInfoParcel{destination: 0.0.0.0/0, ifName: wlan0, nextHop: 10.0.2.2, mtu: 0}) -> ServiceSpecificException(64, "Machine is not on the network") <0.01ms>
+11-25 16:53:34.149 E/ConnectivityService(  508): Exception in networkAddRouteParcel for gateway: android.os.ServiceSpecificException: Machine is not on the network (code 64)
+11-25 16:53:34.149 D/ConnectivityService(  508): Setting DNS servers for network 101 to [/10.0.2.3]
+11-25 16:53:34.149 W/WifiScoreReport(  508): Cannot start external scoring netId=101 currentNetId=101 currentNetCapabilities=[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&NOT_ROAMING&NOT_CONGESTED&NOT_SUSPENDED&NOT_VCN_MANAGED LinkUpBandwidth>=12000Kbps LinkDnBandwidth>=30000Kbps Specifier: <WifiNetworkAgentSpecifier [WifiConfiguration=, SSID="AndroidWifi", BSSID=02:15:b2:00:00:01, band=1, mMatchLocalOnlySpecifiers=false]> TransportInfo: <SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: 1, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: -1Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>> SignalStrength: -50 AllowedUids: <{10083}> OwnerUid: 10083 AdminUids: [10083] SSID: "AndroidWifi" UnderlyingNetworks: Null] sessionId=1017
+11-25 16:53:34.150 D/ConnectivityService(  508): [101 WIFI] EVENT_NETWORK_INFO_CHANGED, going from CONNECTING to CONNECTED
+11-25 16:53:34.150 I/netd    (  326): networkCreate(NativeNetworkConfig{netId: 101, networkType: PHYSICAL, permission: 0, secure: false, vpnType: -1, excludeLocalRoutes: false}) <0.01ms>
+11-25 16:53:34.150 I/netd    (  326): createNetworkCache(101) <0.09ms>
+11-25 16:53:34.150 D/DnsManager(  508): sendDnsConfigurationForNetwork(101, [10.0.2.3], [], 1800, 25, 8, 64, 0, 0, , [])
+11-25 16:53:34.150 I/resolv  (  326): resolv_set_nameservers: netid = 101, addr = 10.0.2.3
+11-25 16:53:34.151 I/netd    (  326): DnsResolverService::setResolverConfiguration(101, [10.0.2.3], [], 1800, 25, 8, 64, 0, 0, "", []) -> (0) (0.06ms)
+11-25 16:53:34.151 I/netd    (  326): setResolverConfiguration(ResolverParamsParcel{netId: 101, sampleValiditySeconds: 1800, successThreshold: 25, minSamples: 8, maxSamples: 64, baseTimeoutMsec: 0, retryCount: 0, servers: [10.0.2.3], domains: [], tlsName: , tlsServers: [], tlsFingerprints: [], caCertificate: , tlsConnectTimeoutMs: 0, resolverOptions: (null), transportTypes: [1]}) <0.09ms>
+11-25 16:53:34.152 I/netd    (  326): setNetworkAllowlist([NativeUidRangeConfig{netId: 101, uidRanges: [UidRangeParcel{start: 0, stop: 99999}], subPriority: 0}, NativeUidRangeConfig{netId: 100, uidRanges: [UidRangeParcel{start: 0, stop: 99999}], subPriority: 0}]) <0.00ms>
+11-25 16:53:34.152 W/DnsManager(  508): updatePrivateDns(101, PrivateDnsConfig{true:/[]})
+11-25 16:53:34.152 D/ConnectivityService(  508): Setting DNS servers for network 101 to [/10.0.2.3]
+11-25 16:53:34.152 D/DnsManager(  508): sendDnsConfigurationForNetwork(101, [10.0.2.3], [], 1800, 25, 8, 64, 0, 0, , [10.0.2.3])
+11-25 16:53:34.158 W/system_server(  508): Core platform API violation: Llibcore/io/Memory;->pokeByte(JB)V from Lcom/android/wifi/x/com/google/protobuf/UnsafeUtil; using reflection
+11-25 16:53:34.158 W/system_server(  508): Core platform API violation: Llibcore/io/Memory;->peekByte(J)B from Lcom/android/wifi/x/com/google/protobuf/UnsafeUtil; using reflection
+11-25 16:53:34.161 I/resolv  (  326): setDoh: No suitable DoH server found
+11-25 16:53:34.161 W/resolv  (  326): Validating DnsTlsServer 10.0.2.3 with mark 0xf0065
+11-25 16:53:34.161 I/netd    (  326): DnsResolverService::setResolverConfiguration(101, [10.0.2.3], [], 1800, 25, 8, 64, 0, 0, "", [10.0.2.3]) -> (0) (9ms)
+11-25 16:53:34.161 I/netd    (  326): setResolverConfiguration(ResolverParamsParcel{netId: 101, sampleValiditySeconds: 1800, successThreshold: 25, minSamples: 8, maxSamples: 64, baseTimeoutMsec: 0, retryCount: 0, servers: [10.0.2.3], domains: [], tlsName: , tlsServers: [10.0.2.3], tlsFingerprints: [], caCertificate: , tlsConnectTimeoutMs: 0, resolverOptions: (null), transportTypes: [1]}) <8.89ms>
+11-25 16:53:34.161 W/resolv  (  326): Socket failed to connect: Network is unreachable
+11-25 16:53:34.161 W/resolv  (  326): TCP Handshake failed: 101
+11-25 16:53:34.162 W/resolv  (  326): query failed
+11-25 16:53:34.162 W/resolv  (  326): validateDnsTlsServer returned 0 for 10.0.2.3
+11-25 16:53:34.162 W/resolv  (  326): Validation failed
+11-25 16:53:34.162 D/ConnectivityService(  508): Adding iface wlan0 to network 101
+11-25 16:53:34.163 D/WifiMemoryStoreImpl(  508): Set cluster G558846f27c318524 for W5837c409bf84e8ea: SUCCESS
+11-25 16:53:34.164 I/netd    (  326): networkAddInterface(101, wlan0) <0.86ms>
+11-25 16:53:34.164 I/netd    (  326): wakeupAddInterface(wlan0, 437197393933:wlan0, -2147483648, -2147483648) <0.23ms>
+11-25 16:53:34.165 I/netd    (  326): networkAddRouteParcel(101, RouteInfoParcel{destination: fe80::/64, ifName: wlan0, nextHop: , mtu: 0}) <0.07ms>
+11-25 16:53:34.165 I/netd    (  326): networkAddRouteParcel(101, RouteInfoParcel{destination: 10.0.2.0/24, ifName: wlan0, nextHop: , mtu: 0}) <0.09ms>
+11-25 16:53:34.165 I/netd    (  326): networkAddRouteParcel(101, RouteInfoParcel{destination: 0.0.0.0/0, ifName: wlan0, nextHop: 10.0.2.2, mtu: 0}) <0.03ms>
+11-25 16:53:34.165 D/ConnectivityService(  508): Setting DNS servers for network 101 to [/10.0.2.3]
+11-25 16:53:34.165 D/DnsManager(  508): sendDnsConfigurationForNetwork(101, [10.0.2.3], [], 1800, 25, 8, 64, 0, 0, , [10.0.2.3])
+11-25 16:53:34.166 I/resolv  (  326): setDoh: No suitable DoH server found
+11-25 16:53:34.166 I/netd    (  326): DnsResolverService::setResolverConfiguration(101, [10.0.2.3], [], 1800, 25, 8, 64, 0, 0, "", [10.0.2.3]) -> (0) (0.2ms)
+11-25 16:53:34.166 I/netd    (  326): setResolverConfiguration(ResolverParamsParcel{netId: 101, sampleValiditySeconds: 1800, successThreshold: 25, minSamples: 8, maxSamples: 64, baseTimeoutMsec: 0, retryCount: 0, servers: [10.0.2.3], domains: [], tlsName: , tlsServers: [10.0.2.3], tlsFingerprints: [], caCertificate: , tlsConnectTimeoutMs: 0, resolverOptions: (null), transportTypes: [1]}) <0.26ms>
+11-25 16:53:34.166 W/resolv  (  326): Validating DnsTlsServer 10.0.2.3 with mark 0xf0065
+11-25 16:53:34.169 D/WifiMemoryStoreImpl(  508): Set cluster G558846f27c318524 for W558846f27c318524: SUCCESS
+11-25 16:53:34.182 I/netd    (  326): tetherGetStats() -> {[]} <0.29ms>
+11-25 16:53:34.185 I/netd    (  326): bandwidthRemoveInterfaceQuota(eth0) <0.35ms>
+11-25 16:53:34.185 I/netd    (  326): bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.34ms>
+11-25 16:53:34.186 D/CompatibilityChangeReporter(  508): Compat change id reported: 171306433; UID 1000; state: ENABLED
+11-25 16:53:34.190 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffff81, statsUid=-1
+11-25 16:53:34.190 E/WifiStaIfaceAidlImpl(  508): stopRssiMonitoring failed with service-specific exception: android.os.ServiceSpecificException:  (code 5)
+11-25 16:53:34.190 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffff81, statsUid=-1
+11-25 16:53:34.191 D/ConnectivityService(  508): NetReassign [no changes] [c 0] [a 5] [i 0]
+11-25 16:53:34.192 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffff81, statsUid=-1
+11-25 16:53:34.192 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffff81, statsUid=-1
+11-25 16:53:34.193 I/netd    (  326): bandwidthRemoveInterfaceQuota(eth0) <0.38ms>
+11-25 16:53:34.193 I/netd    (  326): bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.41ms>
+11-25 16:53:34.193 I/resolv  (  326): ResNSendHandler::run: 0 / {101 983141 101 983141 1073 1}
+11-25 16:53:34.194 I/netd    (  326): bandwidthRemoveInterfaceQuota(eth0) <0.34ms>
+11-25 16:53:34.195 I/netd    (  326): bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.40ms>
+11-25 16:53:34.195 I/resolv  (  326): res_nsend: used send_dg 63 terrno: 0
+11-25 16:53:34.196 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffffff, statsUid=-1
+11-25 16:53:34.197 D/NetworkMonitor/101(  850): PROBE_DNS connectivitycheck.gstatic.com 6ms OK 142.251.150.120
+11-25 16:53:34.198 I/resolv  (  326): ResNSendHandler::run: 0 / {101 983141 101 983141 1073 1}
+11-25 16:53:34.198 I/resolv  (  326): GetAddrInfoHandler::run: {101 983141 101 983141 1073 1}
+11-25 16:53:34.198 I/resolv  (  326): res_nmkquery: (QUERY, IN, A)
+11-25 16:53:34.199 I/resolv  (  326): resolv_cache_lookup: FOUND IN CACHE entry=0x7c73d0878550
+11-25 16:53:34.199 I/resolv  (  326): doQuery: rcode=0, ancount=1, return value=63
+11-25 16:53:34.199 D/TrafficStats(  850): tagSocket(106) with statsTag=0xffffff81, statsUid=-1
+11-25 16:53:34.200 I/resolv  (  326): res_nsend: used send_dg 160 terrno: 0
+11-25 16:53:34.200 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffffff, statsUid=-1
+11-25 16:53:34.201 I/netd    (  326): setProcSysNet(4, 2, wlan0, retrans_time_ms, 750) <0.03ms>
+11-25 16:53:34.201 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffffff, statsUid=-1
+11-25 16:53:34.201 I/netd    (  326): setProcSysNet(4, 2, wlan0, ucast_solicit, 10) <0.02ms>
+11-25 16:53:34.201 I/netd    (  326): setProcSysNet(6, 2, wlan0, retrans_time_ms, 750) <0.02ms>
+11-25 16:53:34.201 I/netd    (  326): setProcSysNet(6, 2, wlan0, ucast_solicit, 10) <0.01ms>
+11-25 16:53:34.202 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffffff, statsUid=-1
+11-25 16:53:34.202 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffffff, statsUid=-1
+11-25 16:53:34.202 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffffff, statsUid=-1
+11-25 16:53:34.202 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffffff, statsUid=-1
+11-25 16:53:34.203 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffffff, statsUid=-1
+11-25 16:53:34.203 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffffff, statsUid=-1
+11-25 16:53:34.203 D/NetworkMonitor/101(  850): PROBE_DNS www.google.com 11ms OK 142.251.153.119,142.251.157.119,142.251.152.119,142.251.154.119,142.251.156.119,142.251.155.119,142.251.150.119,142.251.151.119
+11-25 16:53:34.204 I/resolv  (  326): GetAddrInfoHandler::run: {101 983141 101 983141 1073 1}
+11-25 16:53:34.204 I/resolv  (  326): res_nmkquery: (QUERY, IN, A)
+11-25 16:53:34.204 I/resolv  (  326): resolv_cache_lookup: FOUND IN CACHE entry=0x7c72b086d570
+11-25 16:53:34.205 I/resolv  (  326): doQuery: rcode=0, ancount=8, return value=160
+11-25 16:53:34.205 D/TrafficStats(  850): tagSocket(105) with statsTag=0xffffff81, statsUid=-1
+11-25 16:53:34.209 D/NetworkMonitor/101(  850): PROBE_HTTP http://connectivitycheck.gstatic.com/generate_204 time=12ms ret=204 request={Connection=[close], User-Agent=[Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.32 Safari/537.36]} headers={null=[HTTP/1.1 204 No Content], Connection=[close], Content-Length=[0], Cross-Origin-Resource-Policy=[cross-origin], Date=[Wed, 25 Nov 2026 16:53:34 GMT], X-Android-Received-Millis=[1795625614209], X-Android-Response-Source=[NETWORK 204], X-Android-Selected-Protocol=[http/1.1], X-Android-Sent-Millis=[1795625614206]}
+11-25 16:53:34.649 D/NetworkMonitor/101(  850): PROBE_HTTPS https://www.google.com/generate_204 time=445ms ret=204 request={Connection=[close], User-Agent=[Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.32 Safari/537.36]} headers={null=[HTTP/1.1 204 No Content], Alt-Svc=[h3=":443"; ma=2592000,h3-29=":443"; ma=2592000], Connection=[close], Content-Length=[0], Cross-Origin-Resource-Policy=[cross-origin], Date=[Wed, 25 Nov 2026 16:53:34 GMT], X-Android-Received-Millis=[1795625614648], X-Android-Response-Source=[NETWORK 204], X-Android-Selected-Protocol=[http/1.1], X-Android-Sent-Millis=[1795625614644]}
+11-25 16:53:34.649 D/NetworkMonitor/101(  850): isCaptivePortal: isSuccessful()=true isPortal()=false RedirectUrl=null isPartialConnectivity()=false Time=460ms
+11-25 16:53:34.650 I/ConnectivityService(  508): Update score for net 101 : +EVER_EVALUATED
+11-25 16:53:34.650 D/ConnectivityService(  508): [101 WIFI] validation passed
+11-25 16:53:34.650 I/ConnectivityService(  508): Update capabilities for net 101 : +VALIDATED
+11-25 16:53:34.650 I/ConnectivityService(  508): Update score for net 101 : +EVER_VALIDATED+IS_VALIDATED
+11-25 16:53:34.651 D/ConnectivityService(  508): Switching to new default network for: uid/pid:1000/508 activeRequest: 1 callbackRequest: 1 [NetworkRequest [ REQUEST id=1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&NOT_VCN_MANAGED RequestorUid: 1000 RequestorPkg: android UnderlyingNetworks: Null] ]] callback flags: 1 order: 2147483647 using NetworkAgentInfo{network{101}  handle{437197393933}  ni{WIFI CONNECTED extra: } created=2026-11-25T16:53:34.089Z Score(Policies : TRANSPORT_PRIMARY&EVER_EVALUATED&IS_UNMETERED&EVER_VALIDATED&IS_VALIDATED ; KeepConnected : 0)  created 33650 firstValidated 34149 lastValidated 34149  lp{{InterfaceName: wlan0 LinkAddresses: [ fe80::e7a8:4406:e6a8:16c0/64,10.0.2.16/24 ] DnsAddresses: [ /10.0.2.3 ] Domains: null MTU: 0 ServerAddress: /10.0.2.2 TcpBufferSizes: 524288,1048576,2097152,262144,524288,1048576 Routes: [ fe80::/64 -> :: wlan0 mtu 0,10.0.2.0/24 -> 0.0.0.0 wlan0 mtu 0,0.0.0.0/0 -> 10.0.2.2 wlan0 mtu 0 ]}}  nc{[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED&NOT_VCN_MANAGED LinkUpBandwidth>=12000Kbps LinkDnBandwidth>=30000Kbps Specifier: <WifiNetworkAgentSpecifier [WifiConfiguration=, SSID="AndroidWifi", BSSID=02:15:b2:00:00:01, band=1, mMatchLocalOnlySpecifiers=false]> TransportInfo: <SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: 1, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: -1Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>> SignalStrength: -50 OwnerUid: 10083 AdminUids: [10083] SSID: "AndroidWifi" UnderlyingNetworks: Null]}  factorySerialNumber=3}
+11-25 16:53:34.651 I/netd    (  326): networkSetDefault(101) <0.09ms>
+11-25 16:53:34.652 E/NetlinkEvent(  326): NetlinkEvent::FindParam(): Parameter 'INTERFACE' not found
+11-25 16:53:34.652 E/NetlinkEvent(  326): NetlinkEvent::FindParam(): Parameter 'STATE' not found
+11-25 16:53:34.652 E/NetlinkEvent(  326): NetlinkEvent::FindParam(): Parameter 'TIME_NS' not found
+11-25 16:53:34.652 E/NetlinkEvent(  326): NetlinkEvent::FindParam(): Parameter 'UID' not found
+11-25 16:53:34.652 I/netd    (  326): idletimerAddInterface(wlan0, 15, 1) <0.69ms>
+11-25 16:53:34.653 I/netd    (  326): idletimerRemoveInterface(eth0, 10, 0) <0.27ms>
+11-25 16:53:34.653 I/netd    (  326): setTcpRWmemorySize(524288 1048576 2097152, 262144 524288 1048576) <0.02ms>
+11-25 16:53:34.658 D/TelephonyManager(  508): requestModemActivityInfo: Sending result to app: ModemActivityInfo{ mTimestamp=34156 mSleepTimeMs=0 mIdleTimeMs=34154 mActivityStatsTechSpecificInfo=[{mRat=UNKNOWN,mFrequencyRange=UNKNOWN,mTxTimeMs[]=[0, 0, 0, 0, 0],mRxTimeMs=0}]}
+11-25 16:53:34.674 I/netd    (  326): tetherGetStats() -> {[]} <0.25ms>
+11-25 16:53:34.676 D/NetworkTimeUpdateService(  508): New default network 101; checking time.
+11-25 16:53:34.676 D/ConnectivityService(  508): Setting inactive [100 CELLULAR] for 30000ms
+11-25 16:53:34.677 D/ConnectivityService(  508): Sending DISCONNECTED broadcast for type 0 [100 CELLULAR] isDefaultNetwork=true
+11-25 16:53:34.677 D/com.android.ons.ONSProfileActivator(  916): Internet connection available
+11-25 16:53:34.677 W/ContextImpl(  508): Calling a method in the system process without a qualified user: android.app.ContextImpl.sendStickyBroadcast:1626 android.net.connectivity.com.android.server.ConnectivityService.sendStickyBroadcast:3278 android.net.connectivity.com.android.server.ConnectivityService.sendLegacyNetworkBroadcast:10154 android.net.connectivity.com.android.server.ConnectivityService$LegacyTypeTracker.remove:1165 android.net.connectivity.com.android.server.ConnectivityService.updateLegacyTypeTrackerAndVpnLockdownForRematch:9643 
+11-25 16:53:34.678 D/ConnectivityService(  508): Sending CONNECTED broadcast for type 1 [101 WIFI] isDefaultNetwork=true
+11-25 16:53:34.678 W/ContextImpl(  508): Calling a method in the system process without a qualified user: android.app.ContextImpl.sendStickyBroadcast:1626 android.net.connectivity.com.android.server.ConnectivityService.sendStickyBroadcast:3278 android.net.connectivity.com.android.server.ConnectivityService.sendGeneralBroadcast:3248 android.net.connectivity.com.android.server.ConnectivityService.sendConnectedBroadcast:3221 android.net.connectivity.com.android.server.ConnectivityService.sendLegacyNetworkBroadcast:10126 
+11-25 16:53:34.678 D/ConnectivityService(  508): NetReassign [26 : 100 → 101, 29 : 100 → 101, 17 : 100 → 101, 15 : 100 → 101, 24 : 100 → 101, 19 : 100 → 101, 7 : 100 → 101, 37 : 100 → 101, 33 : 100 → 101, 21 : 100 → 101, 1 : 100 → 101] [c 0] [a 28] [i 0]
+11-25 16:53:34.679 D/ConnectivityService(  508): Setting DNS servers for network 101 to [/10.0.2.3]
+11-25 16:53:34.679 D/DnsManager(  508): sendDnsConfigurationForNetwork(101, [10.0.2.3], [], 1800, 25, 8, 64, 0, 0, , [10.0.2.3])
+11-25 16:53:34.679 I/resolv  (  326): setDoh: No suitable DoH server found
+11-25 16:53:34.679 I/netd    (  326): DnsResolverService::setResolverConfiguration(101, [10.0.2.3], [], 1800, 25, 8, 64, 0, 0, "", [10.0.2.3]) -> (0) (0.06ms)
+11-25 16:53:34.679 I/netd    (  326): setResolverConfiguration(ResolverParamsParcel{netId: 101, sampleValiditySeconds: 1800, successThreshold: 25, minSamples: 8, maxSamples: 64, baseTimeoutMsec: 0, retryCount: 0, servers: [10.0.2.3], domains: [], tlsName: , tlsServers: [10.0.2.3], tlsFingerprints: [], caCertificate: , tlsConnectTimeoutMs: 0, resolverOptions: (null), transportTypes: [1]}) <0.09ms>
+11-25 16:53:34.679 D/UpstreamNetworkMonitor(  850): New default Internet network: 101
+11-25 16:53:34.682 I/netd    (  326): bandwidthRemoveInterfaceQuota(eth0) <0.33ms>
+11-25 16:53:34.682 I/netd    (  326): bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.30ms>
+11-25 16:53:34.683 I/GnssNetworkConnectivityHandler(  508): updateNetworkState, state=CLOSED, connected=true, network=101, capabilities=[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED&NOT_VCN_MANAGED LinkUpBandwidth>=12000Kbps LinkDnBandwidth>=30000Kbps TransportInfo: <SSID: <unknown ssid>, BSSID: 02:00:00:00:00:00, MAC: 02:00:00:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: 1, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: -1Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: -1, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none><none>MLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>> SignalStrength: -50 AdminUids: [10083] SSID: "AndroidWifi" UnderlyingNetworks: Null], availableNetworkCount: 2
+11-25 16:53:34.685 W/LastMileLogger(  508): Failed to stop event tracing: /sys/kernel/debug/tracing/instances/wifi/tracing_on: open failed: ENOENT (No such file or directory)
+11-25 16:53:34.690 I/netd    (  326): tetherGetStats() -> {[]} <0.22ms>
+11-25 16:53:34.690 D/WifiConfigStore(  508): Writing to stores completed in 3 ms.
+11-25 16:53:34.690 D/WifiMemoryStoreImpl(  508): Set cluster G558846f27c318524 for W5837c409bf84e8ea: SUCCESS
+11-25 16:53:34.694 I/netd    (  326): bandwidthRemoveInterfaceQuota(eth0) <0.28ms>
+11-25 16:53:34.694 I/netd    (  326): bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.27ms>
+11-25 16:53:34.695 I/netd    (  326): bandwidthRemoveInterfaceQuota(eth0) <0.22ms>
+11-25 16:53:34.695 I/netd    (  326): bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.24ms>
+11-25 16:53:34.780 I/InputReader(  508): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-25 16:53:34.782 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.783 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.783 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.783 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.783 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.784 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.784 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.784 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.784 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.784 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.784 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.784 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.785 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.785 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.785 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.785 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.786 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.786 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.786 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.786 V/MediaPlayerList(  890): mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+11-25 16:53:34.788 W/Searchables(  508): No global search activity found
+11-25 16:53:34.790 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 1001
+11-25 16:53:34.795 D/CarrierSvcBindHelper(  916): onPackageModified: com.android.stk
+11-25 16:53:34.795 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:34.795 I/InputReader(  508): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-25 16:53:34.796 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 10060
+11-25 16:53:34.796 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 10088
+11-25 16:53:34.806 I/InputReader(  508): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-25 16:53:34.808 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 10083
+11-25 16:53:34.808 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 10068
+11-25 16:53:34.808 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 10092
+11-25 16:53:34.817 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:34.817 W/Searchables(  508): No global search activity found
+11-25 16:53:34.818 I/InputReader(  508): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-25 16:53:34.819 D/CarrierSvcBindHelper(  916): onPackageModified: com.android.statementservice
+11-25 16:53:34.819 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:34.820 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 10093
+11-25 16:53:34.824 I/InputReader(  508): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-25 16:53:34.829 D/CarrierSvcBindHelper(  916): onPackageModified: com.android.rkpdapp
+11-25 16:53:34.830 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:34.832 D/CarrierSvcBindHelper(  916): onPackageModified: com.android.sdksetup
+11-25 16:53:34.832 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:34.837 D/CarrierSvcBindHelper(  916): onPackageModified: com.android.carrierdefaultapp
+11-25 16:53:34.837 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:34.839 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 10098
+11-25 16:53:34.841 I/InputReader(  508): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-25 16:53:34.846 D/CarrierSvcBindHelper(  916): onPackageModified: com.android.cellbroadcastreceiver.module
+11-25 16:53:34.846 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:34.850 D/CarrierSvcBindHelper(  916): onPackageModified: com.android.providers.media.module
+11-25 16:53:34.850 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:34.854 D/CarrierSvcBindHelper(  916): onPackageModified: com.android.permissioncontroller
+11-25 16:53:34.854 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:34.858 D/CarrierSvcBindHelper(  916): onPackageModified: com.android.bluetooth
+11-25 16:53:34.858 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:34.859 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 1002
+11-25 16:53:34.859 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:34.860 W/Searchables(  508): No global search activity found
+11-25 16:53:34.860 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:34.860 W/Searchables(  508): No global search activity found
+11-25 16:53:34.860 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:34.860 W/Searchables(  508): No global search activity found
+11-25 16:53:34.860 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:34.861 W/Searchables(  508): No global search activity found
+11-25 16:53:34.861 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:34.861 W/Searchables(  508): No global search activity found
+11-25 16:53:34.861 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:34.861 W/Searchables(  508): No global search activity found
+11-25 16:53:34.861 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:34.862 W/Searchables(  508): No global search activity found
+11-25 16:53:34.862 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:34.863 I/InputReader(  508): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-25 16:53:34.867 D/CarrierSvcBindHelper(  916): onPackageModified: com.android.devicelockcontroller
+11-25 16:53:34.867 D/CarrierSvcBindHelper(  916): No carrier app for: 0
+11-25 16:53:34.868 W/Searchables(  508): No global search activity found
+11-25 16:53:34.868 W/VoiceInteractionManager(  508): no available voice recognition services found for user 0
+11-25 16:53:34.870 I/InputReader(  508): Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+11-25 16:53:34.872 I/PermissionControllerServiceImpl(  799): Updating user sensitive for uid 10091
+11-25 16:53:35.126 D/IpClient/wlan0(  850): addressUpdated: fe80::e7a8:4406:e6a8:16c0/64 on ifindex 16 flags 0x00000880 scope 253
+11-25 16:53:35.127 D/IpClient/wlan0(  850): routeUpdated: ::/0 -> fe80::2 wlan0 mtu 0
+11-25 16:53:35.127 D/IpClient/wlan0(  850): routeUpdated: fec0::/64 -> :: wlan0 mtu 0
+11-25 16:53:35.128 D/IpClient/wlan0(  850): addressUpdated: fec0::8d49:dc15:c3b8:49/64 on ifindex 16 flags 0x00000944 scope 200
+11-25 16:53:35.128 D/IpClient/wlan0(  850): addressUpdated: fec0::8429:3032:28d2:2a17/64 on ifindex 16 flags 0x00000045 scope 200
+11-25 16:53:35.128 D/ApfFilter(  850): (wlan0): Adding RA fe80::2 -> ff02::1 1800s fec0::/64 86400s/14400s 
+11-25 16:53:35.129 E/WifiStaIfaceAidlImpl(  508): installApfPacketFilter failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+11-25 16:53:35.129 D/IpClient.wlan0(  850): set max DTIM multiplier to 2
+11-25 16:53:35.130 I/netd    (  326): networkAddRouteParcel(101, RouteInfoParcel{destination: fec0::/64, ifName: wlan0, nextHop: , mtu: 0}) <0.12ms>
+11-25 16:53:35.130 E/WifiStaIfaceAidlImpl(  508): setDtimMultiplier failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+11-25 16:53:35.130 E/netd    (  326): Error adding route ::/0 -> fe80::2 wlan0 to table 1016: File exists
+11-25 16:53:35.130 I/netd    (  326): networkAddRouteParcel(101, RouteInfoParcel{destination: ::/0, ifName: wlan0, nextHop: fe80::2, mtu: 0}) <0.05ms>
+11-25 16:53:35.353 E/TaskPersister(  508): File error accessing recents directory (directory doesn't exist?).
+11-25 16:53:35.894 D/IpClient/wlan0(  850): addressUpdated: fec0::8429:3032:28d2:2a17/64 on ifindex 16 flags 0x00000001 scope 200
+11-25 16:53:35.894 D/IpClient/wlan0(  850): addressUpdated: fec0::8d49:dc15:c3b8:49/64 on ifindex 16 flags 0x00000900 scope 200
+11-25 16:53:36.618 D/ActivityManager(  508): freezing 1093 com.android.sdksetup
+11-25 16:53:36.662 I/AidlLazyServiceRegistrar( 1789): Process has 0 (of 1 available) client(s) in use after notification artd has clients: 0
+11-25 16:53:36.662 I/AidlLazyServiceRegistrar( 1789): Trying to shut down the service. No clients in use for any service in process.
+11-25 16:53:36.664 I/AidlLazyServiceRegistrar( 1789): Unregistered all clients and exiting
+11-25 16:53:36.850 I/servicemanager(    0): Notifying artd they don't (previously: do) have clients when we now have no record of a client
+11-25 16:53:36.852 I/servicemanager(    0): Unregistering artd
+11-25 16:53:36.853 I/BpBinder(    0): onLastStrongRef automatically unlinking death recipients:
+11-25 16:53:36.855 I/init    (    0): Service 'artd' (pid 1789) exited with status 0 oneshot service took 4.836000 seconds in background
+11-25 16:53:36.857 I/init    (    0): Sending signal 9 to service 'artd' (pid 1789) process group...
+11-25 16:53:36.858 I/libprocessgroup(    0): Successfully killed process cgroup uid 1082 pid 1789 in 0ms
+11-25 16:53:36.996 D/AvrcpBrowsablePlayerConnector(  890): Received a message: msg.what=2
+11-25 16:53:36.996 V/AvrcpBrowsablePlayerConnector(  890): Timed out waiting for players
+11-25 16:53:36.996 I/AvrcpBrowsablePlayerConnector(  890): Successfully connected to 0 browsable players.
+11-25 16:53:36.996 I/MediaPlayerList(  890): init: Browsable Player list size is 0
+11-25 16:53:37.084 D/AvrcpBrowsablePlayerConnector(  890): Received a message: msg.what=2
+11-25 16:53:37.084 V/AvrcpBrowsablePlayerConnector(  890): Timed out waiting for players
+11-25 16:53:37.084 I/AvrcpBrowsablePlayerConnector(  890): Successfully connected to 0 browsable players.
+11-25 16:53:37.084 I/MediaPlayerList(  890): init: Browsable Player list size is 0
+11-25 16:53:37.128 D/OomAdjuster(  508): Not killing cached processes
+11-25 16:53:37.128 W/BroadcastLoopers(  508): Found previously unknown looper Thread[appscheduling.default,5,main]
+11-25 16:53:37.512 D/ActivityManager(  508): freezing 1077 com.android.printspooler
+11-25 16:53:37.744 D/ActivityManager(  508): freezing 1604 com.android.externalstorage
+11-25 16:53:37.941 D/ActivityManager(  508): freezing 1598 com.android.carrierconfig
+11-25 16:53:38.104 D/ActivityManager(  508): freezing 1650 com.android.carrierdefaultapp
+11-25 16:53:38.142 D/ProfileInstaller( 1824): Installing profile for com.maisonmakas.pro
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:38.868 W/System  (  916): A resource failed to call AbstractCursor.close. 
+11-25 16:53:39.484 D/DhcpClient(  850): Received packet: 02:15:b2:00:00:00 OFFER, ip /10.0.2.16, mask /255.255.255.0, DNS servers: /10.0.2.3 , gateways [/10.0.2.2], lease time 86400, domain null
+11-25 16:53:39.485 D/DhcpClient(  850): Received packet: 02:15:b2:00:00:00 ACK: your new IP /10.0.2.16, netmask /255.255.255.0, gateways [/10.0.2.2] DNS servers: /10.0.2.3 , lease time 86400
+11-25 16:53:40.012 W/OverlayManager(  508): service 'idmap' died
+11-25 16:53:40.200 I/init    (    0): Sending signal 9 to service 'idmap2d' (pid 419) process group...
+11-25 16:53:40.206 I/libprocessgroup(    0): Successfully killed process cgroup uid 1000 pid 419 in 5ms
+11-25 16:53:40.208 I/init    (    0): Control message: Processed ctl.stop for 'idmap2d' from pid: 508 (system_server)
+11-25 16:53:40.209 I/init    (    0): Service 'idmap2d' (pid 419) received signal 9
+11-25 16:53:42.610 I/keystore2(  158): system/security/keystore2/src/watchdog.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-25 16:53:43.375 W/GpuWork (  389): Failed to attach bpf program to power/gpu_work_period tracepoint [2(No such file or directory)]
+11-25 16:53:43.796 D/ActivityManager(  508): freezing 1288 com.android.cellbroadcastreceiver
+11-25 16:53:44.875 D/OomAdjuster(  508): Not killing cached processes
+11-25 16:53:45.166 I/DropBoxManagerService(  508): add tag=system_app_strictmode isTagEnabled=true flags=0x2
+11-25 16:53:45.891 I/SdkSandboxManager(  508): Reconciling sdk data package directories for 0
+11-25 16:53:46.489 D/WifiNl80211Manager(  508): Scan result ready event
+11-25 16:53:46.489 D/WifiNative(  508): Scan result ready event
+11-25 16:53:47.439 W/BpBinder( 1890): Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+11-25 16:53:47.440 W/ProcessState( 1890): Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+11-25 16:53:47.441 W/ServiceManagerCppClient(  390): Permission failure: android.permission.CAPTURE_BLACKOUT_CONTENT from uid=2000 pid=1890
+11-25 16:53:47.442 D/PermissionCache(  390): checking android.permission.CAPTURE_BLACKOUT_CONTENT for uid=2000 => denied (334 us)
+11-25 16:53:47.458 I/hwservicemanager(  135): getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+11-25 16:53:47.459 I/Gralloc4( 1890): mapper 4.x is not supported
+11-25 16:53:47.646 I/servicemanager(    0): Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+11-25 16:53:47.802 D/AndroidRuntime( 1892): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-25 16:53:47.805 I/AndroidRuntime( 1892): Using default boot image
+11-25 16:53:47.805 I/AndroidRuntime( 1892): Leaving lock profiling enabled
+11-25 16:53:47.807 I/app_process( 1892): Core platform API reporting enabled, enforcing=false
+11-25 16:53:47.807 I/app_process( 1892): Using CollectorTypeCC GC.
+11-25 16:53:47.892 D/nativeloader( 1892): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-25 16:53:47.902 D/app_process( 1892): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+11-25 16:53:47.902 D/app_process( 1892): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+11-25 16:53:47.907 W/app_process( 1892): Unexpected CPU variant for x86: x86_64.
+11-25 16:53:47.907 W/app_process( 1892): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-25 16:53:47.910 W/app_process( 1892): ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-25 16:53:47.945 W/app_process( 1892): ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-25 16:53:47.959 W/libc    ( 1892): Access denied finding property "ro.product.name_for_attestation"
+11-25 16:53:47.960 W/libc    ( 1892): Access denied finding property "ro.product.brand_for_attestation"
+11-25 16:53:47.960 W/libc    ( 1892): Access denied finding property "ro.product.model_for_attestation"
+11-25 16:53:47.961 D/AndroidRuntime( 1892): Calling main entry com.android.commands.uiautomator.Launcher
+11-25 16:53:47.957 W/main    ( 1892): type=1400 audit(0.0:19): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:53:47.963 D/UiAutomationConnection( 1892): Created on user UserHandle{0}
+11-25 16:53:47.963 I/UiAutomation( 1892): Initialized for user 0 on display 0
+11-25 16:53:47.963 W/UiAutomation( 1892): Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-25 16:53:47.967 D/AccessibilityManagerService(  508): changeCurrentUserForTestAutomationIfNeededLocked(0): ignoring because device doesn't support visible background users
+11-25 16:53:47.957 W/main    ( 1892): type=1400 audit(0.0:20): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:53:47.968 I/UiAutomationManager(  508): Registering UiTestAutomationService (id=com.android.server.accessibility/UiAutomation) when called by user 0
+11-25 16:53:47.957 W/main    ( 1892): type=1400 audit(0.0:21): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:53:47.988 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:53:47.988 V/UiAutomation( 1892): Init UiAutomation@93f60aa[id=1, displayId=0, flags=0]
+11-25 16:53:47.989 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:53:47.992 D/BatterySaverPolicy(  508): accessibility changed to true, updating policy.
+11-25 16:53:48.002 D/SafetySourceDataValidator(  508): No cert check requested for package com.android.permissioncontroller
+11-25 16:53:48.026 D/EGL_emulation( 1824): app_time_stats: avg=5040.04ms min=22.89ms max=15068.80ms count=3
+11-25 16:53:49.025 D/CompatibilityChangeReporter( 1038): Compat change id reported: 183155436; UID 10093; state: ENABLED
+11-25 16:53:49.026 D/CompatibilityChangeReporter(  508): Compat change id reported: 149924527; UID 2000; state: ENABLED
+11-25 16:53:49.026 D/CompatibilityChangeReporter(  508): Compat change id reported: 132649864; UID 2000; state: DISABLED
+11-25 16:53:49.029 W/MediaProvider( 1038): isAppCloneUserPair for user 0: false
+11-25 16:53:49.033 W/AccessibilityNodeInfoDumper( 1892): Fetch time: 11ms
+11-25 16:53:49.040 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:53:49.040 D/EGL_emulation( 1824): app_time_stats: avg=1013.77ms min=1013.77ms max=1013.77ms count=1
+11-25 16:53:49.040 D/AccessibilityManagerService(  508): restoreCurrentUserForTestAutomationIfNeededLocked(): ignoring because device doesn't support visible background users
+11-25 16:53:49.041 D/BatterySaverPolicy(  508): accessibility changed to false, updating policy.
+11-25 16:53:49.042 D/AndroidRuntime( 1892): Shutting down VM
+11-25 16:53:49.923 W/AS.SfxHelper(  508): MediaPlayer IOException: java.io.FileNotFoundException: /system/media/audio/ui/Effect_Tick.ogg: open failed: ENOENT (No such file or directory)
+11-25 16:53:49.940 W/WindowOnBackDispatcher( 1824): OnBackInvokedCallback is not enabled for the application.
+11-25 16:53:49.940 W/WindowOnBackDispatcher( 1824): Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+11-25 16:53:50.416 D/EGL_emulation( 1824): app_time_stats: avg=458.61ms min=28.49ms max=921.33ms count=3
+11-25 16:53:53.982 D/AndroidRuntime( 1916): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-25 16:53:53.985 I/AndroidRuntime( 1916): Using default boot image
+11-25 16:53:53.985 I/AndroidRuntime( 1916): Leaving lock profiling enabled
+11-25 16:53:53.986 I/app_process( 1916): Core platform API reporting enabled, enforcing=false
+11-25 16:53:53.986 I/app_process( 1916): Using CollectorTypeCC GC.
+11-25 16:53:54.032 D/nativeloader( 1916): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-25 16:53:54.040 D/app_process( 1916): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+11-25 16:53:54.040 D/app_process( 1916): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+11-25 16:53:54.045 W/app_process( 1916): Unexpected CPU variant for x86: x86_64.
+11-25 16:53:54.045 W/app_process( 1916): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-25 16:53:54.046 W/app_process( 1916): ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-25 16:53:54.047 W/app_process( 1916): ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-25 16:53:54.061 W/libc    ( 1916): Access denied finding property "ro.product.name_for_attestation"
+11-25 16:53:54.061 W/libc    ( 1916): Access denied finding property "ro.product.brand_for_attestation"
+11-25 16:53:54.061 W/libc    ( 1916): Access denied finding property "ro.product.model_for_attestation"
+11-25 16:53:54.062 D/AndroidRuntime( 1916): Calling main entry com.android.commands.uiautomator.Launcher
+11-25 16:53:54.057 W/main    ( 1916): type=1400 audit(0.0:22): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:53:54.064 D/UiAutomationConnection( 1916): Created on user UserHandle{0}
+11-25 16:53:54.064 I/UiAutomation( 1916): Initialized for user 0 on display 0
+11-25 16:53:54.064 W/UiAutomation( 1916): Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-25 16:53:54.065 D/AccessibilityManagerService(  508): changeCurrentUserForTestAutomationIfNeededLocked(0): ignoring because device doesn't support visible background users
+11-25 16:53:54.065 I/UiAutomationManager(  508): Registering UiTestAutomationService (id=com.android.server.accessibility/UiAutomation) when called by user 0
+11-25 16:53:54.066 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:53:54.067 D/BatterySaverPolicy(  508): accessibility changed to true, updating policy.
+11-25 16:53:54.057 W/main    ( 1916): type=1400 audit(0.0:23): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:53:54.070 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:53:54.070 V/UiAutomation( 1916): Init UiAutomation@fde90d9[id=2, displayId=0, flags=0]
+11-25 16:53:54.072 D/SafetySourceDataValidator(  508): No cert check requested for package com.android.permissioncontroller
+11-25 16:53:54.057 W/main    ( 1916): type=1400 audit(0.0:24): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:53:54.112 D/EGL_emulation( 1824): app_time_stats: avg=1847.22ms min=18.20ms max=3676.23ms count=2
+11-25 16:53:54.908 W/d.fakesystemapp(  920): Cleared Reference was only reachable from finalizer (only reported once)
+11-25 16:53:55.091 W/AccessibilityNodeInfoDumper( 1916): Fetch time: 1ms
+11-25 16:53:55.092 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:53:55.092 D/AccessibilityManagerService(  508): restoreCurrentUserForTestAutomationIfNeededLocked(): ignoring because device doesn't support visible background users
+11-25 16:53:55.092 D/BatterySaverPolicy(  508): accessibility changed to false, updating policy.
+11-25 16:53:55.094 D/AndroidRuntime( 1916): Shutting down VM
+11-25 16:53:55.113 D/EGL_emulation( 1824): app_time_stats: avg=1001.47ms min=1001.47ms max=1001.47ms count=1
+11-25 16:53:55.961 I/ImeTracker( 1824): com.maisonmakas.pro:da98766f: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+11-25 16:53:55.964 D/InputMethodManager( 1824): showSoftInput() view=wk{782636f VFE...... .F....ID 0,0-1080,2272 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+11-25 16:53:55.965 E/InputMethodBindingController(  508): mSelectedMethodId is null!
+11-25 16:53:55.966 D/AutofillManagerServiceImpl(  508): Reset component for user 0:null
+11-25 16:53:55.971 D/OomAdjuster(  508): Not killing cached processes
+11-25 16:53:55.974 D/AutofillUI(  508): destroySaveUiUiThread(): already destroyed
+11-25 16:53:56.571 D/EGL_emulation( 1824): app_time_stats: avg=291.46ms min=28.22ms max=868.15ms count=5
+11-25 16:53:57.139 D/AndroidRuntime( 1944): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-25 16:53:57.142 I/AndroidRuntime( 1944): Using default boot image
+11-25 16:53:57.142 I/AndroidRuntime( 1944): Leaving lock profiling enabled
+11-25 16:53:57.143 I/app_process( 1944): Core platform API reporting enabled, enforcing=false
+11-25 16:53:57.143 I/app_process( 1944): Using CollectorTypeCC GC.
+11-25 16:53:57.188 D/nativeloader( 1944): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-25 16:53:57.195 D/app_process( 1944): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+11-25 16:53:57.195 D/app_process( 1944): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+11-25 16:53:57.198 W/app_process( 1944): Unexpected CPU variant for x86: x86_64.
+11-25 16:53:57.198 W/app_process( 1944): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-25 16:53:57.199 W/app_process( 1944): ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-25 16:53:57.200 W/app_process( 1944): ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-25 16:53:57.211 W/libc    ( 1944): Access denied finding property "ro.product.name_for_attestation"
+11-25 16:53:57.211 W/libc    ( 1944): Access denied finding property "ro.product.brand_for_attestation"
+11-25 16:53:57.211 W/libc    ( 1944): Access denied finding property "ro.product.model_for_attestation"
+11-25 16:53:57.212 D/AndroidRuntime( 1944): Calling main entry com.android.commands.uiautomator.Launcher
+11-25 16:53:57.213 D/UiAutomationConnection( 1944): Created on user UserHandle{0}
+11-25 16:53:57.213 I/UiAutomation( 1944): Initialized for user 0 on display 0
+11-25 16:53:57.213 W/UiAutomation( 1944): Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-25 16:53:57.214 D/AccessibilityManagerService(  508): changeCurrentUserForTestAutomationIfNeededLocked(0): ignoring because device doesn't support visible background users
+11-25 16:53:57.214 I/UiAutomationManager(  508): Registering UiTestAutomationService (id=com.android.server.accessibility/UiAutomation) when called by user 0
+11-25 16:53:57.209 W/main    ( 1944): type=1400 audit(0.0:25): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:53:57.215 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:53:57.216 D/BatterySaverPolicy(  508): accessibility changed to true, updating policy.
+11-25 16:53:57.217 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:53:57.217 V/UiAutomation( 1944): Init UiAutomation@1d583ad[id=3, displayId=0, flags=0]
+11-25 16:53:57.209 W/main    ( 1944): type=1400 audit(0.0:26): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:53:57.219 D/SafetySourceDataValidator(  508): No cert check requested for package com.android.permissioncontroller
+11-25 16:53:57.209 W/main    ( 1944): type=1400 audit(0.0:27): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:53:57.263 D/ActivityManager(  508): freezing 1416 com.android.traceur
+11-25 16:53:57.263 D/ActivityManager(  508): freezing 1234 com.android.cellbroadcastreceiver.module
+11-25 16:53:57.293 D/ActivityManager(  508): freezing 1150 com.android.providers.calendar
+11-25 16:53:57.311 D/ActivityManager(  508): freezing 1718 com.android.localtransport
+11-25 16:53:57.312 D/ActivityManager(  508): freezing 1472 com.android.dynsystem:dynsystem
+11-25 16:53:57.312 D/ActivityManager(  508): freezing 1446 com.android.dynsystem
+11-25 16:53:57.312 D/ActivityManager(  508): freezing 1247 com.android.keychain
+11-25 16:53:57.335 D/ActivityManager(  508): freezing 799 com.android.permissioncontroller
+11-25 16:53:57.552 D/ActivityManager(  508): freezing 1536 com.android.rkpdapp
+11-25 16:53:57.628 D/ActivityManager(  508): freezing 1574 com.android.statementservice
+11-25 16:53:58.069 D/EGL_emulation( 1824): app_time_stats: avg=374.45ms min=179.02ms max=499.14ms count=4
+11-25 16:53:58.236 W/AccessibilityNodeInfoDumper( 1944): Fetch time: 2ms
+11-25 16:53:58.237 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:53:58.237 D/AccessibilityManagerService(  508): restoreCurrentUserForTestAutomationIfNeededLocked(): ignoring because device doesn't support visible background users
+11-25 16:53:58.238 D/AndroidRuntime( 1944): Shutting down VM
+11-25 16:53:58.239 D/BatterySaverPolicy(  508): accessibility changed to false, updating policy.
+11-25 16:53:59.069 D/EGL_emulation( 1824): app_time_stats: avg=333.30ms min=195.64ms max=499.59ms count=3
+11-25 16:53:59.117 I/ImeTracker( 1824): com.maisonmakas.pro:8d159f3: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+11-25 16:53:59.117 D/InputMethodManager( 1824): showSoftInput() view=wk{782636f VFE...... .F...... 0,0-1080,2272 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+11-25 16:53:59.119 E/InputMethodBindingController(  508): mSelectedMethodId is null!
+11-25 16:53:59.119 I/ImeTracker(  508): com.maisonmakas.pro:da98766f: onCancelled at PHASE_SERVER_WAIT_IME
+11-25 16:54:00.186 D/EGL_emulation( 1824): app_time_stats: avg=183.21ms min=14.13ms max=500.21ms count=6
+11-25 16:54:00.192 I/resolv  (  326): GetAddrInfoHandler::run: {101 101 101 983141 10108 0}
+11-25 16:54:00.193 I/resolv  (  326): res_nmkquery: (QUERY, IN, A)
+11-25 16:54:00.193 I/ImeTracker( 1824): com.maisonmakas.pro:2330357f: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+11-25 16:54:00.194 I/ImeTracker(  508): com.maisonmakas.pro:2330357f: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-25 16:54:00.194 I/ImeTracker(  508): com.maisonmakas.pro:8d159f3: onCancelled at PHASE_SERVER_WAIT_IME
+11-25 16:54:00.205 I/resolv  (  326): GetAddrInfoHandler::run: {101 101 101 983141 10108 0}
+11-25 16:54:00.205 I/resolv  (  326): res_nmkquery: (QUERY, IN, AAAA)
+11-25 16:54:00.242 I/resolv  (  326): res_nsend: used send_dg 82 terrno: 0
+11-25 16:54:00.242 I/resolv  (  326): doQuery: rcode=0, ancount=2, return value=82
+11-25 16:54:00.244 I/resolv  (  326): res_nsend: used send_dg 117 terrno: 0
+11-25 16:54:00.257 I/resolv  (  326): doQuery: rcode=0, ancount=0, return value=117
+11-25 16:54:00.264 I/resolv  (  326): GetAddrInfoHandler::run: {101 101 101 983141 10108 0}
+11-25 16:54:00.270 I/resolv  (  326): res_nmkquery: (QUERY, IN, AAAA)
+11-25 16:54:00.270 I/resolv  (  326): resolv_cache_lookup: FOUND IN CACHE entry=0x7c72b086e770
+11-25 16:54:00.270 I/resolv  (  326): doQuery: rcode=0, ancount=0, return value=117
+11-25 16:54:01.204 D/EGL_emulation( 1824): app_time_stats: avg=22.62ms min=9.14ms max=38.37ms count=39
+11-25 16:54:04.650 D/ConnectivityService(  508): handleLingerComplete for [100 CELLULAR]
+11-25 16:54:04.651 I/ConnectivityService(  508): Update capabilities for net 100 : -FOREGROUND
+11-25 16:54:04.651 I/Netd    (  326): Destroyed 1 sockets for netId 100 permission=1 in 376us
+11-25 16:54:04.653 I/netd    (  326): networkSetPermissionForNetwork(100, 1) <1.83ms>
+11-25 16:54:06.493 D/WifiNl80211Manager(  508): Scan result ready event
+11-25 16:54:06.494 D/WifiNative(  508): Scan result ready event
+11-25 16:54:10.045 E/WifiHealthMonitor(  508):  Hit PackageManager exception
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): android.content.pm.PackageManager$NameNotFoundException: No module info for package: com.android.wifi
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at android.app.ApplicationPackageManager.getModuleInfo(ApplicationPackageManager.java:1190)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at com.android.server.wifi.WifiHealthMonitor.getWifiStackVersion(WifiHealthMonitor.java:367)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at com.android.server.wifi.WifiHealthMonitor.extractCurrentSoftwareBuildInfo(WifiHealthMonitor.java:588)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at com.android.server.wifi.WifiHealthMonitor.postBootSwBuildCheck(WifiHealthMonitor.java:523)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at com.android.server.wifi.WifiHealthMonitor.postBootDetectionHandler(WifiHealthMonitor.java:514)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at com.android.server.wifi.WifiHealthMonitor.-$$Nest$mpostBootDetectionHandler(WifiHealthMonitor.java:0)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at com.android.server.wifi.WifiHealthMonitor$2.onAlarm(WifiHealthMonitor.java:190)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at android.app.AlarmManager$ListenerWrapper.run(AlarmManager.java:375)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at android.os.Handler.handleCallback(Handler.java:958)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at com.android.server.wifi.RunnerHandler.dispatchMessage(RunnerHandler.java:122)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at android.os.Looper.loopOnce(Looper.java:205)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at android.os.Looper.loop(Looper.java:294)
+11-25 16:54:10.045 E/WifiHealthMonitor(  508): 	at android.os.HandlerThread.run(HandlerThread.java:67)
+11-25 16:54:10.066 I/netd    (  326): tetherGetStats() -> {[]} <0.34ms>
+11-25 16:54:10.067 I/netd    (  326): bandwidthSetGlobalAlert(2097152) <0.11ms>
+11-25 16:54:10.068 I/netd    (  326): bandwidthRemoveInterfaceQuota(eth0) <0.31ms>
+11-25 16:54:10.069 I/netd    (  326): bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.29ms>
+11-25 16:54:10.070 D/NetworkStatsObservers(  508): Unregistering RequestInfo from pid/uid:508/1000(android) for DataUsageRequest [ requestId=3, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=3578664 ] accessLevel:3
+11-25 16:54:10.070 D/NetworkStatsObservers(  508): Registering observer for RequestInfo from pid/uid:508/1000(android) for DataUsageRequest [ requestId=4, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=3546068 ] accessLevel:3
+11-25 16:54:10.090 I/netd    (  326): tetherGetStats() -> {[]} <0.24ms>
+11-25 16:54:10.257 D/AndroidRuntime( 1992): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+11-25 16:54:10.260 I/AndroidRuntime( 1992): Using default boot image
+11-25 16:54:10.260 I/AndroidRuntime( 1992): Leaving lock profiling enabled
+11-25 16:54:10.262 I/app_process( 1992): Core platform API reporting enabled, enforcing=false
+11-25 16:54:10.262 I/app_process( 1992): Using CollectorTypeCC GC.
+11-25 16:54:10.307 D/nativeloader( 1992): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-25 16:54:10.315 D/app_process( 1992): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+11-25 16:54:10.315 D/app_process( 1992): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+11-25 16:54:10.319 W/app_process( 1992): Unexpected CPU variant for x86: x86_64.
+11-25 16:54:10.319 W/app_process( 1992): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-25 16:54:10.320 W/app_process( 1992): ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-25 16:54:10.320 W/app_process( 1992): ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-25 16:54:10.330 W/libc    ( 1992): Access denied finding property "ro.product.name_for_attestation"
+11-25 16:54:10.330 W/libc    ( 1992): Access denied finding property "ro.product.brand_for_attestation"
+11-25 16:54:10.330 W/libc    ( 1992): Access denied finding property "ro.product.model_for_attestation"
+11-25 16:54:10.331 D/AndroidRuntime( 1992): Calling main entry com.android.commands.uiautomator.Launcher
+11-25 16:54:10.332 D/UiAutomationConnection( 1992): Created on user UserHandle{0}
+11-25 16:54:10.332 I/UiAutomation( 1992): Initialized for user 0 on display 0
+11-25 16:54:10.332 W/UiAutomation( 1992): Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-25 16:54:10.329 W/main    ( 1992): type=1400 audit(0.0:28): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:54:10.333 D/AccessibilityManagerService(  508): changeCurrentUserForTestAutomationIfNeededLocked(0): ignoring because device doesn't support visible background users
+11-25 16:54:10.333 I/UiAutomationManager(  508): Registering UiTestAutomationService (id=com.android.server.accessibility/UiAutomation) when called by user 0
+11-25 16:54:10.334 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:54:10.335 D/BatterySaverPolicy(  508): accessibility changed to true, updating policy.
+11-25 16:54:10.337 V/UiAutomation( 1992): Init UiAutomation@5db4019[id=4, displayId=0, flags=0]
+11-25 16:54:10.329 W/main    ( 1992): type=1400 audit(0.0:29): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:54:10.338 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:54:10.329 W/main    ( 1992): type=1400 audit(0.0:30): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-25 16:54:10.365 D/EGL_emulation( 1824): app_time_stats: avg=360.98ms min=6.78ms max=8544.26ms count=25
+11-25 16:54:11.355 W/AccessibilityNodeInfoDumper( 1992): Fetch time: 2ms
+11-25 16:54:11.356 W/WindowMagnificationMgr(  508): requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-25 16:54:11.356 D/AccessibilityManagerService(  508): restoreCurrentUserForTestAutomationIfNeededLocked(): ignoring because device doesn't support visible background users
+11-25 16:54:11.356 D/BatterySaverPolicy(  508): accessibility changed to false, updating policy.
+11-25 16:54:11.357 D/AndroidRuntime( 1992): Shutting down VM
+11-25 16:54:11.382 D/EGL_emulation( 1824): app_time_stats: avg=1012.82ms min=1012.82ms max=1012.82ms count=1
+11-25 16:54:12.239 W/BpBinder( 2013): Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+11-25 16:54:12.240 W/ProcessState( 2013): Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+11-25 16:54:12.251 I/hwservicemanager(  135): getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+11-25 16:54:12.252 I/Gralloc4( 2013): mapper 4.x is not supported
+11-25 16:54:12.438 I/servicemanager(    0): Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+11-25 16:54:12.606 I/logd    (    0): logdr: UID=2000 GID=2000 PID=2015 n tail=0 logMask=99 pid=0 start=0ns deadline=0ns
