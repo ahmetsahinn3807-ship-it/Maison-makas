@@ -1,0 +1,48 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace = 'com.maisonmakaspro.kasacepte'
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = 'com.maisonmakaspro.kasacepte'
+        minSdk = 24
+        targetSdk = 34
+        versionCode = 1
+        versionName = '1.0'
+    }
+
+    signingConfigs {
+        release {
+            // The key is created by the GitHub build (apk.yml); it is never stored in the repo.
+            storeFile = file('kasacepte.jks')
+            storeType = 'pkcs12'
+            storePassword = 'kasacepte'
+            keyAlias = 'kasacepte'
+            keyPassword = 'kasacepte'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = false
+            signingConfig = signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

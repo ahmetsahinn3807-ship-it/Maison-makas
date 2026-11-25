@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kasa Cepte</string>
+    <string name="err_title">Bağlantı kurulamadı</string>
+    <string name="err_msg">İnternet bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="retry">Tekrar dene</string>
+    <string name="saved">İndirilenler klasörüne kaydedildi: %1$s</string>
+    <string name="save_failed">Dosya kaydedilemedi.</string>
+    <string name="need_storage">Dosyayı kaydetmek için depolama izni gerekiyor.</string>
+    <string name="no_picker">Dosya seçici açılamadı.</string>
+    <string name="cant_open">Bu bağlantı açılamadı.</string>
+</resources>
